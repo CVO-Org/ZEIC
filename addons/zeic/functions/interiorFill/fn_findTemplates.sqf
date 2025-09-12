@@ -26,74 +26,97 @@ if (_customTemplate isNotEqualTo []) then {
 	};
 };
 
-if (_tempType isEqualTo "mil") then {
-	_templates append (switch (_bldType) do {
-		// Vanilla
-		#include "..\..\templates\mil_vanilla.sqf"
-		
-		// CUP
-		#include "..\..\templates\mil_cup.sqf"
-		
-		// GM
-		#include "..\..\templates\mil_gm.sqf"
-		
-		// SOG
-		#include "..\..\templates\mil_sog.sqf"
-		
-		// WS
-		#include "..\..\templates\mil_ws.sqf"
-		
-		// OTHER
-		#include "..\..\templates\mil_other.sqf"
-		
-		default {[]};
-	});
-}; 
+_templates append switch (_tempType) do {
 
-if (_tempType isEqualTo "civ") then {
-	_templates append (switch (_bldType) do {
-		// Vanilla
-		#include "..\..\templates\civ_vanilla.sqf"
+	case "cbrn": {
 		
-		// CUP
-		#include "..\..\templates\civ_cup.sqf"
-		
-		// GM
-		#include "..\..\templates\civ_gm.sqf"
-		
-		//WS
-		#include "..\..\templates\civ_ws.sqf"
+		switch (_bldType) do {
+			// CBRN Vanilla
+			#include "..\..\templates\cbrn_vanilla.sqf"
+			
+			default {[]};
+		};
+	};
 
-		default {[]};
-	});
+	case "civ": {
+		
+		switch (_bldType) do {
+			// CDLCs		
+			if (PVAR(isLoaded_gm)) then {
+				#include "..\..\templates\civ_gm.sqf"
+			};
+			if (PVAR(isLoaded_ws)) then {
+				#include "..\..\templates\civ_ws.sqf"
+			};
+
+			// Mods
+			if (PVAR(isLoaded_cup)) then {
+				#include "..\..\templates\civ_cup.sqf"
+			};
+
+			// Vanilla
+			#include "..\..\templates\civ_vanilla.sqf"
+
+			default {[]};
+		};
+	};
+
+	case "mil": {
+		
+		switch (_bldType) do {
+
+			// CDLCs
+			if (PVAR(isLoaded_gm)) then {
+				#include "..\..\templates\mil_gm.sqf"
+			};
+
+			if (PVAR(isLoaded_sog)) then {
+				#include "..\..\templates\mil_sog.sqf"
+			};
+
+			if (PVAR(isLoaded_ws)) then {
+				#include "..\..\templates\mil_ws.sqf"
+			};
+
+			// Mods		
+			if (PVAR(isLoaded_cup)) then {
+				#include "..\..\templates\mil_cup.sqf"
+			};
+
+			// Vanilla
+			#include "..\..\templates\mil_vanilla.sqf"
+			
+			// OTHER
+			#include "..\..\templates\mil_other.sqf"
+			
+			default {[]};
+		}
+
+	};
+
+	case "optre_mil": {
+
+		switch (_bldType) do {
+			// OPTRE Military
+			#include "..\..\templates\optre_military.sqf"
+			
+			default {[]};
+		};
+	};
+
+	case "optre_civ": {
+		
+		switch (_bldType) do {
+			// OPTRE Vanilla
+			#include "..\..\templates\optre_civilian.sqf"
+			
+			default {[]};
+		};
+	};
+
+	default {[]};
 };
 
-if (_tempType isEqualTo "cbrn") then {
-	_templates append (switch (_bldType) do {
-		// CBRN Vanilla
-		#include "..\..\templates\cbrn_vanilla.sqf"
-		
-		default {[]};
-	});
-};
-
-if (_tempType isEqualTo "optre_civ") then {
-	_templates append (switch (_bldType) do {
-		// OPTRE Vanilla
-		#include "..\..\templates\optre_civilian.sqf"
-		
-		default {[]};
-	});
-};
-
-if (_tempType isEqualTo "optre_mil") then {
-	_templates append (switch (_bldType) do {
-		// OPTRE Military
-		#include "..\..\templates\optre_military.sqf"
-		
-		default {[]};
-	});
-};
 
 private _before = count _templates;
 
@@ -110,4 +133,4 @@ if (!_infoOnly && {_templates isEqualTo []} && sizeOf _bldType > 2) then {
 	[format ["Building Not Found: %1 (%2) - We need your help to get a template/scheme for this building!", _bldType,  getText (configFile >> "CfgVehicles" >> _bldType >> "displayName")], "INFO"] call PFUNC(misc_logMsg);
 }; 
 
-_templates;
+_templates
