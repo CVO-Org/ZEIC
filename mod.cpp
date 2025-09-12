@@ -14,7 +14,7 @@ tooltip         = "Zeus Eden Interior - Community Version";
 tooltipOwned    = "Zeus Eden Interior - Community Version";                                                                                                          // Tool tip displayed when the mouse is left over, in the main menu
 overview        = "Zeus Eden Interior - Community Version";                 // Overview text, displayed from the extension menu
 description     = "Zeus Eden Interior - Community Version";                                                     // Probably in context with action
-action          = "https://github.com/CVO-Org/ZEI-Community/";                                                                                                // Website URL, that can accessed from the expansions menu 
+action          = "https://github.com/CVO-Org/ZEIC/";                                                                                                // Website URL, that can accessed from the expansions menu 
 actionName      = "GitHub";                                                                                                                        // label of button/tooltip in extension menu
 
 overviewPicture = "ZEIC-Logo-only.paa";

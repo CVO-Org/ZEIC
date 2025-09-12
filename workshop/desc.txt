@@ -84,10 +84,10 @@ The following modules are designed to make it easier for you to help with the de
 
 
 [h3]Links[/h3]
-[url=https://github.com/CVO-Org/ZEI-Community]Github: Zeus Eden Interior - Community Version[/url]
+[url=https://github.com/CVO-Org/ZEIC]Github: Zeus Eden Interior - Community Version[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1251859358]Steam Workshop: ZEI - Zeus and Eden Interior - The Original[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3438718557]Steam Workshop: ZEI - Zeus and Eden Interiors ( Continued )[/url]
 
 [h3]Credits[/h3]
-[url=https://github.com/CVO-Org/ZEI-Community/blob/main/AUTHORS.txt]List of Authors[/url]
+[url=https://github.com/CVO-Org/ZEIC/blob/main/AUTHORS.txt]List of Authors[/url]
 
