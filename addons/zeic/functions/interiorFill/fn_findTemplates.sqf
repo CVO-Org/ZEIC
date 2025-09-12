@@ -61,6 +61,9 @@ if (_tempType isEqualTo "civ") then {
 		// GM
 		#include "..\..\templates\civ_gm.sqf"
 		
+		//WS
+		#include "..\..\templates\civ_ws.sqf"
+
 		default {[]};
 	});
 };
