@@ -1,0 +1,93 @@
+[h1]Support the Project[/h1]
+[img]https://i.imgur.com/3Qd4tiO.gif[/img]
+
+[h1]ZEIC - Community Version[/h1]
+
+This STANDALONE Mod is the spiritual successor of ZEI and ZEI Continued.
+
+The goal is to follow Sgt. J. Andrews / Samantha initial attempt maintain this highly useful mod.
+
+Everyone is invited to contribute their compositions
+
+
+1 Oct, 2022
+
+
+A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
+
+[h1]ZEI - Zeus and Eden Interiors[/h1]
+A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
+
+[h2]ZEI Interior Modules[/h2]
+[h3]Garrison Building[/h3]
+[list]
+[*] Fills a building with your choice of faction and number (should support any units Addon).
+[*] Attempts to find the best direction for the units to face.
+[*] Avoids spawning pilots/crew etc.1
+[/list]
+
+[h3]Interior Fill[/h3]
+[list]
+[*] Fills a building with either a military or civilian template.
+[*] Choose either an area or single building and if the interior should be editable in Zeus.
+[*] Supports CUP buildings.
+[*] Pressing 'LookAround' (Default: ALT) will skip the GUI and immediately try and fill the nearest building with a military template.
+[/list]
+
+[h3]Object Fill[/h3]
+[list]
+[*] Fills a table or shelf with objects.
+[*] Choose how many objects to spawn on the table and if they should be editable in Zeus.
+[*] Pressing 'LookAround' (Default: ALT) will skip the GUI and immediately try and fill an object a random selection of items.
+[/list]
+
+[h3]Object Switch[/h3]
+[list]
+[*] Converts objects of one region to another region (e.g. Green Sandbags to Brown Sandbags)
+[*] Supports CUP objects but positioning may be affected due to model sizes.
+[/list]
+
+[h2]ZEI Development Modules[/h2]
+The following modules are designed to make it easier for you to help with the development of this addon, they are not available in Zeus.
+
+[h3]List Buildings[/h3]
+[list]
+[*] Use it to quickly find which buildings have little or no ZEI templates.
+[*] VR World Only
+[*] Creates rows of buildings having the chosen number of templates or less.
+[*] Coloured arrows in front of the buildings will indicate the templates count (Red = Mil, Pink = Civ).
+[/list]
+
+[h3]Mark Positions[/h3]
+[list]
+[*] Highlights all building positions in a building.
+[*] Don't block these when creating a template!
+[/list]
+
+[h3]Save Building Scheme[/h3]
+[list]
+[*] Saves a building in the ZEI template format, no need to run any code through the debug menu now.
+[*] Pressing 'LookAround' (Default: ALT) will 'force save' the highlighted object so you can save objects that aren't buildings.
+[/list]
+
+
+
+[h2]Additional Informations[/h2]
+[h3]Technical Details[/h3]
+[list]
+[*] [b]This Mod is a STANDALONE Version - No need to Load the Original ZEI Mod.[/b]
+[*] This is a [b]Client Side Mod[/b] and can be loaded as an optional mod.
+[*] Not required to be installed on a server or any other clients.
+[*] Creates no dependency in mission file.
+[*] This mod is build and signed with hemtt - each update will produce a new bikey.
+[/list]
+
+
+[h3]Links[/h3]
+[url=https://github.com/CVO-Org/ZEI-Community]Github: Zeus Eden Interior - Community Version[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=1251859358]Steam Workshop: ZEI - Zeus and Eden Interior - The Original[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3438718557]Steam Workshop: ZEI - Zeus and Eden Interiors ( Continued )[/url]
+
+[h3]Credits[/h3]
+[url=https://github.com/CVO-Org/ZEI-Community/blob/main/AUTHORS.txt]List of Authors[/url]
+

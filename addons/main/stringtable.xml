@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="ZEIC_MAIN">
+    <Package name="Main">
+        <Key ID="STR_mod_URL">
+            <English>https://github.com/CVO-Org/ZEI-Community</English>
+        </Key>
+        <Key ID="STR_mod_author">
+            <English>Zeus Eden Interior Community Team</English>
+        </Key>
+    </Package>
+</Project>

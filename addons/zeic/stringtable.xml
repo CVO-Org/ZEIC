@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="ZEIC_ZEIC">
+    <Package name="ModuleCategories">
+        <Key ID="STR_zeic_zeic_module_categories_interiors">
+            <English>ZEIC - Interiors</English>
+        </Key>
+        <Key ID="STR_zeic_zeic_module_categories_interiors_dev">
+            <English>ZEIC - Interiors Development</English>
+        </Key>
+    </Package>
+</Project>
