@@ -4,6 +4,7 @@ class CfgFunctions {
         class common {
             file = PATH_TO_FUNC_SUB(common);
             
+            class init_preStart { preStart = 1; };
             class init { postInit = 1; };	// Zeus (Dedicated Fix)
 
             class mod_findBPos {};
