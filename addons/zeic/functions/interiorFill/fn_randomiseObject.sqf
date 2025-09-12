@@ -2,6 +2,9 @@
 
 params ["_item", ["_doRandom", true]];
 
+
+private _doesExist = { isClass (configFile >> "CfgVehicles" >> _this) };
+
 private _objectsList = [];
 
 // Pop array with vanilla replaceable objects.
@@ -36,13 +39,13 @@ _objectsList pushBack ["Land_WoodenCrate_01_stack_x5_F","Land_WoodenCrate_01_sta
 _objectsList pushBack ["Land_WoodenCrate_01_stack_x5_F","Land_WoodenCrate_01_stack_x3_F"];
 
 // If CUP is active, add additional items.
-if (isClass(configFile >> 'CfgPatches' >> 'CUP_Core')) then {
+if (uiNamespace getVariable QPVAR(isLoaded_cup)) then {
 	_objectsList pushBack ["Barrel1","Barrel2","Barrel3","Barrel4","Barrel5"];
 	_objectsList pushBack ["Land_CratesWooden_F","Land_transport_crates_EP1"];
 };
 
 // If GM is active, OVERWRITE additional items (no futuristic items).
-if (isClass(configFile >> 'CfgPatches' >> 'gm_core')) then {
+if (uiNamespace getVariable QPVAR(isLoaded_gm)) then {
 	_objectsList = [["","land_gm_sandbags_01_window_01","land_gm_sandbags_01_window_02"]];
 	_objectsList pushBack ["","land_gm_euro_misc_awning_01","land_gm_euro_misc_awning_02","land_gm_euro_misc_awning_03","land_gm_euro_misc_awning_04","land_gm_euro_misc_awning_05"];
 	_objectsList pushBack ["Land_Basket_F","Land_CratesShabby_F","Land_Sacks_heap_F"];
@@ -54,7 +57,7 @@ if (isClass(configFile >> 'CfgPatches' >> 'gm_core')) then {
 };
 
 // If SOG is active, OVERWRITE additional items (no futuristic items).
-if (isClass(configFile >> 'CfgPatches' >> 'vn_data_f')) then {
+if (uiNamespace getVariable QPVAR(isLoaded_sog)) then {
 	_objectsList pushBack ["vn_b_prop_cot_01","vn_b_prop_cot_02"];
 	_objectsList pushBack ["Land_vn_paperbox_01_small_closed_brown_f","Land_vn_paperbox_01_small_closed_brown_idap_f","Land_vn_paperbox_01_small_closed_brown_food_f","Land_vn_paperbox_01_small_closed_white_idap_f","Land_vn_paperbox_01_small_closed_white_med_f"];
 	_objectsList pushBack ["Land_vn_stretcher","Land_vn_b_prop_litter_01","Land_vn_b_prop_litter_01_02","Land_vn_b_prop_litter_body_01","Land_vn_b_prop_litter_body_01_02","Land_vn_b_prop_litter_body_02_02","Land_vn_b_prop_litter_body_02","Land_vn_b_prop_litter_02","Land_vn_b_prop_litter_02_02"];
@@ -66,13 +69,17 @@ if (isClass(configFile >> 'CfgPatches' >> 'vn_data_f')) then {
 };
 
 // If item is present, replace it with a random variant.
-{
-	if (_item in _x && {_doRandom}) exitWith {_item = selectRandom _x};
-} forEach _objectsList;
-
-if (!(isClass (configFile >> "CfgVehicles" >> _item)) && _item != "") then {
-	[format ["Invalid Classname (%1)", _item], "ERROR"] call PFUNC(misc_logMsg);
-	_item = "";
+private _rndItem = "";
+if (_doRandom) then {
+	{
+		if ( _item in _x ) exitWith { _item = selectRandom _x };
+	} forEach _objectsList;
 };
 
-_item;
+
+if ( _item != "" && { !(_item call _doesExist) } ) then {
+	[format ["Invalid Classname (%1)", _item], "ERROR"] call PFUNC(misc_logMsg);
+	_return = "";
+};
+
+_item	// return

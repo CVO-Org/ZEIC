@@ -57,12 +57,3 @@ if (hasInterface) then {
         }, "\A3\modules_f\data\portraitModule_ca.paa"] call zen_custom_modules_fnc_register;
     };
 };
-
-// cDLCs
-PVAR(isLoaded_sog)   = isClass (configFile >> "CfgPatches" >> "data_f_vietnam");
-PVAR(isLoaded_ws)    = isClass (configFile >> "CfgPatches" >> "data_f_lxWS_Loadorder");
-PVAR(isLoaded_gm)    = isClass (configFile >> "CfgPatches" >> "gm_core");
-
-// Mods
-PVAR(isLoaded_cup)   = isClass (configFile >> "CfgPatches" >> "CUP_Editor_Buildings_Config");
-PVAR(isLoaded_optre) = isClass (configFile >> "CfgPatches" >> "OPTRE_Core");

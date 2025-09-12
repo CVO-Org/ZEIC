@@ -25,7 +25,7 @@ if (isNil QPVAR(interiorFillCategories) ) then {
         ["CBRN", "cbrn"]
     ];
 
-    if PVAR(isLoaded_optre) then {
+    if (uiNamespace getVariable QPVAR(isLoaded_optre)) then {
         _array pushBack ["OPTRE - Military", "optre_mil"];
         _array pushBack ["OPTRE - Civilian", "optre_civ"];
     };
