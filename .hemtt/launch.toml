@@ -22,6 +22,10 @@ parameters = [
     "-noPauseAudio",
 ]
 
-[Test]
+[test]
 extends = "default"
 mission = "test.VR"
+
+[ws]
+dlc = ["ws"]
+extends = "default"
