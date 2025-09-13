@@ -4,7 +4,8 @@ params [
 		["_group", grpNull],
 		["_type", ""],
 		["_pos", false],
-		["_bld", 0]
+		["_bld", 0],
+		["_layerID", -1]
 	];
 	
 private _unit = objNull;
@@ -108,6 +109,9 @@ if is3DEN then {
 	} else {
 		_unit set3DENAttribute ["position", _pos];
 	};
+
+	// Add Unit to 3DEN Layer
+	if (_layerID isNotEqualTo -1) then { _unit set3DENLayer _layerID; };
 	
 	[_unit, _bld] call _setDirStance;
 } else {

@@ -37,18 +37,24 @@ if (_templates isNotEqualTo []) then {
 	if (is3DEN) then {
 		// TODO: Doesn't work in Eden? Find alternative method.
 		// _bld set3DENAttribute ["allowDamage", false]; 
+
+		private _counter = uiNamespace getVariable [QPVAR(layer_counter), 0];
+		private _ZEIC_Layer = -1 add3DENLayer "ZEIC Interior " + str _counter;
+		uiNamespace setVariable [QPVAR(layer_counter), _counter + 1];
+
 		
 		{ 
 			_x params ["_item", "_offset", ["_angle", 0], ["_rot", [0, 0, 0]]];
 
-			// Skip Accidentally imported helper objects
+			// Skip accidentally imported helper objects
 			if (_item in ["Sign_Arrow_Direction_Cyan_F", "Sign_Arrow_Direction_Yellow_F", "Sign_Arrow_Direction_Green_F", "Sign_Arrow_Direction_F"]) then { continue };
 
 			_item = [_item] call PFUNC(randomiseObject);
 
 			if (_item != "" && ([_item, _detail] call PFUNC(checkDetailLevel)) ) then {
-				_obj = create3DENEntity ["Object", _item, [0,0,0], true]; 
+				_obj = create3DENEntity ["Object", _item, [0,0,0], true];
 				_obj set3DENAttribute ["objectIsSimple", true]; 
+				_obj set3DENLayer _ZEIC_Layer;
 				_obj setVectorDirAndUp [vectorDir _bld, vectorUp _bld];
 
 				if (_rot isNotEqualTo [0,0,0]) then { 
