@@ -11,7 +11,7 @@ This STANDALONE Mod is the spiritual successor of ZEI and ZEI Continued.
 
 The goal is to follow Sgt. J. Andrews / Samantha initial attempt maintain this highly useful mod.
 
-[b]Contributions and Pull Requests are very welcome![/b]
+**Contributions and Pull Requests are very welcome!**
 More Details below
 
 # ZEIC - Changes
@@ -61,8 +61,8 @@ The following modules are designed to make it easier for you to help with the de
 
 ## Additional Informations
 ### Technical Details
-- [b]This Mod is a STANDALONE Version - No need to Load the Original ZEI Mod.[/b]
-- This is a [b]Client Side Mod[/b] and can be loaded as an optional mod.
+- **This Mod is a STANDALONE Version - No need to Load the Original ZEI Mod.**
+- This is a **Client Side Mod** and can be loaded as an optional mod.
 - Not required to be installed on a server or any other clients.
 - Creates no dependency in mission file.
 - This mod is build and signed with hemtt - each update will produce a new bikey.
