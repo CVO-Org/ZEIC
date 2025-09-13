@@ -15,10 +15,9 @@
 name: Release
 
 env:
-  FOLDER: # '@ZEIC'
-  WORKSHOPID: # '3438718557'
-  WORKSHOPNAME: # 'ZEIC - Zeus and Eden Interiors Community Version'
-
+  FOLDER: '@ZEIC'
+  WORKSHOPID: '3567067667'
+  WORKSHOPNAME: 'ZEIC - Zeus and Eden Interiors Community Version'
 on:
   release:
     types: released

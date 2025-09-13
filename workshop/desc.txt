@@ -7,13 +7,14 @@ This STANDALONE Mod is the spiritual successor of ZEI and ZEI Continued.
 
 The goal is to follow Sgt. J. Andrews / Samantha initial attempt maintain this highly useful mod.
 
-Everyone is invited to contribute their compositions
+[b]Contributions and Pull Requests are very welcome![/b]
+More Details below
 
-
-1 Oct, 2022
-
-
-A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
+[h1]ZEIC - Changes[/h1]
+[list]
+[*] Create 3DEN Layer per Building for Interior Fill and Garrison.
+[*] Improve Performance
+[/list]
 
 [h1]ZEI - Zeus and Eden Interiors[/h1]
 A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
@@ -70,8 +71,6 @@ The following modules are designed to make it easier for you to help with the de
 [*] Pressing 'LookAround' (Default: ALT) will 'force save' the highlighted object so you can save objects that aren't buildings.
 [/list]
 
-
-
 [h2]Additional Informations[/h2]
 [h3]Technical Details[/h3]
 [list]
@@ -82,12 +81,24 @@ The following modules are designed to make it easier for you to help with the de
 [*] This mod is build and signed with hemtt - each update will produce a new bikey.
 [/list]
 
+[h3]Contribute[/h3]
+[list]
+[*] Contributions of Compositions for Buildings are welcome and one of the main motivators for the community project.
+[*] Contribute Compositions via Steam Workshop Discussion
+[*] Contribute Compositions directly to Github via Pull Request.
+[*] I am looking for Co-Maintainers so it doesnt get stale in case i wont have time to attend to the matter.
+[/list]
+
+[h3]Why ZEI Community Version when there is ZEI Continued[/h3]
+I tried to contact the author of the ZEI Continued via Steam Workshop, Github and Discord to offer my help to maintain and streamline "ZEI Continued" but never have gotten a response and the last update was 10 Mar, 2025.
 
 [h3]Links[/h3]
-[url=https://github.com/CVO-Org/ZEIC]Github: Zeus Eden Interior - Community Version[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=1251859358]Steam Workshop: ZEI - Zeus and Eden Interior - The Original[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3438718557]Steam Workshop: ZEI - Zeus and Eden Interiors ( Continued )[/url]
+[list]
+[*][url=https://github.com/CVO-Org/ZEIC]Github: Zeus Eden Interior - Community Version[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1251859358]Steam Workshop: ZEI - Zeus and Eden Interior - The Original[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3438718557]Steam Workshop: ZEI - Zeus and Eden Interiors ( Continued )[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1920324184]Bohemia Forums: ZEI - Zeus and Eden Interior[/url]
+[/list]
 
 [h3]Credits[/h3]
 [url=https://github.com/CVO-Org/ZEIC/blob/main/AUTHORS.txt]List of Authors[/url]
-
