@@ -50,6 +50,12 @@ private _bldPos = _bld buildingPos -1;
 
 if (is3DEN) then {
 	collect3DENHistory {
+
+		private _counter = uiNamespace getVariable [QPVAR(layer_counter), 0];
+		private _ZEIC_Layer = -1 add3DENLayer "ZEIC Garrison " + str _counter;
+		uiNamespace setVariable [QPVAR(layer_counter), _counter + 1];
+
+
 		// TODO: Find a neater way to create a group (create3DENComposition)?
 		private _tempUnit = switch (getNumber (configFile >> "CfgFactionClasses" >> _factClass >> "side")) do { 
 				case 0: { create3DENEntity ["Object", "O_Soldier_F", [0, 0, 0]]; };
@@ -61,7 +67,13 @@ if (is3DEN) then {
 			if (count _bldPos == 0) exitWith {};
 			private _rndPos = selectRandom _bldPos;
 			_bldPos = _bldPos - [_rndPos];
-			[group _tempUnit, configName (selectRandom _menList), _rndPos, _bld] call PFUNC(garrisonUnit);
+			[
+				group _tempUnit,
+				configName (selectRandom _menList),
+				_rndPos,
+				_bld,
+				_ZEIC_Layer
+			] call PFUNC(garrisonUnit);
 		};
 		
 		// Set group to be deleted when empty.
@@ -76,6 +88,7 @@ if (is3DEN) then {
 		if (_createTR) then {
 			private _rad = (round (sizeOf typeOf _bld)) max 40;
 			private _trg = create3DENEntity ["Trigger", "EmptyDetector", getPos _bld];
+			_trg set3DENLayer _ZEIC_Layer;
 			_trg set3DENAttribute ["Size2", [_rad, _rad]];
 			_trg set3DENAttribute ["Size3", [_rad, _rad, 15]];
 			_trg set3DENAttribute ["IsRectangle", false];
@@ -87,6 +100,7 @@ if (is3DEN) then {
 		};
 	};
 } else {
+	// NOT 3DEN
 	private _grp = switch (getNumber (configFile >> "CfgFactionClasses" >> _factClass >> "side")) do { 
 		case 0: { createGroup [east, true] };
 		case 1: { createGroup [west, true] };
