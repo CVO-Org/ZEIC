@@ -6,8 +6,9 @@
 2600K/LSD
 
 # MAINTAINERS 
-Sgt. J. Andrews / Samantha
 Overlord Zorn <lordzorn1337@gmail.com>
+b-mayr-1984
+Sgt. J. Andrews / Samantha
 
 # CONTRIBUTORS
 LucSon
