@@ -46,9 +46,6 @@ if (_templates isNotEqualTo []) then {
 		{ 
 			_x params ["_item", "_offset", ["_angle", 0], ["_rot", [0, 0, 0]]];
 
-			// Skip accidentally imported helper objects
-			if (_item in ["Sign_Arrow_Direction_Cyan_F", "Sign_Arrow_Direction_Yellow_F", "Sign_Arrow_Direction_Green_F", "Sign_Arrow_Direction_F"]) then { continue };
-
 			_item = [_item] call PFUNC(randomiseObject);
 
 			if (_item != "" && ([_item, _detail] call PFUNC(checkDetailLevel)) ) then {

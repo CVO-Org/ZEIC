@@ -44,7 +44,14 @@ switch _mode do {
 			
 			private _tempArr = _nearObjects apply { 
 				private _xType = typeOf _x;
-				if !(_xType in ["Sign_Arrow_Large_Green_F", "Logic", "CamCurator", _keyObjType]) then {	
+
+				private _blacklisted = switch (true) do {
+					case (_xType select [0,11] isEqualTo "Sign_Arrow_"): 	 { true };
+					case (_xType in [ "Logic", "CamCurator", _keyObjType ]): { true };
+					default { false };
+				};
+
+				if (!_blacklisted) then {	
 					private ["_objPos","_objDir","_pb","_pitch","_bank"];
 					
 					if !(_xType call PFUNC(isVanillaObject)) then {_mod = "[MOD] "};
