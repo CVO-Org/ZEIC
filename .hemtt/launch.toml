@@ -4,6 +4,7 @@ parameters = [
     "-noPauseAudio",
     "-noPause",
     "-window",
+    "-debug"
 ]
 
 [default]
@@ -13,6 +14,14 @@ workshop = [
     "463939057",  # ACE3
     "3499977893", # Advanced Developer Tools
     "1779063631", # ZEN
+]
+
+[debugger]
+extended = "default"
+workshop = [
+    "450814997",  # CBA_A3's Workshop ID
+    "1585582292", # Arma Debug Engine
+    "1645973522", # Intercept Minimal Dev
 ]
 
 dlc = []
