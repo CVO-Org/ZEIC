@@ -1,6 +1,4 @@
-#ifdef __A3_DEBUG__
-    #define _ZRN_DEBUG_
-#endif
+
 
 // CBA Settings
 #define SET(var1) TRIPLES(ADDON,set,var1)
