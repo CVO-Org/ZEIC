@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "../script_component.hpp"
 
 
 // Increase the default radius by setting 'PVAR(SaveRadius)' to larger number.
