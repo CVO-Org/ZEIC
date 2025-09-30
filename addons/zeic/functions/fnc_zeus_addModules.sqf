@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "../script_component.hpp"
 
 // Add custom items to Zeus.
 // Display needs time to init.

@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "../script_component.hpp"
 
 // ["text", "DEBUG"] call PFUNC(misc_logMsg);
 params ["_msg", "_lev"];

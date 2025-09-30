@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "../script_component.hpp"
 
 
 // Called from PFUNC(createTemplate). Finds a suitable '_templates' array according to the passed '_templateType'.
@@ -31,7 +31,7 @@ _templates append (
 		case "cbrn": {
 			switch (_bildingClass) do {
 				// CBRN Vanilla
-				#include "..\..\templates\cbrn_vanilla.sqf"
+				#include "..\templates\cbrn_vanilla.sqf"
 				
 				default {[]};
 			};
@@ -41,19 +41,19 @@ _templates append (
 			switch (_bildingClass) do {
 				// CDLCs		
 				if (uiNamespace getVariable QPVAR(isLoaded_gm)) then {
-					#include "..\..\templates\civ_gm.sqf"
+					#include "..\templates\civ_gm.sqf"
 				};
 				if (uiNamespace getVariable QPVAR(isLoaded_ws)) then {
-					#include "..\..\templates\civ_ws.sqf"
+					#include "..\templates\civ_ws.sqf"
 				};
 
 				// Mods
 				if (uiNamespace getVariable QPVAR(isLoaded_cup)) then {
-					#include "..\..\templates\civ_cup.sqf"
+					#include "..\templates\civ_cup.sqf"
 				};
 
 				// Vanilla
-				#include "..\..\templates\civ_vanilla.sqf"
+				#include "..\templates\civ_vanilla.sqf"
 
 				default {[]};
 			};
@@ -63,27 +63,27 @@ _templates append (
 			switch (_bildingClass) do {
 				// CDLCs
 				if (uiNamespace getVariable QPVAR(isLoaded_gm)) then {
-					#include "..\..\templates\mil_gm.sqf"
+					#include "..\templates\mil_gm.sqf"
 				};
 
 				if (uiNamespace getVariable QPVAR(isLoaded_sog)) then {
-					#include "..\..\templates\mil_sog.sqf"
+					#include "..\templates\mil_sog.sqf"
 				};
 
 				if (uiNamespace getVariable QPVAR(isLoaded_ws)) then {
-					#include "..\..\templates\mil_ws.sqf"
+					#include "..\templates\mil_ws.sqf"
 				};
 
 				// Mods		
 				if (uiNamespace getVariable QPVAR(isLoaded_cup)) then {
-					#include "..\..\templates\mil_cup.sqf"
+					#include "..\templates\mil_cup.sqf"
 				};
 
 				// Vanilla
-				#include "..\..\templates\mil_vanilla.sqf"
+				#include "..\templates\mil_vanilla.sqf"
 				
 				// OTHER
-				#include "..\..\templates\mil_other.sqf"
+				#include "..\templates\mil_other.sqf"
 				
 				default {[]};
 			}
@@ -93,7 +93,7 @@ _templates append (
 		case "optre_mil": {
 			switch (_bildingClass) do {
 				// OPTRE Military
-				#include "..\..\templates\optre_military.sqf"
+				#include "..\templates\optre_military.sqf"
 				
 				default {[]};
 			};
@@ -102,7 +102,7 @@ _templates append (
 		case "optre_civ": {	
 			switch (_bildingClass) do {
 				// OPTRE Vanilla
-				#include "..\..\templates\optre_civilian.sqf"
+				#include "..\templates\optre_civilian.sqf"
 				
 				default {[]};
 			};
