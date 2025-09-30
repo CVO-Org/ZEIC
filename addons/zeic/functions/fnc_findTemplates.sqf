@@ -1,4 +1,4 @@
-#include "../script_component.hpp"
+#include "..\script_component.hpp"
 
 
 // Called from PFUNC(createTemplate). Finds a suitable '_templates' array according to the passed '_templateType'.

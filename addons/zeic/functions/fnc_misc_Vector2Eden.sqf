@@ -1,4 +1,4 @@
-#include "../script_component.hpp"
+#include "..\script_component.hpp"
 
 // Return the Eden X Y Rotation of an object by its VectorDirAndUp
 // Credit: Ian Banks @foxhound.international 

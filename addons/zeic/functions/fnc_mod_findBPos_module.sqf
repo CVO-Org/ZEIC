@@ -1,4 +1,4 @@
-#include "../script_component.hpp"
+#include "..\script_component.hpp"
 
 // Spawns some markers indicating building positions within the object.
 // This is intended to highlight positions to avoid when decorating houses.

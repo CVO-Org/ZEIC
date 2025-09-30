@@ -1,4 +1,4 @@
-#include "../script_component.hpp"
+#include "..\script_component.hpp"
 
 /*
 Rotate object around own x,y,z axis

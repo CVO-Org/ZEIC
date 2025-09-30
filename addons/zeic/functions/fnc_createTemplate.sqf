@@ -1,4 +1,4 @@
-#include "../script_component.hpp"
+#include "..\script_component.hpp"
 
 // Called from PFUNC(ui_interiorFill)
 params [
