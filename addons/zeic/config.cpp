@@ -40,15 +40,9 @@ class CfgPatches {
 	};
 };
 
-
 #include "XEH_CfgEventHandlers.hpp"
 
-#include "CfgVehicles.hpp"
 #include "CfgFactionClasses.hpp"
+#include "CfgVehicles.hpp"
 
-#include "ui\defines.hpp"
-#include "ui\Rsc_ZEIC_GarrisonBuilding.hpp"
-#include "ui\Rsc_ZEIC_InteriorFill.hpp"
-#include "ui\Rsc_ZEIC_ListBuildings.hpp"
-#include "ui\Rsc_ZEIC_ObjectFill.hpp"
-#include "ui\Rsc_ZEIC_ObjectSwitch.hpp"
+#include "ui\includes.hpp"
