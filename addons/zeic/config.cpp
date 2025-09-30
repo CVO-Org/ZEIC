@@ -43,8 +43,6 @@ class CfgPatches {
 
 #include "XEH_CfgEventHandlers.hpp"
 
-#include "CfgFunctions.hpp"
-
 #include "CfgVehicles.hpp"
 #include "CfgFactionClasses.hpp"
 
