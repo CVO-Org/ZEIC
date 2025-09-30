@@ -8,19 +8,9 @@ PREP(addInteriorFillCategories);
 PREP(checkDetailLevel);
 PREP(createTemplate);
 
-PREP(findBPos_module);
 PREP(findTemplates);	
 
-PREP(garrisonBuilding_module);
-PREP(garrisonBuilding_ui);
-PREP(garrisonCombo_ui);
 PREP(garrisonUnit);
-
-PREP(interiorFill_module);
-PREP(interiorFill_ui);
-
-PREP(listBuildings_module);
-PREP(listBuildings_ui);
 
 PREP(misc_Vector2Eden);
 PREP(misc_logMsg);
@@ -29,11 +19,19 @@ PREP(misc_rotateAroundOwnAxisX);
 PREP(misc_rotateAroundOwnAxisY);
 PREP(misc_rotateAroundOwnAxisZ);
 
-PREP(objectFill_module);
-PREP(objectFill_ui);
+PREP(mod_findBPos_module);
+PREP(mod_garrisonBuilding_module);
+PREP(mod_garrisonBuilding_ui);
+PREP(mod_garrisonCombo_ui);
+PREP(mod_interiorFill_module);
+PREP(mod_interiorFill_ui);
+PREP(mod_listBuildings_module);
+PREP(mod_listBuildings_ui);
+PREP(mod_objectFill_module);
+PREP(mod_objectFill_ui);
 
-PREP(objectSwitch_module);
-PREP(objectSwitch_ui);
+PREP(mod_objectSwitch_module);
+PREP(mod_objectSwitch_ui);
 
 PREP(randomiseObject);
 
