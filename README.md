@@ -1,8 +1,9 @@
 <p align="center">
     <img src="https://github.com/CVO-Org/ZEIC/blob/main/img/ZEIC-Full-Transparent.png" width="512">
+    </br>
+    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3567067667"><img src="https://img.shields.io/steam/subscriptions/3567067667?style=for-the-badge&logo=steam&label=Steam%20Workshop&color=%23690000"></a>
 </p>
 
-[![Steam Subscriptions](https://img.shields.io/steam/subscriptions/3567067667?style=for-the-badge&logo=steam&label=Steam%20Workshop&color=%23690000&link=https%3A%2F%2Fsteamcommunity.com%2Fsharedfiles%2Ffiledetails%2F%3Fid%3D3567067667)](https://steamcommunity.com/sharedfiles/filedetails/?id=3567067667)
 
 
 # ZEIC - Community Version
