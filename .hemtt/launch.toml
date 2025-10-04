@@ -16,8 +16,8 @@ workshop = [
     "1779063631", # ZEN
 ]
 
-[debugger]
-extended = "default"
+[debug]
+extends = "default"
 workshop = [
     "450814997",  # CBA_A3's Workshop ID
     "1585582292", # Arma Debug Engine
