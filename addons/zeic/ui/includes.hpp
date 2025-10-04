@@ -1,0 +1,6 @@
+#include "defines.hpp"
+#include "Rsc_ZEIC_GarrisonBuilding.hpp"
+#include "Rsc_ZEIC_InteriorFill.hpp"
+#include "Rsc_ZEIC_ListBuildings.hpp"
+#include "Rsc_ZEIC_ObjectFill.hpp"
+#include "Rsc_ZEIC_ObjectSwitch.hpp"
