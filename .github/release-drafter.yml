@@ -1,0 +1,46 @@
+# Automatically generates draft releases based on merged PRs
+
+name-template: 'v$NEXT_PATCH_VERSION'
+tag-template: 'v$NEXT_PATCH_VERSION'
+
+categories:
+  - title: 'Features 🚀'
+    labels:
+      - pr/feature
+      - pr/improvement
+  - title: 'Bug Fixes 🐛'
+    labels:
+      - pr/fix
+  - title: 'Documentation 📚'
+    labels:
+      - pr/docs
+  - title: 'Maintenance 🛠️'
+    labels:
+      - pr/refactor
+      - pr/cleanup
+      - pr/meta
+
+# change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
+exclude-labels:
+  - pr/ignoreChangelog
+
+change-template: '* $TITLE (#$NUMBER) by @$AUTHOR'
+template: |
+  _Requires the latest Version of [CBA](https://github.com/CBATeam/CBA_A3) and [ACE](https://github.com/acemod/ACE3)._
+
+  ## Summary
+
+  ## Changelog
+
+  $CHANGES
+
+  ## Contributors
+
+  $CONTRIBUTORS
+
+replacers:
+  # Category titles
+  # Release Drafter automatically makes the category a ## heading
+  # and we want it as a ### heading
+  - search: '/\#\# (\#\#\# (NEW|FIXED|IMPROVED|CHANGED|SETTINGS|TRANSLATIONS|DOCUMENTATION):)/g'
+    replace: '$1'
