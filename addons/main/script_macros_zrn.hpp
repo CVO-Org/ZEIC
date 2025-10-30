@@ -1,6 +1,4 @@
-#ifdef __A3_DEBUG__
-    #define _ZRN_DEBUG_
-#endif
+
 
 // CBA Settings
 #define SET(var1) TRIPLES(ADDON,set,var1)
@@ -23,7 +21,10 @@
 #ifndef QUOTE
     #define QUOTE(var1) #var1
 #endif
-#define QQUOTE(var1) QUOTE(QUOTE(var1))
+#ifndef QQUOTE
+    #define QQUOTE(var1) QUOTE(QUOTE(var1))
+#endif
+
 #define Q(var1) QUOTE(var1)
 #define QQ(var1) QQUOTE(var1)
 
@@ -47,8 +48,8 @@
 #define QCVAR(var1) QUOTE(CVAR(var1))
 #define QQCVAR(var1) QUOTE(QCVAR(var1))
 
-// missionNamespace set/get Variables
 
+// missionNamespace set/get Variables
 #define SETMGVAR(name,value) (missionNamespace setVariable [QGVAR(name),value])
 #define SETMGVAR_PUBLIC(name,value,public) (missionNamespace setVariable [QGVAR(name),value,public])
 
@@ -74,7 +75,6 @@
 #define QPATH_TO_ADDON(var1) QUOTE(\MAINPREFIX\PREFIX\addons\COMPONENT\var1)
 #define QQPATH_TO_ADDON(var1) Q(QUOTE(\MAINPREFIX\PREFIX\addons\COMPONENT\var1))
 
-// Debug
 // Doesnt seem to work currently 
 #ifdef _ZRN_DEBUG_
     #define _DEBUG_POSTINIT_ postInit = 1;
@@ -85,6 +85,7 @@
 #endif
 
 
+// Debug
 #define DEBUG_HEADER format [QUOTE([PREFIX][COMPONENT](%1)),_fnc_scriptName]
 
 #define ZRN_LOG_MSG(MSG) diag_log (DEBUG_HEADER + " " + QUOTE(MSG))

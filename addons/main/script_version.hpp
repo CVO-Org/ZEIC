@@ -1,7 +1,7 @@
 #define MAJOR 1
 #define MINOR 0
 #define PATCH 0
-#define BUILD 22
+#define BUILD 29
 
 
 // #define VERSION MACROS
@@ -9,4 +9,4 @@
 #define VERSION_AR MAJOR,MINOR,PATCH,BUILD
 #define VERSION_STR MAJOR##.##MINOR##.##PATCH##.##BUILD
 
-#define REQUIRED_VERSION 2.02
+#define REQUIRED_VERSION 2.20

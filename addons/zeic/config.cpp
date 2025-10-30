@@ -18,7 +18,7 @@ class CfgPatches {
 
         // Required addons, used for setting load order.
         // When any of the addons is missing, pop-up warning will appear when launching the game.
-        requiredAddons[] = { "A3_Modules_F", "A3_Modules_F_Curator" };
+        requiredAddons[] = { "A3_Modules_F", "A3_Modules_F_Curator", "cba_main", QPVAR(main) };
 
 		// Optional. If this is 1, if any of requiredAddons[] entry is missing in your game the entire config will be ignored and return no error (but in rpt) so useful to make a compat Mod (Since Arma 3 2.14)
 		skipWhenMissingDependencies = 1;
@@ -40,14 +40,9 @@ class CfgPatches {
 	};
 };
 
-#include "CfgFunctions.hpp"
+#include "XEH_CfgEventHandlers.hpp"
 
-#include "CfgVehicles.hpp"
 #include "CfgFactionClasses.hpp"
+#include "CfgVehicles.hpp"
 
-#include "ui\defines.hpp"
-#include "ui\Rsc_ZEIC_GarrisonBuilding.hpp"
-#include "ui\Rsc_ZEIC_InteriorFill.hpp"
-#include "ui\Rsc_ZEIC_ListBuildings.hpp"
-#include "ui\Rsc_ZEIC_ObjectFill.hpp"
-#include "ui\Rsc_ZEIC_ObjectSwitch.hpp"
+#include "ui\includes.hpp"
