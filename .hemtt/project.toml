@@ -1,7 +1,7 @@
-mainprefix = "zrn"     # Ideally, replace "zrn" across the whole repo with your mod's mainprefix, example "t" (without the "")
-prefix = "ZEIC"             # Ideally, replace "ZEIC" across the whole repo with your mod's prefix, example "mod" (without the "") 
+mainprefix = "zrn"
+prefix = "ZEIC"
 
-name = "Example Mod"
+name = "ZEIC - Zeus and Eden Interiors Community Version"
 
 [properties]
 author = "ZEIC Team"
