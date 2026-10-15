@@ -4,8 +4,8 @@ prefix = "ZEIC"             # Ideally, replace "ZEIC" across the whole repo with
 name = "Example Mod"
 
 [properties]
-author = "Derp Derpington"
-url = "https://github.com/Derpington"
+author = "ZEIC Team"
+url = "https://github.com/CVO-Org/ZEIC"
 
 [binarize]
 enabled = true # Default: true
