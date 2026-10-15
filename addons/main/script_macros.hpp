@@ -56,3 +56,6 @@
     #define LLSTRING(var1) localize QUOTE(TRIPLES(STR,ADDON,var1))
     #define LELSTRING(var1,var2) localize QUOTE(TRIPLES(STR,DOUBLES(PREFIX,var1),var2))
 #endif
+
+// Defines _DEV_VERSION_ - overwritten by hemtt script set_RELEASE_VERSION_DEV / _STABLE in the release workflows
+#include "debug_mode.hpp"
