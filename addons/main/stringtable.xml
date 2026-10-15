@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="ZEIC_MAIN">
     <Package name="Main">
-        <Key ID="STR_mod_URL">
-            <English>https://github.com/CVO-Org/ZEIC</English>
-        </Key>
-        <Key ID="STR_mod_author">
+        <Key ID="STR_ZEIC_main_author">
             <English>Zeus Eden Interior Community Team</English>
+        </Key>
+        <Key ID="STR_ZEIC_main_url">
+            <English>https://github.com/CVO-Org/ZEIC</English>
         </Key>
     </Package>
 </Project>
