@@ -1,11 +1,11 @@
 class CfgFunctions {
-	class ZEIC {
+    class ZEIC {
 
         class common {
             file = PATH_TO_FUNC_SUB(common);
             
             class init_preStart { preStart = 1; };
-            class init { postInit = 1; };	// Zeus (Dedicated Fix)
+            class init { postInit = 1; };   // Zeus (Dedicated Fix)
 
             class mod_findBPos {};
 
@@ -15,7 +15,7 @@ class CfgFunctions {
             class misc_Vector2Eden {};
             class misc_logMsg {};
 
-            class zeus_addModules {};		// Zeus (Dedicated Fix)
+            class zeus_addModules {};       // Zeus (Dedicated Fix)
         };
 
         class garrisonBuilding {
@@ -34,7 +34,7 @@ class CfgFunctions {
 
             class checkDetailLevel {};
             class createTemplate {};
-            class findTemplates {};	
+            class findTemplates {}; 
             class mod_interiorFill {};
             class randomiseObject {};
             class templateCanSpawn {};
@@ -78,5 +78,5 @@ class CfgFunctions {
         };
 
 
-	};
+    };
 };
