@@ -15,6 +15,28 @@ class CfgFunctions {
             class misc_logMsg {};
         };
 
+        class dev {
+            file = PATH_TO_FUNC_SUB(dev);
+
+            class dev_check {};
+            class dev_selfTest {
+                #if _ZEIC_DEV_
+                postInit = 1;
+                #endif
+            };
+            class dev_spawn {};
+            class dev_test_addon {};
+            class dev_test_configTemplates {};
+            class dev_test_createTemplate {};
+            class dev_test_dialog {};
+            class dev_test_garrison {};
+            class dev_test_mergedCases {};
+            class dev_test_missionTemplates {};
+            class dev_test_objectModes {};
+            class dev_test_queue {};
+            class dev_test_scriptApi {};
+        };
+
         class feedback {
             file = PATH_TO_FUNC_SUB(feedback);
 
@@ -44,9 +66,6 @@ class CfgFunctions {
         class InteriorFill {
             file = PATH_TO_FUNC_SUB(InteriorFill);
             
-            class addInteriorFillCategories {};
-
-            class checkDetailLevel {};
             class createTemplate {};
             class findTemplates {};
             class interiorFill_categories {};
@@ -62,6 +81,7 @@ class CfgFunctions {
             class mod_interiorFill {};
             class randomiseObject {};
             class ui_interiorFill {};
+            class ui_interiorFill_onLoad {};
         };
 
         class listBuildings {
@@ -102,9 +122,23 @@ class CfgFunctions {
 
         class saveBuildingScheme {
             file = PATH_TO_FUNC_SUB(saveBuildingScheme);
-            
+
             class isVanillaObject {};
             class mod_saveBuildingScheme {};
+        };
+
+        class ui {
+            file = PATH_TO_FUNC_SUB(ui);
+
+            class ui_dialogAdd {};
+            class ui_dialogCheckbox {};
+            class ui_dialogCombo {};
+            class ui_dialogConfirm {};
+            class ui_dialogCreate {};
+            class ui_dialogFinish {};
+            class ui_dialogRow {};
+            class ui_dialogSlider {};
+            class ui_dialogToolbox {};
         };
 
 

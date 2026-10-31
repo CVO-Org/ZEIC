@@ -8,7 +8,7 @@
 * Arguments:
 * 0: Buildings <ARRAY of OBJECTs>
 * 1: Category, e.g. "mil" <STRING>
-* 2: Options [object mode <NUMBER>, allow damage <BOOL>, detail level <NUMBER>] <ARRAY>
+* 2: Options [object mode <NUMBER>, allow damage <BOOL>] <ARRAY>
 *    Object mode: 0 simple objects (fastest), 1 normal objects, 2 normal objects editable in Zeus (slow in Zeus with many)
 *
 * Return Value:

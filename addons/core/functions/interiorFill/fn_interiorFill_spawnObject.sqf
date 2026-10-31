@@ -7,8 +7,7 @@
 * 0: Building <OBJECT>
 * 1: Object entry ["Class", [x, y, z], direction, [rotX, rotY, rotZ]] <ARRAY>
 * 2: Object mode: OBJECT_MODE_SIMPLE (simple object), _NORMAL or _EDITABLE (normal object, simulation off) <NUMBER>
-* 3: Detail level <NUMBER>
-* 4: Eden layer ID <NUMBER>
+* 3: Eden layer ID <NUMBER>
 *
 * Return Value:
 * Spawned object, objNull if nothing was spawned <OBJECT>
@@ -16,11 +15,11 @@
 * Public: No
 */
 
-params [["_bld", objNull, [objNull]], ["_entry", [], [[]]], ["_objectMode", OBJECT_MODE_SIMPLE, [0]], ["_detail", 1, [0]], ["_layer", -1, [0]]];
+params [["_bld", objNull, [objNull]], ["_entry", [], [[]]], ["_objectMode", OBJECT_MODE_SIMPLE, [0]], ["_layer", -1, [0]]];
 _entry params ["_item", "_offset", ["_angle", 0], ["_rot", [0, 0, 0]]];
 
 _item = [_item] call PFUNC(randomiseObject);
-if (_item == "" || {!([_item, _detail] call PFUNC(checkDetailLevel))}) exitWith { objNull };
+if (_item == "") exitWith { objNull };
 
 private _obj = objNull;
 
