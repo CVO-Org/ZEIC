@@ -32,12 +32,17 @@ private _eh = addMissionEventHandler ["EachFrame", {
 	// About one segment per 3 m, so large circles stay round
 	private _segments = (ceil (_radius / 3)) max 24 min 180;
 	private _step = 360 / _segments;
-	private _from = [_cx + _radius, _cy, 0.3];
-	for "_i" from 1 to _segments do {
-		private _to = [_cx + _radius * cos (_i * _step), _cy + _radius * sin (_i * _step), 0.3];
-		drawLine3D [_from, _to, RADIUS_PREVIEW_COLOR, RADIUS_PREVIEW_WIDTH];
-		_from = _to;
+	private _points = [];
+	for "_i" from 0 to _segments do {
+		_points pushBack [_cx + _radius * cos (_i * _step), _cy + _radius * sin (_i * _step), 0.3];
 	};
+	// The dark outline first, the bright line on top
+	{
+		_x params ["_color", "_width"];
+		for "_i" from 1 to _segments do {
+			drawLine3D [_points select (_i - 1), _points select _i, _color, _width];
+		};
+	} forEach [[RADIUS_PREVIEW_OUTLINE_COLOR, RADIUS_PREVIEW_OUTLINE_WIDTH], [RADIUS_PREVIEW_COLOR, RADIUS_PREVIEW_WIDTH]];
 }, [_slider, _center]];
 _slider setVariable [QPVAR(previewEH), _eh];
 _eh
