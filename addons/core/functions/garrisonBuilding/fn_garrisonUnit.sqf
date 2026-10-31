@@ -35,12 +35,12 @@ private _setDirStance = {
 	
 	for "_dir" from (getDir _unitBld) to ((getDir _unitBld) + 359) step 45 do { 
 		// Check 3m
-		if (count (lineIntersectsWith [_unitEyePos, [_unitEyePos, 3, _dir] call BIS_fnc_relPos] select {_x isKindOf 'Building'}) > 0) then { 
+		if ((lineIntersectsWith [_unitEyePos, [_unitEyePos, 3, _dir] call BIS_fnc_relPos] select {_x isKindOf 'Building'}) isNotEqualTo []) then {
 			_p4 pushBack _dir;
 			_helper = "Sign_Arrow_Direction_F";
 		} else { 
 			// Check 10m
-			if (count (lineIntersectsWith [_unitEyePos, [_unitEyePos, 10, _dir] call BIS_fnc_relPos] select {_x isKindOf 'Building'}) > 0) then { 
+			if ((lineIntersectsWith [_unitEyePos, [_unitEyePos, 10, _dir] call BIS_fnc_relPos] select {_x isKindOf 'Building'}) isNotEqualTo []) then {
 				_p3 pushBack _dir;
 				_helper = "Sign_Arrow_Direction_Yellow_F";
 			} else { 
@@ -65,7 +65,7 @@ private _setDirStance = {
 	// Pick a random angle from the best grouping.
 	private _finalDir = -1;
 	{	
-		if (count _x > 0) then {_finalDir = selectRandom _x };
+		if (_x isNotEqualTo []) then {_finalDir = selectRandom _x };
 		if (_finalDir >= 0) exitWith {}; 
 	} forEach [_p1, _p2, _p3, _p4];
 	

@@ -18,7 +18,7 @@ switch _mode do {
 		
 		_bldArr = _bldArr select { str (_x buildingPos 0) != "[0,0,0]" };
 		
-		if (count _bldArr  == 0) exitWith { ["No valid buildings within 25m", "ERROR"] call PFUNC(misc_logMsg) };
+		if (_bldArr isEqualTo []) exitWith { ["No valid buildings within 25m", "ERROR"] call PFUNC(misc_logMsg) };
 		if (count _bldArr > 1) then { _bldArr resize 1 };
 	
 		// Delete the module to prevent any dependencies.
@@ -30,7 +30,7 @@ switch _mode do {
 			{ 
 				private _bld = _x;
 				private _bPos = _bld buildingPos -1;
-				if (count _bPos > 0) then {
+				if (_bPos isNotEqualTo []) then {
 					{		
 						private _obj = create3DENEntity ["Object", ["Sign_Arrow_Large_Green_F", "Sign_Arrow_Large_Blue_F"] select surfaceIsWater _x, [0, 0, 0]];
 						_obj set3DENAttribute ["rotation", [ 0, 0, 0]];

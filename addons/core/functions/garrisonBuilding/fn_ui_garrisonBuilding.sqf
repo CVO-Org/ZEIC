@@ -33,7 +33,7 @@ _fnc_notInString = {
 private _menList = _tempList select { ((configName _x) call _fnc_notInString) && (count getArray(_x >> "weapons") > 2) && (toLower getText (_x >> "backpack") find "para" < 0) };
 
 // If no units remain, use the original list.
-if (count _menList == 0) then { _menList = _tempList };
+if (_menList isEqualTo []) then { _menList = _tempList };
 
 // No units exist at all!
 if (count _menList == 0) exitWith {
@@ -64,7 +64,7 @@ if (is3DEN) then {
 			};
 				
 		for "_i" from 1 to _units do {
-			if (count _bldPos == 0) exitWith {};
+			if (_bldPos isEqualTo []) exitWith {};
 			private _rndPos = selectRandom _bldPos;
 			_bldPos = _bldPos - [_rndPos];
 			[
@@ -108,7 +108,7 @@ if (is3DEN) then {
 	};
 
 	for "_i" from 1 to _units do {
-		if (count _bldPos == 0) exitWith {};
+		if (_bldPos isEqualTo []) exitWith {};
 		private _rndPos = selectRandom _bldPos;
 		_bldPos = _bldPos - [_rndPos];
 		[_grp, configName (selectRandom _menList), _rndPos, _bld] call PFUNC(garrisonUnit);

@@ -34,9 +34,9 @@ switch _mode do {
 		// Find a valid nearby building.
 		if (isNull PVAR(UiLastBuilding)) then {
 			private _nearArr = nearestObjects [(screenToWorld getMousePosition), ["building"], 25, true];
-			private _objArr = _nearArr select { sizeOf typeOf _x > 2 || count (_x buildingPos -1) > 0 };
+			private _objArr = _nearArr select { sizeOf typeOf _x > 2 || (_x buildingPos -1) isNotEqualTo [] };
 
-			if (count _objArr > 0) then { PVAR(UiLastBuilding) = _objArr select 0 };
+			if (_objArr isNotEqualTo []) then { PVAR(UiLastBuilding) = _objArr select 0 };
 		};
 		
 		if (isNull PVAR(UiLastBuilding)) exitWith {
