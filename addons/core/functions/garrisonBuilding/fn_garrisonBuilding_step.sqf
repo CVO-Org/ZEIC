@@ -42,7 +42,7 @@ if (isNull _bld) exitWith {
 
 				// Eden can only create a group through a unit: a temporary one, deleted once the building is done.
 				// TODO: Find a neater way to create a group (create3DENComposition)?
-				private _tempClass = ["I_Soldier_F", "O_Soldier_F", "B_Soldier_F"] select (([independent, east, west] find (_job get "side")) max 0);
+				private _tempClass = ["I_Soldier_F", "O_Soldier_F", "B_Soldier_F", "C_man_1"] select (([independent, east, west, civilian] find (_job get "side")) max 0);
 				private _tempUnit = create3DENEntity ["Object", _tempClass, [0, 0, 0]];
 				_job set ["tempUnit", _tempUnit];
 				_job set ["group", group _tempUnit];

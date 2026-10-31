@@ -45,4 +45,5 @@ if (!is3DEN) then {
 		_this getVariable ["objects", OBJECT_MODE_SIMPLE],
 		_this getVariable ["damage", false]
 	] call PFUNC(ui_interiorFill);
+	true
 }] call PFUNC(ui_dialogFinish);
