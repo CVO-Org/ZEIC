@@ -9,13 +9,17 @@ class Rsc_ZEIC_GarrisonBuilding
         QPVAR(GB_Text_Title),
         QPVAR(GB_Text_Type),
         QPVAR(GB_Text_Units),
+        QPVAR(GB_Text_Radius),
+        QPVAR(GB_Text_Percent),
         QPVAR(GB_Text_DSEnabled),
         QPVAR(GB_Text_TREnabled)
     };
-    
+
     controls[]={
         QPVAR(GB_Combo_Type),
         QPVAR(GB_Slider_Units),
+        QPVAR(GB_Slider_Radius),
+        QPVAR(GB_Slider_Percent),
         QPVAR(GB_CheckBox_DSEnabled),
         QPVAR(GB_CheckBox_TREnabled),
         QPVAR(GB_Button_OK),
@@ -28,7 +32,7 @@ class Rsc_ZEIC_GarrisonBuilding
         x = Q(0.335 * safezoneW + safezoneX);
         y = Q(0.324 * safezoneH + safezoneY);
         w = Q(0.2475 * safezoneW);
-        h = Q(0.252 * safezoneH);
+        h = Q(0.33 * safezoneH);
     };
     class PVAR(GB_Frame): PVAR(RscFrame)
     {
@@ -36,7 +40,7 @@ class Rsc_ZEIC_GarrisonBuilding
         x = Q(0.335 * safezoneW + safezoneX);
         y = Q(0.324 * safezoneH + safezoneY);
         w = Q(0.2475 * safezoneW);
-        h = Q(0.252 * safezoneH);
+        h = Q(0.33 * safezoneH);
     };
     class PVAR(GB_Text_Title): PVAR(RscText)
     {
@@ -70,7 +74,7 @@ class Rsc_ZEIC_GarrisonBuilding
     class PVAR(GB_Text_Units): PVAR(RscText)
     {
         idc = 2;
-        text = "No. of Units"; //--- ToDo: Localize;
+        text = "Units per building"; //--- ToDo: Localize;
         x = Q(0.340156 * safezoneW + safezoneX);
         y = Q(0.412 * safezoneH + safezoneY);
         w = Q(0.0825 * safezoneW);
@@ -83,13 +87,75 @@ class Rsc_ZEIC_GarrisonBuilding
         y = Q(0.412 * safezoneH + safezoneY);
         w = Q(0.144375 * safezoneW);
         h = Q(0.033 * safezoneH);
-        tooltip = "Change the number of the units.";
-        onSliderPosChanged = "(findDisplay 1702 displayCtrl 2) ctrlSetText format['No. of Units (%1)', round (_this select 1)];";
+        tooltip = "Units per building, limited by the building's positions.";
+        onSliderPosChanged = "(findDisplay 1702 displayCtrl 2) ctrlSetText format['Units per building (%1)', round (_this select 1)];";
         onLoad= "_this spawn {\
             waitUntil { !isNull (_this select 0) };\
-            (findDisplay 1702 displayCtrl 20) sliderSetRange [ 1, (count ((missionNamespace getVariable ['ZEIC_UiLastBuilding',objNull]) buildingPos -1)) ];\
-            (findDisplay 1702 displayCtrl 20) sliderSetPosition round ((count ((missionNamespace getVariable ['ZEIC_UiLastBuilding',objNull]) buildingPos -1)) / 3);\
-            (findDisplay 1702 displayCtrl 2) ctrlSetText format['No. of Units (%1)', round ((count ((missionNamespace getVariable ['ZEIC_UiLastBuilding',objNull]) buildingPos -1)) / 3)];\
+            private _positions = count ((missionNamespace getVariable ['ZEIC_UiLastBuilding',objNull]) buildingPos -1);\
+            private _units = missionNamespace getVariable ['ZEIC_UiGarrisonUnits', 1 max round (_positions / 3)];\
+            (findDisplay 1702 displayCtrl 20) sliderSetRange [ 1, 12 max _positions ];\
+            (findDisplay 1702 displayCtrl 20) sliderSetSpeed [ 1, 1 ];\
+            (findDisplay 1702 displayCtrl 20) sliderSetPosition _units;\
+            (findDisplay 1702 displayCtrl 2) ctrlSetText format['Units per building (%1)', round _units];\
+        };";
+    };
+    class PVAR(GB_Text_Radius): PVAR(RscText)
+    {
+        idc = 5;
+        text = "Radius: This building"; //--- ToDo: Localize;
+        x = Q(0.340156 * safezoneW + safezoneX);
+        y = Q(0.456 * safezoneH + safezoneY);
+        w = Q(0.0825 * safezoneW);
+        h = Q(0.022 * safezoneH);
+    };
+    class PVAR(GB_Slider_Radius): PVAR(RscSlider)
+    {
+        idc = 50;
+        x = Q(0.427812 * safezoneW + safezoneX);
+        y = Q(0.456 * safezoneH + safezoneY);
+        w = Q(0.144375 * safezoneW);
+        h = Q(0.033 * safezoneH);
+        tooltip = "0: only this building.\nAbove 0: garrison a share of the buildings within this radius.";
+        onSliderPosChanged = "\
+            private _radius = round (_this select 1);\
+            (findDisplay 1702 displayCtrl 5) ctrlSetText (['Radius: This building', format['Radius: %1 m', _radius]] select (_radius > 0));\
+            (findDisplay 1702 displayCtrl 60) ctrlEnable (_radius > 0);\
+        ";
+        onLoad= "_this spawn {\
+            waitUntil { !isNull (_this select 0) };\
+            private _radius = missionNamespace getVariable ['ZEIC_UiGarrisonRadius', 0];\
+            (findDisplay 1702 displayCtrl 50) sliderSetRange [ 0, 250 ];\
+            (findDisplay 1702 displayCtrl 50) sliderSetSpeed [ 10, 10 ];\
+            (findDisplay 1702 displayCtrl 50) sliderSetPosition _radius;\
+            (findDisplay 1702 displayCtrl 5) ctrlSetText (['Radius: This building', format['Radius: %1 m', _radius]] select (_radius > 0));\
+            (findDisplay 1702 displayCtrl 60) ctrlEnable (_radius > 0);\
+        };";
+    };
+    class PVAR(GB_Text_Percent): PVAR(RscText)
+    {
+        idc = 6;
+        text = "Occupied: 50%"; //--- ToDo: Localize;
+        x = Q(0.340156 * safezoneW + safezoneX);
+        y = Q(0.5 * safezoneH + safezoneY);
+        w = Q(0.0825 * safezoneW);
+        h = Q(0.022 * safezoneH);
+    };
+    class PVAR(GB_Slider_Percent): PVAR(RscSlider)
+    {
+        idc = 60;
+        x = Q(0.427812 * safezoneW + safezoneX);
+        y = Q(0.5 * safezoneH + safezoneY);
+        w = Q(0.144375 * safezoneW);
+        h = Q(0.033 * safezoneH);
+        tooltip = "Share of the buildings within the radius that get a garrison, picked at random.";
+        onSliderPosChanged = "(findDisplay 1702 displayCtrl 6) ctrlSetText format['Occupied: %1%2', round (_this select 1), '%'];";
+        onLoad= "_this spawn {\
+            waitUntil { !isNull (_this select 0) };\
+            private _percent = missionNamespace getVariable ['ZEIC_UiGarrisonPercent', 50];\
+            (findDisplay 1702 displayCtrl 60) sliderSetRange [ 10, 100 ];\
+            (findDisplay 1702 displayCtrl 60) sliderSetSpeed [ 10, 10 ];\
+            (findDisplay 1702 displayCtrl 60) sliderSetPosition _percent;\
+            (findDisplay 1702 displayCtrl 6) ctrlSetText format['Occupied: %1%2', round _percent, '%'];\
         };";
     };
     class PVAR(GB_Text_DSEnabled): PVAR(RscText)
@@ -97,7 +163,7 @@ class Rsc_ZEIC_GarrisonBuilding
         idc = -1;
         text = "Dynamic Simulation"; //--- ToDo: Localize;
         x = Q(0.340156 * safezoneW + safezoneX);
-        y = Q(0.456 * safezoneH + safezoneY);
+        y = Q(0.544 * safezoneH + safezoneY);
         w = Q(0.0825 * safezoneW);
         h = Q(0.022 * safezoneH);
     };
@@ -105,7 +171,7 @@ class Rsc_ZEIC_GarrisonBuilding
     {
         idc = 30;
         x = Q(0.422656 * safezoneW + safezoneX);
-        y = Q(0.456 * safezoneH + safezoneY);
+        y = Q(0.544 * safezoneH + safezoneY);
         w = Q(0.020625 * safezoneW);
         h = Q(0.033 * safezoneH);
         tooltip = "Enables Dynamic Simulation for units\nDO NOT use when AI can easily be seen (e.g. outside or top of buildings).";
@@ -119,7 +185,7 @@ class Rsc_ZEIC_GarrisonBuilding
         idc = -1;
         text = "Move AI Trigger"; //--- ToDo: Localize;
         x = Q(0.340156 * safezoneW + safezoneX);
-        y = Q(0.486 * safezoneH + safezoneY);
+        y = Q(0.574 * safezoneH + safezoneY);
         w = Q(0.0825 * safezoneW);
         h = Q(0.022 * safezoneH);
     };
@@ -127,7 +193,7 @@ class Rsc_ZEIC_GarrisonBuilding
     {
         idc = 40;
         x = Q(0.422656 * safezoneW + safezoneX);
-        y = Q(0.486 * safezoneH + safezoneY);
+        y = Q(0.574 * safezoneH + safezoneY);
         w = Q(0.020625 * safezoneW);
         h = Q(0.033 * safezoneH);
         tooltip = "Creates a Trigger to allow AI movement when a player is near.";
@@ -141,14 +207,16 @@ class Rsc_ZEIC_GarrisonBuilding
         idc = -1;
         text = "OK"; //--- ToDo: Localize;
         x = Q(0.360781 * safezoneW + safezoneX);
-        y = Q(0.522 * safezoneH + safezoneY);
+        y = Q(0.61 * safezoneH + safezoneY);
         w = Q(0.04125 * safezoneW);
         h = Q(0.022 * safezoneH);
         onButtonClick  = "[\
             (findDisplay 1702 displayCtrl 10) lbData (lbCurSel (findDisplay 1702 displayCtrl 10)),\
             round (sliderPosition (findDisplay 1702 displayCtrl 20)),\
             cbChecked (findDisplay 1702 displayCtrl 30),\
-            cbChecked (findDisplay 1702 displayCtrl 40)\
+            cbChecked (findDisplay 1702 displayCtrl 40),\
+            round (sliderPosition (findDisplay 1702 displayCtrl 50)),\
+            round (sliderPosition (findDisplay 1702 displayCtrl 60))\
             ] spawn zeic_fnc_ui_garrisonBuilding; (findDisplay 1702) closeDisplay 1;";
     };
     class PVAR(GB_Button_Cancel): PVAR(RscButton)
@@ -156,7 +224,7 @@ class Rsc_ZEIC_GarrisonBuilding
         idc = -1;
         text = "Cancel"; //--- ToDo: Localize;
         x = Q(0.494844 * safezoneW + safezoneX);
-        y = Q(0.522 * safezoneH + safezoneY);
+        y = Q(0.61 * safezoneH + safezoneY);
         w = Q(0.04125 * safezoneW);
         h = Q(0.022 * safezoneH);
         onButtonClick  = "(findDisplay 1702) closeDisplay 2;";

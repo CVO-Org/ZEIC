@@ -30,6 +30,12 @@ class CfgFunctions {
         class garrisonBuilding {
             file = PATH_TO_FUNC_SUB(garrisonBuilding);
             
+            class garrisonBuilding_finishBuilding {};
+            class garrisonBuilding_finishJob {};
+            class garrisonBuilding_selectBuildings {};
+            class garrisonBuilding_start {};
+            class garrisonBuilding_step {};
+            class garrisonBuilding_unitTypes {};
             class garrisonUnit {};
             class mod_garrisonBuilding {};
             class ui_garrisonBuilding {};

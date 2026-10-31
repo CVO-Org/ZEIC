@@ -118,11 +118,9 @@ if is3DEN then {
 	_unit = _group createUnit [_type, _pos, [], 0, "NONE"];
 	if !(surfaceIsWater _pos) then { _unit setPosATL _pos };
 	[_unit, _bld] call _setDirStance;
-	
-	//Add to Zeus
-	{ [_x, [ [_unit], true]] remoteExec ["addCuratorEditableObjects",2] } forEach allCurators;
+	// Added to Zeus once per building, see PFUNC(garrisonBuilding_finishBuilding)
 };
 
 [format["Created %1 [%2] at %3", typeOf _unit, _group, _pos], "DEBUG"] call PFUNC(misc_logMsg);
-	
-true
+
+_unit
