@@ -12,4 +12,4 @@ if (!isNil QPVAR(debug) && {PVAR(debug)}) then {
 	} forEach _template;
 };
 
-0 != (_template findIf {!isClass (configFile >> "CfgVehicles" >> (_x select 0))})
+-1 == (_template findIf {!isClass (configFile >> "CfgVehicles" >> (_x select 0))})

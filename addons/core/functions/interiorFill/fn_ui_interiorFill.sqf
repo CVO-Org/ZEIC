@@ -8,8 +8,6 @@ params [
 		["_detail", 1]
 	];
 
-diag_log _type;
-
 private _fillType = PVAR(interiorFillCategories) select _type select 1;
 private _fillArea = _area isNotEqualTo 0;
 

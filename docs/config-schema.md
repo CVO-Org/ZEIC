@@ -3,7 +3,7 @@
 Status: **draft for discussion**. Nothing here is implemented yet.
 
 This document describes how interior templates move from the hardcoded `switch` in
-`fn_findTemplates.sqf` (+ `addons/zeic/templates/*.sqf`) into config, and how ZEIC
+`fn_findTemplates.sqf` (+ `addons/core/templates/*.sqf`) into config, and how ZEIC
 looks them up at runtime.
 
 ## Goals
@@ -123,14 +123,14 @@ The child gets all parent templates and can still add its own.
 
 ```
 addons/
-  main/                 core: CfgPatches, macros, stringtable
-  zeic/                 core: functions, modules, UI, CfgZEIC category definitions
-  templates_vanilla/    requiredAddons: zeic
-  templates_cup/        requiredAddons: zeic, CUP_Editor_Buildings_Config
-  templates_gm/         requiredAddons: zeic, gm_core
-  templates_sog/        requiredAddons: zeic, data_f_vietnam
-  templates_ws/         requiredAddons: zeic, data_f_lxWS_Loadorder
-  templates_optre/      requiredAddons: zeic, OPTRE_Core
+  main/                 shared: macros, stringtable
+  core/                 functions, modules, UI, CfgZEIC category definitions
+  templates_vanilla/    requiredAddons: core
+  templates_cup/        requiredAddons: core, CUP_Editor_Buildings_Config
+  templates_gm/         requiredAddons: core, gm_core
+  templates_sog/        requiredAddons: core, data_f_vietnam
+  templates_ws/         requiredAddons: core, data_f_lxWS_Loadorder
+  templates_optre/      requiredAddons: core, OPTRE_Core
 ```
 
 Each template addon:
@@ -138,7 +138,7 @@ Each template addon:
 ```cpp
 class CfgPatches {
     class ZEIC_templates_cup {
-        requiredAddons[] = {"ZEIC_zeic", "CUP_Editor_Buildings_Config"};
+        requiredAddons[] = {"ZEIC_core", "CUP_Editor_Buildings_Config"};
         skipWhenMissingDependencies = 1;
         units[] = {};
         weapons[] = {};
@@ -146,7 +146,7 @@ class CfgPatches {
 };
 
 class CfgZEIC {
-    class mil {             // merges into the category defined in addons/zeic
+    class mil {             // merges into the category defined in addons/core
         class Land_Some_CUP_House { /* ... */ };
     };
 };
@@ -252,7 +252,7 @@ getTemplates(category, buildingClass):
 
 ## 7. Migration
 
-1. **Converter script** (`tools/convert_templates.py`): reads `addons/zeic/templates/*.sqf`, turns
+1. **Converter script** (`tools/convert_templates.py`): reads `addons/core/templates/*.sqf`, turns
    each `case` into a building class and each template array into a `class <tag>_<n>`, and maps
    fall-through cases to inheritance.
 2. **Dependency sorting:** run a one-off in-game dump of `className → source addon`
@@ -262,7 +262,7 @@ getTemplates(category, buildingClass):
    addons.
 4. **Remove:** `fn_findTemplates` (rewritten), `fn_templateCanSpawn`, `fn_checkDetailLevel`,
    `fn_addCustomHouse`, the `isLoaded_*` flags in `fn_init_preStart`, the hardcoded category list
-   in `fn_init_InteriorFillCategories`, and `addons/zeic/templates/`.
+   in `fn_init_InteriorFillCategories`, and `addons/core/templates/`.
 5. **Legacy script API stays** (see section 8).
 
 ## 8. Legacy compatibility
