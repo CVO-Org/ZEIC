@@ -65,7 +65,7 @@ if (_templates isNotEqualTo []) then {
 				
 				_obj set3DENAttribute ["rotation", [_obj] call PFUNC(misc_Vector2Eden)];
 				
-				_pos = (_bld modelToWorld _offset);
+				private _pos = (_bld modelToWorld _offset);
 				
 				if (surfaceIsWater _pos) then {
 					_obj set3DENAttribute ["position", ASLToATL _pos];
