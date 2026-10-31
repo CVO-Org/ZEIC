@@ -189,7 +189,8 @@ class CfgZEIC_Variants {
 - At first use, all groups are read once into an `object → [members]` HashMap in
   `uiNamespace`. This list is small, so building it in one go is fine. Invalid members are
   dropped, so a group never produces an object that doesn't exist.
-- An object in several groups uses the first group found.
+- An object in several groups uses the group with the highest `priority` (default 0), otherwise
+  the first group found.
 
 ## 5. Mission-specific templates
 
@@ -261,11 +262,13 @@ getTemplates(category, buildingClass):
 2. **Dependency sorting** (later, optional): run a one-off in-game dump of `className → source addon`
    (`configSourceAddonList`) for every class used in the templates, and move templates whose
    objects need another mod into that mod's addon.
-3. **Variants:** move the lists from `fn_randomiseObject.sqf` into `class Variants` in the matching
-   addons.
-4. **Remove:** `fn_findTemplates` (rewritten), `fn_templateCanSpawn`, `fn_checkDetailLevel`,
-   `fn_addCustomHouse`, the `isLoaded_*` flags in `fn_init_preStart`, the hardcoded category list
-   in `fn_init_InteriorFillCategories`, and `addons/core/templates/`.
+3. **Variants** ✅: the lists from `fn_randomiseObject.sqf` are in `CfgZEIC_Variants` of the vanilla,
+   CUP, GM and SOG template addons. GM's groups have `priority = 1`, because GM used to replace the
+   vanilla lists.
+4. **Remove** ✅: `fn_findTemplates` rewritten (config lookup with caches), `fn_templateCanSpawn`, the
+   `isLoaded_*` flags and `fn_init_preStart`, the hardcoded category list (now
+   `fn_interiorFill_categories`), and `addons/core/templates/`. Still open: `fn_checkDetailLevel` and
+   the detail level option (part of the dialog rework, #6). `fn_addCustomHouse` stays as legacy API.
 5. **Legacy script API stays** (see section 8).
 
 ## 8. Legacy compatibility

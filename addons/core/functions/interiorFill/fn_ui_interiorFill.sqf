@@ -8,7 +8,8 @@ params [
 		["_detail", 1]
 	];
 
-private _fillType = PVAR(interiorFillCategories) select _type select 1;
+private _categories = call PFUNC(interiorFill_categories);
+private _fillType = (_categories param [_type, _categories select 0]) select 1;
 private _fillArea = _area isNotEqualTo 0;
 
 // Save UI Settings for next time
@@ -22,7 +23,13 @@ private _bldArr = [];
 
 if (isNull _bldTmp || _fillArea) then { 
 	_bldTmp = nearestObjects [screenToWorld getMousePosition, ["Building"], [_area, 15] select (_area isEqualTo 0), true]; 
-	_bldArr = _bldTmp select { ((_x buildingPos 0) isNotEqualTo [0,0,0]) || typeOf _x in (missionNamespace getVariable [QPVAR(additionalBuildings), []]) };
+	// Candidates: buildings with positions, or with a template entry in this category (e.g. bunkers, towers), or listed via PFUNC(addCustomHouse)
+	_bldArr = _bldTmp select {
+		((_x buildingPos 0) isNotEqualTo [0,0,0])
+		|| {isClass (configFile >> "CfgZEIC" >> _fillType >> typeOf _x)}
+		|| {isClass (missionConfigFile >> "CfgZEIC" >> _fillType >> typeOf _x)}
+		|| {typeOf _x in (missionNamespace getVariable [QPVAR(additionalBuildings), []])}
+	};
 	
 	if !(_fillArea) then { _bldArr resize 1 };
 } else {
