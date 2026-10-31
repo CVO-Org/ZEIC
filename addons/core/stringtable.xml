@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="ZEIC_CORE">
     <Package name="Core">
+        <Key ID="STR_ZEIC_core_GB_Confirm">
+            <English>Garrison</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Dynamic">
+            <English>Dynamic simulation</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_DynamicTip">
+            <English>Enables dynamic simulation for the units. Don't use it where the AI can easily be seen (outside, on roofs).</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Faction">
+            <English>Faction</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Hint">
+            <English>Alt when placing: repeat last garrison</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_NoFaction">
+            <English>Select a faction first.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Percent">
+            <English>Occupied [%]</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_PercentTip">
+            <English>Share of the buildings within the radius that get a garrison, picked at random.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Radius">
+            <English>Radius [m]</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_RadiusTip">
+            <English>0: only the building under the module. Otherwise a share of the buildings within this distance.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Recent">
+            <English>Recently used</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_RecentTip">
+            <English>Faction and subcategory pairs used in this game session. Picking one here replaces the faction below.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Search">
+            <English>Search</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_SearchTip">
+            <English>Part of the faction name or class, e.g. TKA</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Side">
+            <English>Side</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_SideAll">
+            <English>All</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Subcategory">
+            <English>Subcategory</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Title">
+            <English>Garrison building</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Trigger">
+            <English>Move AI trigger</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_TriggerTip">
+            <English>Creates a trigger that lets the AI move once a player is near.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Units">
+            <English>Units per building</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_UnitsTip">
+            <English>Limited by the building's positions.</English>
+        </Key>
         <Key ID="STR_ZEIC_core_IF_AllowDamage">
             <English>Allow damage</English>
         </Key>

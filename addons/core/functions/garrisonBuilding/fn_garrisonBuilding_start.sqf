@@ -36,6 +36,7 @@ if (_buildings isEqualTo []) exitWith {
 private _side = switch (getNumber (configFile >> "CfgFactionClasses" >> _factClass >> "side")) do {
 	case 0: { east };
 	case 1: { west };
+	case 3: { civilian };
 	default { independent };
 };
 

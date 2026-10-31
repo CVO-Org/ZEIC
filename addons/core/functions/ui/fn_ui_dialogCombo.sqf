@@ -10,6 +10,7 @@
 * 3: Options <ARRAY of STRINGs>
 * 4: Selected index <NUMBER>
 * 5: Tooltip <STRING> (default: none)
+* 6: Code run on change, gets [display, index, control] <CODE> (default: none)
 *
 * Return Value:
 * Combo <CONTROL>
@@ -17,7 +18,7 @@
 * Public: No
 */
 
-params ["_ctx", ["_key", "", [""]], ["_label", "", [""]], ["_options", [], [[]]], ["_selected", 0, [0]], ["_tooltip", "", [""]]];
+params ["_ctx", ["_key", "", [""]], ["_label", "", [""]], ["_options", [], [[]]], ["_selected", 0, [0]], ["_tooltip", "", [""]], ["_onChange", {}, [{}]]];
 
 private _display = _ctx get "display";
 private _combo = [_ctx, QPVAR(ctrlCombo), [_ctx, _label, _tooltip] call PFUNC(ui_dialogRow)] call PFUNC(ui_dialogAdd);
@@ -26,9 +27,12 @@ private _combo = [_ctx, QPVAR(ctrlCombo), [_ctx, _label, _tooltip] call PFUNC(ui
 _selected = (_selected min (count _options - 1)) max 0;
 _combo lbSetCurSel _selected;
 _combo setVariable [QPVAR(key), _key];
+_combo setVariable [QPVAR(onChange), _onChange];
 _combo ctrlAddEventHandler ["LBSelChanged", {
 	params ["_combo", "_index"];
-	(ctrlParent _combo) setVariable [_combo getVariable QPVAR(key), _index];
+	private _display = ctrlParent _combo;
+	_display setVariable [_combo getVariable QPVAR(key), _index];
+	[_display, _index, _combo] call (_combo getVariable QPVAR(onChange));
 }];
 
 _display setVariable [_key, _selected];

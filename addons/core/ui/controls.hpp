@@ -2,6 +2,9 @@
 // profile colour, rows with a label on the left and a vanilla control on the right.
 // The dialogs are placed by script (functions\ui), these classes only define the look.
 class RscEdit;
+class RscListBox {
+    class ListScrollBar;
+};
 class RscButtonMenuOK;
 class RscButtonMenuCancel;
 class ctrlXSliderH;
@@ -34,6 +37,15 @@ class PVAR(ctrlCombo): RscCombo {
         border = "\a3\3DEN\Data\Controls\ctrlDefault\border_ca.paa";
         arrowFull = "\a3\3DEN\Data\Controls\ctrlDefault\arrowFull_ca.paa";
         arrowEmpty = "\a3\3DEN\Data\Controls\ctrlDefault\arrowEmpty_ca.paa";
+    };
+};
+class PVAR(ctrlList): RscListBox {
+    colorBackground[] = {0, 0, 0, 0.3};
+    class ListScrollBar: ListScrollBar {
+        arrowEmpty = "\a3\3DEN\Data\Controls\ctrlDefault\arrowEmpty_ca.paa";
+        arrowFull = "\a3\3DEN\Data\Controls\ctrlDefault\arrowFull_ca.paa";
+        border = "\a3\3DEN\Data\Controls\ctrlDefault\border_ca.paa";
+        thumb = "\a3\3DEN\Data\Controls\ctrlDefault\thumb_ca.paa";
     };
 };
 class PVAR(ctrlEdit): RscEdit {

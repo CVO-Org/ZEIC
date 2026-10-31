@@ -30,6 +30,7 @@ class CfgFunctions {
             class dev_test_createTemplate {};
             class dev_test_dialog {};
             class dev_test_garrison {};
+            class dev_test_garrisonDialog {};
             class dev_test_mergedCases {};
             class dev_test_missionTemplates {};
             class dev_test_objectModes {};
@@ -52,6 +53,7 @@ class CfgFunctions {
         class garrisonBuilding {
             file = PATH_TO_FUNC_SUB(garrisonBuilding);
             
+            class garrisonBuilding_factions {};
             class garrisonBuilding_finishBuilding {};
             class garrisonBuilding_finishJob {};
             class garrisonBuilding_selectBuildings {};
@@ -61,7 +63,7 @@ class CfgFunctions {
             class garrisonUnit {};
             class mod_garrisonBuilding {};
             class ui_garrisonBuilding {};
-            class ui_garrisonCombo {};
+            class ui_garrisonBuilding_onLoad {};
         };
 
         class InteriorFill {
@@ -137,7 +139,9 @@ class CfgFunctions {
             class ui_dialogCombo {};
             class ui_dialogConfirm {};
             class ui_dialogCreate {};
+            class ui_dialogEdit {};
             class ui_dialogFinish {};
+            class ui_dialogList {};
             class ui_dialogRow {};
             class ui_dialogSlider {};
             class ui_dialogToolbox {};
