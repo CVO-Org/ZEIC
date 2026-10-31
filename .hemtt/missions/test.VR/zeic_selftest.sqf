@@ -347,6 +347,30 @@ if (allCurators isNotEqualTo []) then {
     diag_log text "[ZEIC TEST] SKIP T10.9 no curator in the mission";
 };
 
+// ---------------------------------------------------------------- T13 queue processes buildings in rows: north to south, east to west
+// Row bands are 25 m (y 3062 and 3012 sit inside different bands), created in scrambled order.
+private _rowHouses = createHashMap;
+{
+    _x params ["_name", "_pos"];
+    _rowHouses set [_name, createVehicle [_houseClass, _pos, [], 0, "CAN_COLLIDE"]];
+} forEach [
+    ["SW", [7000, 3012, 0]], ["NE", [7080, 3062, 0]], ["SE", [7080, 3012, 0]],
+    ["NW", [7000, 3062, 0]], ["NC", [7040, 3062, 0]], ["SC", [7040, 3012, 0]]
+];
+private _expectedOrder = ["NE", "NC", "NW", "SE", "SC", "SW"] apply { _rowHouses get _x };
+private _sorted = [values _rowHouses] call ZEIC_fnc_queue_sortBuildings;
+["T13.1 sorted north to south, east to west", _sorted isEqualTo _expectedOrder, _sorted apply { getPosWorld _x apply { round _x } }] call ZEIC_test_check;
+
+private _jobOrder = [];
+isNil {
+    [values _rowHouses, "mil", [0, false, 1]] call ZEIC_fnc_interiorFill_start;
+    private _job = (missionNamespace getVariable ["ZEIC_queue", []]) select -1;
+    _jobOrder = _job getOrDefault ["buildings", []];
+};
+["T13.2 Interior Fill queue uses that order", _jobOrder isEqualTo _expectedOrder] call ZEIC_test_check;
+private _rowTimeout = diag_tickTime + 30;
+waitUntil { sleep 0.05; (missionNamespace getVariable ["ZEIC_queue", []]) isEqualTo [] || {diag_tickTime > _rowTimeout} };
+
 // ---------------------------------------------------------------- summary
 private _passed = { _x } count ZEIC_test_results;
 private _failed = (count ZEIC_test_results) - _passed;

@@ -90,6 +90,7 @@ class CfgFunctions {
 
             class queue_add {};
             class queue_onFrame {};
+            class queue_sortBuildings {};
         };
 
         class rotation {

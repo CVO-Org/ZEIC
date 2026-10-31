@@ -28,7 +28,7 @@ if (_unitTypes isEqualTo []) exitWith {
 };
 
 _buildings = _buildings select { !isNull _x && {(_x buildingPos -1) isNotEqualTo []} };
-_buildings = _buildings arrayIntersect _buildings;
+_buildings = [_buildings arrayIntersect _buildings] call PFUNC(queue_sortBuildings);
 if (_buildings isEqualTo []) exitWith {
 	["Garrison: no buildings with positions selected.", "ERROR"] call PFUNC(misc_logMsg);
 };
