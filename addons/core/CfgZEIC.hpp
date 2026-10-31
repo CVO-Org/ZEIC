@@ -3,14 +3,17 @@
 class CfgZEIC {
     class mil {
         displayName = "Military";
+        shortcut = "ctrl";
         order = 10;
     };
     class civ {
         displayName = "Civilian";
+        shortcut = "shift";
         order = 20;
     };
     class cbrn {
         displayName = "CBRN";
+        shortcut = "ctrl+shift";
         order = 30;
     };
 };

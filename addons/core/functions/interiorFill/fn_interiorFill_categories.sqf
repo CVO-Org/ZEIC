@@ -8,7 +8,7 @@
 * None
 *
 * Return Value:
-* Categories [[display name, category class], ...] <ARRAY>
+* Categories [[display name, category class, shortcut ("" none, "ctrl", "shift", "ctrl+shift")], ...] <ARRAY>
 *
 * Example:
 * call ZEIC_fnc_interiorFill_categories
@@ -26,7 +26,10 @@ if (isNil QPVAR(interiorFillCategories)) then {
 				private _name = getText (_x >> "displayName");
 				if (_name == "") then { _name = configName _x };
 				private _order = [100, getNumber (_x >> "order")] select (isNumber (_x >> "order"));
-				_categories set [_key, [_order, _name, _key]];
+				// "Shift+Ctrl" -> "ctrl+shift", the order of PFUNC(modifiers_get)
+				private _keys = (toLowerANSI getText (_x >> "shortcut")) splitString "+ ";
+				private _shortcut = (["ctrl", "shift", "alt"] select { _x in _keys }) joinString "+";
+				_categories set [_key, [_order, _name, _key, _shortcut]];
 			};
 		} forEach ("true" configClasses (_x >> "CfgZEIC"));
 	} forEach [configFile, missionConfigFile];
@@ -34,7 +37,7 @@ if (isNil QPVAR(interiorFillCategories)) then {
 	private _list = values _categories;
 	_list sort true;
 
-	PVAR(interiorFillCategories) = _list apply { [_x select 1, _x select 2] };
+	PVAR(interiorFillCategories) = _list apply { [_x select 1, _x select 2, _x select 3] };
 };
 
 PVAR(interiorFillCategories)

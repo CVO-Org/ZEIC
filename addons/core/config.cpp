@@ -45,6 +45,7 @@ class CfgPatches {
 #include "CfgVehicles.hpp"
 #include "CfgFactionClasses.hpp"
 #include "CfgZEIC.hpp"
+#include "Cfg3DEN.hpp"
 
 #include "ui\defines.hpp"
 #include "ui\controls.hpp"

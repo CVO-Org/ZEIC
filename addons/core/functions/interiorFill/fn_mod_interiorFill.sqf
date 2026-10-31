@@ -44,10 +44,16 @@ switch _mode do {
 			["No valid buildings within 25m", "ERROR"] call PFUNC(misc_logMsg);
 		};
 		
-		// Skip the dialog and repeat the last fill.
-		if ((inputAction "lookAround") isEqualTo 1) then {
+		// Shortcuts skip the dialog: Alt repeats the last fill, a category's shortcut fills that category
+		// with the last settings (see the "shortcut" property in CfgZEIC)
+		private _shortcut = call PFUNC(modifiers_get);
+		private _shortcutCategory = if (_shortcut in ["", "alt"]) then { -1 } else {
+			(call PFUNC(interiorFill_categories)) findIf { (_x select 2) == _shortcut }
+		};
+
+		if (_shortcut == "alt" || {_shortcutCategory != -1}) then {
 			[
-				missionNamespace getVariable[QPVAR(UiInteriorType), 0],
+				[_shortcutCategory, missionNamespace getVariable [QPVAR(UiInteriorType), 0]] select (_shortcutCategory == -1),
 				missionNamespace getVariable[QPVAR(UiInteriorRadius), 0],
 				missionNamespace getVariable[QPVAR(UiInteriorObjects), OBJECT_MODE_SIMPLE],
 				missionNamespace getVariable[QPVAR(UiInteriorDamage), false]

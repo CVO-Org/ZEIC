@@ -32,12 +32,12 @@ class CfgZEIC {
     class mil {
         displayName = "Military";
         tooltip     = "Military furnishing: ammo crates, bunks, sandbags, ...";
-        shortcut    = "ctrl";   // "ctrl", "alt", "shift" or "" (none)
+        shortcut    = "ctrl";   // "ctrl", "shift", "ctrl+shift" or "" (none); Alt is taken
         order       = 10;       // sort order in the UI, lower first
     };
     class civ {
         displayName = "Civilian";
-        shortcut    = "alt";
+        shortcut    = "shift";
         order       = 20;
     };
     class cbrn {
@@ -51,7 +51,7 @@ class CfgZEIC {
 |---|---|---|---|
 | `displayName` | string | no | Shown in the Interior Fill dialog. Stringtable key (`$STR_...`) allowed. Falls back to the class name. |
 | `tooltip` | string | no | |
-| `shortcut` | string | no | Modifier held while placing the module → skip the dialog and fill this category with the last-used settings. |
+| `shortcut` | string | no | Modifiers held while placing the module → skip the dialog and fill this category with the last-used settings: `"ctrl"`, `"shift"` or `"ctrl+shift"`. Alt is reserved for "repeat the last fill". ZEIC uses Ctrl for Military, Shift for Civilian, Ctrl+Shift for CBRN. |
 | `order` | number | no | Default `100`. Ties sorted by `displayName`. |
 
 **Adding a category** from another addon or mod: declare a new subclass of `CfgZEIC`.

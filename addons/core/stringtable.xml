@@ -113,7 +113,10 @@
             <English>0: only the building under the module. Otherwise all buildings within this distance.</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_Shortcut">
-            <English>Shortcut: hold Alt while placing the module to fill again with the last settings, without this dialog.</English>
+            <English>Shortcuts, held while placing the module, skip this dialog. Alt: the last fill again%1 (each with the last radius and objects)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_ShortcutCategory">
+            <English>%1: %2</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_Title">
             <English>Interior fill</English>
