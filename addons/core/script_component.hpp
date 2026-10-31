@@ -18,6 +18,14 @@
 #define OBJECT_MODE_NORMAL 1
 #define OBJECT_MODE_EDITABLE 2
 
+// Dialogs: grid unit (scales with the UI size setting) and the colours set by script, see ui\controls.hpp
+#define UI_GW (pixelW * pixelGrid * 0.5)
+#define UI_GH (pixelH * pixelGrid * 0.5)
+#define UI_COLOR_FIELD [0.137, 0.137, 0.129, 1]
+#define UI_COLOR_FIELD_ON [0.227, 0.227, 0.22, 1]
+#define UI_COLOR_TEXT [0.945, 0.937, 0.91, 1]
+#define UI_COLOR_MUTED [0.706, 0.698, 0.663, 1]
+
 // Progress feedback states (index into FEEDBACK_COLORS / FEEDBACK_WIDTHS)
 #define FEEDBACK_QUEUED 0
 #define FEEDBACK_PROCESSING 1

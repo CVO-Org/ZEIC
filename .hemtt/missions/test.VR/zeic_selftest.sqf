@@ -347,6 +347,33 @@ if (allCurators isNotEqualTo []) then {
     diag_log text "[ZEIC TEST] SKIP T10.9 no curator in the mission";
 };
 
+// ---------------------------------------------------------------- T14 Interior Fill dialog (#6, #25)
+private _dlgHouse = [_houseClass, 40] call ZEIC_test_spawn;
+ZEIC_UiLastBuilding = _dlgHouse;
+ZEIC_UiLastPosition = getPos _dlgHouse;
+ZEIC_UiInteriorType = 1;
+ZEIC_UiInteriorRadius = 0;
+createDialog "Rsc_ZEIC_InteriorFill";
+private _dlg = findDisplay 1705;
+["T14.1 dialog opens", !isNull _dlg] call ZEIC_test_check;
+if (!isNull _dlg) then {
+    private _segments = _dlg getVariable ["category_buttons", []];
+    ["T14.2 one segment per category", count _segments == count (call ZEIC_fnc_interiorFill_categories), count _segments] call ZEIC_test_check;
+    ["T14.3 last used category preselected", (_dlg getVariable ["category", -1]) == 1] call ZEIC_test_check;
+    ["T14.4 object modes and damage shown outside Eden", count (_dlg getVariable ["objects_buttons", []]) == 3 && {!isNil {_dlg getVariable "damage"}}] call ZEIC_test_check;
+
+    [_dlg, "category", 0] call ZEIC_fnc_ui_dialogSelect;
+    ["T14.5 clicking a segment selects it", (_dlg getVariable ["category", -1]) == 0] call ZEIC_test_check;
+
+    [_dlg] call ZEIC_fnc_ui_dialogConfirm;
+    ["T14.6 confirm closes the dialog", isNull findDisplay 1705] call ZEIC_test_check;
+    ["T14.7 confirm starts the fill", _dlgHouse getVariable ["ZEIC_queued", false] || {!isNull (_dlgHouse getVariable ["ZEIC_furnished", objNull])}] call ZEIC_test_check;
+    ["T14.8 choice remembered", ZEIC_UiInteriorType == 0] call ZEIC_test_check;
+
+    private _dlgTimeout = diag_tickTime + 30;
+    waitUntil { sleep 0.05; (missionNamespace getVariable ["ZEIC_queue", []]) isEqualTo [] || {diag_tickTime > _dlgTimeout} };
+};
+
 // ---------------------------------------------------------------- summary
 private _passed = { _x } count ZEIC_test_results;
 private _failed = (count ZEIC_test_results) - _passed;

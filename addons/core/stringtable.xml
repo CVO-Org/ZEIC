@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="ZEIC_CORE">
+    <Package name="Core">
+        <Key ID="STR_ZEIC_core_IF_AllowDamage">
+            <English>Allow damage</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_AllowDamageTip">
+            <English>The building can be destroyed. Its interior may be left floating.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_Category">
+            <English>Category</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_Confirm">
+            <English>Fill</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_Hint">
+            <English>Alt when placing: repeat last fill</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_Objects">
+            <English>Objects</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_ObjectsEditable">
+            <English>Editable</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_ObjectsEditableTip">
+            <English>Can be moved and deleted in Zeus. Zeus gets slow with many of them.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_ObjectsNormal">
+            <English>Objects</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_ObjectsNormalTip">
+            <English>Normal objects, not added to Zeus.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_ObjectsSimple">
+            <English>Simple</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_ObjectsSimpleTip">
+            <English>Fastest. Can't be moved or deleted in Zeus.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_Radius">
+            <English>Radius</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_RadiusNearest">
+            <English>This building</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_Title">
+            <English>Interior fill</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_UI_Cancel">
+            <English>Cancel</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_UI_Meters">
+            <English>%1 m</English>
+        </Key>
+    </Package>
+</Project>

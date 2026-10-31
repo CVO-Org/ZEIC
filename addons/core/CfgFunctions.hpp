@@ -44,9 +44,6 @@ class CfgFunctions {
         class InteriorFill {
             file = PATH_TO_FUNC_SUB(InteriorFill);
             
-            class addInteriorFillCategories {};
-
-            class checkDetailLevel {};
             class createTemplate {};
             class findTemplates {};
             class interiorFill_categories {};
@@ -62,6 +59,7 @@ class CfgFunctions {
             class mod_interiorFill {};
             class randomiseObject {};
             class ui_interiorFill {};
+            class ui_interiorFill_onLoad {};
         };
 
         class listBuildings {
@@ -102,9 +100,23 @@ class CfgFunctions {
 
         class saveBuildingScheme {
             file = PATH_TO_FUNC_SUB(saveBuildingScheme);
-            
+
             class isVanillaObject {};
             class mod_saveBuildingScheme {};
+        };
+
+        class ui {
+            file = PATH_TO_FUNC_SUB(ui);
+
+            class ui_dialogAdd {};
+            class ui_dialogConfirm {};
+            class ui_dialogCreate {};
+            class ui_dialogFinish {};
+            class ui_dialogLabel {};
+            class ui_dialogSegments {};
+            class ui_dialogSelect {};
+            class ui_dialogSlider {};
+            class ui_dialogToggle {};
         };
 
 

@@ -17,8 +17,9 @@ switch _mode do {
 			if (is3DEN) then {delete3DENEntities [_logic]} else {deleteVehicle _logic};
 		};
 		
-		// Work out which building to fill
+		// Work out which building to fill. The position is the center of area fills.
 		PVAR(UiLastBuilding) = objNull;
+		PVAR(UiLastPosition) = screenToWorld getMousePosition;
 		
 		if (is3DEN) then {
 			//systemChat str get3DENMouseOver;
@@ -43,14 +44,13 @@ switch _mode do {
 			["No valid buildings within 25m", "ERROR"] call PFUNC(misc_logMsg);
 		};
 		
-		// Skip UI and use default values.
+		// Skip the dialog and repeat the last fill.
 		if ((inputAction "lookAround") isEqualTo 1) then {
 			[
 				missionNamespace getVariable[QPVAR(UiInteriorType), 0],
-				0,
+				missionNamespace getVariable[QPVAR(UiInteriorRadius), 0],
 				missionNamespace getVariable[QPVAR(UiInteriorObjects), OBJECT_MODE_SIMPLE],
-				missionNamespace getVariable[QPVAR(UiInteriorDamage), false],
-				missionNamespace getVariable[QPVAR(UiInteriorDetail), 1]
+				missionNamespace getVariable[QPVAR(UiInteriorDamage), false]
 			] call PFUNC(ui_interiorFill);
 		} else {
 			// Start Display 1705

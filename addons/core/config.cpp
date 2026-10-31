@@ -47,6 +47,7 @@ class CfgPatches {
 #include "CfgZEIC.hpp"
 
 #include "ui\defines.hpp"
+#include "ui\controls.hpp"
 #include "ui\Rsc_ZEIC_GarrisonBuilding.hpp"
 #include "ui\Rsc_ZEIC_InteriorFill.hpp"
 #include "ui\Rsc_ZEIC_ListBuildings.hpp"
