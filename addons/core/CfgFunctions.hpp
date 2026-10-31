@@ -112,11 +112,15 @@ class CfgFunctions {
             class ui_dialogConfirm {};
             class ui_dialogCreate {};
             class ui_dialogFinish {};
+            class ui_dialogHit {};
             class ui_dialogLabel {};
+            class ui_dialogPanel {};
             class ui_dialogSegments {};
             class ui_dialogSelect {};
             class ui_dialogSlider {};
             class ui_dialogToggle {};
+            class ui_panelColor {};
+            class ui_panelLayout {};
         };
 
 

@@ -1,36 +1,32 @@
-// Controls of the ZEIC dialogs: dark cards, one amber accent (style "A", see #25).
-// They are placed by script (PFUNC(ui_dialogCreate) and friends), so they only define the look.
-#define C_PANEL {0.078, 0.078, 0.086, 0.94}
-#define C_FOOTER {0.106, 0.106, 0.102, 0.97}
-#define C_LINE {0.227, 0.227, 0.22, 1}
-#define C_FIELD {0.137, 0.137, 0.129, 1}
-#define C_FIELD_ON {0.227, 0.227, 0.22, 1}
-#define C_TEXT {0.945, 0.937, 0.91, 1}
-#define C_MUTED {0.706, 0.698, 0.663, 1}
-#define C_DIM {0.533, 0.529, 0.502, 1}
-#define C_ACCENT {0.937, 0.624, 0.153, 1}
-#define C_ACCENT_HOVER {0.973, 0.71, 0.33, 1}
-#define C_ON_ACCENT {0.255, 0.141, 0.008, 1}
+// Controls of the ZEIC dialogs: dark glass with light films on it, one amber accent, rounded corners
+// (style "A", design inspired by Enhanced First Aid Kits by MissHeda, with permission).
+// The dialogs are placed and coloured by script (functions\ui), these classes only define the look.
+// Colours set by script are in script_component.hpp (UI_C_*), keep both in sync.
 #define C_CLEAR {0, 0, 0, 0}
+#define C_FIELD {1, 1, 1, 0.06}
+#define C_TEXT {0.925, 0.933, 0.949, 1}
+#define C_TEXT2 {0.639, 0.675, 0.725, 1}
+#define C_MUTED {0.412, 0.443, 0.494, 1}
+#define C_ACCENT {0.961, 0.647, 0.141, 1}
 
-#define SIZE_TITLE "pixelH * pixelGrid * 1.3"
-#define SIZE_TEXT "pixelH * pixelGrid * 1.05"
-#define SIZE_SMALL "pixelH * pixelGrid * 0.9"
+// Text sizes, relative to the screen height like the rest of the dialog
+#define SIZE_TITLE "safeZoneH * 0.027"
+#define SIZE_TEXT "safeZoneH * 0.021"
+#define SIZE_SMALL "safeZoneH * 0.017"
 
-class RscXSliderH;
+class RscPicture;
 
-class PVAR(ctrlBackground): RscText {
+// Pieces of rounded panels (see PFUNC(ui_dialogPanel))
+class PVAR(ctrlRect): RscText {
     text = "";
-    colorBackground[] = C_PANEL;
+    shadow = 0;
+    colorBackground[] = C_FIELD;
 };
-class PVAR(ctrlFooter): PVAR(ctrlBackground) {
-    colorBackground[] = C_FOOTER;
-};
-class PVAR(ctrlLine): PVAR(ctrlBackground) {
-    colorBackground[] = C_LINE;
-};
-class PVAR(ctrlAccentLine): PVAR(ctrlBackground) {
-    colorBackground[] = C_ACCENT;
+class PVAR(ctrlCorner): RscPicture {
+    text = "";
+    shadow = 0;
+    colorText[] = C_FIELD;
+    colorBackground[] = C_CLEAR;
 };
 
 class PVAR(ctrlText): RscText {
@@ -40,12 +36,15 @@ class PVAR(ctrlText): RscText {
     colorText[] = C_TEXT;
     colorBackground[] = C_CLEAR;
 };
+class PVAR(ctrlTextCenter): PVAR(ctrlText) {
+    style = 2;
+};
 class PVAR(ctrlTitle): PVAR(ctrlText) {
     font = "RobotoCondensedBold";
     sizeEx = SIZE_TITLE;
 };
 class PVAR(ctrlSubtitle): PVAR(ctrlText) {
-    colorText[] = C_MUTED;
+    colorText[] = C_TEXT2;
 };
 class PVAR(ctrlLabel): PVAR(ctrlText) {
     font = "RobotoCondensedBold";
@@ -54,59 +53,36 @@ class PVAR(ctrlLabel): PVAR(ctrlText) {
 };
 class PVAR(ctrlValue): PVAR(ctrlText) {
     style = 1; // right
+    colorText[] = C_ACCENT;
+    font = "RobotoCondensedBold";
 };
 class PVAR(ctrlHint): PVAR(ctrlText) {
     sizeEx = SIZE_SMALL;
-    colorText[] = C_DIM;
+    colorText[] = C_MUTED;
 };
 
-class PVAR(ctrlSegment): RscButton {
-    style = 2; // centered
-    font = "RobotoCondensed";
-    sizeEx = SIZE_TEXT;
-    shadow = 0;
+// Invisible click area over a panel; the panel shows the state (see PFUNC(ui_dialogPaint))
+class PVAR(ctrlHit): RscButton {
+    text = "";
     borderSize = 0;
+    shadow = 0;
     offsetX = 0;
     offsetY = 0;
     offsetPressedX = 0;
     offsetPressedY = 0;
-    colorText[] = C_MUTED;
-    colorDisabled[] = C_DIM;
-    colorBackground[] = C_FIELD;
-    colorBackgroundActive[] = C_FIELD_ON;
-    colorBackgroundDisabled[] = C_FIELD;
-    colorFocused[] = C_FIELD;
+    colorText[] = C_CLEAR;
+    colorDisabled[] = C_CLEAR;
+    colorBackground[] = C_CLEAR;
+    colorBackgroundActive[] = C_CLEAR;
+    colorBackgroundDisabled[] = C_CLEAR;
+    colorFocused[] = C_CLEAR;
     colorShadow[] = C_CLEAR;
     colorBorder[] = C_CLEAR;
 };
-class PVAR(ctrlButton): PVAR(ctrlSegment) {
-    colorText[] = C_TEXT;
-    colorBackground[] = C_FIELD_ON;
-    colorFocused[] = C_FIELD_ON;
-    colorBackgroundActive[] = C_LINE;
-};
-class PVAR(ctrlButtonPrimary): PVAR(ctrlSegment) {
-    font = "RobotoCondensedBold";
-    colorText[] = C_ON_ACCENT;
-    colorBackground[] = C_ACCENT;
-    colorFocused[] = C_ACCENT;
-    colorBackgroundActive[] = C_ACCENT_HOVER;
-};
 
-class PVAR(ctrlSlider): RscXSliderH {
-    color[] = C_ACCENT;
-    colorActive[] = C_ACCENT_HOVER;
-    colorDisabled[] = C_DIM;
-};
-class PVAR(ctrlCheckbox): RscCheckBox {
-    color[] = C_MUTED;
-    colorFocused[] = C_TEXT;
-    colorHover[] = C_TEXT;
-    colorPressed[] = C_ACCENT;
-    colorDisabled[] = C_DIM;
-    colorBackground[] = C_CLEAR;
-    colorBackgroundFocused[] = C_CLEAR;
-    colorBackgroundHover[] = C_CLEAR;
-    colorBackgroundPressed[] = C_CLEAR;
-    colorBackgroundDisabled[] = C_CLEAR;
+// Invisible slider over the drawn track (see PFUNC(ui_dialogSlider))
+class PVAR(ctrlSliderInput): RscSlider {
+    color[] = C_CLEAR;
+    colorActive[] = C_CLEAR;
+    colorDisabled[] = C_CLEAR;
 };

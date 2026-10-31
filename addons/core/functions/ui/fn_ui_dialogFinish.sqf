@@ -21,20 +21,26 @@ params ["_ctx", ["_hint", "", [""]], ["_confirmText", "OK", [""]], ["_onConfirm"
 private _display = _ctx get "display";
 private _w = _ctx get "w";
 private _pad = _ctx get "pad";
-private _bodyHeight = (_ctx get "y") + UI_GH;
-private _footerHeight = 10 * UI_GH;
-private _buttonW = 18 * UI_GW;
-private _buttonH = 6 * UI_GH;
+private _bodyHeight = (_ctx get "y") + 0.6 * UI_GH;
+private _buttonW = 13 * UI_GW;
+private _buttonH = 4.6 * UI_GH;
 private _buttonY = _bodyHeight + 2 * UI_GH;
+private _height = _buttonY + _buttonH + 2 * UI_GH;
 
-[_ctx, QPVAR(ctrlFooter), [0, _bodyHeight, _w, _footerHeight]] call PFUNC(ui_dialogAdd);
-[_ctx, QPVAR(ctrlLine), [0, _bodyHeight, _w, pixelH]] call PFUNC(ui_dialogAdd);
+[_ctx, [0, _bodyHeight, _w, pixelH], 0, UI_C_LINE] call PFUNC(ui_dialogPanel);
 ([_ctx, QPVAR(ctrlHint), [_pad, _buttonY, _w - 2 * _pad - 2 * _buttonW - 2 * UI_GW, _buttonH]] call PFUNC(ui_dialogAdd)) ctrlSetText _hint;
 
-private _confirm = [_ctx, QPVAR(ctrlButtonPrimary), [_w - _pad - _buttonW, _buttonY, _buttonW, _buttonH]] call PFUNC(ui_dialogAdd);
-_confirm ctrlSetText _confirmText;
-private _cancel = [_ctx, QPVAR(ctrlButton), [_w - _pad - 2 * _buttonW - UI_GW, _buttonY, _buttonW, _buttonH]] call PFUNC(ui_dialogAdd);
-_cancel ctrlSetText LLSTRING(UI_Cancel);
+private _fnc_button = {
+	params ["_bx", "_text", "_kind"];
+	private _pos = [_bx, _buttonY, _buttonW, _buttonH];
+	private _pieces = [_ctx, _pos, 0.8 * UI_GH, UI_C_FIELD] call PFUNC(ui_dialogPanel);
+	private _label = [_ctx, QPVAR(ctrlTextCenter), _pos] call PFUNC(ui_dialogAdd);
+	_label ctrlSetText _text;
+	if (_kind == "primary") then { _label ctrlSetFont "RobotoCondensedBold" };
+	[_ctx, _pos, _pieces, _label, _kind] call PFUNC(ui_dialogHit)
+};
+private _cancel = [_w - _pad - 2 * _buttonW - UI_GW, LLSTRING(UI_Cancel), "secondary"] call _fnc_button;
+private _confirm = [_w - _pad - _buttonW, _confirmText, "primary"] call _fnc_button;
 
 _display setVariable [QPVAR(onConfirm), _onConfirm];
 _confirm ctrlAddEventHandler ["ButtonClick", { [ctrlParent (_this select 0)] call PFUNC(ui_dialogConfirm) }];
@@ -45,16 +51,20 @@ _display displayAddEventHandler ["KeyDown", {
 	false
 }];
 
-// Background height, then move everything to the center of the screen
-private _height = _bodyHeight + _footerHeight;
-((_ctx get "background") getVariable QPVAR(relPos)) set [3, _bodyHeight];
-private _x0 = safeZoneX + (safeZoneW - _w) / 2;
-private _y0 = safeZoneY + (safeZoneH - _height) / 2;
+// The window gets its height, then everything moves to the center of the screen, on whole pixels
+[_ctx get "window", [0, 0, _w, _height], 1.2 * UI_GH] call PFUNC(ui_panelLayout);
+private _x0 = safeZoneX + (round ((safeZoneW - _w) / 2 / pixelW)) * pixelW;
+private _y0 = safeZoneY + (round ((safeZoneH - _height) / 2 / pixelH)) * pixelH;
 
 {
 	(_x getVariable [QPVAR(relPos), [0, 0, 0, 0]]) params ["_rx", "_ry", "_rw", "_rh"];
 	_x ctrlSetPosition [_x0 + _rx, _y0 + _ry, _rw, _rh];
 	_x ctrlCommit 0;
 } forEach (_ctx get "controls");
+
+{
+	_x params ["_ctrl", "_code"];
+	[_ctrl] call _code;
+} forEach (_ctx get "onLayout");
 
 ctrlSetFocus _confirm;

@@ -18,13 +18,24 @@
 #define OBJECT_MODE_NORMAL 1
 #define OBJECT_MODE_EDITABLE 2
 
-// Dialogs: grid unit (scales with the UI size setting) and the colours set by script, see ui\controls.hpp
-#define UI_GW (pixelW * pixelGrid * 0.5)
-#define UI_GH (pixelH * pixelGrid * 0.5)
-#define UI_COLOR_FIELD [0.137, 0.137, 0.129, 1]
-#define UI_COLOR_FIELD_ON [0.227, 0.227, 0.22, 1]
-#define UI_COLOR_TEXT [0.945, 0.937, 0.91, 1]
-#define UI_COLOR_MUTED [0.706, 0.698, 0.663, 1]
+// Dialogs: one unit is 1 % of the screen height (UI_GH), UI_GW is the same length horizontally.
+// Colours set by script; the config ones are in ui\controls.hpp, keep both in sync.
+#define UI_GH (safeZoneH / 100)
+#define UI_GW (safeZoneH / 100 * pixelW / pixelH)
+#define UI_TEX(var1) QUOTE(\MAINPREFIX\PREFIX\addons\COMPONENT\ui\data\var1.paa)
+#define UI_C_WINDOW [0.04, 0.045, 0.055, 0.88]
+#define UI_C_FIELD [1, 1, 1, 0.06]
+#define UI_C_FIELD_HOVER [1, 1, 1, 0.1]
+#define UI_C_RAISED [1, 1, 1, 0.15]
+#define UI_C_LINE [1, 1, 1, 0.07]
+#define UI_C_TEXT [0.925, 0.933, 0.949, 1]
+#define UI_C_TEXT2 [0.639, 0.675, 0.725, 1]
+#define UI_C_MUTED [0.412, 0.443, 0.494, 1]
+#define UI_C_ACCENT [0.961, 0.647, 0.141, 1]
+#define UI_C_ACCENT_HOVER [1, 0.733, 0.29, 1]
+#define UI_C_ACCENT_SOFT [0.961, 0.647, 0.141, 0.22]
+#define UI_C_ACCENT_SOFT_HOVER [0.961, 0.647, 0.141, 0.32]
+#define UI_C_ON_ACCENT [0.086, 0.094, 0.114, 1]
 
 // Progress feedback states (index into FEEDBACK_COLORS / FEEDBACK_WIDTHS)
 #define FEEDBACK_QUEUED 0

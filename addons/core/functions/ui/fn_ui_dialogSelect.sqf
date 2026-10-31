@@ -19,8 +19,6 @@ params [["_display", displayNull, [displayNull]], ["_key", "", [""]], ["_index",
 _display setVariable [_key, _index];
 
 {
-	private _selected = _forEachIndex == _index;
-	_x ctrlSetBackgroundColor ([UI_COLOR_FIELD, UI_COLOR_FIELD_ON] select _selected);
-	_x ctrlSetTextColor ([UI_COLOR_MUTED, UI_COLOR_TEXT] select _selected);
-	(_x getVariable [QPVAR(bar), controlNull]) ctrlShow _selected;
+	_x setVariable [QPVAR(selected), _forEachIndex == _index];
+	[_x] call (_x getVariable QPVAR(paint));
 } forEach (_display getVariable [format ["%1_buttons", _key], []]);
