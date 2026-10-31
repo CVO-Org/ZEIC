@@ -4,7 +4,7 @@
 * EachFrame handler of the processing queue. Runs job steps until the time budget for this frame is used up,
 * then sends the collected progress feedback. Removes itself once the queue is empty.
 *
-* Budget: ZEIC_queueBudget (seconds) if set, otherwise 3 ms on clients and 1 ms on a dedicated server.
+* Budget: ZEIC_queueBudget (seconds) if set, otherwise 1.5 ms on clients and 0.5 ms on a dedicated server.
 *
 * Arguments:
 * 0: Event handler ID <NUMBER>

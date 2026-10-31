@@ -10,8 +10,8 @@
 
 
 // Processing queue: default time budget per frame, in seconds
-#define QUEUE_BUDGET_CLIENT 0.003
-#define QUEUE_BUDGET_SERVER 0.001
+#define QUEUE_BUDGET_CLIENT 0.0015
+#define QUEUE_BUDGET_SERVER 0.0005
 
 // Progress feedback states (index into FEEDBACK_COLORS / FEEDBACK_WIDTHS)
 #define FEEDBACK_QUEUED 0
