@@ -38,7 +38,7 @@ if (!is3DEN) then {
 	[_ctx, "damage", LLSTRING(IF_AllowDamage), missionNamespace getVariable [QPVAR(UiInteriorDamage), false], LLSTRING(IF_AllowDamageTip)] call PFUNC(ui_dialogCheckbox);
 };
 
-[_ctx, LLSTRING(IF_Hint), LLSTRING(IF_Confirm), {
+[_ctx, LLSTRING(IF_Description), LLSTRING(IF_Confirm), {
 	[
 		_this getVariable ["category", 0],
 		_this getVariable ["radius", 0],
