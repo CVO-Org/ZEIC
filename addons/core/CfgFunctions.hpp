@@ -4,7 +4,6 @@ class CfgFunctions {
         class common {
             file = PATH_TO_FUNC_SUB(common);
             
-            class init_preStart { preStart = 1; };
             class init { postInit = 1; };   // ZEN module registration
 
             class mod_findBPos {};
@@ -50,6 +49,7 @@ class CfgFunctions {
             class checkDetailLevel {};
             class createTemplate {};
             class findTemplates {};
+            class interiorFill_categories {};
             class interiorFill_enqueue {};
             class interiorFill_finishBuilding {};
             class interiorFill_finishJob {};
@@ -61,7 +61,6 @@ class CfgFunctions {
             class interiorFill_step {};
             class mod_interiorFill {};
             class randomiseObject {};
-            class templateCanSpawn {};
             class ui_interiorFill {};
         };
 

@@ -50,13 +50,16 @@ private _functions = [];
 private _broken = _functions select { !((missionNamespace getVariable [_x, 0]) isEqualType {}) };
 ["T1 all ZEIC functions compiled", _broken isEqualTo [], [count _functions, _broken]] call ZEIC_test_check;
 
-// ---------------------------------------------------------------- T2 templateCanSpawn (#29)
-["T2.1 valid template accepted",
-    [[["Land_Pallets_F", [0,0,0], 0], ["Land_Sack_F", [1,0,0], 0]]] call ZEIC_fnc_templateCanSpawn] call ZEIC_test_check;
-["T2.2 invalid SECOND object rejected",
-    !([[["Land_Pallets_F", [0,0,0], 0], ["Does_Not_Exist_F", [1,0,0], 0]]] call ZEIC_fnc_templateCanSpawn)] call ZEIC_test_check;
-["T2.3 invalid FIRST object rejected",
-    !([[["Does_Not_Exist_F", [0,0,0], 0], ["Land_Pallets_F", [1,0,0], 0]]] call ZEIC_fnc_templateCanSpawn)] call ZEIC_test_check;
+// ---------------------------------------------------------------- T2 templates with missing objects are skipped (#29, #24)
+private _t2Valid = [["Land_Pallets_F", [0,0,0], 0], ["Land_Sack_F", [1,0,0], 0]];
+private _t2Second = [["Land_Pallets_F", [0,0,0], 0], ["Does_Not_Exist_F", [1,0,0], 0]];
+private _t2First = [["Does_Not_Exist_F", [0,0,0], 0], ["Land_Pallets_F", [1,0,0], 0]];
+ZEIC_mil_customBuildings = [["Land_i_House_Small_03_V1_F", [_t2Valid, _t2Second, _t2First]]];
+private _t2Found = ["Land_i_House_Small_03_V1_F", "mil", true] call ZEIC_fnc_findTemplates;
+["T2.1 valid template kept", _t2Valid in _t2Found] call ZEIC_test_check;
+["T2.2 template with missing SECOND object skipped", !(_t2Second in _t2Found)] call ZEIC_test_check;
+["T2.3 template with missing FIRST object skipped", !(_t2First in _t2Found)] call ZEIC_test_check;
+ZEIC_mil_customBuildings = nil;
 
 // ---------------------------------------------------------------- T3 randomiseObject (#29)
 private _rnd = ["Does_Not_Exist_F"] call ZEIC_fnc_randomiseObject;
@@ -241,6 +244,62 @@ sleep 1;
     [1, "objects", false],
     [2, "editable in Zeus", false]
 ];
+
+// ---------------------------------------------------------------- T11 config templates match the SQF templates (#24)
+private _cfgRoot = configFile >> "CfgZEIC";
+["T11.1 categories mil, civ, cbrn exist", ({ isClass (_cfgRoot >> _x) } count ["mil", "civ", "cbrn"]) == 3] call ZEIC_test_check;
+["T11.2 vanilla template addon loaded", isClass (configFile >> "CfgPatches" >> "ZEIC_templates_vanilla")] call ZEIC_test_check;
+{
+    _x params ["_templateAddon", "_dependency"];
+    [format ["T11.3 %1 loaded only with its dependency", _templateAddon],
+        isClass (configFile >> "CfgPatches" >> _templateAddon) isEqualTo isClass (configFile >> "CfgPatches" >> _dependency)] call ZEIC_test_check;
+} forEach [
+    ["ZEIC_templates_cup", "CUP_Editor_Buildings_Config"],
+    ["ZEIC_templates_gm", "gm_core"],
+    ["ZEIC_templates_sog", "data_f_vietnam"],
+    ["ZEIC_templates_ws", "data_f_lxWS_Loadorder"],
+    ["ZEIC_templates_optre", "OPTRE_Core"]
+];
+
+ZEIC_mil_customBuildings = nil;
+ZEIC_civ_customBuildings = nil;
+ZEIC_cbrn_customBuildings = nil;
+
+// The lookup returns exactly the config templates (addon + mission), inherited buildings (fall-through cases) included.
+private _fnc_raw = {
+    params ["_root", "_category", "_class"];
+    (configProperties [_root >> "CfgZEIC" >> _category >> _class, "isClass _x", true]) apply { getArray (_x >> "objects") }
+};
+{
+    _x params ["_class", "_category"];
+    private _found = [_class, _category, true] call ZEIC_fnc_findTemplates;
+    private _raw = ([configFile, _category, _class] call _fnc_raw) + ([missionConfigFile, _category, _class] call _fnc_raw);
+    [format ["T11.%1 %2 (%3): lookup = config", 4 + _forEachIndex, _class, _category],
+        _raw isNotEqualTo [] && {_found isEqualTo _raw}, [count _found, count _raw]] call ZEIC_test_check;
+} forEach [
+    ["Land_i_House_Small_03_V1_F", "mil"],
+    ["Land_i_House_Small_03_V1_F", "civ"],
+    ["Land_i_House_Small_03_V1_F", "cbrn"],
+    ["Land_Mine_01_warehouse_F", "mil"],
+    ["Land_Cargo_Tower_V1_No1_F", "mil"],
+    ["Land_Cargo_Tower_V3_F", "mil"],
+    ["Land_DeconTent_01_AAF_F", "cbrn"],
+    ["Land_DeconTent_01_yellow_F", "cbrn"]
+];
+
+["T11.12 inherited building has its parent's templates",
+    count (["Land_DeconTent_01_AAF_F", "cbrn", true] call ZEIC_fnc_findTemplates) == count (["Land_DeconTent_01_NATO_F", "cbrn", true] call ZEIC_fnc_findTemplates)] call ZEIC_test_check;
+["T11.13 lookup is cached", "mil|land_i_house_small_03_v1_f" in (uiNamespace getVariable ["ZEIC_templateCache", createHashMap])] call ZEIC_test_check;
+["T11.14 variant groups read from config", (["Land_GasTank_01_blue_F"] call ZEIC_fnc_randomiseObject) in ["Land_GasTank_01_blue_F", "Land_GasTank_01_yellow_F", "Land_GasTank_01_khaki_F"]] call ZEIC_test_check;
+
+// ---------------------------------------------------------------- T12 mission templates and categories (description.ext, #24)
+private _categoryClasses = (call ZEIC_fnc_interiorFill_categories) apply { _x select 1 };
+["T12.1 categories sorted by order: mil, civ, cbrn first", (_categoryClasses select [0, 3]) isEqualTo ["mil", "civ", "cbrn"], _categoryClasses] call ZEIC_test_check;
+["T12.2 mission category listed", "zeic_test" in _categoryClasses] call ZEIC_test_check;
+private _missionFound = ["Land_i_House_Small_03_V1_F", "zeic_test", true] call ZEIC_fnc_findTemplates;
+["T12.3 mission category: template with missing object skipped", count _missionFound == 1, count _missionFound] call ZEIC_test_check;
+["T12.4 mission template added to an addon category",
+    [["Land_Pallets_F", [0, 0, 0.5], 45]] in (["Land_i_House_Small_03_V1_F", "mil", true] call ZEIC_fnc_findTemplates)] call ZEIC_test_check;
 
 // ---------------------------------------------------------------- T10 garrison through the queue + area selection (#23)
 private _gCenter = [3000, 2000, 0];

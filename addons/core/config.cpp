@@ -44,6 +44,7 @@ class CfgPatches {
 
 #include "CfgVehicles.hpp"
 #include "CfgFactionClasses.hpp"
+#include "CfgZEIC.hpp"
 
 #include "ui\defines.hpp"
 #include "ui\Rsc_ZEIC_GarrisonBuilding.hpp"
