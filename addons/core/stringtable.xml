@@ -5,7 +5,7 @@
             <English>Garrison</English>
         </Key>
         <Key ID="STR_ZEIC_core_GB_Description">
-            <English>Places infantry of a faction on the positions inside buildings. Pick a faction (search and side narrow the list) and its subcategory, or a recently used pair. Radius 0 garrisons only the building under the module, otherwise the given share of the buildings within the radius. Alt when placing: repeat the last garrison.</English>
+            <English>Places infantry of a faction on the positions inside buildings. Pick a faction (search and side narrow the list) and its subcategory, or a recently used pair. Radius 0 garrisons only the building under the module, otherwise the given share of the buildings within the radius.</English>
         </Key>
         <Key ID="STR_ZEIC_core_GB_Dynamic">
             <English>Dynamic simulation</English>
@@ -42,6 +42,9 @@
         </Key>
         <Key ID="STR_ZEIC_core_GB_SearchTip">
             <English>Part of the faction name or class, e.g. TKA</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Shortcut">
+            <English>Shortcut: hold Alt while placing the module to garrison again with the last settings, without this dialog.</English>
         </Key>
         <Key ID="STR_ZEIC_core_GB_Side">
             <English>Side</English>
@@ -80,7 +83,7 @@
             <English>Fill</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_Description">
-            <English>Furnishes buildings with props from a template of the chosen category. Radius 0 fills only the building under the module, otherwise every building within the radius, one after another. Simple objects are fastest; editable ones can be moved in Zeus, but many of them make Zeus slow. Alt when placing: repeat the last fill.</English>
+            <English>Furnishes buildings with props from a template of the chosen category. Radius 0 fills only the building under the module, otherwise every building within the radius, one after another. Simple objects are fastest; editable ones can be moved in Zeus, but many of them make Zeus slow.</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_Objects">
             <English>Objects</English>
@@ -108,6 +111,9 @@
         </Key>
         <Key ID="STR_ZEIC_core_IF_RadiusTip">
             <English>0: only the building under the module. Otherwise all buildings within this distance.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_IF_Shortcut">
+            <English>Shortcut: hold Alt while placing the module to fill again with the last settings, without this dialog.</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_Title">
             <English>Interior fill</English>
@@ -140,13 +146,16 @@
             <English>Fill</English>
         </Key>
         <Key ID="STR_ZEIC_core_OF_Description">
-            <English>Puts small props of the chosen type on a table, shelf, rack or similar object (the one under the module, or the nearest within 10 m). Tables also get something on the floor below them. Alt when placing: repeat the last fill.</English>
+            <English>Puts small props of the chosen type on a table, shelf, rack or similar object (the one under the module, or the nearest within 10 m). Tables also get something on the floor below them.</English>
         </Key>
         <Key ID="STR_ZEIC_core_OF_Percent">
             <English>Fill [%]</English>
         </Key>
         <Key ID="STR_ZEIC_core_OF_PercentTip">
             <English>Chance for each spot on the object to get a prop.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_Shortcut">
+            <English>Shortcut: hold Alt while placing the module to fill again with the last settings, without this dialog.</English>
         </Key>
         <Key ID="STR_ZEIC_core_OF_Title">
             <English>Object fill</English>

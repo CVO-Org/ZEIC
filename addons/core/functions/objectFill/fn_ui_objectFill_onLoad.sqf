@@ -38,7 +38,7 @@ if (!is3DEN) then {
 	] call PFUNC(ui_dialogToolbox);
 };
 
-[_ctx, LLSTRING(OF_Description), LLSTRING(OF_Confirm), {
+[_ctx, [LLSTRING(OF_Description), LLSTRING(OF_Shortcut)], LLSTRING(OF_Confirm), {
 	[
 		_this getVariable ["type", 0],
 		_this getVariable ["percent", 30],

@@ -6,7 +6,8 @@
 *
 * Arguments:
 * 0: Dialog context <HASHMAP>
-* 1: Description: what the module does and how to use it, as many lines as it needs <STRING> (empty: none)
+* 1: Description: what the module does and how to use it, as many lines as it needs; several paragraphs
+*    (e.g. a shortcut) get a gap between them <STRING or ARRAY of STRINGs> (empty: none)
 * 2: Text of the confirm button <STRING>
 * 3: Code run on confirm, gets the display as _this; the dialog closes afterwards <CODE>
 *
@@ -16,20 +17,22 @@
 * Public: No
 */
 
-params ["_ctx", ["_description", "", [""]], ["_confirmText", "OK", [""]], ["_onConfirm", {}, [{}]]];
+params ["_ctx", ["_description", "", ["", []]], ["_confirmText", "OK", [""]], ["_onConfirm", {}, [{}]]];
 
 private _display = _ctx get "display";
 
-if (_description != "") then {
+if (_description isEqualType "") then { _description = [_description] };
+{
+	if (_forEachIndex > 0) then { _ctx set ["y", (_ctx get "y") + UI_H(0.4)] };
 	private _ctrl = [_ctx, QPVAR(ctrlDescription), [_ctx get "x", _ctx get "y", UI_W(26), UI_H(1)]] call PFUNC(ui_dialogAdd);
-	_ctrl ctrlSetText _description;
+	_ctrl ctrlSetText _x;
 	// The text wraps: its height is known once the control has its width
 	_ctrl ctrlSetPosition [0, 0, UI_W(26), UI_H(1)];
 	_ctrl ctrlCommit 0;
 	private _h = (ctrlTextHeight _ctrl) max UI_H(1);
 	_ctrl setVariable [QPVAR(relPos), [_ctx get "x", _ctx get "y", UI_W(26), _h]];
 	_ctx set ["y", (_ctx get "y") + _h + UI_H(0.1)];
-};
+} forEach (_description select { _x != "" });
 
 // The background ends half a row below the last row, the buttons follow with a small gap
 private _background = _ctx get "background";

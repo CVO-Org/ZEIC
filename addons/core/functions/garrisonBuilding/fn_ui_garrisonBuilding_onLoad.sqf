@@ -146,7 +146,7 @@ private _positions = count (_bld buildingPos -1);
 [_ctx, "dynamic", LLSTRING(GB_Dynamic), missionNamespace getVariable [QPVAR(UiGarrisonDynamic), false], LLSTRING(GB_DynamicTip)] call PFUNC(ui_dialogCheckbox);
 [_ctx, "trigger", LLSTRING(GB_Trigger), missionNamespace getVariable [QPVAR(UiCreateTrigger), false], LLSTRING(GB_TriggerTip)] call PFUNC(ui_dialogCheckbox);
 
-[_ctx, LLSTRING(GB_Description), LLSTRING(GB_Confirm), {
+[_ctx, [LLSTRING(GB_Description), LLSTRING(GB_Shortcut)], LLSTRING(GB_Confirm), {
 	private _selection = _this getVariable [QPVAR(selection), []];
 	if (_selection isEqualTo []) exitWith {
 		[LLSTRING(GB_NoFaction), "ERROR"] call PFUNC(misc_logMsg);
