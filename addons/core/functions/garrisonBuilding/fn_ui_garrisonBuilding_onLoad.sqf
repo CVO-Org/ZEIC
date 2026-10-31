@@ -33,27 +33,27 @@ _display setVariable [QPVAR(recent), _recent];
 _display setVariable [QPVAR(selection), []];
 _display setVariable [QPVAR(faction), ""];
 
-// Fills the subcategory dropdown for a faction and makes faction + subcategory the selection
+// Fills the subcategory list for a faction and makes faction + subcategory the selection
 _display setVariable [QPVAR(fillSubcats), {
 	params ["_display", "_faction", ["_preferred", ""]];
-	private _combo = _display getVariable "subcat_ctrl";
+	private _subcatList = _display getVariable "subcat_ctrl";
 	private _subcats = ((call PFUNC(garrisonBuilding_factions)) select { (_x select 1) == _faction }) param [0, []] param [4, []];
 
 	_display setVariable [QPVAR(busy), true];
-	lbClear _combo;
+	lbClear _subcatList;
 	{
-		private _index = _combo lbAdd format ["%1 (%2)", _x select 0, _x select 2];
-		_combo lbSetData [_index, _x select 1];
+		private _index = _subcatList lbAdd format ["%1 (%2)", _x select 0, _x select 2];
+		_subcatList lbSetData [_index, _x select 1];
 	} forEach _subcats;
 	// The preferred one, otherwise "Men", otherwise the one with most units (first)
 	private _select = _subcats findIf { (_x select 1) == _preferred };
 	if (_select == -1) then { _select = _subcats findIf { (_x select 1) == "EdSubcat_Personnel" } };
-	_combo lbSetCurSel (_select max 0);
+	_subcatList lbSetCurSel (_select max 0);
 	(_display getVariable ["recent_ctrl", controlNull]) lbSetCurSel -1;
 	_display setVariable [QPVAR(busy), false];
 
 	_display setVariable [QPVAR(faction), _faction];
-	_display setVariable [QPVAR(selection), [_faction, _combo lbData lbCurSel _combo]];
+	_display setVariable [QPVAR(selection), [_faction, _subcatList lbData lbCurSel _subcatList]];
 }];
 
 // Fills the faction list from the side and search filters, keeps the selected faction if it is still shown
@@ -114,29 +114,30 @@ if (_recent isNotEqualTo []) then {
 	} forEach _recent;
 };
 
-[_ctx, "side", LLSTRING(GB_Side), [LLSTRING(GB_SideAll), localize "STR_WEST", localize "STR_EAST", localize "STR_GUERRILA", localize "STR_CIVILIAN"], 0, [], {
-	params ["_display"];
-	_display call (_display getVariable QPVAR(fillFactions));
-}] call PFUNC(ui_dialogToolbox);
-
 [_ctx, "search", LLSTRING(GB_Search), "", LLSTRING(GB_SearchTip), {
 	params ["_display"];
 	_display call (_display getVariable QPVAR(fillFactions));
 }] call PFUNC(ui_dialogEdit);
 
-[_ctx, "faction", LLSTRING(GB_Faction), 5, "", {
+[_ctx, "side", LLSTRING(GB_Side), [LLSTRING(GB_SideAll), localize "STR_WEST", localize "STR_EAST", localize "STR_GUERRILA", localize "STR_CIVILIAN"], 0, [], {
+	params ["_display"];
+	_display call (_display getVariable QPVAR(fillFactions));
+}] call PFUNC(ui_dialogToolbox);
+
+// Faction and subcategory lists side by side
+[_ctx, "faction", LLSTRING(GB_Faction), 7, "", {
 	params ["_display", "_index", "_list"];
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
 	[_display, _list lbData _index] call (_display getVariable QPVAR(fillSubcats));
-}] call PFUNC(ui_dialogList);
+}, [0, 15.9], false] call PFUNC(ui_dialogList);
 
-[_ctx, "subcat", LLSTRING(GB_Subcategory), [], 0, "", {
-	params ["_display", "_index", "_combo"];
+[_ctx, "subcat", LLSTRING(GB_Subcategory), 7, "", {
+	params ["_display", "_index", "_list"];
 	private _faction = _display getVariable [QPVAR(faction), ""];
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0} || {_faction == ""}) exitWith {};
-	_display setVariable [QPVAR(selection), [_faction, _combo lbData _index]];
+	_display setVariable [QPVAR(selection), [_faction, _list lbData _index]];
 	(_display getVariable ["recent_ctrl", controlNull]) lbSetCurSel -1;
-}] call PFUNC(ui_dialogCombo);
+}, [16, 10]] call PFUNC(ui_dialogList);
 
 private _positions = count (_bld buildingPos -1);
 [_ctx, "units", LLSTRING(GB_Units), [1, 12 max _positions, 1], missionNamespace getVariable [QPVAR(UiGarrisonUnits), 1 max round (_positions / 3)], LLSTRING(GB_UnitsTip)] call PFUNC(ui_dialogSlider);

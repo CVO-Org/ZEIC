@@ -68,7 +68,9 @@ _dlg setVariable [QPVAR(selection), _keep];
 [_dlg] call PFUNC(ui_dialogConfirm);
 private _closeTimeout = diag_tickTime + 1;
 waitUntil { isNull findDisplay 1702 || {diag_tickTime > _closeTimeout} };
-["T15.10 confirm closes the dialog and starts the garrison", isNull findDisplay 1702 && {_bld getVariable [QPVAR(garrisoned), false]}] call PFUNC(dev_check);
+["T15.10 confirm closes the dialog and starts the garrison", isNull findDisplay 1702 && {_bld getVariable [QPVAR(garrisoned), false]},
+	[isNull findDisplay 1702, _bld getVariable [QPVAR(garrisoned), false], _dlg getVariable [QPVAR(confirmed), "-"], _dlg getVariable ["units", "-"]]] call PFUNC(dev_check);
+if (!isNull findDisplay 1702) then { (findDisplay 1702) closeDisplay 2; sleep 0.1 };
 ["T15.11 pair added to recently used", (uiNamespace getVariable [QPVAR(garrisonRecent), []]) isEqualTo [["BLU_F", "EdSubcat_Personnel"]]] call PFUNC(dev_check);
 
 private _timeout = diag_tickTime + 30;

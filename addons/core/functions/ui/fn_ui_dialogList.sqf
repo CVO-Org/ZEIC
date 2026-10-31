@@ -11,6 +11,8 @@
 * 3: Height of the list in rows <NUMBER>
 * 4: Tooltip <STRING> (default: none)
 * 5: Code run on change, gets [display, index, control] <CODE> (default: none)
+* 6: Column [left, width] in grid units, for lists side by side <ARRAY> (default: [0, 26], the full width)
+* 7: Start a new row below the list <BOOL> (default: true; false for all but the last list side by side)
 *
 * Return Value:
 * List box <CONTROL>
@@ -18,17 +20,18 @@
 * Public: No
 */
 
-params ["_ctx", ["_key", "", [""]], ["_label", "", [""]], ["_rows", 5, [0]], ["_tooltip", "", [""]], ["_onChange", {}, [{}]]];
+params ["_ctx", ["_key", "", [""]], ["_label", "", [""]], ["_rows", 5, [0]], ["_tooltip", "", [""]], ["_onChange", {}, [{}]], ["_column", [0, 26], [[]], 2], ["_advance", true, [true]]];
+_column params ["_left", "_width"];
 
 private _display = _ctx get "display";
-private _x0 = _ctx get "x";
+private _x0 = (_ctx get "x") + UI_W(_left);
 private _y = _ctx get "y";
 
-private _labelCtrl = [_ctx, QPVAR(ctrlLabel), [_x0, _y, UI_W(26), UI_H(1)]] call PFUNC(ui_dialogAdd);
+private _labelCtrl = [_ctx, QPVAR(ctrlLabel), [_x0, _y, UI_W(_width), UI_H(1)]] call PFUNC(ui_dialogAdd);
 _labelCtrl ctrlSetText _label;
 if (_tooltip != "") then { _labelCtrl ctrlSetTooltip _tooltip };
 
-private _list = [_ctx, QPVAR(ctrlList), [_x0, _y + UI_H(1), UI_W(26), UI_H(_rows)]] call PFUNC(ui_dialogAdd);
+private _list = [_ctx, QPVAR(ctrlList), [_x0, _y + UI_H(1), UI_W(_width), UI_H(_rows)]] call PFUNC(ui_dialogAdd);
 _list setVariable [QPVAR(key), _key];
 _list setVariable [QPVAR(onChange), _onChange];
 _list ctrlAddEventHandler ["LBSelChanged", {
@@ -41,5 +44,5 @@ _list ctrlAddEventHandler ["LBSelChanged", {
 _display setVariable [_key, -1];
 _display setVariable [format ["%1_ctrl", _key], _list];
 
-_ctx set ["y", _y + UI_H(1 + _rows) + UI_H(0.1)];
+if (_advance) then { _ctx set ["y", _y + UI_H(1 + _rows) + UI_H(0.1)] };
 _list
