@@ -5,6 +5,7 @@
 * then sends the collected progress feedback. Removes itself once the queue is empty.
 *
 * Budget: ZEIC_queueBudget (seconds) if set, otherwise 1.5 ms on clients and 0.5 ms on a dedicated server.
+* In Eden, everything a frame creates is one undo step (collect3DENHistory can't span frames).
 *
 * Arguments:
 * 0: Event handler ID <NUMBER>
@@ -20,11 +21,15 @@ private _budget = missionNamespace getVariable [QPVAR(queueBudget), [QUEUE_BUDGE
 private _end = diag_tickTime + _budget;
 
 // At least one step per frame, however small the budget.
-while { PVAR(queue) isNotEqualTo [] } do {
-	private _job = PVAR(queue) select 0;
-	if ([_job] call (_job get "step")) then { PVAR(queue) deleteAt 0 };
-	if (diag_tickTime >= _end) exitWith {};
+private _runSteps = {
+	while { PVAR(queue) isNotEqualTo [] } do {
+		private _job = PVAR(queue) select 0;
+		if ([_job] call (_job get "step")) then { PVAR(queue) deleteAt 0 };
+		if (diag_tickTime >= _end) exitWith {};
+	};
 };
+
+if (is3DEN) then { collect3DENHistory _runSteps } else { call _runSteps };
 
 call PFUNC(feedback_flush);
 

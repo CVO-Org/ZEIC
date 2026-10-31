@@ -3,8 +3,8 @@
 /*
 * One step of an Interior Fill job (called by the processing queue).
 * - No building in progress: start the next one (pick its template, or report it as having none).
-* - Building in progress: spawn its next object. In Eden the whole building is spawned at once,
-*   so it becomes one undo step (collect3DENHistory can't span frames).
+* - Building in progress: spawn its next object.
+*   In Eden every building has its own layer, so a whole interior can still be deleted at once.
 *
 * Arguments:
 * 0: Job <HASHMAP> - see PFUNC(interiorFill_enqueue)
@@ -52,25 +52,14 @@ if (isNull _bld) exitWith {
 	_finished
 };
 
-// ---- spawn objects of the current building
+// ---- spawn the next object of the current building
 private _items = _job get "items";
 private _objects = _job get "objects";
-private _spawnArgs = [_job get "addZeus", _job get "detail", _job get "layer"];
+private _itemIndex = _job get "itemIndex";
 
-if (is3DEN) then {
-	collect3DENHistory {
-		{
-			private _obj = ([_bld, _x] + _spawnArgs) call PFUNC(interiorFill_spawnObject);
-			if (!isNull _obj) then { _objects pushBack _obj };
-		} forEach _items;
-	};
-	_job set ["itemIndex", count _items];
-} else {
-	private _itemIndex = _job get "itemIndex";
-	private _obj = ([_bld, _items select _itemIndex] + _spawnArgs) call PFUNC(interiorFill_spawnObject);
-	if (!isNull _obj) then { _objects pushBack _obj };
-	_job set ["itemIndex", _itemIndex + 1];
-};
+private _obj = [_bld, _items select _itemIndex, _job get "addZeus", _job get "detail", _job get "layer"] call PFUNC(interiorFill_spawnObject);
+if (!isNull _obj) then { _objects pushBack _obj };
+_job set ["itemIndex", _itemIndex + 1];
 
 if ((_job get "itemIndex") >= count _items) then {
 	[_bld, _objects, _job get "addZeus"] call PFUNC(interiorFill_finishBuilding);
