@@ -39,7 +39,8 @@ private _cfgCore = configFile >> "CfgPatches" >> "ZEIC_core";
 ["T0.4 ZEIC_core requires ZEIC_main", (getArray (_cfgCore >> "requiredAddons") findIf { _x == "ZEIC_main" }) != -1, getArray (_cfgCore >> "requiredAddons")] call ZEIC_test_check;
 
 private _curatorModules = getArray (_cfgCore >> "units") select { getNumber (configFile >> "CfgVehicles" >> _x >> "scopeCurator") == 2 };
-["T0.5 zeus_addModules finds the 4 Zeus modules", count _curatorModules == 4, _curatorModules] call ZEIC_test_check;
+["T0.5 ZEIC_core lists the 4 Zeus modules", count _curatorModules == 4, _curatorModules] call ZEIC_test_check;
+["T0.6 Zeus module injection removed", isNil "ZEIC_fnc_zeus_addModules"] call ZEIC_test_check;
 
 // ---------------------------------------------------------------- T1 all functions compiled (#29, #30)
 private _functions = [];
