@@ -39,14 +39,3 @@ extends = "base"
 # hemtt launch default altis / hemtt launch nomods altis
 [altis]
 mission = "test.Altis"
-
-# Performance tests in Kavala, no mods: hemtt launch perf
-# Without -debug, which adds a stack trace to every engine warning in the RPT and slows things down.
-# Doesn't extend base on purpose: extends would add -debug back.
-[perf]
-mission = "test.Altis"
-parameters = [
-    "-noPauseAudio",
-    "-noPause",
-    "-window"
-]
