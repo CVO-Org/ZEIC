@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "..\..\script_component.hpp"
 
 params [
 		["_filter", 0],
@@ -43,7 +43,7 @@ _fnc_createTemplateMarker = {
 	};
 	
 	// If building has positions check if it has got matching templates.
-	if (count (_bld buildingPos -1) > 0) then {
+	if ((_bld buildingPos -1) isNotEqualTo []) then {
 		_milCount = count ([_bld, "mil", true] call PFUNC(findTemplates));
 		_civCount = count ([_bld, "civ", true] call PFUNC(findTemplates));
 		_cbrnCount = count ([_bld, "cbrn", true] call PFUNC(findTemplates));

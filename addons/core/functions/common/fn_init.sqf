@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "..\..\script_component.hpp"
 
 if (hasInterface) then {
     if (isServer || {!(isClass (configFile >> "CfgPatches" >> "zen_common"))}) then {

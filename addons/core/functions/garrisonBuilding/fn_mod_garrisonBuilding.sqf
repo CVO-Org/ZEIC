@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "..\..\script_component.hpp"
 
 params [["_mode","",[""]],["_input",[],[[]]]];
 
@@ -20,8 +20,8 @@ switch _mode do {
 		PVAR(UiLastBuilding) = objNull;
 		
 		// Find nearest building
-		private _nearArr = (nearestObjects [(screenToWorld getMousePosition), [], 25, true]) select { count (_x buildingPos -1) > 0 };
-		if (count _nearArr > 0) then { PVAR(UiLastBuilding) = _nearArr select 0 };
+		private _nearArr = (nearestObjects [(screenToWorld getMousePosition), [], 25, true]) select { (_x buildingPos -1) isNotEqualTo [] };
+		if (_nearArr isNotEqualTo []) then { PVAR(UiLastBuilding) = _nearArr select 0 };
 		
 		if (isNull PVAR(UiLastBuilding)) exitWith { ["No valid buildings within 25m", "ERROR"] call PFUNC(misc_logMsg) };
 		
