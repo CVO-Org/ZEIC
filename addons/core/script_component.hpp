@@ -12,6 +12,8 @@
 // Processing queue: default time budget per frame, in seconds
 #define QUEUE_BUDGET_CLIENT 0.0015
 #define QUEUE_BUDGET_SERVER 0.0005
+// Buildings are processed in rows of this height (meters), north to south, east to west within a row
+#define QUEUE_ROW_SIZE 25
 
 // Interior Fill: how objects are created (index in the dialog's "Objects" list)
 #define OBJECT_MODE_SIMPLE 0

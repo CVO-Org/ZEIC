@@ -34,6 +34,7 @@ class CfgFunctions {
             class dev_test_missionTemplates {};
             class dev_test_objectModes {};
             class dev_test_queue {};
+            class dev_test_rowOrder {};
             class dev_test_scriptApi {};
         };
 
@@ -110,6 +111,7 @@ class CfgFunctions {
 
             class queue_add {};
             class queue_onFrame {};
+            class queue_sortBuildings {};
         };
 
         class rotation {
