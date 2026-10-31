@@ -21,7 +21,7 @@ switch _mode do {
 			params ["_isCuratorPlaced"];
 			([get3DENMouseOver, curatorMouseOver] select _isCuratorPlaced) params [["_mouseType", ""], ["_mouseObj", objNull]];
 			
-			if (_mouseType != "Object" && {isNull _mouseObj}) exitWith {
+			if (_mouseType != "Object" || {isNull _mouseObj}) exitWith {
 				["Module must be placed over a building!", "ERROR"] call PFUNC(misc_logMsg);
 			};
 			
