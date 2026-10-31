@@ -23,7 +23,8 @@ private _display = _ctx get "display";
 
 if (_description isEqualType "") then { _description = [_description] };
 {
-	if (_forEachIndex > 0) then { _ctx set ["y", (_ctx get "y") + UI_H(0.4)] };
+	// A gap above the description and between its paragraphs
+	_ctx set ["y", (_ctx get "y") + UI_H(0.4)];
 	private _ctrl = [_ctx, QPVAR(ctrlDescription), [_ctx get "x", _ctx get "y", UI_W(26), UI_H(1)]] call PFUNC(ui_dialogAdd);
 	_ctrl ctrlSetText _x;
 	// The text wraps: its height is known once the control has its width

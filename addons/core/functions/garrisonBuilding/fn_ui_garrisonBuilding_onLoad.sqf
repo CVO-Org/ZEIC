@@ -129,7 +129,7 @@ if (_recent isNotEqualTo []) then {
 	params ["_display", "_index", "_list"];
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
 	[_display, _list lbData _index] call (_display getVariable QPVAR(fillSubcats));
-}, [0, 15.9], false] call PFUNC(ui_dialogList);
+}, [0, 13.9], false] call PFUNC(ui_dialogList);
 
 [_ctx, "subcat", LLSTRING(GB_Subcategory), 7, "", {
 	params ["_display", "_index", "_list"];
@@ -137,7 +137,7 @@ if (_recent isNotEqualTo []) then {
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0} || {_faction == ""}) exitWith {};
 	_display setVariable [QPVAR(selection), [_faction, _list lbData _index]];
 	(_display getVariable ["recent_ctrl", controlNull]) lbSetCurSel -1;
-}, [16, 10]] call PFUNC(ui_dialogList);
+}, [14, 12]] call PFUNC(ui_dialogList);
 
 private _positions = count (_bld buildingPos -1);
 [_ctx, "units", LLSTRING(GB_Units), [1, 12 max _positions, 1], missionNamespace getVariable [QPVAR(UiGarrisonUnits), 1 max round (_positions / 3)], LLSTRING(GB_UnitsTip)] call PFUNC(ui_dialogSlider);
