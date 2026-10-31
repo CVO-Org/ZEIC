@@ -33,3 +33,8 @@ extends = "default"
 
 [nomods]
 extends = "base"
+
+# Swaps the mission to Kavala, combine with another profile:
+# hemtt launch default altis / hemtt launch nomods altis
+[altis]
+mission = "test.Altis"
