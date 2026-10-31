@@ -242,6 +242,46 @@ sleep 1;
     [2, "editable in Zeus", false]
 ];
 
+// ---------------------------------------------------------------- T11 config templates match the SQF templates (#24)
+private _cfgRoot = configFile >> "CfgZEIC";
+["T11.1 categories mil, civ, cbrn exist", ({ isClass (_cfgRoot >> _x) } count ["mil", "civ", "cbrn"]) == 3] call ZEIC_test_check;
+["T11.2 vanilla template addon loaded", isClass (configFile >> "CfgPatches" >> "ZEIC_templates_vanilla")] call ZEIC_test_check;
+{
+    _x params ["_templateAddon", "_dependency"];
+    [format ["T11.3 %1 loaded only with its dependency", _templateAddon],
+        isClass (configFile >> "CfgPatches" >> _templateAddon) isEqualTo isClass (configFile >> "CfgPatches" >> _dependency)] call ZEIC_test_check;
+} forEach [
+    ["ZEIC_templates_cup", "CUP_Editor_Buildings_Config"],
+    ["ZEIC_templates_gm", "gm_core"],
+    ["ZEIC_templates_sog", "data_f_vietnam"],
+    ["ZEIC_templates_ws", "data_f_lxWS_Loadorder"],
+    ["ZEIC_templates_optre", "OPTRE_Core"]
+];
+
+ZEIC_mil_customBuildings = nil;
+ZEIC_civ_customBuildings = nil;
+ZEIC_cbrn_customBuildings = nil;
+
+// Same buildings through the old SQF lookup and from config; inherited buildings (fall-through cases) included.
+{
+    _x params ["_class", "_category"];
+    private _bld = createVehicle [_class, [6000, 2000 + 150 * _forEachIndex, 0], [], 0, "CAN_COLLIDE"];
+    private _sqf = [_bld, _category, true] call ZEIC_fnc_findTemplates;
+    private _cfg = ("true" configClasses (_cfgRoot >> _category >> _class)) apply { getArray (_x >> "objects") };
+    [format ["T11.%1 %2 (%3): config = SQF", 4 + _forEachIndex, _class, _category],
+        _cfg isNotEqualTo [] && {_cfg isEqualTo _sqf}, [count _cfg, count _sqf]] call ZEIC_test_check;
+    deleteVehicle _bld;
+} forEach [
+    ["Land_i_House_Small_03_V1_F", "mil"],
+    ["Land_i_House_Small_03_V1_F", "civ"],
+    ["Land_i_House_Small_03_V1_F", "cbrn"],
+    ["Land_Mine_01_warehouse_F", "mil"],
+    ["Land_Cargo_Tower_V1_No1_F", "mil"],
+    ["Land_Cargo_Tower_V3_F", "mil"],
+    ["Land_DeconTent_01_AAF_F", "cbrn"],
+    ["Land_DeconTent_01_yellow_F", "cbrn"]
+];
+
 // ---------------------------------------------------------------- summary
 private _passed = { _x } count ZEIC_test_results;
 private _failed = (count ZEIC_test_results) - _passed;

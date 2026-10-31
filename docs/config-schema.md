@@ -252,12 +252,15 @@ getTemplates(category, buildingClass):
 
 ## 7. Migration
 
-1. **Converter script** (`tools/convert_templates.py`): reads `addons/core/templates/*.sqf`, turns
+1. **Converter script** (`tools/convert_templates.py`) ✅: reads `addons/core/templates/*.sqf`, turns
    each `case` into a building class and each template array into a `class <tag>_<n>`, and maps
-   fall-through cases to inheritance.
-2. **Dependency sorting:** run a one-off in-game dump of `className → source addon`
-   (`configSourceAddonList`) for every class used in the templates. The converter uses it to
-   place each template into the right `templates_*` addon.
+   fall-through cases to inheritance. It keeps the SQF `switch` semantics: a building listed twice
+   only gets its first entry, template groups that could never match become extra variants.
+   For now each source file maps to one addon (`mil_other.sqf` goes into `templates_vanilla`),
+   the same split the `isLoaded_*` checks made.
+2. **Dependency sorting** (later, optional): run a one-off in-game dump of `className → source addon`
+   (`configSourceAddonList`) for every class used in the templates, and move templates whose
+   objects need another mod into that mod's addon.
 3. **Variants:** move the lists from `fn_randomiseObject.sqf` into `class Variants` in the matching
    addons.
 4. **Remove:** `fn_findTemplates` (rewritten), `fn_templateCanSpawn`, `fn_checkDetailLevel`,

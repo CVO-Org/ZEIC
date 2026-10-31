@@ -1,0 +1,9 @@
+#define COMPONENT templates_cup
+
+
+// This is being used for the Addon's Name and can be "My Addon Template Framework"
+#define COMPONENT_BEAUTIFIED Templates CUP
+
+
+#include "\zrn\ZEIC\addons\main\script_mod.hpp"
+#include "\zrn\ZEIC\addons\main\script_macros.hpp"
