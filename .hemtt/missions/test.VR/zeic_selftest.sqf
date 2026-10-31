@@ -7,7 +7,9 @@
 
     Every check writes one line to the RPT, prefixed with [ZEIC TEST].
     Failed checks are also shown in chat. A summary is printed at the end.
-    Test buildings are spawned around [1000, 1000] and left in place for inspection.
+    Test buildings are spawned in a 1.2 x 1 km area (see ZEIC_test_origin, logged at the start)
+    and left in place for inspection.
+    test.Altis has a copy of this file and of description.ext: copy changes over to it.
 */
 
 ZEIC_test_results = [];
@@ -19,12 +21,34 @@ ZEIC_test_check = {
     if (!_ok) then { systemChat _line };
     ZEIC_test_results pushBack _ok;
 };
+// Test area: 8 x 7 spots, 150 m apart. VR is empty everywhere; on other terrains the first dry area
+// without map buildings is used.
+ZEIC_test_origin = [1000, 1000, 0];
+if (worldName != "VR") then {
+    scopeName "findOrigin";
+    for "_oy" from 2000 to (worldSize - 3000) step 1000 do {
+        for "_ox" from 2000 to (worldSize - 3000) step 1000 do {
+            private _dry = true;
+            for "_px" from 0 to 1200 step 150 do {
+                for "_py" from 0 to 1050 step 150 do {
+                    if (surfaceIsWater [_ox + _px, _oy + _py]) then { _dry = false };
+                };
+            };
+            if (_dry && {nearestObjects [[_ox + 600, _oy + 525], ["House"], 900] isEqualTo []}) then {
+                ZEIC_test_origin = [_ox, _oy, 0];
+                breakOut "findOrigin";
+            };
+        };
+    };
+};
 ZEIC_test_spawn = {
     params ["_class", "_index"];
-    createVehicle [_class, [1000 + 150 * _index, 1000, 0], [], 0, "CAN_COLLIDE"]
+    createVehicle [_class, ZEIC_test_origin vectorAdd [150 * (_index mod 8), 150 * floor (_index / 8), 0], [], 0, "CAN_COLLIDE"]
 };
 
-diag_log text format ["[ZEIC TEST] ===== start | is3DEN %1 | ZEN %2 | GM %3 | CUP %4 =====",
+diag_log text format ["[ZEIC TEST] ===== start | %1 at %2 | is3DEN %3 | ZEN %4 | GM %5 | CUP %6 =====",
+    worldName,
+    ZEIC_test_origin,
     is3DEN,
     isClass (configFile >> "CfgPatches" >> "zen_common"),
     isClass (configFile >> "CfgPatches" >> "gm_core"),
@@ -302,7 +326,7 @@ private _missionFound = ["Land_i_House_Small_03_V1_F", "zeic_test", true] call Z
     [["Land_Pallets_F", [0, 0, 0.5], 45]] in (["Land_i_House_Small_03_V1_F", "mil", true] call ZEIC_fnc_findTemplates)] call ZEIC_test_check;
 
 // ---------------------------------------------------------------- T10 garrison through the queue + area selection (#23)
-private _gCenter = [3000, 2000, 0];
+private _gCenter = ZEIC_test_origin vectorAdd [0, 900, 0];
 private _gHouses = [];
 for "_i" from 0 to 3 do { _gHouses pushBack (createVehicle [_houseClass, _gCenter vectorAdd [_i * 25, 0, 0], [], 0, "CAN_COLLIDE"]) };
 private _gMid = _gCenter vectorAdd [37.5, 0, 0];
