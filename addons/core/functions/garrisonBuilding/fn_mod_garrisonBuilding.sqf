@@ -29,9 +29,11 @@ switch _mode do {
 			if (isNil QPVAR(UiGarrisonFaction) || isNil QPVAR(UiGarrisonCategory) || isNil QPVAR(UiGarrisonDynamic)) exitWith { ["Select your faction in the GUI first!", "ERROR"] call PFUNC(misc_logMsg) };
 			[
 				format["%1#%2", PVAR(UiGarrisonFaction), PVAR(UiGarrisonCategory)],
-				4,
+				missionNamespace getVariable [QPVAR(UiGarrisonUnits), 4],
 				missionNamespace getVariable [QPVAR(UiGarrisonDynamic), true],
-				missionNamespace getVariable [QPVAR(UiCreateTrigger), false]
+				missionNamespace getVariable [QPVAR(UiCreateTrigger), false],
+				missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0],
+				missionNamespace getVariable [QPVAR(UiGarrisonPercent), 50]
 			] call PFUNC(ui_garrisonBuilding);
 		} else {
 			// Start Display 1702

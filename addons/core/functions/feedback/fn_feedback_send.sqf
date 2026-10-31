@@ -2,7 +2,8 @@
 
 /*
 * Calls a feedback function on every machine that shows progress: locally in Eden and singleplayer,
-* otherwise on the clients of all assigned curators (each client only draws while in the Zeus camera).
+* and for work done on a client (e.g. Garrison, whose units stay local to the Zeus).
+* Work done on a server is shown to the clients of all assigned curators (each client only draws while in the Zeus camera).
 *
 * Arguments:
 * 0: Function name <STRING>
@@ -16,7 +17,8 @@
 
 params [["_fnc", "", [""]], ["_args", [], [[]]]];
 
-if (is3DEN || {!isMultiplayer}) exitWith { _args call (missionNamespace getVariable _fnc) };
+// owner only works on the server
+if (is3DEN || {!isMultiplayer} || {!isServer}) exitWith { _args call (missionNamespace getVariable _fnc) };
 
 private _owners = (allCurators apply { getAssignedCuratorUnit _x }) select { !isNull _x } apply { owner _x };
 _owners = _owners arrayIntersect _owners;

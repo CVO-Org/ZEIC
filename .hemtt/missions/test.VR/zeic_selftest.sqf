@@ -301,6 +301,52 @@ private _missionFound = ["Land_i_House_Small_03_V1_F", "zeic_test", true] call Z
 ["T12.4 mission template added to an addon category",
     [["Land_Pallets_F", [0, 0, 0.5], 45]] in (["Land_i_House_Small_03_V1_F", "mil", true] call ZEIC_fnc_findTemplates)] call ZEIC_test_check;
 
+// ---------------------------------------------------------------- T10 garrison through the queue + area selection (#23)
+private _gCenter = [3000, 2000, 0];
+private _gHouses = [];
+for "_i" from 0 to 3 do { _gHouses pushBack (createVehicle [_houseClass, _gCenter vectorAdd [_i * 25, 0, 0], [], 0, "CAN_COLLIDE"]) };
+private _gMid = _gCenter vectorAdd [37.5, 0, 0];
+
+private _picked = [_gMid, 60, 50] call ZEIC_fnc_garrisonBuilding_selectBuildings;
+["T10.1 50% of 4 buildings selected", count _picked == 2, count _picked] call ZEIC_test_check;
+_picked = [_gMid, 60, 100] call ZEIC_fnc_garrisonBuilding_selectBuildings;
+["T10.2 100% selects all 4", count _picked == 4, count _picked] call ZEIC_test_check;
+
+private _unitTypes = ["BLU_F", "EdSubcat_Personnel"] call ZEIC_fnc_garrisonBuilding_unitTypes;
+["T10.3 NATO infantry found", _unitTypes isNotEqualTo [], count _unitTypes] call ZEIC_test_check;
+
+private _expectedUnits = 0;
+{ _expectedUnits = _expectedUnits + (2 min count (_x buildingPos -1)) } forEach _gHouses;
+
+ZEIC_queueBudget = 0;
+private _gFrameStart = diag_frameNo;
+private _gQueued = false;
+isNil {
+    [_gHouses, "BLU_F", "EdSubcat_Personnel", [2, false, false]] call ZEIC_fnc_garrisonBuilding_start;
+    _gQueued = (missionNamespace getVariable ["ZEIC_queue", []]) isNotEqualTo [];
+};
+["T10.4 garrison is queued", _gQueued] call ZEIC_test_check;
+
+private _gTimeout = diag_tickTime + 30;
+waitUntil { sleep 0.05; (missionNamespace getVariable ["ZEIC_queue", []]) isEqualTo [] || {diag_tickTime > _gTimeout} };
+ZEIC_queueBudget = nil;
+private _gFrames = diag_frameNo - _gFrameStart;
+
+private _gUnits = (_gMid nearEntities ["CAManBase", 80]) select { side group _x == west };
+private _gGroups = _gUnits apply { group _x };
+_gGroups = _gGroups arrayIntersect _gGroups;
+["T10.5 2 units per building", count _gUnits == _expectedUnits, [count _gUnits, _expectedUnits]] call ZEIC_test_check;
+["T10.6 one group per building", count _gGroups == 4, count _gGroups] call ZEIC_test_check;
+["T10.7 spread over several frames", _gFrames > 8, _gFrames] call ZEIC_test_check;
+["T10.8 garrisoned buildings are not picked again", ([_gMid, 60, 100] call ZEIC_fnc_garrisonBuilding_selectBuildings) isEqualTo []] call ZEIC_test_check;
+
+if (allCurators isNotEqualTo []) then {
+    private _editable = curatorEditableObjects (allCurators select 0);
+    ["T10.9 units are editable in Zeus", (_gUnits findIf { !(_x in _editable) }) == -1] call ZEIC_test_check;
+} else {
+    diag_log text "[ZEIC TEST] SKIP T10.9 no curator in the mission";
+};
+
 // ---------------------------------------------------------------- summary
 private _passed = { _x } count ZEIC_test_results;
 private _failed = (count ZEIC_test_results) - _passed;
