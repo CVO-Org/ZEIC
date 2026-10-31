@@ -2,7 +2,9 @@
 // They used to be full copies of the vanilla controls; inheriting gives the same result.
 class RscText;
 class RscButton;
-class RscCombo;
+class RscCombo {
+    class ComboScrollBar;
+};
 class RscSlider;
 class RscFrame;
 class IGUIBack;

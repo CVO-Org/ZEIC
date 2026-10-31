@@ -357,13 +357,16 @@ createDialog "Rsc_ZEIC_InteriorFill";
 private _dlg = findDisplay 1705;
 ["T14.1 dialog opens", !isNull _dlg] call ZEIC_test_check;
 if (!isNull _dlg) then {
-    private _segments = _dlg getVariable ["category_buttons", []];
-    ["T14.2 one segment per category", count _segments == count (call ZEIC_fnc_interiorFill_categories), count _segments] call ZEIC_test_check;
-    ["T14.3 last used category preselected", (_dlg getVariable ["category", -1]) == 1] call ZEIC_test_check;
-    ["T14.4 object modes and damage shown outside Eden", count (_dlg getVariable ["objects_buttons", []]) == 3 && {!isNil {_dlg getVariable "damage"}}] call ZEIC_test_check;
+    private _combo = _dlg getVariable ["category_ctrl", controlNull];
+    ["T14.2 one dropdown entry per category", lbSize _combo == count (call ZEIC_fnc_interiorFill_categories), lbSize _combo] call ZEIC_test_check;
+    ["T14.3 last used category preselected", (_dlg getVariable ["category", -1]) == 1 && {lbCurSel _combo == 1}] call ZEIC_test_check;
+    ["T14.4 object modes and damage shown outside Eden", !isNull (_dlg getVariable ["objects_ctrl", controlNull]) && {!isNull (_dlg getVariable ["damage_ctrl", controlNull])}] call ZEIC_test_check;
 
-    [_dlg, "category", 0] call ZEIC_fnc_ui_dialogSelect;
-    ["T14.5 clicking a segment selects it", (_dlg getVariable ["category", -1]) == 0] call ZEIC_test_check;
+    _combo lbSetCurSel 0;
+    ["T14.5 picking a category stores it", (_dlg getVariable ["category", -1]) == 0] call ZEIC_test_check;
+
+    private _slider = _dlg getVariable ["radius_ctrl", controlNull];
+    ["T14.9 radius slider with its number field", !isNull _slider && {sliderPosition _slider == 0}, sliderRange _slider] call ZEIC_test_check;
 
     [_dlg] call ZEIC_fnc_ui_dialogConfirm;
     ["T14.6 confirm closes the dialog", isNull findDisplay 1705] call ZEIC_test_check;

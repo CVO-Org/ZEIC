@@ -1,12 +1,12 @@
 #include "..\..\script_component.hpp"
 
 /*
-* Finishes a ZEIC dialog: footer with a hint, Cancel and the confirm button, then centers the dialog on screen.
-* Enter confirms, Escape cancels.
+* Finishes a ZEIC dialog: an optional hint line, Cancel and the confirm button below the background,
+* then centers the dialog on screen. Enter confirms, Escape cancels.
 *
 * Arguments:
 * 0: Dialog context <HASHMAP>
-* 1: Hint, shown on the left of the footer <STRING>
+* 1: Hint, shown below the rows <STRING> (empty: none)
 * 2: Text of the confirm button <STRING>
 * 3: Code run on confirm, gets the display as _this; the dialog closes afterwards <CODE>
 *
@@ -19,28 +19,23 @@
 params ["_ctx", ["_hint", "", [""]], ["_confirmText", "OK", [""]], ["_onConfirm", {}, [{}]]];
 
 private _display = _ctx get "display";
-private _w = _ctx get "w";
-private _pad = _ctx get "pad";
-private _bodyHeight = (_ctx get "y") + 0.6 * UI_GH;
-private _buttonW = 13 * UI_GW;
-private _buttonH = 4.6 * UI_GH;
-private _buttonY = _bodyHeight + 2 * UI_GH;
-private _height = _buttonY + _buttonH + 2 * UI_GH;
 
-[_ctx, [0, _bodyHeight, _w, pixelH], 0, UI_C_LINE] call PFUNC(ui_dialogPanel);
-([_ctx, QPVAR(ctrlHint), [_pad, _buttonY, _w - 2 * _pad - 2 * _buttonW - 2 * UI_GW, _buttonH]] call PFUNC(ui_dialogAdd)) ctrlSetText _hint;
-
-private _fnc_button = {
-	params ["_bx", "_text", "_kind"];
-	private _pos = [_bx, _buttonY, _buttonW, _buttonH];
-	private _pieces = [_ctx, _pos, 0.8 * UI_GH, UI_C_FIELD] call PFUNC(ui_dialogPanel);
-	private _label = [_ctx, QPVAR(ctrlTextCenter), _pos] call PFUNC(ui_dialogAdd);
-	_label ctrlSetText _text;
-	if (_kind == "primary") then { _label ctrlSetFont "RobotoCondensedBold" };
-	[_ctx, _pos, _pieces, _label, _kind] call PFUNC(ui_dialogHit)
+if (_hint != "") then {
+	([_ctx, QPVAR(ctrlHint), [_ctx get "x", _ctx get "y", UI_W(26), UI_H(1)]] call PFUNC(ui_dialogAdd)) ctrlSetText _hint;
+	_ctx set ["y", (_ctx get "y") + UI_H(1.1)];
 };
-private _cancel = [_w - _pad - 2 * _buttonW - UI_GW, LLSTRING(UI_Cancel), "secondary"] call _fnc_button;
-private _confirm = [_w - _pad - _buttonW, _confirmText, "primary"] call _fnc_button;
+
+// The background ends half a row below the last row, the buttons follow with a small gap
+private _background = _ctx get "background";
+private _bottom = (_ctx get "y") - UI_H(0.1) + UI_H(0.5);
+(_background getVariable QPVAR(relPos)) params ["_bx", "_by", "_bw"];
+_background setVariable [QPVAR(relPos), [_bx, _by, _bw, _bottom - _by]];
+
+private _buttonY = _bottom + UI_H(0.1);
+private _cancel = [_ctx, QPVAR(ctrlButtonCancel), [0, _buttonY, UI_W(5), UI_H(1)]] call PFUNC(ui_dialogAdd);
+private _confirm = [_ctx, QPVAR(ctrlButtonOK), [UI_W(22), _buttonY, UI_W(5), UI_H(1)]] call PFUNC(ui_dialogAdd);
+_cancel ctrlSetText LLSTRING(UI_Cancel);
+_confirm ctrlSetText _confirmText;
 
 _display setVariable [QPVAR(onConfirm), _onConfirm];
 _confirm ctrlAddEventHandler ["ButtonClick", { [ctrlParent (_this select 0)] call PFUNC(ui_dialogConfirm) }];
@@ -51,20 +46,14 @@ _display displayAddEventHandler ["KeyDown", {
 	false
 }];
 
-// The window gets its height, then everything moves to the center of the screen, on whole pixels
-[_ctx get "window", [0, 0, _w, _height], 1.2 * UI_GH] call PFUNC(ui_panelLayout);
-private _x0 = safeZoneX + (round ((safeZoneW - _w) / 2 / pixelW)) * pixelW;
-private _y0 = safeZoneY + (round ((safeZoneH - _height) / 2 / pixelH)) * pixelH;
+// Everything moves to the center of the screen
+private _x0 = safeZoneX + (safeZoneW - UI_W(27)) / 2;
+private _y0 = safeZoneY + (safeZoneH - _buttonY - UI_H(1)) / 2;
 
 {
 	(_x getVariable [QPVAR(relPos), [0, 0, 0, 0]]) params ["_rx", "_ry", "_rw", "_rh"];
 	_x ctrlSetPosition [_x0 + _rx, _y0 + _ry, _rw, _rh];
 	_x ctrlCommit 0;
 } forEach (_ctx get "controls");
-
-{
-	_x params ["_ctrl", "_code"];
-	[_ctrl] call _code;
-} forEach (_ctx get "onLayout");
 
 ctrlSetFocus _confirm;

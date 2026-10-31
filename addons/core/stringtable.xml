@@ -38,19 +38,16 @@
             <English>Fastest. Can't be moved or deleted in Zeus.</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_Radius">
-            <English>Radius</English>
+            <English>Radius [m]</English>
         </Key>
-        <Key ID="STR_ZEIC_core_IF_RadiusNearest">
-            <English>This building</English>
+        <Key ID="STR_ZEIC_core_IF_RadiusTip">
+            <English>0: only the building under the module. Otherwise all buildings within this distance.</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_Title">
             <English>Interior fill</English>
         </Key>
         <Key ID="STR_ZEIC_core_UI_Cancel">
             <English>Cancel</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_UI_Meters">
-            <English>%1 m</English>
         </Key>
     </Package>
 </Project>
