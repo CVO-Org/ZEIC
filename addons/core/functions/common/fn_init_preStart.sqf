@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "..\..\script_component.hpp"
 
 // cDLCs
 uiNamespace setVariable [ QPVAR(isLoaded_sog),   isClass (configFile >> "CfgPatches" >> "data_f_vietnam") ];

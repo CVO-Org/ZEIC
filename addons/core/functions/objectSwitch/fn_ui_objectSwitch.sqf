@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "..\..\script_component.hpp"
 
 params [
 		["_type", 0],
@@ -153,7 +153,7 @@ private _toReplace = [];
 	} forEach _searchType;
 } forEach (nearestObjects [_pos, [], _searchRadius, true]);
 
-if (count _toReplace == 0) exitWith { 
+if (_toReplace isEqualTo []) exitWith {
 	["No objects to replace","INFO"] call PFUNC(misc_logMsg);
 };
 

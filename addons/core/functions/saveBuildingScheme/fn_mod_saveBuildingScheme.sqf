@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "..\..\script_component.hpp"
 
 
 // Increase the default radius by setting 'PVAR(SaveRadius)' to larger number.
@@ -52,18 +52,16 @@ switch _mode do {
 				};
 
 				if (!_blacklisted) then {	
-					private ["_objPos","_objDir","_pb","_pitch","_bank"];
-					
 					if !(_xType call PFUNC(isVanillaObject)) then {_mod = "[MOD] "};
-					
-					_objPos = _keyObj worldToModel (getPosATL _x);
-					_objDir = round ((getDir _x) - (getDir _keyObj));
-					
+
+					private _objPos = _keyObj worldToModel (getPosATL _x);
+					private _objDir = round ((getDir _x) - (getDir _keyObj));
+
 					_objPos = [_objPos#0, _objPos#1, _objPos#2];
-					
-					_pb = _x call BIS_fnc_getPitchBank;
-					_pitch = ((abs (_pb#0)) + 360) mod 360;
-					_bank = ((abs (_pb#1)) + 360) mod 360;
+
+					private _pb = _x call BIS_fnc_getPitchBank;
+					private _pitch = ((abs (_pb#0)) + 360) mod 360;
+					private _bank = ((abs (_pb#1)) + 360) mod 360;
 					
 					// If the pitch/bank isn't significant, ignore it
 					if (_pitch + _bank < 5) then {
