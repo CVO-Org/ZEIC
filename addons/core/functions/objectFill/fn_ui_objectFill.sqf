@@ -1,15 +1,33 @@
 #include "..\..\script_component.hpp"
 
-params [
-		["_type", 0],
-		["_pc", 30],
-		["_addZeus", true]
-	];
+/*
+* Fills a table, shelf or similar object with small props (called by the Object Fill dialog or the Alt shortcut).
+*
+* Arguments:
+* 0: Type: 0 random, 1 food, 2 medical, 3 office, 4 tools, 5 electric, 6 CBRN cleaning <NUMBER>
+* 1: Fill percent <NUMBER>
+* 2: Object mode (OBJECT_MODE_*), or the old "add to Zeus" <NUMBER or BOOL> (default: simple objects)
+*
+* Return Value:
+* None
+*
+* Public: No
+*/
 
-_object = missionNamespace getVariable [QPVAR(UiLastObject), objNull];
+params [["_type", 0, [0]], ["_pc", 30, [0]], ["_objectMode", OBJECT_MODE_SIMPLE, [0, true]]];
+
+// Old calls passed "add to Zeus" (true/false)
+if (_objectMode isEqualType true) then { _objectMode = [OBJECT_MODE_SIMPLE, OBJECT_MODE_EDITABLE] select _objectMode };
+
+// Remembered for the dialog and the Alt shortcut
+PVAR(UiObjectFillType) = _type;
+PVAR(UiObjectFillPercent) = _pc;
+PVAR(UiObjectFillObjects) = _objectMode;
+
+private _object = missionNamespace getVariable [QPVAR(UiLastObject), objNull];
 
 if (isNull _object) exitWith { ["No suitable object found!", "ERROR"] call PFUNC(misc_logMsg) };
-	
+
 // Checks if the passed object can be decorated or not.
 _fnc_checkObject = {
 	params [["_objToFill", objNull], ["_fillType",0]];
@@ -128,18 +146,20 @@ _fnc_attachItem = {
 	} else {	
 		private _obj = objNull;
 		
-		if (_addZeus) then {
+		if (_objectMode == OBJECT_MODE_SIMPLE) then {
+			_obj = createSimpleObject [_item, [0,0,0]];
+		} else {
 			_obj = createVehicle [_item, [0,0,0], [], 0, "CAN_COLLIDE"];
 			[_obj, false] remoteExec ["enableSimulationGlobal", 2];
-		} else {
-			_obj =  createSimpleObject [_item, [0,0,0]];
 		};
 		
 		_obj setPosATL _itemPos;
 		_obj setVectorDirAndUp [vectorDir _parent, vectorUp _parent];
 		[_obj, _forceDir] call PFUNC(misc_rotateAroundOwnAxisZ);
 		
-		{ [_x, [ [_obj], true]] remoteExec ["addCuratorEditableObjects",2] } forEach allCurators;
+		if (_objectMode == OBJECT_MODE_EDITABLE) then {
+			{ [_x, [ [_obj], true]] remoteExec ["addCuratorEditableObjects",2] } forEach allCurators;
+		};
 	};
 };
 

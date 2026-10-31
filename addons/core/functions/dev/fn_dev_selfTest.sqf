@@ -56,7 +56,8 @@ PVAR(dev_results) = [];
 		PFUNC(dev_test_garrison),
 		PFUNC(dev_test_rowOrder),
 		PFUNC(dev_test_dialog),
-		PFUNC(dev_test_garrisonDialog)
+		PFUNC(dev_test_garrisonDialog),
+		PFUNC(dev_test_moduleDialogs)
 	];
 
 	private _passed = { _x } count PVAR(dev_results);

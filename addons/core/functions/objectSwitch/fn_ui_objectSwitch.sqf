@@ -8,8 +8,8 @@ params [
 if (!(isClass(configFile >> 'CfgPatches' >> 'CUP_Core')) && _type in [3,4]) exitWith { systemChat "ERROR - Required MOD is not present" };
 if (!(isClass(configFile >> 'CfgPatches' >> 'vn_data_f')) && _type in [5,6]) exitWith { systemChat "ERROR - Required MOD is not present" };
 		
-// Need to pass logic pos info to GUI somehow?
-private _pos = screenToWorld getMousePosition;
+// Where the module was placed (see PFUNC(mod_objectSwitch))
+private _pos = missionNamespace getVariable [QPVAR(UiLastPosition), screenToWorld getMousePosition];
 
 [format["Passed: Type: %1 - Radius: %2 - Pos: %3", _type, _searchRadius, _pos], "DEBUG"] call PFUNC(misc_logMsg);
 
@@ -108,6 +108,7 @@ _typeSOGG = [
 
 // Save UI Settings for next time
 PVAR(UiSwitchCombo) = _type;
+PVAR(UiSwitchRadius) = _searchRadius;
 
 private _replaceType = switch (_type) do {
 	case 0: { _typeVanilla };

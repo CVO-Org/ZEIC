@@ -1,146 +1,81 @@
 #include "..\..\script_component.hpp"
 
-params [
-		["_filter", 0],
-		["_fCount", 15],
-		["_showBP", false]
-	];
-	
-_configs = "configName _x isKindof 'Building' && getNumber (_x >> 'scope') == 2" configClasses (configFile >> "CfgVehicles"); 
-_classNames = _configs apply {configName _x}; 
-_classNames = _classNames select {toLower _x find "ruin" < 0}; // Remove Ruins
- 
-_count = 0;
-_orgX = 1000; 
-_orgY = 1000; 
-_posX = _orgX; 
-_posY = _orgY; 
+/*
+* Places every building class with positions in rows (VR world, for template authors), each with one arrow
+* per template below it: one row of arrows per category. Buildings with more templates than the maximum
+* in a listed category are left out.
+*
+* Arguments:
+* 0: Category class, "" for all categories <STRING>
+* 1: Maximum number of templates <NUMBER>
+* 2: Mark the building positions <BOOL>
+*
+* Return Value:
+* None
+*
+* Public: No
+*/
 
-_fnc_createTemplateMarker = {
-	_this params ["_counter", "_building", "_offset", "_className"];
-	
-	for "_i" from 1 to _counter do {
-		_tmpPos = [(getPos _building select 0) + (_i * 2), (getPos _building select 1) - (abs (((boundingBox _building) select 1) select 0)) - _offset, 0];
-		
-		if (is3DEN) then {
-			_tmp = create3DENEntity ["Object", _className, _tmpPos, true];
-		} else {
-			_tmp = _className createVehicle _tmpPos; 
-		};
+params [["_category", "", [""]], ["_maxTemplates", 15, [0]], ["_showPositions", false, [false]]];
+
+private _categories = call PFUNC(interiorFill_categories);
+if (_category != "") then { _categories = _categories select { (_x select 1) == _category } };
+
+// One arrow colour per category, repeated if there are more categories
+private _arrows = [
+	["Sign_Arrow_Large_F", "red"],
+	["Sign_Arrow_Large_Pink_F", "pink"],
+	["Sign_Arrow_Large_Yellow_F", "yellow"],
+	["Sign_Arrow_Large_Blue_F", "blue"],
+	["Sign_Arrow_Large_Cyan_F", "cyan"]
+];
+{
+	[format ["List Buildings: %1 = %2 arrows", _x select 0, (_arrows select (_forEachIndex mod count _arrows)) select 1], "INFO"] call PFUNC(misc_logMsg);
+} forEach _categories;
+
+private _fnc_create = {
+	params ["_class", "_pos"];
+	if (is3DEN) then {
+		create3DENEntity ["Object", _class, _pos, true]
+	} else {
+		createVehicle [_class, _pos, [], 0, "CAN_COLLIDE"]
 	};
 };
+private _fnc_delete = {
+	if (is3DEN) then { delete3DENEntities [_this] } else { deleteVehicle _this };
+};
 
-[format["Processing %1 Classes.", count _classNames], "INFO"] call PFUNC(misc_logMsg);
- 
-{ 
-	_bld = objNull;
-	_skip = false;
-	
-	if (is3DEN) then {
-		_bld = create3DENEntity ["Object", _x, [_posX, _posY, 0], true];
-	} else {
-		_bld = _x createVehicle [_posX, _posY]; 
+private _classNames = ("configName _x isKindOf 'Building' && {getNumber (_x >> 'scope') == 2}" configClasses (configFile >> "CfgVehicles")) apply { configName _x };
+_classNames = _classNames select { (toLowerANSI _x find "ruin") == -1 };
+[format ["Processing %1 classes.", count _classNames], "INFO"] call PFUNC(misc_logMsg);
+
+private _origin = [1000, 1000, 0];
+private _count = 0;
+{
+	private _pos = _origin vectorAdd [75 * (_count mod 75), 10 * (floor (_count / 75)) * 75, 0];
+	private _bld = [_x, _pos] call _fnc_create;
+
+	private _counts = if ((_bld buildingPos -1) isEqualTo []) then { [] } else {
+		_categories apply { count ([_bld, _x select 1, true] call PFUNC(findTemplates)) }
 	};
-	
-	// If building has positions check if it has got matching templates.
-	if ((_bld buildingPos -1) isNotEqualTo []) then {
-		_milCount = count ([_bld, "mil", true] call PFUNC(findTemplates));
-		_civCount = count ([_bld, "civ", true] call PFUNC(findTemplates));
-		_cbrnCount = count ([_bld, "cbrn", true] call PFUNC(findTemplates));
-		_optrecivCount = count ([_bld, "optre_civ", true] call PFUNC(findTemplates));
-		_optremilCount = count ([_bld, "optre_mil", true] call PFUNC(findTemplates));
-		
-				
-		switch (_filter) do {
 
-			// Military Only
-			case 1: {
-				if (_milCount > _fCount) then { 
-					_skip = true;
-				} else {
-					[_milCount, _bld, 15, "Sign_Arrow_Large_F"] spawn _fnc_createTemplateMarker
-				};
-			};
-			// Civilian Only
-			case 2: {
-				if (_civCount > _fCount) then { 
-					_skip = true;
-				} else {
-					[_civCount, _bld, 10, "Sign_Arrow_Large_Pink_F"] spawn _fnc_createTemplateMarker
-				};
-			};
-			//CBRN Only
-			case 3: {
-				if (_cbrnCount > _fCount) then { 
-					_skip = true;
-				} else {
-					[_cbrnCount, _bld, 15, "Sign_Arrow_Large_Yellow_F"] spawn _fnc_createTemplateMarker
-				};
-			};
-
-			//OPTRE Civ Only
-			case 4: {
-				if (_optrecivCount > _fCount) then { 
-					_skip = true;
-				} else {
-					[_optrecivCount, _bld, 15, "Banner_01_IDAP_F"] spawn _fnc_createTemplateMarker
-				};
-			};
-			//OPTRE Mil Only
-			case 5: {
-				if (_optremilCount > _fCount) then { 
-					_skip = true;
-				} else {
-					[_optremilCount, _bld, 15, "Banner_01_NATO_F"] spawn _fnc_createTemplateMarker
-				};
-			};
-
-
-			
-			// All
-			default {
-				if (_civCount > _fCount || _milCount > _fCount || _cbrnCount > _fCount || _optrecivCount > _fCount || _optremilCount > _fCount) then {
-					_skip = true;
-				} else {
-					if (_milCount > 0) then { [_milCount, _bld, 15, "Sign_Arrow_Large_F"] spawn _fnc_createTemplateMarker };
-					if (_civCount > 0) then { [_civCount, _bld, 10, "Sign_Arrow_Large_Pink_F"] spawn _fnc_createTemplateMarker };
-					if (_cbrnCount > 0) then { [_cbrnCount, _bld, 15, "Sign_Arrow_Large_Yellow_F"] spawn _fnc_createTemplateMarker };
-					if (_optrecivCount > 0) then { [_optrecivCount, _bld, 15, "Banner_01_IDAP_F"] spawn _fnc_createTemplateMarker };
-					if (_optremilCount > 0) then { [_optremilCount, _bld, 15, "Banner_01_NATO_F"] spawn _fnc_createTemplateMarker };
-				};
-			};
-		};
-		
-		// Highlight building positions
-		if (!_skip && _showBP) then {
-			{		
-				private _obj = create3DENEntity ["Object", "Sign_Arrow_Large_Green_F", [0, 0, 0]];
-				_obj set3DENAttribute ["rotation", [ 0, 0, 0]];
-				_obj set3DENAttribute ["position", _x];
-			} forEach (_bld buildingPos -1);
-		};
-		
-		// Delete the object or move along.
-		if (!_skip) then {
-			_count = _count + 1;
-			_posX = _posX + 75; 
-
-			if (_count %75 == 0) then {  
-				_posX = _orgX; 
-				_posY = _orgY + (_count * 10); 
-			};
-		};
+	if (_counts isEqualTo [] || {(_counts findIf { _x > _maxTemplates }) != -1}) then {
+		_bld call _fnc_delete;
 	} else {
-		_skip = true;
-	};
-	
-	if (_skip) then {
-		if (is3DEN) then {
-			delete3DENEntities [_bld];
-		} else {
-			deleteVehicle _bld; 
+		// One row of arrows per category below the building
+		private _edge = abs ((boundingBox _bld) select 1 select 0);
+		{
+			private _arrow = (_arrows select (_forEachIndex mod count _arrows)) select 0;
+			for "_i" from 1 to _x do {
+				[_arrow, _pos vectorAdd [_i * 2, -_edge - 10 - 5 * _forEachIndex, 0]] call _fnc_create;
+			};
+		} forEach _counts;
+
+		if (_showPositions) then {
+			{ ["Sign_Arrow_Large_Green_F", _x] call _fnc_create } forEach (_bld buildingPos -1);
 		};
+		_count = _count + 1;
 	};
 } forEach _classNames;
 
-[format["Output %1 buildings with positions.", _count], "INFO"] call PFUNC(misc_logMsg);
+[format ["Output %1 buildings with positions.", _count], "INFO"] call PFUNC(misc_logMsg);

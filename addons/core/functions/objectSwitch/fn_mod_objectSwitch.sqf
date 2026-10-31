@@ -17,6 +17,9 @@ switch _mode do {
 			if (is3DEN) then { delete3DENEntities [_logic] } else { deleteVehicle _logic };
 		};
 		
+		// The dialog covers the mouse when it is confirmed: remember where the module was placed
+		PVAR(UiLastPosition) = screenToWorld getMousePosition;
+
 		// Start Display 1701
 		if (_isCuratorPlaced) then { 
 			findDisplay 312 createDisplay "Rsc_ZEIC_ObjectSwitch";  // Zeus

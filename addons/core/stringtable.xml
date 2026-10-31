@@ -4,6 +4,9 @@
         <Key ID="STR_ZEIC_core_GB_Confirm">
             <English>Garrison</English>
         </Key>
+        <Key ID="STR_ZEIC_core_GB_Description">
+            <English>Places infantry of a faction on the positions inside buildings. Pick a faction (search and side narrow the list) and its subcategory, or a recently used pair. Radius 0 garrisons only the building under the module, otherwise the given share of the buildings within the radius.</English>
+        </Key>
         <Key ID="STR_ZEIC_core_GB_Dynamic">
             <English>Dynamic simulation</English>
         </Key>
@@ -12,9 +15,6 @@
         </Key>
         <Key ID="STR_ZEIC_core_GB_Faction">
             <English>Faction</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Hint">
-            <English>Alt when placing: repeat last garrison</English>
         </Key>
         <Key ID="STR_ZEIC_core_GB_NoFaction">
             <English>Select a faction first.</English>
@@ -42,6 +42,9 @@
         </Key>
         <Key ID="STR_ZEIC_core_GB_SearchTip">
             <English>Part of the faction name or class, e.g. TKA</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_GB_Shortcut">
+            <English>Shortcut: hold Alt while placing the module to garrison again with the last settings, without this dialog.</English>
         </Key>
         <Key ID="STR_ZEIC_core_GB_Side">
             <English>Side</English>
@@ -79,8 +82,8 @@
         <Key ID="STR_ZEIC_core_IF_Confirm">
             <English>Fill</English>
         </Key>
-        <Key ID="STR_ZEIC_core_IF_Hint">
-            <English>Alt when placing: repeat last fill</English>
+        <Key ID="STR_ZEIC_core_IF_Description">
+            <English>Furnishes buildings with props from a template of the chosen category. Radius 0 fills only the building under the module, otherwise every building within the radius, one after another. Simple objects are fastest; editable ones can be moved in Zeus, but many of them make Zeus slow.</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_Objects">
             <English>Objects</English>
@@ -109,8 +112,119 @@
         <Key ID="STR_ZEIC_core_IF_RadiusTip">
             <English>0: only the building under the module. Otherwise all buildings within this distance.</English>
         </Key>
+        <Key ID="STR_ZEIC_core_IF_Shortcut">
+            <English>Shortcut: hold Alt while placing the module to fill again with the last settings, without this dialog.</English>
+        </Key>
         <Key ID="STR_ZEIC_core_IF_Title">
             <English>Interior fill</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_LB_CategoryAll">
+            <English>All</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_LB_Confirm">
+            <English>List</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_LB_Description">
+            <English>For template authors, VR only. Places every building class that has positions, with one arrow per template below it: one row per category, the colours are listed in chat. Use it to find buildings that need more templates.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_LB_Max">
+            <English>Max templates</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_LB_MaxTip">
+            <English>Buildings with more templates than this in a listed category are left out. 0: only buildings without templates.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_LB_Positions">
+            <English>Mark positions</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_LB_PositionsTip">
+            <English>Puts a green arrow on every building position.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_LB_Title">
+            <English>List template buildings</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_Confirm">
+            <English>Fill</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_Description">
+            <English>Puts small props of the chosen type on a table, shelf, rack or similar object (the one under the module, or the nearest within 10 m). Tables also get something on the floor below them.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_Percent">
+            <English>Fill [%]</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_PercentTip">
+            <English>Chance for each spot on the object to get a prop.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_Shortcut">
+            <English>Shortcut: hold Alt while placing the module to fill again with the last settings, without this dialog.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_Title">
+            <English>Object fill</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_Type">
+            <English>Type</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_TypeCBRN">
+            <English>CBRN cleaning</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_TypeElectric">
+            <English>Electric</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_TypeFood">
+            <English>Food</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_TypeMedical">
+            <English>Medical</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_TypeOffice">
+            <English>Office</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_TypeRandom">
+            <English>Random</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OF_TypeTools">
+            <English>Tools</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_Confirm">
+            <English>Switch</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_Description">
+            <English>Swaps military objects (sandbags, H-barriers, camo nets, cargo buildings, crates, furniture) within the radius for their counterpart in the chosen camouflage set.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_Radius">
+            <English>Radius [m]</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_RadiusTip">
+            <English>Objects within this distance of the module are switched.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_Set">
+            <English>Convert to</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_SetBrownSOG">
+            <English>Brown (SOG)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_SetDesert">
+            <English>Desert (vanilla)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_SetDesertCUP">
+            <English>Desert (CUP)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_SetGreenSOG">
+            <English>Green (SOG)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_SetJungle">
+            <English>Jungle (Apex)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_SetTip">
+            <English>Only sets whose mod is loaded are listed.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_SetWoodland">
+            <English>Woodland (Contact)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_SetWoodlandCUP">
+            <English>Woodland (CUP)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_OS_Title">
+            <English>Object switch</English>
         </Key>
         <Key ID="STR_ZEIC_core_UI_Cancel">
             <English>Cancel</English>
