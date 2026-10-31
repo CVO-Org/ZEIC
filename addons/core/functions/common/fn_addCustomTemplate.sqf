@@ -1,4 +1,4 @@
-#include "../../script_component.hpp"
+#include "..\..\script_component.hpp"
 
 /*
 * Adds custom interior templates for a building, used by PFUNC(findTemplates).
