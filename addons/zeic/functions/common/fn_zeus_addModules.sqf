@@ -47,7 +47,7 @@ for "_i" from 0 to ((_ctrl tvCount []) - 1) do { _category_list pushBack (_ctrl 
 			_ctrl tvSetPicture [[_categoryIndex, _tvModule], _icon];
 			_ctrl tvSetValue [[_categoryIndex, _tvModule], _forEachIndex];
 		};
-} forEach (getArray (configFile >> "cfgPatches" >> "ZEI" >> "units") select {getNumber (configFile >> "CfgVehicles" >> _x >> "scopeCurator") == 2});
+} forEach (getArray (configFile >> "CfgPatches" >> QUOTE(ADDON) >> "units") select {getNumber (configFile >> "CfgVehicles" >> _x >> "scopeCurator") == 2});
 
 // Resort Control + Children
 if (_doSort) then {
