@@ -8,13 +8,14 @@
 * Arguments:
 * 0: Buildings <ARRAY of OBJECTs>
 * 1: Category, e.g. "mil" <STRING>
-* 2: Options [editable in Zeus <BOOL>, allow damage <BOOL>, detail level <NUMBER>] <ARRAY>
+* 2: Options [object mode <NUMBER>, allow damage <BOOL>, detail level <NUMBER>] <ARRAY>
+*    Object mode: 0 simple objects (fastest), 1 normal objects, 2 normal objects editable in Zeus (slow in Zeus with many)
 *
 * Return Value:
 * None
 *
 * Example:
-* [[cursorObject], "mil", [true, false, 1]] call ZEIC_fnc_interiorFill_start
+* [[cursorObject], "mil", [0, false, 1]] call ZEIC_fnc_interiorFill_start
 *
 * Public: Yes
 */

@@ -57,12 +57,12 @@ private _items = _job get "items";
 private _objects = _job get "objects";
 private _itemIndex = _job get "itemIndex";
 
-private _obj = [_bld, _items select _itemIndex, _job get "addZeus", _job get "detail", _job get "layer"] call PFUNC(interiorFill_spawnObject);
+private _obj = [_bld, _items select _itemIndex, _job get "objectMode", _job get "detail", _job get "layer"] call PFUNC(interiorFill_spawnObject);
 if (!isNull _obj) then { _objects pushBack _obj };
 _job set ["itemIndex", _itemIndex + 1];
 
 if ((_job get "itemIndex") >= count _items) then {
-	[_bld, _objects, _job get "addZeus"] call PFUNC(interiorFill_finishBuilding);
+	[_bld, _objects, _job get "objectMode"] call PFUNC(interiorFill_finishBuilding);
 
 	if (_objects isEqualTo []) then {
 		[_bld, FEEDBACK_NONE] call PFUNC(feedback_report);

@@ -7,7 +7,8 @@
 * Arguments:
 * 0: Buildings <ARRAY of OBJECTs>
 * 1: Category, e.g. "mil" <STRING>
-* 2: Options [editable in Zeus <BOOL>, allow damage <BOOL>, detail level <NUMBER>] <ARRAY>
+* 2: Options [object mode <NUMBER>, allow damage <BOOL>, detail level <NUMBER>] <ARRAY>
+*    Object mode: 0 simple objects, 1 normal objects, 2 normal objects editable in Zeus (true/false = 2/0)
 * 3: Requesting client (receives the summary message) <NUMBER>
 *
 * Return Value:
@@ -17,7 +18,10 @@
 */
 
 params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]]];
-_options params [["_addZeus", true, [true]], ["_allowDamage", false, [false]], ["_detail", 1, [0]]];
+_options params [["_objectMode", OBJECT_MODE_SIMPLE, [0, true]], ["_allowDamage", false, [false]], ["_detail", 1, [0]]];
+
+// Older callers passed "editable in Zeus" as a boolean
+if (_objectMode isEqualType true) then { _objectMode = [OBJECT_MODE_SIMPLE, OBJECT_MODE_EDITABLE] select _objectMode };
 
 _buildings = _buildings select {
 	!isNull _x
@@ -40,7 +44,7 @@ if (_buildings isEqualTo []) exitWith {
 	["buildings", _buildings],
 	["index", 0],
 	["category", toLower _category],
-	["addZeus", _addZeus],
+	["objectMode", _objectMode],
 	["allowDamage", _allowDamage],
 	["detail", _detail],
 	["requester", _requester],

@@ -6,7 +6,7 @@
 * Arguments:
 * 0: Building <OBJECT>
 * 1: Object entry ["Class", [x, y, z], direction, [rotX, rotY, rotZ]] <ARRAY>
-* 2: Editable in Zeus (normal object instead of a simple object) <BOOL>
+* 2: Object mode: OBJECT_MODE_SIMPLE (simple object), _NORMAL or _EDITABLE (normal object, simulation off) <NUMBER>
 * 3: Detail level <NUMBER>
 * 4: Eden layer ID <NUMBER>
 *
@@ -16,7 +16,7 @@
 * Public: No
 */
 
-params [["_bld", objNull, [objNull]], ["_entry", [], [[]]], ["_addZeus", true, [true]], ["_detail", 1, [0]], ["_layer", -1, [0]]];
+params [["_bld", objNull, [objNull]], ["_entry", [], [[]]], ["_objectMode", OBJECT_MODE_SIMPLE, [0]], ["_detail", 1, [0]], ["_layer", -1, [0]]];
 _entry params ["_item", "_offset", ["_angle", 0], ["_rot", [0, 0, 0]]];
 
 _item = [_item] call PFUNC(randomiseObject);
@@ -29,11 +29,11 @@ if (is3DEN) then {
 	_obj set3DENAttribute ["objectIsSimple", true];
 	_obj set3DENLayer _layer;
 } else {
-	if (_addZeus) then {
+	if (_objectMode == OBJECT_MODE_SIMPLE) then {
+		_obj = createSimpleObject [_item, AGLToASL (_bld modelToWorld _offset)];
+	} else {
 		_obj = createVehicle [_item, (_bld modelToWorld _offset), [], 0, "CAN_COLLIDE"];
 		if (isServer) then { _obj enableSimulationGlobal false } else { [_obj, false] remoteExec ["enableSimulationGlobal", 2] };
-	} else {
-		_obj = createSimpleObject [_item, AGLToASL (_bld modelToWorld _offset)];
 	};
 };
 

@@ -13,6 +13,11 @@
 #define QUEUE_BUDGET_CLIENT 0.0015
 #define QUEUE_BUDGET_SERVER 0.0005
 
+// Interior Fill: how objects are created (index in the dialog's "Objects" list)
+#define OBJECT_MODE_SIMPLE 0
+#define OBJECT_MODE_NORMAL 1
+#define OBJECT_MODE_EDITABLE 2
+
 // Progress feedback states (index into FEEDBACK_COLORS / FEEDBACK_WIDTHS)
 #define FEEDBACK_QUEUED 0
 #define FEEDBACK_PROCESSING 1
