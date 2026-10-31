@@ -15,7 +15,7 @@ switch _mode do {
 			if (is3DEN) then { delete3DENEntities [_logic] } else { deleteVehicle _logic };
 		};
 		
-		if (worldName != "VR") exitWith {
+		if (toLowerANSI worldName != "vr") exitWith {
 			["You must be in the VR world to use this module.", "ERROR"] call PFUNC(misc_logMsg)
 		};
 		

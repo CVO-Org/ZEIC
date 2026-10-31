@@ -32,6 +32,7 @@ class CfgFunctions {
             class dev_test_garrison {};
             class dev_test_garrisonDialog {};
             class dev_test_mergedCases {};
+            class dev_test_moduleDialogs {};
             class dev_test_missionTemplates {};
             class dev_test_objectModes {};
             class dev_test_queue {};
@@ -92,6 +93,7 @@ class CfgFunctions {
             
             class mod_listBuildings {};
             class ui_listBuildings {};
+            class ui_listBuildings_onLoad {};
         };
 
         class objectFill {
@@ -99,6 +101,7 @@ class CfgFunctions {
             
             class mod_objectFill {};
             class ui_objectFill {};
+            class ui_objectFill_onLoad {};
         };
 
         class objectSwitch {
@@ -106,6 +109,7 @@ class CfgFunctions {
             
             class mod_objectSwitch {};
             class ui_objectSwitch {};
+            class ui_objectSwitch_onLoad {};
         };
 
         class queue {

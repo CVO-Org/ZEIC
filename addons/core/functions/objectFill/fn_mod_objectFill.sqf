@@ -34,10 +34,16 @@ switch _mode do {
 			};
 		};
 		
+		if (isNull PVAR(UiLastObject)) exitWith { ["No suitable object found!", "ERROR"] call PFUNC(misc_logMsg) };
+
 		// Start Display 1704
 		if ((inputAction "lookAround") isEqualTo 1) then {
-			// Skip UI and use default values.
-			[] call PFUNC(ui_objectFill);
+			// Skip the dialog, use the last settings
+			[
+				missionNamespace getVariable [QPVAR(UiObjectFillType), 0],
+				missionNamespace getVariable [QPVAR(UiObjectFillPercent), 30],
+				missionNamespace getVariable [QPVAR(UiObjectFillObjects), OBJECT_MODE_SIMPLE]
+			] call PFUNC(ui_objectFill);
 		} else {
 			if (is3DEN) then {
 				findDisplay 313 createDisplay "Rsc_ZEIC_ObjectFill"; // Eden
