@@ -20,6 +20,16 @@
 #define OBJECT_MODE_NORMAL 1
 #define OBJECT_MODE_EDITABLE 2
 
+// Dialogs: sizes in units of the vanilla GUI grid (the same as defineCommonGrids.inc), like ZEN's dialogs.
+// They follow the interface size setting.
+#define UI_GRID_W (((safeZoneW / safeZoneH) min 1.2) / 40)
+#define UI_GRID_H ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)
+#define UI_W(N) ((N) * UI_GRID_W)
+#define UI_H(N) ((N) * UI_GRID_H)
+
+// Self test (functions\dev): the building most tests fill
+#define DEV_HOUSE "Land_i_House_Small_03_V1_F"
+
 // Progress feedback states (index into FEEDBACK_COLORS / FEEDBACK_WIDTHS)
 #define FEEDBACK_QUEUED 0
 #define FEEDBACK_PROCESSING 1

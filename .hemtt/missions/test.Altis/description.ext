@@ -1,0 +1,18 @@
+// Mission templates for the self test (ZEIC_fnc_dev_test_missionTemplates, T12): an extra template for an existing
+// category, and a category that only exists in this mission. See docs/config-schema.md, section 5.
+class CfgZEIC {
+    class mil {
+        class Land_i_House_Small_03_V1_F {
+            class mission_1 { objects[] = { {"Land_Pallets_F", {0, 0, 0.5}, 45} }; };
+        };
+    };
+    class zeic_test {
+        displayName = "ZEIC Test (mission)";
+        order = 999;
+        class Land_i_House_Small_03_V1_F {
+            // Has an object that doesn't exist: must be skipped
+            class mission_1 { objects[] = { {"Land_Sack_F", {0, 0, 0.5}, 0}, {"Does_Not_Exist_F", {1, 0, 0.5}, 0} }; };
+            class mission_2 { objects[] = { {"Land_Sack_F", {0, 0, 0.5}, 90} }; };
+        };
+    };
+};
