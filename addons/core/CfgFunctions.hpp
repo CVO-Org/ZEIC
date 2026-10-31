@@ -16,6 +16,17 @@ class CfgFunctions {
             class misc_logMsg {};
         };
 
+        class feedback {
+            file = PATH_TO_FUNC_SUB(feedback);
+
+            class feedback_draw {};
+            class feedback_finish {};
+            class feedback_flush {};
+            class feedback_report {};
+            class feedback_send {};
+            class feedback_update {};
+        };
+
         class garrisonBuilding {
             file = PATH_TO_FUNC_SUB(garrisonBuilding);
             
@@ -32,7 +43,16 @@ class CfgFunctions {
 
             class checkDetailLevel {};
             class createTemplate {};
-            class findTemplates {}; 
+            class findTemplates {};
+            class interiorFill_enqueue {};
+            class interiorFill_finishBuilding {};
+            class interiorFill_finishJob {};
+            class interiorFill_notify {};
+            class interiorFill_prepareBuilding {};
+            class interiorFill_selectTemplate {};
+            class interiorFill_spawnObject {};
+            class interiorFill_start {};
+            class interiorFill_step {};
             class mod_interiorFill {};
             class randomiseObject {};
             class templateCanSpawn {};
@@ -58,6 +78,13 @@ class CfgFunctions {
             
             class mod_objectSwitch {};
             class ui_objectSwitch {};
+        };
+
+        class queue {
+            file = PATH_TO_FUNC_SUB(queue);
+
+            class queue_add {};
+            class queue_onFrame {};
         };
 
         class rotation {

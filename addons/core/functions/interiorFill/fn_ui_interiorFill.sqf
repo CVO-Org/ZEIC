@@ -36,14 +36,5 @@ if (_bldArr isEqualTo []) exitWith {
 	["No valid objects within 25m", "INFO"] call PFUNC(misc_logMsg);
 };
 
-if (is3DEN) then {
-	collect3DENHistory {
-		{
-			[_x, _fillType, _fillArea, _addZeus, _allowDamage, _detail] call PFUNC(createTemplate);
-		} forEach _bldArr;
-	};
-} else {
-	{
-		[_x, _fillType, _fillArea, _addZeus, _allowDamage, _detail] call PFUNC(createTemplate);
-	} forEach _bldArr;
-};
+// Processed over several frames by the queue, see PFUNC(interiorFill_start).
+[_bldArr, _fillType, [_addZeus, _allowDamage, _detail]] call PFUNC(interiorFill_start);
