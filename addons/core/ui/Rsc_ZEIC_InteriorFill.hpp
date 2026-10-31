@@ -20,7 +20,7 @@ class Rsc_ZEIC_InteriorFill
         QPVAR(IF_Combo_Type),
         QPVAR(IF_Slider_Items),
         QPVAR(IF_Combo_Detail),
-        QPVAR(IF_CheckBox_EditObject),
+        QPVAR(IF_Combo_Objects),
         QPVAR(IF_CheckBox_AllowDamage),
         QPVAR(IF_Button_OK),
         QPVAR(IF_Button_Cancel)
@@ -125,7 +125,7 @@ class Rsc_ZEIC_InteriorFill
     class PVAR(IF_Text_EditObject): PVAR(RscText)
     {
         idc = 3;
-        text = "Edit Objects"; //--- ToDo: Localize;
+        text = "Objects"; //--- ToDo: Localize;
         x = Q(0.340156 * safezoneW + safezoneX);
         y = Q(0.501 * safezoneH + safezoneY);
         w = Q(0.0845 * safezoneW);
@@ -134,17 +134,17 @@ class Rsc_ZEIC_InteriorFill
             if is3DEN then { (findDisplay 1705 displayCtrl 3) ctrlShow false; };\
         }";
     };
-    class PVAR(IF_CheckBox_EditObject): PVAR(RscCheckBox)
+    class PVAR(IF_Combo_Objects): PVAR(RscCombo)
     {
         idc = 30;
-        x = Q(0.422656 * safezoneW + safezoneX);
+        x = Q(0.432969 * safezoneW + safezoneX);
         y = Q(0.501 * safezoneH + safezoneY);
-        w = Q(0.020625 * safezoneW);
-        h = Q(0.033 * safezoneH);
-        tooltip = "Add the spawned objects to Curator\nIf disabled, they cannot be moved or edited by Zeus.";
-        checked = 1;
+        w = Q(0.139219 * safezoneW);
+        h = Q(0.022 * safezoneH);
+        tooltip = "Simple objects: fastest, can't be moved or edited in Zeus.\nObjects: normal objects, not added to Zeus.\nEditable in Zeus: can be moved and deleted in Zeus, but Zeus gets slow with many of them.";
         onLoad= "_this spawn { waitUntil { !isNull (_this select 0) };\
-            (findDisplay 1705 displayCtrl 30) cbSetChecked (missionNamespace getVariable ['ZEIC_UiInteriorEdit', true]);\
+            { (findDisplay 1705 displayCtrl 30) lbAdd _x } forEach ['Simple objects (fastest)', 'Objects', 'Editable in Zeus (slow for large areas)'];\
+            (findDisplay 1705 displayCtrl 30) lbSetCurSel (missionNamespace getVariable ['ZEIC_UiInteriorObjects', 0]);\
             if is3DEN then { (findDisplay 1705 displayCtrl 30) ctrlShow false; };\
         }";
     };
@@ -181,7 +181,7 @@ class Rsc_ZEIC_InteriorFill
         y = Q(0.599 * safezoneH + safezoneY);
         w = Q(0.04125 * safezoneW);
         h = Q(0.022 * safezoneH);
-        onButtonClick  = "[ lbCurSel (findDisplay 1705 displayCtrl 10), round (sliderPosition (findDisplay 1705 displayCtrl 20)), cbChecked (findDisplay 1705 displayCtrl 30), cbChecked (findDisplay 1705 displayCtrl 40), lbCurSel (findDisplay 1705 displayCtrl 50) ] spawn ZEIC_fnc_ui_interiorFill; (findDisplay 1705) closeDisplay 1;";
+        onButtonClick  = "[ lbCurSel (findDisplay 1705 displayCtrl 10), round (sliderPosition (findDisplay 1705 displayCtrl 20)), lbCurSel (findDisplay 1705 displayCtrl 30), cbChecked (findDisplay 1705 displayCtrl 40), lbCurSel (findDisplay 1705 displayCtrl 50) ] spawn ZEIC_fnc_ui_interiorFill; (findDisplay 1705) closeDisplay 1;";
     };
     class PVAR(IF_Button_Cancel): PVAR(RscButton)
     {

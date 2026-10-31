@@ -48,7 +48,7 @@ switch _mode do {
 			[
 				missionNamespace getVariable[QPVAR(UiInteriorType), 0],
 				0,
-				missionNamespace getVariable[QPVAR(UiInteriorEdit), true],
+				missionNamespace getVariable[QPVAR(UiInteriorObjects), OBJECT_MODE_SIMPLE],
 				missionNamespace getVariable[QPVAR(UiInteriorDamage), false],
 				missionNamespace getVariable[QPVAR(UiInteriorDetail), 1]
 			] call PFUNC(ui_interiorFill);
