@@ -43,7 +43,13 @@ if (isNull _bld) exitWith {
 				_job set ["items", _items];
 				_job set ["itemIndex", 0];
 				_job set ["objects", []];
-				_job set ["layer", [_bld, _job get "allowDamage"] call PFUNC(interiorFill_prepareBuilding)];
+				// Eden: one layer for the whole fill, created with its first building
+				if (is3DEN && {(_job get "fillLayer") == -1}) then {
+					private _category = _job get "category";
+					private _categoryName = ((call PFUNC(interiorFill_categories)) select { (_x select 1) == _category }) param [0, [toUpper _category]] select 0;
+					_job set ["fillLayer", ["ZEIC Interiors", _categoryName] call PFUNC(eden_addLayer)];
+				};
+				_job set ["layer", [_bld, _job get "allowDamage", _job get "fillLayer"] call PFUNC(interiorFill_prepareBuilding)];
 				[_bld, FEEDBACK_PROCESSING] call PFUNC(feedback_report);
 			};
 		};

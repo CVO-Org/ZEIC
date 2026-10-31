@@ -53,6 +53,7 @@ if (_buildings isEqualTo []) exitWith {
 	["itemIndex", 0],
 	["objects", []],
 	["layer", -1],
+	["fillLayer", -1],
 	// results
 	["furnished", 0],
 	["missing", []]

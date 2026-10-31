@@ -61,6 +61,7 @@ private _side = switch (getNumber (configFile >> "CfgFactionClasses" >> _factCla
 	["group", grpNull],
 	["tempUnit", objNull],
 	["layer", -1],
+	["fillLayer", -1],
 	["spawned", []],
 	// results
 	["buildingCount", 0],
