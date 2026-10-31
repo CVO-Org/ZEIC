@@ -149,6 +149,7 @@ class CfgFunctions {
             class ui_dialogRow {};
             class ui_dialogSlider {};
             class ui_dialogToolbox {};
+            class ui_radiusPreview {};
         };
 
 

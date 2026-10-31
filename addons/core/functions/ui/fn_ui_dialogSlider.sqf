@@ -11,6 +11,8 @@
 * 3: Range [min, max, step] <ARRAY>
 * 4: Value <NUMBER>
 * 5: Tooltip <STRING> (default: none)
+* 6: Radius preview: while the dialog is open, a circle of the slider's value is drawn around this
+*    position or object (nothing at 0) <ARRAY or OBJECT> (default: [], none)
 *
 * Return Value:
 * Slider <CONTROL>
@@ -18,7 +20,7 @@
 * Public: No
 */
 
-params ["_ctx", ["_key", "", [""]], ["_label", "", [""]], ["_range", [0, 100, 1], [[]], 3], ["_value", 0, [0]], ["_tooltip", "", [""]]];
+params ["_ctx", ["_key", "", [""]], ["_label", "", [""]], ["_range", [0, 100, 1], [[]], 3], ["_value", 0, [0]], ["_tooltip", "", [""]], ["_previewCenter", [], [[], objNull]]];
 _range params ["_min", "_max", "_step"];
 
 private _display = _ctx get "display";
@@ -62,6 +64,10 @@ _edit ctrlAddEventHandler ["KillFocus", {
 	private _slider = _edit getVariable QPVAR(slider);
 	_edit ctrlSetText str ((ctrlParent _edit) getVariable (_slider getVariable QPVAR(key)));
 }];
+
+if (_previewCenter isNotEqualTo []) then {
+	[_slider, _previewCenter] call PFUNC(ui_radiusPreview);
+};
 
 _display setVariable [_key, _value];
 _display setVariable [format ["%1_ctrl", _key], _slider];

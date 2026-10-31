@@ -25,7 +25,7 @@ private _ctx = [_display, _title] call PFUNC(ui_dialogCreate);
 private _categories = call PFUNC(interiorFill_categories);
 [_ctx, "category", LLSTRING(IF_Category), _categories apply { _x select 0 }, missionNamespace getVariable [QPVAR(UiInteriorType), 0]] call PFUNC(ui_dialogCombo);
 
-[_ctx, "radius", LLSTRING(IF_Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiInteriorRadius), 0], LLSTRING(IF_RadiusTip)] call PFUNC(ui_dialogSlider);
+[_ctx, "radius", LLSTRING(IF_Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiInteriorRadius), 0], LLSTRING(IF_RadiusTip), missionNamespace getVariable [QPVAR(UiLastPosition), []]] call PFUNC(ui_dialogSlider);
 
 // Eden always places editable entities and can't make buildings indestructible
 if (!is3DEN) then {

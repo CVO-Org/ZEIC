@@ -34,6 +34,7 @@ if (!isNull _dlg) then {
 	["T14.5 picking a category stores it", (_dlg getVariable ["category", -1]) == 0] call PFUNC(dev_check);
 
 	private _slider = _dlg getVariable ["radius_ctrl", controlNull];
+	["T14.10 radius preview drawn around the module position", (_slider getVariable [QPVAR(previewEH), -1]) >= 0] call PFUNC(dev_check);
 	["T14.9 radius slider with its number field", !isNull _slider && {sliderPosition _slider == 0}, sliderRange _slider] call PFUNC(dev_check);
 
 	[_dlg] call PFUNC(ui_dialogConfirm);

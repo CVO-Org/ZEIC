@@ -27,6 +27,10 @@
 #define UI_W(N) ((N) * UI_GRID_W)
 #define UI_H(N) ((N) * UI_GRID_H)
 
+// Radius preview of the dialogs' radius sliders (see PFUNC(ui_radiusPreview))
+#define RADIUS_PREVIEW_COLOR [1, 1, 1, 0.8]
+#define RADIUS_PREVIEW_WIDTH 6
+
 // Self test (functions\dev): the building most tests fill
 #define DEV_HOUSE "Land_i_House_Small_03_V1_F"
 
