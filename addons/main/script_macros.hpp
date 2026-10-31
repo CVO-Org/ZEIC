@@ -18,6 +18,10 @@
     #define QPFUNC(var1) QUOTE(PFUNC(var1))
 #endif
 
+#ifndef ADDON
+    #define ADDON DOUBLES(PREFIX,COMPONENT)
+#endif
+
 #ifndef ADDON_NAME
     #define ADDON_NAME Q(PREFIX_BEAUTIFIED - COMPONENT_BEAUTIFIED)
 #endif
