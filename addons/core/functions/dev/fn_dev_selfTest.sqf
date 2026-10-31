@@ -20,9 +20,9 @@
 
 if (!isServer || {!hasInterface} || {is3DEN}) exitWith {};
 
-private _origin = switch (worldName) do {
-	case "VR": { [1000, 1000, 0] };
-	case "Altis": { [23500, 18200, 0] }; // Almyra
+private _origin = switch (toLowerANSI worldName) do {
+	case "vr": { [1000, 1000, 0] };
+	case "altis": { [23500, 18200, 0] }; // Almyra
 	default { [] };
 };
 if (_origin isEqualTo []) exitWith {
