@@ -1,4 +1,4 @@
-// Mission templates for the self test (zeic_selftest.sqf, block T12): an extra template for an existing
+// Mission templates for the self test (ZEIC_fnc_dev_test_missionTemplates, T12): an extra template for an existing
 // category, and a category that only exists in this mission. See docs/config-schema.md, section 5.
 class CfgZEIC {
     class mil {

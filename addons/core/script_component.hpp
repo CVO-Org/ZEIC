@@ -25,6 +25,9 @@
 #define UI_W(N) ((N) * UI_GRID_W)
 #define UI_H(N) ((N) * UI_GRID_H)
 
+// Self test (functions\dev): the building most tests fill
+#define DEV_HOUSE "Land_i_House_Small_03_V1_F"
+
 // Progress feedback states (index into FEEDBACK_COLORS / FEEDBACK_WIDTHS)
 #define FEEDBACK_QUEUED 0
 #define FEEDBACK_PROCESSING 1
