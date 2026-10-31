@@ -69,7 +69,6 @@ if (uiNamespace getVariable QPVAR(isLoaded_sog)) then {
 };
 
 // If item is present, replace it with a random variant.
-private _rndItem = "";
 if (_doRandom) then {
 	{
 		if ( _item in _x ) exitWith { _item = selectRandom _x };
@@ -79,7 +78,7 @@ if (_doRandom) then {
 
 if ( _item != "" && { !(_item call _doesExist) } ) then {
 	[format ["Invalid Classname (%1)", _item], "ERROR"] call PFUNC(misc_logMsg);
-	_return = "";
+	_item = "";
 };
 
 _item	// return
