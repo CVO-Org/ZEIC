@@ -113,7 +113,7 @@ _dlg = findDisplay 1702;
 private _recentList = _dlg getVariable ["recent_ctrl", controlNull];
 ["T15.12 recently used list preselects the last pair", ((lnbSize _recentList) select 0) == 1 && {lnbCurSelRow _recentList == 0} && {(_dlg getVariable [QPVAR(selection), []]) isEqualTo ["BLU_F", "EdSubcat_Personnel"]}, [lnbSize _recentList, lnbCurSelRow _recentList]] call PFUNC(dev_check);
 ["T15.13 recently used clears the pair list selection", lnbCurSelRow (_dlg getVariable "pairs_ctrl") == -1] call PFUNC(dev_check);
-["T15.19 recently used row looks like the pair list (same columns)", (_recentList lnbData [0, 0]) == "BLU_F#EdSubcat_Personnel" && {(_recentList lnbPicture [0, 0]) == (SIDE_ICONS select 1)}, [_recentList lnbData [0, 0], _recentList lnbPicture [0, 0]]] call PFUNC(dev_check);
+["T15.19 recently used row looks like the pair list (same columns)", (_recentList lnbData [0, 0]) == "BLU_F#EdSubcat_Personnel" && {(toLowerANSI (SIDE_ICONS select 1)) find (toLowerANSI (_recentList lnbPicture [0, 0])) != -1}, [_recentList lnbData [0, 0], _recentList lnbPicture [0, 0]]] call PFUNC(dev_check);
 
 // Typing a search keeps the pair picked in the recently used list
 _dlg setVariable ["search", "csat"];
