@@ -44,5 +44,5 @@ _list ctrlAddEventHandler ["LBSelChanged", {
 _display setVariable [_key, -1];
 _display setVariable [format ["%1_ctrl", _key], _list];
 
-if (_advance) then { _ctx set ["y", _y + UI_H(1 + _rows) + UI_H(0.1)] };
+if (_advance) then { _ctx set ["y", _y + UI_H(1 + _rows) + UI_GAP] };
 _list

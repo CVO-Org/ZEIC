@@ -25,5 +25,5 @@ private _ctrl = [_ctx, QPVAR(ctrlLabel), [_x0, _y, UI_W(10), _h]] call PFUNC(ui_
 _ctrl ctrlSetText _label;
 if (_tooltip != "") then { _ctrl ctrlSetTooltip _tooltip };
 
-_ctx set ["y", _y + _h + UI_H(0.1)];
+_ctx set ["y", _y + _h + UI_GAP];
 [_x0 + UI_W(10.1), _y, UI_W(15.9), _h]

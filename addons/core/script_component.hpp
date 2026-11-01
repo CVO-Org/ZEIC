@@ -26,6 +26,9 @@
 #define UI_GRID_H ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)
 #define UI_W(N) ((N) * UI_GRID_W)
 #define UI_H(N) ((N) * UI_GRID_H)
+// Gap between rows and between the dialog's bars: a tenth of a row, in whole screen pixels. PFUNC(ui_dialogFinish)
+// snaps all edges to pixels, so every gap ends up exactly this wide.
+#define UI_GAP (((round (UI_H(0.1) / pixelH)) max 1) * pixelH)
 
 // Radius preview of the dialogs' radius sliders (see PFUNC(ui_radiusPreview))
 // Alternating blue and white dashes on a wider dark line, so it shows on any ground

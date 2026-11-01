@@ -29,6 +29,6 @@ private _ctx = createHashMapFromArray [
 
 ([_ctx, QPVAR(ctrlTitle), [0, 0, UI_W(27), UI_H(1)]] call PFUNC(ui_dialogAdd)) ctrlSetText _title;
 // Its height is set by PFUNC(ui_dialogFinish)
-_ctx set ["background", [_ctx, QPVAR(ctrlBackground), [0, UI_H(1.1), UI_W(27), 0]] call PFUNC(ui_dialogAdd)];
+_ctx set ["background", [_ctx, QPVAR(ctrlBackground), [0, UI_H(1) + UI_GAP, UI_W(27), 0]] call PFUNC(ui_dialogAdd)];
 
 _ctx
