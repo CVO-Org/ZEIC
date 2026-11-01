@@ -12,6 +12,13 @@ It gets every pre-release before it reaches the stable version, so things may br
 [h1]What ZEIC does[/h1]
 A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
 
+[h3]Advanced Fill[/h3]
+[list]
+[*] Furnishes and garrisons a building, or a share of the buildings within a radius, in one go: per building the interior first, then the units.
+[*] Collision check: units aren't placed on positions blocked by furniture, or the furniture gives way.
+[*] Fill modifiers: Military defences only, No modern electronics, Cold War era; mods and missions can add their own.
+[/list]
+
 [h3]Interior Fill[/h3]
 [list]
 [*] Furnishes a building, or a share of the buildings within a radius, from the templates of a category (Military, Civilian, CBRN, and any category a mod or mission adds).
@@ -22,13 +29,15 @@ A tool to quickly decorate and populate interiors for your missions in either Ze
 [h3]Garrison Building[/h3]
 [list]
 [*] Fills a building, or a share of the buildings within a radius, with infantry of any faction.
-[*] Find the faction by side and search; recently used factions are listed on top.
+[*] Units as a percentage of each building's positions, with a live estimate; asks before creating over 400 units.
+[*] One list of faction + subcategory pairs with side filter and search; recently used ones are listed on top.
+[*] Optional Move AI trigger: the units move once an enemy player comes close.
 [*] Hold Alt while placing to garrison again with the last settings.
 [/list]
 
 [h3]Fill Table / Shelf[/h3]
 [list]
-[*] Puts small objects on a table, shelf or rack (food, medical, office, tools, electric, CBRN cleaning or random).
+[*] Puts small objects on a table, shelf or rack (food, medical, office, tools, modern or old electronics, CBRN cleaning or random).
 [/list]
 
 [h3]Object Switch[/h3]
@@ -44,7 +53,8 @@ A tool to quickly decorate and populate interiors for your missions in either Ze
 
 [h1]Technical Details[/h1]
 [list]
-[*] Standalone, client side, creates no dependency in the mission file.
+[*] Standalone, creates no dependency in the mission file. Only the Zeus needs it, other players don't.
+[*] In multiplayer the server needs it too for Interior Fill, Advanced Fill and the Move AI trigger.
 [*] Built and signed with HEMTT; each update produces a new bikey.
 [/list]
 
