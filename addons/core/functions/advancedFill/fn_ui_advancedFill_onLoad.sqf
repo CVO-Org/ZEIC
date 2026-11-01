@@ -4,8 +4,8 @@
 * Builds the Advanced Fill dialog: three tabs, Interior, Garrison and Settings, as buttons at the top that show
 * one tab's rows at a time. Interior and Garrison each have a checkbox in their tab button; a part that is off
 * is greyed out, and the two can never both be off: turning off the last one turns the other back on.
-* - Interior: category, the fill modifiers (a checkbox per modifier, see PFUNC(fillModifiers_list)), object mode and
-*   damage, as in Interior Fill.
+* - Interior: category, object mode and damage, as in Interior Fill, then after a gap the fill modifiers (a checkbox
+*   per modifier, see PFUNC(fillModifiers_list)).
 * - Garrison: the faction picker (see PFUNC(ui_garrisonBuilding_factionPicker)), positions, dynamic simulation, trigger.
 * - Settings: radius, share of the buildings, the unit estimate (see PFUNC(ui_garrisonBuilding_estimate)), and the
 *   collision check with what gives way at blocked positions (see PFUNC(advancedFill_start)).
@@ -92,15 +92,6 @@ private _fnc_tab = {
 // Interior. Eden always places editable entities and can't make buildings indestructible.
 [{
 	[_ctx, "category", LLSTRING(Category), (call PFUNC(interiorFill_categories)) apply { _x select 0 }, _last getOrDefault ["category", missionNamespace getVariable [QPVAR(UiInteriorType), 0]]] call PFUNC(ui_dialogCombo);
-	private _modifiers = call PFUNC(fillModifiers_list);
-	if (_modifiers isNotEqualTo []) then {
-		[_ctx, LLSTRING(ModuleAdvancedFill_Modifiers), LLSTRING(ModuleAdvancedFill_Modifiers_Tooltip)] call PFUNC(ui_dialogRow);
-		private _checked = _last getOrDefault ["modifiers", []];
-		{
-			_x params ["_name", "_class", "_tooltip"];
-			[_ctx, format ["modifier_%1", _class], _name, _class in _checked, _tooltip] call PFUNC(ui_dialogCheckbox);
-		} forEach _modifiers;
-	};
 	if (!is3DEN) then {
 		[_ctx, "objects", LLSTRING(ObjectMode),
 			[LLSTRING(ObjectMode_Simple), LLSTRING(ObjectMode_Normal), LLSTRING(ObjectMode_Editable)],
@@ -108,6 +99,17 @@ private _fnc_tab = {
 			[LLSTRING(ObjectMode_Simple_Tooltip), LLSTRING(ObjectMode_Normal_Tooltip), LLSTRING(ObjectMode_Editable_Tooltip)]
 		] call PFUNC(ui_dialogToolbox);
 		[_ctx, "damage", LLSTRING(ModuleInteriorFill_AllowDamage), _last getOrDefault ["damage", false], LLSTRING(ModuleInteriorFill_AllowDamage_Tooltip)] call PFUNC(ui_dialogCheckbox);
+	};
+	private _modifiers = call PFUNC(fillModifiers_list);
+	if (_modifiers isNotEqualTo []) then {
+		// Half a row of space above the variable-length list, in whole pixels like UI_GAP
+		_ctx set ["y", (_ctx get "y") + (round (UI_H(0.5) / pixelH)) * pixelH];
+		[_ctx, LLSTRING(ModuleAdvancedFill_Modifiers), LLSTRING(ModuleAdvancedFill_Modifiers_Tooltip)] call PFUNC(ui_dialogRow);
+		private _checked = _last getOrDefault ["modifiers", []];
+		{
+			_x params ["_name", "_class", "_tooltip"];
+			[_ctx, format ["modifier_%1", _class], _name, _class in _checked, _tooltip] call PFUNC(ui_dialogCheckbox);
+		} forEach _modifiers;
 	};
 }] call _fnc_tab;
 
