@@ -86,6 +86,18 @@ class PVAR(ctrlToolbox): ctrlToolbox {
     columns = QPVAR(toolboxColumns);
 };
 
+// Tab buttons (Advanced Fill): the shown tab gets the profile colour by script, see PFUNC(ui_advancedFill_onLoad)
+class PVAR(ctrlTab): RscButton {
+    colorBackground[] = {0, 0, 0, 0.5};
+    colorBackgroundActive[] = {1, 1, 1, 0.15};
+    colorFocused[] = {0, 0, 0, 0.5};
+    colorShadow[] = {0, 0, 0, 0};
+    offsetX = 0;
+    offsetY = 0;
+    offsetPressedX = 0;
+    offsetPressedY = 0;
+};
+
 class PVAR(ctrlButtonOK): RscButtonMenuOK {
     idc = -1;
 };

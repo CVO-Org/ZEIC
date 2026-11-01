@@ -28,6 +28,7 @@ class CfgPatches {
             QPVAR(ListBuildings),
             QPVAR(GarrisonBuilding),
             QPVAR(InteriorFill),
+            QPVAR(AdvancedFill),
             QPVAR(ObjectSwitch),
             QPVAR(ObjectFill),
             QPVAR(FindBPos),
@@ -51,6 +52,7 @@ class CfgPatches {
 
 #include "ui\defines.hpp"
 #include "ui\controls.hpp"
+#include "ui\Rsc_ZEIC_AdvancedFill.hpp"
 #include "ui\Rsc_ZEIC_GarrisonBuilding.hpp"
 #include "ui\Rsc_ZEIC_InteriorFill.hpp"
 #include "ui\Rsc_ZEIC_ListBuildings.hpp"

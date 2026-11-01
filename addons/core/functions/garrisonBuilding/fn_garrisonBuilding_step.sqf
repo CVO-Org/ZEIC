@@ -24,6 +24,9 @@ if (isNull _bld) exitWith {
 	private _index = _job get "index";
 	private _finished = _index >= count _buildings;
 
+	// Advanced Fill: a building is garrisoned once its interior is done
+	if (!_finished && {[_job, _buildings select _index] call PFUNC(advancedFill_waitForInterior)}) exitWith { false };
+
 	if (_finished) then {
 		[_job] call PFUNC(garrisonBuilding_finishJob);
 	} else {
@@ -36,11 +39,19 @@ if (isNull _bld) exitWith {
 			_job set ["spawned", []];
 
 			if (is3DEN) then {
-				// One layer for the whole garrison, created with its first building, and one per building inside it
-				if ((_job get "fillLayer") == -1) then {
-					_job set ["fillLayer", ["ZEIC Garrisons", _job get "faction"] call PFUNC(eden_addLayer)];
+				private _layers = _job get "layers";
+				if (count _layers > 0) then {
+					// Advanced Fill: the units in the building's "Units" layer, the trigger in the building layer
+					_job set ["layer", [_layers, _bld, "Units"] call PFUNC(advancedFill_layer)];
+					_job set ["triggerLayer", [_layers, _bld] call PFUNC(advancedFill_layer)];
+				} else {
+					// One layer for the whole garrison, created with its first building, and one per building inside it
+					if ((_job get "fillLayer") == -1) then {
+						_job set ["fillLayer", ["ZEIC Garrisons", _job get "faction"] call PFUNC(eden_addLayer)];
+					};
+					_job set ["layer", [_job get "fillLayer", getText (configOf _bld >> "displayName")] call PFUNC(eden_addLayer)];
+					_job set ["triggerLayer", _job get "layer"];
 				};
-				_job set ["layer", [_job get "fillLayer", getText (configOf _bld >> "displayName")] call PFUNC(eden_addLayer)];
 
 				// Eden can only create a group through a unit: a temporary one, deleted once the building is done.
 				// TODO: Find a neater way to create a group (create3DENComposition)?

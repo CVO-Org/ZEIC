@@ -10,6 +10,8 @@
 * 2: Editor subcategory class <STRING>
 * 3: Options [positions to fill in percent <NUMBER>, dynamic simulation <BOOL>, create "move AI" trigger <BOOL>] <ARRAY>
 *    The units per building are a percentage of its positions, see PFUNC(garrisonBuilding_unitCounts).
+*    A 4th element, a link id, garrisons each building only once its interior is done (Advanced Fill, see PFUNC(advancedFill_start)).
+*    A 5th element, Eden layers shared with the interior <HASHMAP>, see PFUNC(advancedFill_layer).
 *
 * Return Value:
 * None
@@ -21,7 +23,7 @@
 */
 
 params [["_buildings", [], [[]]], ["_factClass", "", [""]], ["_catClass", "", [""]], ["_options", [], [[]]]];
-_options params [["_percent", 50, [0]], ["_forceDS", false, [false]], ["_createTR", false, [false]]];
+_options params [["_percent", 50, [0]], ["_forceDS", false, [false]], ["_createTR", false, [false]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]]];
 
 private _unitTypes = [_factClass, _catClass] call PFUNC(garrisonBuilding_unitTypes);
 if (_unitTypes isEqualTo []) exitWith {
@@ -56,6 +58,10 @@ private _side = switch (getNumber (configFile >> "CfgFactionClasses" >> _factCla
 	["unitCounts", [_buildings apply { count (_x buildingPos -1) }, _percent] call PFUNC(garrisonBuilding_unitCounts)],
 	["forceDS", _forceDS],
 	["createTR", _createTR],
+	["linkId", _linkId],
+	["layers", _layers],
+	["triggerLayer", -1],
+	["waitSince", -1],
 	// current building
 	["current", objNull],
 	["positions", []],

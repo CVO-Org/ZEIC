@@ -28,12 +28,7 @@ if (isNull _bldTmp || _fillArea) then {
 	private _center = missionNamespace getVariable [QPVAR(UiLastPosition), screenToWorld getMousePosition];
 	_bldTmp = nearestObjects [_center, ["Building"], [_area, 15] select (_area isEqualTo 0), true];
 	// Candidates: buildings with positions, or with a template entry in this category (e.g. bunkers, towers), or listed via PFUNC(addCustomHouse)
-	_bldArr = _bldTmp select {
-		((_x buildingPos 0) isNotEqualTo [0,0,0])
-		|| {isClass (configFile >> "CfgZEIC" >> _fillType >> typeOf _x)}
-		|| {isClass (missionConfigFile >> "CfgZEIC" >> _fillType >> typeOf _x)}
-		|| {typeOf _x in (missionNamespace getVariable [QPVAR(additionalBuildings), []])}
-	};
+	_bldArr = _bldTmp select { [_x, _fillType] call PFUNC(interiorFill_isCandidate) };
 
 	if (_fillArea) then {
 		// Chance: a random share of the buildings that aren't furnished yet (at least one)

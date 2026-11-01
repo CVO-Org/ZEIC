@@ -1,6 +1,19 @@
 class CfgFunctions {
     class ZEIC {
 
+        class advancedFill {
+            file = PATH_TO_FUNC_SUB(advancedFill);
+
+            class advancedFill_interiorDone {};
+            class advancedFill_layer {};
+            class advancedFill_selectBuildings {};
+            class advancedFill_start {};
+            class advancedFill_waitForInterior {};
+            class mod_advancedFill {};
+            class ui_advancedFill {};
+            class ui_advancedFill_onLoad {};
+        };
+
         class common {
             file = PATH_TO_FUNC_SUB(common);
             
@@ -34,6 +47,7 @@ class CfgFunctions {
             };
             class dev_spawn {};
             class dev_test_addon {};
+            class dev_test_advancedFill {};
             class dev_test_configTemplates {};
             class dev_test_createTemplate {};
             class dev_test_dialog {};
@@ -79,7 +93,10 @@ class CfgFunctions {
             class garrisonUnit {};
             class mod_garrisonBuilding {};
             class ui_garrisonBuilding {};
+            class ui_garrisonBuilding_estimate {};
+            class ui_garrisonBuilding_factionPicker {};
             class ui_garrisonBuilding_onLoad {};
+            class ui_garrisonBuilding_selectPair {};
         };
 
         class InteriorFill {
@@ -90,7 +107,9 @@ class CfgFunctions {
             class interiorFill_categories {};
             class interiorFill_enqueue {};
             class interiorFill_finishBuilding {};
+            class interiorFill_findBuilding {};
             class interiorFill_finishJob {};
+            class interiorFill_isCandidate {};
             class interiorFill_notify {};
             class interiorFill_prepareBuilding {};
             class interiorFill_selectTemplate {};
