@@ -83,7 +83,7 @@ switch _mode do {
 				};
 			};
 			_tempArr = _tempArr - [objNull];
-			_br = toString [13,10];
+			private _br = toString [13,10];
 
 			copyToClipboard format ['case "%3%1": {%4        [%4            %2%4        ];%4    };', _keyObjType, _tempArr, _mod, _br];
 			[format [LLSTRING(MSG_SBSDone), _keyObjType, count _tempArr], "INFO"] call PFUNC(misc_logMsg);

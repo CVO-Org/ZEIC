@@ -13,14 +13,9 @@ switch _mode do {
 		
 		// In MP only run for local client.
 		if (!local _logic) exitWith {};
-								
-		private _bldArr = nearestObjects [_logic, [], 25, true]; 
-		
-		_bldArr = _bldArr select { str (_x buildingPos 0) != "[0,0,0]" };
-		
-		if (_bldArr isEqualTo []) exitWith { [LLSTRING(MSG_NoBuilding), "ERROR"] call PFUNC(misc_logMsg) };
-		if (count _bldArr > 1) then { _bldArr resize 1 };
-	
+
+		private _pos = getPosATL _logic;
+
 		// Delete the module to prevent any dependencies.
 		if (_logic isKindOf "Logic") then {
 			if (is3DEN) then { delete3DENEntities [_logic] } else { deleteVehicle _logic };
@@ -28,6 +23,11 @@ switch _mode do {
 
 		// Leave the placement mode, the module is done with one click
 		[] call PFUNC(endPlacement);
+
+		// The nearest building with positions (the module is deleted either way)
+		private _bldArr = (nearestObjects [_pos, [], 25, true]) select { (_x buildingPos -1) isNotEqualTo [] };
+		if (_bldArr isEqualTo []) exitWith { [LLSTRING(MSG_NoBuilding), "ERROR"] call PFUNC(misc_logMsg) };
+		_bldArr resize 1;
 				
 		collect3DENHistory {
 			{ 

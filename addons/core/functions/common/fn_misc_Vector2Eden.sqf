@@ -14,7 +14,7 @@ private ["_xRot", "_yRot", "_zRot"];
 
 if (abs (_up select 0) < 0.999999) then {
 	_yRot = -asin (_up select 0);
-	_signCosY = if (cos _yRot < 0) then { -1 } else { 1 };
+	private _signCosY = if (cos _yRot < 0) then { -1 } else { 1 };
 	_xRot = (_up select 1 * _signCosY) atan2 (_up select 2 * _signCosY);
 	_zRot = (_direction select 0 * _signCosY) atan2 (_aside select 0 * _signCosY);
 } else {
