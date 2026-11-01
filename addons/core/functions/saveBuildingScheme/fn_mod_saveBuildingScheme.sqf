@@ -16,6 +16,9 @@ switch _mode do {
 		if (_logic isKindOf "Logic") then {
 			if (_isCuratorPlaced) then {deleteVehicle _logic} else {delete3DENEntities [_logic]};
 		};
+
+		// Leave the placement mode, the module is done with one click
+		[] call PFUNC(endPlacement);
 		
 		[_isCuratorPlaced] spawn {
 			params ["_isCuratorPlaced"];

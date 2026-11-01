@@ -50,3 +50,13 @@ if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_
         deleteVehicle _temp;
     }, "\A3\modules_f\data\portraitModule_ca.paa"] call zen_custom_modules_fnc_register;
 };
+
+// Modifier keys for the module shortcuts: the Zeus display is created anew whenever Zeus opens
+if (hasInterface) then {
+    addMissionEventHandler ["EachFrame", {
+        private _display = findDisplay 312;
+        if (!isNull _display && {!(_display getVariable [QPVAR(modifiersTracked), false])}) then {
+            [_display] call PFUNC(modifiers_install);
+        };
+    }];
+};

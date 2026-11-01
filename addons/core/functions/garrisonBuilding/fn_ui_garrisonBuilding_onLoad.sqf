@@ -141,7 +141,7 @@ if (_recent isNotEqualTo []) then {
 
 private _positions = count (_bld buildingPos -1);
 [_ctx, "units", LLSTRING(GB_Units), [1, 12 max _positions, 1], missionNamespace getVariable [QPVAR(UiGarrisonUnits), 1 max round (_positions / 3)], LLSTRING(GB_UnitsTip)] call PFUNC(ui_dialogSlider);
-[_ctx, "radius", LLSTRING(GB_Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0], LLSTRING(GB_RadiusTip)] call PFUNC(ui_dialogSlider);
+[_ctx, "radius", LLSTRING(GB_Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0], LLSTRING(GB_RadiusTip), _bld] call PFUNC(ui_dialogSlider);
 [_ctx, "percent", LLSTRING(GB_Percent), [10, 100, 10], missionNamespace getVariable [QPVAR(UiGarrisonPercent), 50], LLSTRING(GB_PercentTip)] call PFUNC(ui_dialogSlider);
 [_ctx, "dynamic", LLSTRING(GB_Dynamic), missionNamespace getVariable [QPVAR(UiGarrisonDynamic), false], LLSTRING(GB_DynamicTip)] call PFUNC(ui_dialogCheckbox);
 [_ctx, "trigger", LLSTRING(GB_Trigger), missionNamespace getVariable [QPVAR(UiCreateTrigger), false], LLSTRING(GB_TriggerTip)] call PFUNC(ui_dialogCheckbox);

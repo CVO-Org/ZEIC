@@ -36,9 +36,11 @@ if (isNull _bld) exitWith {
 			_job set ["spawned", []];
 
 			if (is3DEN) then {
-				private _counter = uiNamespace getVariable [QPVAR(layer_counter), 0];
-				uiNamespace setVariable [QPVAR(layer_counter), _counter + 1];
-				_job set ["layer", -1 add3DENLayer "ZEIC Garrison " + str _counter];
+				// One layer for the whole garrison, created with its first building, and one per building inside it
+				if ((_job get "fillLayer") == -1) then {
+					_job set ["fillLayer", ["ZEIC Garrisons", _job get "faction"] call PFUNC(eden_addLayer)];
+				};
+				_job set ["layer", [_job get "fillLayer", getText (configOf _bld >> "displayName")] call PFUNC(eden_addLayer)];
 
 				// Eden can only create a group through a unit: a temporary one, deleted once the building is done.
 				// TODO: Find a neater way to create a group (create3DENComposition)?

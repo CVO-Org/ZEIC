@@ -27,6 +27,13 @@
 #define UI_W(N) ((N) * UI_GRID_W)
 #define UI_H(N) ((N) * UI_GRID_H)
 
+// Radius preview of the dialogs' radius sliders (see PFUNC(ui_radiusPreview))
+// Alternating blue and white dashes on a wider dark line, so it shows on any ground
+#define RADIUS_PREVIEW_COLORS [[0.15, 0.5, 1, 1], [1, 1, 1, 1]]
+#define RADIUS_PREVIEW_WIDTH 10
+#define RADIUS_PREVIEW_OUTLINE_COLOR [0, 0, 0, 0.7]
+#define RADIUS_PREVIEW_OUTLINE_WIDTH 20
+
 // Self test (functions\dev): the building most tests fill
 #define DEV_HOUSE "Land_i_House_Small_03_V1_F"
 

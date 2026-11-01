@@ -34,6 +34,7 @@ if (!isNull _dlg) then {
 	["T14.5 picking a category stores it", (_dlg getVariable ["category", -1]) == 0] call PFUNC(dev_check);
 
 	private _slider = _dlg getVariable ["radius_ctrl", controlNull];
+	["T14.10 radius preview drawn around the module position", (_slider getVariable [QPVAR(previewEH), -1]) >= 0] call PFUNC(dev_check);
 	["T14.9 radius slider with its number field", !isNull _slider && {sliderPosition _slider == 0}, sliderRange _slider] call PFUNC(dev_check);
 
 	[_dlg] call PFUNC(ui_dialogConfirm);
@@ -47,3 +48,17 @@ if (!isNull _dlg) then {
 	private _dlgTimeout = diag_tickTime + 30;
 	waitUntil { sleep 0.05; (missionNamespace getVariable ["ZEIC_queue", []]) isEqualTo [] || {diag_tickTime > _dlgTimeout} };
 };
+
+// Chance: a share of the buildings within the radius
+private _chanceCenter = PVAR(dev_origin) vectorAdd [300, 1100, 0];
+private _chanceHouses = [];
+for "_i" from 0 to 3 do { _chanceHouses pushBack (createVehicle [DEV_HOUSE, _chanceCenter vectorAdd [_i * 25, 0, 0], [], 0, "CAN_COLLIDE"]) };
+PVAR(UiLastBuilding) = _chanceHouses select 0;
+PVAR(UiLastPosition) = _chanceCenter vectorAdd [37.5, 0, 0];
+isNil { [0, 60, OBJECT_MODE_SIMPLE, false, 50] call PFUNC(ui_interiorFill) };
+private _chanceQueued = { _x getVariable ["ZEIC_queued", false] || {!isNull (_x getVariable ["ZEIC_furnished", objNull])} } count _chanceHouses;
+["T14.11 chance 50% fills 2 of 4 buildings", _chanceQueued == 2, _chanceQueued] call PFUNC(dev_check);
+["T14.12 chance remembered for Alt and shortcuts", PVAR(UiInteriorChance) == 50] call PFUNC(dev_check);
+PVAR(UiInteriorChance) = 100;
+private _chanceTimeout = diag_tickTime + 30;
+waitUntil { sleep 0.05; (missionNamespace getVariable ["ZEIC_queue", []]) isEqualTo [] || {diag_tickTime > _chanceTimeout} };

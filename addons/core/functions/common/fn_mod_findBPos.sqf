@@ -25,6 +25,9 @@ switch _mode do {
 		if (_logic isKindOf "Logic") then {
 			if (is3DEN) then { delete3DENEntities [_logic] } else { deleteVehicle _logic };
 		};
+
+		// Leave the placement mode, the module is done with one click
+		[] call PFUNC(endPlacement);
 				
 		collect3DENHistory {
 			{ 

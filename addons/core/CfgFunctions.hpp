@@ -10,9 +10,14 @@ class CfgFunctions {
 
             class addCustomHouse {};
             class addCustomTemplate {};
+            class eden_addLayer {};
 
             class misc_Vector2Eden {};
             class misc_logMsg {};
+            class modifiers_get {};
+            class modifiers_install {};
+            class modifiers_onKey {};
+            class endPlacement {};
         };
 
         class dev {
@@ -38,6 +43,7 @@ class CfgFunctions {
             class dev_test_queue {};
             class dev_test_rowOrder {};
             class dev_test_scriptApi {};
+            class dev_test_shortcuts {};
         };
 
         class feedback {
@@ -149,6 +155,7 @@ class CfgFunctions {
             class ui_dialogRow {};
             class ui_dialogSlider {};
             class ui_dialogToolbox {};
+            class ui_radiusPreview {};
         };
 
 
