@@ -23,7 +23,7 @@ private _fnc_waitClosed = {
 // T16 Object Fill dialog (#26)
 private _table = ["Land_TablePlastic_01_F", 42] call PFUNC(dev_spawn);
 PVAR(UiLastObject) = _table;
-PVAR(UiObjectFillType) = 1;
+PVAR(UiObjectFillType) = "food";
 PVAR(UiObjectFillPercent) = 100;
 PVAR(UiObjectFillObjects) = OBJECT_MODE_SIMPLE;
 createDialog "Rsc_ZEIC_ObjectFill";
@@ -43,16 +43,16 @@ if (!isNull _dlg) then {
 // T17 Object Switch dialog (#26)
 private _fence = ["Land_BagFence_Long_F", 43] call PFUNC(dev_spawn);
 PVAR(UiLastPosition) = getPosATL _fence;
-PVAR(UiSwitchCombo) = 1; // Jungle (Apex)
+PVAR(UiSwitchCombo) = "jungle";
 PVAR(UiSwitchRadius) = 5;
 createDialog "Rsc_ZEIC_ObjectSwitch";
 _dlg = findDisplay 1701;
 ["T17.1 Object Switch dialog opens", !isNull _dlg] call PFUNC(dev_check);
 if (!isNull _dlg) then {
-	private _expected = 3 + ([0, 2] select isClass (configFile >> "CfgPatches" >> "CUP_Core")) + ([0, 2] select isClass (configFile >> "CfgPatches" >> "vn_data_f"));
+	private _expected = 3 + ([0, 2] select isClass (configFile >> "CfgPatches" >> "ZEIC_templates_cup")) + ([0, 2] select isClass (configFile >> "CfgPatches" >> "ZEIC_templates_sog"));
 	private _combo = _dlg getVariable ["set_ctrl", controlNull];
 	["T17.2 only sets of loaded mods listed", lbSize _combo == _expected, [lbSize _combo, _expected]] call PFUNC(dev_check);
-	["T17.3 last set preselected", (_dlg getVariable QPVAR(sets)) select (_dlg getVariable ["set", 0]) == 1] call PFUNC(dev_check);
+	["T17.3 last set preselected", (_dlg getVariable QPVAR(sets)) select (_dlg getVariable ["set", 0]) == "jungle"] call PFUNC(dev_check);
 
 	[_dlg] call PFUNC(ui_dialogConfirm);
 	private _closed = [1701] call _fnc_waitClosed;

@@ -212,7 +212,7 @@
             <English>Nothing to switch within the radius.</English>
         </Key>
         <Key ID="STR_ZEIC_core_MSG_SBSDone">
-            <English>%1 copied to the clipboard (%2 objects). Paste it into a template file, or share it with the mod developers.</English>
+            <English>Template for %1 (%2 objects) copied to the clipboard and written to the RPT. Paste it into the mission's description.ext, inside class CfgZEIC and a category.</English>
         </Key>
         <Key ID="STR_ZEIC_core_MSG_SBSInvalid">
             <English>No valid building found. Buildings without positions have to be added with ZEIC_fnc_addCustomHouse.</English>

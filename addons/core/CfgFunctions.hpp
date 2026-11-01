@@ -42,6 +42,7 @@ class CfgFunctions {
             class dev_test_objectModes {};
             class dev_test_queue {};
             class dev_test_rowOrder {};
+            class dev_test_saveScheme {};
             class dev_test_scriptApi {};
             class dev_test_shortcuts {};
             class dev_test_templateObjects {};
@@ -115,6 +116,8 @@ class CfgFunctions {
             file = PATH_TO_FUNC_SUB(objectSwitch);
             
             class mod_objectSwitch {};
+            class objectSwitch_row {};
+            class objectSwitch_sets {};
             class ui_objectSwitch {};
             class ui_objectSwitch_onLoad {};
         };
@@ -140,6 +143,7 @@ class CfgFunctions {
 
             class isVanillaObject {};
             class mod_saveBuildingScheme {};
+            class saveBuildingScheme_toConfig {};
         };
 
         class ui {

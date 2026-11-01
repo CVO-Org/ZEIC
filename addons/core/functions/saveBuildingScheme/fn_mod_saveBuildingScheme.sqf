@@ -38,55 +38,15 @@ switch _mode do {
 			// Array is empty, but 'LookAround' was pressed, force the object.
 			if (_bldArr isEqualTo []) then { _bldArr = [_mouseObj] };
 			
-			// Decorate building in Eden, select building then run code below in debug console to generate a template to clipboard.
 			private _keyObj = _bldArr select 0;
 			private _keyObjType = typeOf _keyObj;
 			private _nearObjects = _keyObj nearObjects ((sizeOf _keyObjType) + (missionNamespace getVariable [QPVAR(SaveRadius),5]));
-			private _mod = "";
-			diag_log text format["********** [ZEIC - BUILDING OUTPUT ""%1""] **********", _keyObjType];
-			
-			private _tempArr = _nearObjects apply { 
-				private _xType = typeOf _x;
+			private _lines = [_keyObj, _nearObjects] call PFUNC(saveBuildingScheme_toConfig);
 
-				private _blacklisted = switch (true) do {
-					case (_xType select [0,11] isEqualTo "Sign_Arrow_"): 	 { true };
-					case (_xType in [ "Logic", "CamCurator", _keyObjType ]): { true };
-					default { false };
-				};
-
-				if (!_blacklisted) then {	
-					if !(_xType call PFUNC(isVanillaObject)) then {_mod = "[MOD] "};
-
-					private _objPos = _keyObj worldToModel (getPosATL _x);
-					private _objDir = round ((getDir _x) - (getDir _keyObj));
-
-					_objPos = [_objPos#0, _objPos#1, _objPos#2];
-
-					private _pb = _x call BIS_fnc_getPitchBank;
-					private _pitch = ((abs (_pb#0)) + 360) mod 360;
-					private _bank = ((abs (_pb#1)) + 360) mod 360;
-					
-					// If the pitch/bank isn't significant, ignore it
-					if (_pitch + _bank < 5) then {
-						diag_log text format ["[""%1"", %2, %3],", _xType, _objPos, _objDir];
-						[_xType, _objPos, _objDir]
-					} else {
-						private _orgVec = [vectorDir _x, vectorUp _x];
-						_x setVectorDirAndUp [[0,1,0],[0,0,1]]; // Realign object direction to get correct worldToModel position.
-						_objPos = _keyObj worldToModel (getPosATL _x);
-						_x setVectorDirAndUp _orgVec;  // Revert to original orientation.
-						diag_log text format ["[""%1"", %2, %3, %4],", _xType, _objPos, _objDir, ((_x get3DENAttribute "Rotation") select 0)  apply { round _x }];
-						[_xType, _objPos, _objDir, ((_x get3DENAttribute "Rotation") select 0) apply { round _x }]
-					};
-				} else {
-					objNull
-				};
-			};
-			_tempArr = _tempArr - [objNull];
-			private _br = toString [13,10];
-
-			copyToClipboard format ['case "%3%1": {%4        [%4            %2%4        ];%4    };', _keyObjType, _tempArr, _mod, _br];
-			[format [LLSTRING(MSG_SBSDone), _keyObjType, count _tempArr], "INFO"] call PFUNC(misc_logMsg);
+			copyToClipboard (_lines joinString toString [13, 10]);
+			diag_log text format ["********** [ZEIC - BUILDING OUTPUT ""%1""] **********", _keyObjType];
+			{ diag_log text _x } forEach _lines;
+			[format [LLSTRING(MSG_SBSDone), _keyObjType, { (_x select [0, 13]) == "            {" } count _lines], "INFO"] call PFUNC(misc_logMsg);
 			if ((_keyObj call BIS_fnc_getPitchBank) isNotEqualTo [0,0]) then {
 				// Warn if building has been rotated (objects are not offset according to the building)
 				// TODO: Add support for all building angles?
