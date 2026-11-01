@@ -2,6 +2,7 @@
     <img src="https://github.com/CVO-Org/ZEIC/blob/main/img/ZEIC-Full-Transparent.png" width="512">
     </br>
     <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3567067667"><img src="https://img.shields.io/steam/subscriptions/3567067667?style=for-the-badge&logo=steam&label=Steam%20Workshop&color=%23690000"></a>
+    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3831519489"><img src="https://img.shields.io/steam/subscriptions/3831519489?style=for-the-badge&logo=steam&label=Workshop%20DEV&color=%23b36b00"></a>
 </p>
 
 
