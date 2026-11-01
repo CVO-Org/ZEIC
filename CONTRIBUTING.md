@@ -17,7 +17,7 @@ Use the issue templates (Bug Report / Feature Request). For bugs, the mod versio
 ## Development setup
 - Install [HEMTT](https://hemtt.dev): `winget install BrettMayson.HEMTT`
 - `hemtt check` - lint and validate
-- `hemtt launch` - build and start Arma 3 with the test mission
+- `hemtt launch` - build and start Arma 3 with the test mission on Altis (`hemtt launch default vr` for VR)
 - New addons: `tools\new-addon.bat`
 
 ## Code style

@@ -1,5 +1,6 @@
+# Default test mission: Altis (Kavala), towns to test more modules in; the self test runs near Almyra
 [base]
-mission = "test.VR"
+mission = "test.Altis"
 parameters = [
     "-noPauseAudio",
     "-noPause",
@@ -33,7 +34,7 @@ extends = "default"
 
 
 # CUP Terrains (Core + Maps): loads the CUP template addon, combine with a mission profile:
-# hemtt launch default cup / hemtt launch default cup altis
+# hemtt launch default cup / hemtt launch default cup vr
 [cup]
 workshop = [
     "583496184",  # CUP Terrains - Core
@@ -43,7 +44,7 @@ workshop = [
 [nomods]
 extends = "base"
 
-# Swaps the mission to Kavala, combine with another profile:
-# hemtt launch default altis / hemtt launch nomods altis
-[altis]
-mission = "test.Altis"
+# Swaps the mission to VR (List Buildings, Save Building Scheme), combine with another profile:
+# hemtt launch default vr / hemtt launch nomods vr
+[vr]
+mission = "test.VR"
