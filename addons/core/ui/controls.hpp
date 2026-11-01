@@ -32,6 +32,8 @@ class PVAR(ctrlHelpBar): RscText {
 class PVAR(ctrlHelp): RscText {
     style = 2; // ST_CENTER
     colorText[] = {0.66, 0.66, 0.66, 1};
+    // A bit smaller than the rows, so the text doesn't touch the bar's lower edge
+    sizeEx = QUOTE(UI_H(0.85));
 };
 class PVAR(ctrlHelpDivider): RscText {
     colorBackground[] = {0.33, 0.33, 0.33, 1};
