@@ -67,6 +67,7 @@ PVAR(dev_results) = [];
 		PFUNC(dev_test_dialog),
 		PFUNC(dev_test_garrisonDialog),
 		PFUNC(dev_test_moduleDialogs),
+		PFUNC(dev_test_objectFillTarget),
 		PFUNC(dev_test_shortcuts)
 	];
 

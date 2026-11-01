@@ -26,9 +26,9 @@ A tool to quickly decorate and populate interiors for your missions in either Ze
 [*] Hold Alt while placing to garrison again with the last settings.
 [/list]
 
-[h3]Object Fill[/h3]
+[h3]Fill Table / Shelf[/h3]
 [list]
-[*] Fills a table or shelf with props (food, medical, office, tools, electric, CBRN cleaning or random).
+[*] Puts small objects on a table, shelf or rack (food, medical, office, tools, electric, CBRN cleaning or random).
 [/list]
 
 [h3]Object Switch[/h3]

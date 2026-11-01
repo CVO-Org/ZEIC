@@ -402,7 +402,7 @@ class CfgZEIC_ObjectSwitch {
   from an addon that loads after `ZEIC_core`. The CUP and SOG sets live in their template addons, so they only exist with their mod.
 - Rows without an entry for the chosen set are left as they are.
 
-## 12. Object Fill (`CfgZEIC_ObjectFill`)
+## 12. Fill Table / Shelf (`CfgZEIC_ObjectFill`)
 
 ```cpp
 class CfgZEIC_ObjectFill {
