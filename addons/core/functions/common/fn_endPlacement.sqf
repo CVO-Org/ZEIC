@@ -5,18 +5,15 @@
 * so the next click doesn't place the module again (as ZEN does in Zeus).
 * - Zeus: the unit, group, module and recent lists (IDC 270-282).
 * - Eden: the asset browser lists (tree controls whose class name starts with "Create").
-* The editor may still be finishing the placement when the module runs, so it is done again on the next frames.
 *
 * Arguments:
-* 0: Frames to repeat it (internal) <NUMBER> (default: 3)
+* None
 *
 * Return Value:
 * None
 *
 * Public: No
 */
-
-params [["_frames", 3, [0]]];
 
 private _trees = if (is3DEN) then {
 	(allControls findDisplay 313) select { ctrlType _x == 12 && {(ctrlClassName _x find "Create") == 0} }
@@ -27,13 +24,8 @@ private _trees = if (is3DEN) then {
 	}
 };
 
+// Once, right away, is enough (tested, #54): Eden still has the module selected when it runs and doesn't select
+// it again afterwards; Zeus has already cleared its lists by then. Clearing again on the next frames found nothing.
 {
 	if ((tvCurSel _x) isNotEqualTo []) then { _x tvSetCurSel [-1] };
 } forEach _trees;
-
-if (_frames > 0 && {_trees isNotEqualTo []}) then {
-	addMissionEventHandler ["EachFrame", {
-		removeMissionEventHandler [_thisEvent, _thisEventHandler];
-		[_thisArgs select 0] call PFUNC(endPlacement);
-	}, [_frames - 1]];
-};
