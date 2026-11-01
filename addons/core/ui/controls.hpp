@@ -24,10 +24,17 @@ class PVAR(ctrlBackground): RscText {
 class PVAR(ctrlLabel): RscText {
     colorBackground[] = {0, 0, 0, 0.5};
 };
-// "Description (?)" and "Shortcuts (?)" below the rows, the text is in their tooltips
-class PVAR(ctrlDescription): RscText {
-    colorText[] = {1, 1, 1, 0.6};
-    sizeEx = QUOTE(UI_H(0.8));
+// Help bar between the rows and the buttons: "Description (?)" and "Shortcuts (?)" on a grey bar,
+// the texts are in their tooltips
+class PVAR(ctrlHelpBar): RscText {
+    colorBackground[] = {0.23, 0.23, 0.23, 0.9};
+};
+class PVAR(ctrlHelp): RscText {
+    style = 2; // ST_CENTER
+    colorText[] = {0.66, 0.66, 0.66, 1};
+};
+class PVAR(ctrlHelpDivider): RscText {
+    colorBackground[] = {0.33, 0.33, 0.33, 1};
 };
 
 class PVAR(ctrlCombo): RscCombo {
