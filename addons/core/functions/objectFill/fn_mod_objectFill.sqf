@@ -20,17 +20,18 @@ switch _mode do {
 		// Leave the placement mode, the module is done with one click
 		[] call PFUNC(endPlacement);
 		
-		// Store the Object under the cursor or nearest of type.
+		// Store the Object under the cursor or nearest of type. The module itself can still be under the cursor
+		// (deleting it takes effect at the end of the frame), so logics don't count.
 		if (is3DEN) then {
 			//systemChat str get3DENMouseOver;
-			if (get3DENMouseOver # 0 == "Object") then {
+			if (get3DENMouseOver # 0 == "Object" && {!((get3DENMouseOver # 1) isKindOf "Logic")}) then {
 				PVAR(UiLastObject) = get3DENMouseOver # 1;
 			} else {
 				PVAR(UiLastObject) = (nearestObjects [screenToWorld getMousePosition, ["Thing"], 10, true]) param [0, objNull];
 			};
 		} else {
 			//systemChat str curatorMouseOver;
-			if (curatorMouseOver # 0 == "Object") then {
+			if (curatorMouseOver # 0 == "Object" && {!((curatorMouseOver # 1) isKindOf "Logic")}) then {
 				PVAR(UiLastObject) = curatorMouseOver # 1;
 			} else {
 				PVAR(UiLastObject) = (nearestObjects [screenToWorld getMousePosition, ["Thing"], 10, true]) param [0, objNull];
