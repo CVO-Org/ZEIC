@@ -16,6 +16,9 @@ switch _mode do {
 		if (_logic isKindOf "Logic") then {
 			if (is3DEN) then {delete3DENEntities [_logic]} else {deleteVehicle _logic};
 		};
+
+		// Zeus: leave the placement mode, the module is done with one click
+		call PFUNC(zeus_endPlacement);
 		
 		// Work out which building to fill. The position is the center of area fills.
 		PVAR(UiLastBuilding) = objNull;

@@ -14,6 +14,9 @@ switch _mode do {
 		if (_logic isKindOf "Logic") then {
 			if (is3DEN) then { delete3DENEntities [_logic] } else { deleteVehicle _logic };
 		};
+
+		// Zeus: leave the placement mode, the module is done with one click
+		call PFUNC(zeus_endPlacement);
 		
 		if (toLowerANSI worldName != "vr") exitWith {
 			["You must be in the VR world to use this module.", "ERROR"] call PFUNC(misc_logMsg)
