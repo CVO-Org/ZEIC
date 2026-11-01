@@ -136,6 +136,10 @@ private _shown = _classes apply { _dlg getVariable [format ["modifier_%1", _x], 
 private _boxes = _classes apply { cbChecked (_dlg getVariable [format ["modifier_%1_ctrl", _x], controlNull]) };
 private _expected = _classes apply { _x in ["coldwar", "zeic_testkeep"] };
 ["T27.18 dialog: a checkbox per modifier, the last checked ones on", !isNull _dlg && {_shown isEqualTo _expected} && {_boxes isEqualTo _expected}, [_classes, _shown, _boxes]] call PFUNC(dev_check);
+// Category, Objects, Allow damage, half a row of space, then the heading and the modifiers
+private _damageY = (ctrlPosition (_dlg getVariable ["damage_ctrl", controlNull])) select 1;
+private _modifierYs = _classes apply { (ctrlPosition (_dlg getVariable [format ["modifier_%1_ctrl", _x], controlNull])) select 1 };
+["T27.19 dialog: the modifiers below Allow damage, after a gap", !isNull _dlg && {_modifierYs findIf { _x - _damageY < UI_H(2.4) } == -1}, [_damageY, _modifierYs]] call PFUNC(dev_check);
 if (!isNull _dlg) then {
 	(_dlg getVariable "modifier_coldwar_ctrl") cbSetChecked false;
 	(_dlg getVariable "modifier_noelectronics_ctrl") cbSetChecked true;
@@ -146,6 +150,6 @@ if (!isNull _dlg) then {
 	call _fnc_waitQueue;
 };
 private _saved = (missionNamespace getVariable [QPVAR(UiAdvancedFill), createHashMap]) getOrDefault ["modifiers", []];
-["T27.19 confirming saves the checked modifiers for Alt, in list order", _saved isEqualTo ["noelectronics", "zeic_testkeep"], _saved] call PFUNC(dev_check);
+["T27.20 confirming saves the checked modifiers for Alt, in list order", _saved isEqualTo ["noelectronics", "zeic_testkeep"], _saved] call PFUNC(dev_check);
 if (!isNull findDisplay 1706) then { (findDisplay 1706) closeDisplay 2 };
 PVAR(UiAdvancedFill) = nil;
