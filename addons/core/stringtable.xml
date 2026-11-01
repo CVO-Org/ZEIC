@@ -350,7 +350,10 @@
                 <English>CBRN cleaning</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_Electric">
-                <English>Electric</English>
+                <English>Electronics (modern)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_ElectronicsOld">
+                <English>Electronics (old)</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_Food">
                 <English>Food</English>

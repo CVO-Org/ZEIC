@@ -45,6 +45,10 @@ private _fnc_check = {
 	private _type = configName _x;
 	[getText (_x >> "floor"), "ObjectFill/" + _type + "/floor"] call _fnc_check;
 	{ [_x, "ObjectFill/" + _type] call _fnc_check } forEach getArray (_x >> "objects");
+	{
+		private _where = format ["ObjectFill/%1/%2", _type, configName _x];
+		{ [_x, _where] call _fnc_check } forEach getArray (_x >> "objects");
+	} forEach ("true" configClasses _x);
 } forEach ("true" configClasses (configFile >> "CfgZEIC_ObjectFill" >> "Types"));
 {
 	private _row = configName _x;

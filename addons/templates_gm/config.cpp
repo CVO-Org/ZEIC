@@ -23,4 +23,5 @@ class CfgPatches {
 #include "CfgZEIC.hpp"
 
 #include "CfgZEIC_Modifiers.hpp"
+#include "CfgZEIC_ObjectFill.hpp"
 #include "CfgZEIC_Variants.hpp"

@@ -62,6 +62,7 @@ class CfgFunctions {
             class dev_test_moduleDialogs {};
             class dev_test_objectFillTarget {};
             class dev_test_missionTemplates {};
+            class dev_test_objectFillTypes {};
             class dev_test_objectModes {};
             class dev_test_queue {};
             class dev_test_rowOrder {};
