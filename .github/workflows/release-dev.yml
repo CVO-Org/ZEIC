@@ -22,7 +22,7 @@ name: "Release: Publish to Steam [DEV]"
 
 env:
   FOLDER: '@ZEIC-dev'
-  WORKSHOPID: '3831289239'
+  WORKSHOPID: '3831519489'
   WORKSHOPNAME: 'ZEIC - Zeus and Eden Interiors Community Version [DEV]'
 
 on:
