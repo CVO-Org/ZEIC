@@ -21,11 +21,21 @@ private _budget = missionNamespace getVariable [QPVAR(queueBudget), [QUEUE_BUDGE
 private _end = diag_tickTime + _budget;
 
 // At least one step per frame, however small the budget.
+// A job that waits for another one (it sets "waiting", see PFUNC(advancedFill_waitForInterior)) lets the jobs behind it run,
+// and waiting doesn't count as the frame's step.
 private _runSteps = {
-	while { PVAR(queue) isNotEqualTo [] } do {
-		private _job = PVAR(queue) select 0;
-		if ([_job] call (_job get "step")) then { PVAR(queue) deleteAt 0 };
-		if (diag_tickTime >= _end) exitWith {};
+	private _index = 0;
+	while { _index < count PVAR(queue) } do {
+		private _job = PVAR(queue) select _index;
+		_job set ["waiting", false];
+		private _waiting = false;
+		if ([_job] call (_job get "step")) then {
+			PVAR(queue) deleteAt _index;
+		} else {
+			_waiting = _job get "waiting";
+			if (_waiting) then { _index = _index + 1 };
+		};
+		if (!_waiting && {diag_tickTime >= _end}) exitWith {};
 	};
 };
 

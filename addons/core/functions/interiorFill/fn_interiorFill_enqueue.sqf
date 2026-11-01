@@ -10,6 +10,8 @@
 * 2: Options [object mode <NUMBER>, allow damage <BOOL>] <ARRAY> (a 3rd element, the removed detail level, is ignored)
 *    Object mode: 0 simple objects, 1 normal objects, 2 normal objects editable in Zeus (true/false = 2/0)
 * 3: Requesting client (receives the summary message) <NUMBER>
+* 4: Link id, see PFUNC(interiorFill_start) <STRING> (default: "", none)
+* 5: Eden layers, see PFUNC(interiorFill_start) <HASHMAP> (default: empty)
 *
 * Return Value:
 * None
@@ -17,17 +19,20 @@
 * Public: No
 */
 
-params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]]];
+params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]]];
 _options params [["_objectMode", OBJECT_MODE_SIMPLE, [0, true]], ["_allowDamage", false, [false]]];
 
 // Older callers passed "editable in Zeus" as a boolean
 if (_objectMode isEqualType true) then { _objectMode = [OBJECT_MODE_SIMPLE, OBJECT_MODE_EDITABLE] select _objectMode };
 
+private _requested = _buildings;
 _buildings = _buildings select {
 	!isNull _x
 	&& {!(_x getVariable [QPVAR(queued), false])}
 	&& {isNull (_x getVariable [QPVAR(furnished), objNull])}
 };
+// Skipped buildings are done right away (Advanced Fill garrisons them anyway)
+[_linkId, _requested - _buildings, _requester] call PFUNC(advancedFill_interiorDone);
 _buildings = [_buildings arrayIntersect _buildings] call PFUNC(queue_sortBuildings);
 
 if (_buildings isEqualTo []) exitWith {
@@ -47,6 +52,8 @@ if (_buildings isEqualTo []) exitWith {
 	["objectMode", _objectMode],
 	["allowDamage", _allowDamage],
 	["requester", _requester],
+	["linkId", _linkId],
+	["layers", _layers],
 	// current building
 	["current", objNull],
 	["items", []],

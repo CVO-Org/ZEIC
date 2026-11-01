@@ -16,6 +16,9 @@ params ["_job"];
 
 [format [LLSTRING(ModuleGarrisonBuilding_Done), _job get "faction", _job get "unitCount", _job get "buildingCount"], "INFO"] call PFUNC(misc_logMsg);
 
+// Advanced Fill: the interiors reported for this job are no longer needed
+if ((_job get "linkId") != "") then { (missionNamespace getVariable [QPVAR(interiorDone), createHashMap]) deleteAt (_job get "linkId") };
+
 // Make sure the last states arrive before the clear is scheduled.
 call PFUNC(feedback_flush);
 [QPFUNC(feedback_finish), []] call PFUNC(feedback_send);

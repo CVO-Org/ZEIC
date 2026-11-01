@@ -21,33 +21,9 @@ switch _mode do {
 		[] call PFUNC(endPlacement);
 		
 		// Work out which building to fill. The position is the center of area fills.
-		PVAR(UiLastBuilding) = objNull;
 		PVAR(UiLastPosition) = screenToWorld getMousePosition;
-		
-		if (is3DEN) then {
-			//systemChat str get3DENMouseOver;
-			if (get3DENMouseOver # 0 == "Object") then { PVAR(UiLastBuilding) = get3DENMouseOver # 1;  };
-		} else {
-			//systemChat str curatorMouseOver;
-			if (curatorMouseOver # 0 == "Object") then { PVAR(UiLastBuilding) = curatorMouseOver # 1 };
-		};
-		
-		// If object isn't valid, reset it
-		// Buildings, and other objects (e.g. tents) only if a category has templates for them; not e.g. a weapon on the ground
-		private _type = typeOf PVAR(UiLastBuilding);
-		private _hasTemplates = (call PFUNC(interiorFill_categories)) findIf {
-			isClass (configFile >> "CfgZEIC" >> (_x select 1) >> _type) || {isClass (missionConfigFile >> "CfgZEIC" >> (_x select 1) >> _type)}
-		} != -1 || {_type in (missionNamespace getVariable [QPVAR(additionalBuildings), []])};
-		if !(PVAR(UiLastBuilding) isKindOf "building" || _hasTemplates) then { PVAR(UiLastBuilding) = objNull };
-						
-		// Find a valid nearby building.
-		if (isNull PVAR(UiLastBuilding)) then {
-			private _nearArr = nearestObjects [(screenToWorld getMousePosition), ["building"], 25, true];
-			private _objArr = _nearArr select { sizeOf typeOf _x > 2 || (_x buildingPos -1) isNotEqualTo [] };
+		PVAR(UiLastBuilding) = call PFUNC(interiorFill_findBuilding);
 
-			if (_objArr isNotEqualTo []) then { PVAR(UiLastBuilding) = _objArr select 0 };
-		};
-		
 		if (isNull PVAR(UiLastBuilding)) exitWith {
 			[format [LLSTRING(NoBuilding), LLSTRING(ModuleInteriorFill_DisplayName)], "ERROR"] call PFUNC(misc_logMsg);
 		};

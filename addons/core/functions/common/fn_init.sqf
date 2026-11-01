@@ -49,6 +49,17 @@ if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_
 
         deleteVehicle _temp;
     }, "\A3\modules_f\data\portraitModule_ca.paa"] call zen_custom_modules_fnc_register;
+
+    [LLSTRING(ModuleCategory_DisplayName), LLSTRING(ModuleAdvancedFill_DisplayName), {
+        params ["_pos"];
+
+        // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_advancedFill" requirement)
+        private _temp = "Module_F" createVehicleLocal _pos;
+
+        ["init", [_temp, true, true]] call PFUNC(mod_advancedFill);
+
+        deleteVehicle _temp;
+    }, "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa"] call zen_custom_modules_fnc_register;
 };
 
 // Modifier keys for the module shortcuts: the Zeus display is created anew whenever Zeus opens

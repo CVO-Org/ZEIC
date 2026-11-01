@@ -4,3 +4,4 @@ class RscCombo {
     class ComboScrollBar;
 };
 class RscCheckBox;
+class RscButton;

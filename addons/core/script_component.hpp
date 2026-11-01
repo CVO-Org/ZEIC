@@ -15,6 +15,9 @@
 // Buildings are processed in rows of this height (meters), north to south, east to west within a row
 #define QUEUE_ROW_SIZE 25
 
+// Advanced Fill: seconds a building's garrison waits for its interior before it goes on without it
+#define ADVANCED_FILL_WAIT 120
+
 // Interior Fill: how objects are created (index in the dialog's "Objects" list)
 #define OBJECT_MODE_SIMPLE 0
 #define OBJECT_MODE_NORMAL 1

@@ -38,18 +38,24 @@ if (isNull _bld) exitWith {
 				(_job get "missing") pushBack typeOf _bld;
 				_bld setVariable [QPVAR(queued), nil];
 				[_bld, FEEDBACK_NONE] call PFUNC(feedback_report);
+				[_job get "linkId", [_bld], _job get "requester"] call PFUNC(advancedFill_interiorDone);
 			} else {
 				_job set ["current", _bld];
 				_job set ["items", _items];
 				_job set ["itemIndex", 0];
 				_job set ["objects", []];
-				// Eden: one layer for the whole fill, created with its first building
-				if (is3DEN && {(_job get "fillLayer") == -1}) then {
+				// Eden: one layer for the whole fill, created with its first building (Advanced Fill: its own layer tree)
+				private _layers = _job get "layers";
+				if (is3DEN && {(_job get "fillLayer") == -1} && {count _layers == 0}) then {
 					private _category = _job get "category";
 					private _categoryName = ((call PFUNC(interiorFill_categories)) select { (_x select 1) == _category }) param [0, [toUpper _category]] select 0;
 					_job set ["fillLayer", ["ZEIC Interiors", _categoryName] call PFUNC(eden_addLayer)];
 				};
-				_job set ["layer", [_bld, _job get "allowDamage", _job get "fillLayer"] call PFUNC(interiorFill_prepareBuilding)];
+				_job set ["layer", if (is3DEN && {count _layers > 0}) then {
+					[_layers, _bld, "Objects"] call PFUNC(advancedFill_layer)
+				} else {
+					[_bld, _job get "allowDamage", _job get "fillLayer"] call PFUNC(interiorFill_prepareBuilding)
+				}];
 				[_bld, FEEDBACK_PROCESSING] call PFUNC(feedback_report);
 			};
 		};
@@ -76,6 +82,7 @@ if ((_job get "itemIndex") >= count _items) then {
 		_job set ["furnished", (_job get "furnished") + 1];
 		[_bld, FEEDBACK_DONE] call PFUNC(feedback_report);
 	};
+	[_job get "linkId", [_bld], _job get "requester"] call PFUNC(advancedFill_interiorDone);
 
 	_job set ["current", objNull];
 };

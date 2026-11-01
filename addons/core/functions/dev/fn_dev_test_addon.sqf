@@ -21,7 +21,7 @@ private _cfgCore = configFile >> "CfgPatches" >> "ZEIC_core";
 ["T0.4 ZEIC_core requires ZEIC_main", (getArray (_cfgCore >> "requiredAddons") findIf { _x == "ZEIC_main" }) != -1, getArray (_cfgCore >> "requiredAddons")] call PFUNC(dev_check);
 
 private _curatorModules = getArray (_cfgCore >> "units") select { getNumber (configFile >> "CfgVehicles" >> _x >> "scopeCurator") == 2 };
-["T0.5 ZEIC_core lists the 4 Zeus modules", count _curatorModules == 4, _curatorModules] call PFUNC(dev_check);
+["T0.5 ZEIC_core lists the 5 Zeus modules", count _curatorModules == 5, _curatorModules] call PFUNC(dev_check);
 ["T0.6 Zeus module injection removed", isNil QPFUNC(zeus_addModules)] call PFUNC(dev_check);
 
 // T1 all functions compiled (#29, #30)

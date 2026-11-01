@@ -67,6 +67,19 @@ class CfgVehicles {
         is3DEN = 1;
     };
     
+    class PVAR(AdvancedFill): Module_F {
+        scope = 2;
+        scopeCurator = 2;
+        displayName = CSTRING(ModuleAdvancedFill_DisplayName);
+        category = QPVAR(interiors);
+        function = QPFUNC(mod_advancedFill);
+        functionPriority = 1;
+        icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\defend_ca.paa";
+        isGlobal = 1;
+        isTriggerActivated = 0;
+        is3DEN = 1;
+    };
+
     class PVAR(FindBPos): Module_F {
         scope = 2; 
         displayName = CSTRING(ModuleMarkPositions_DisplayName);

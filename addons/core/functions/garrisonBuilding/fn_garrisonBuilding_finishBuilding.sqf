@@ -42,7 +42,7 @@ if (is3DEN) then {
 
 		(_id call PFUNC(garrisonBuilding_triggerStatements)) params ["_condition", "_onActivation"];
 		private _trg = create3DENEntity ["Trigger", "EmptyDetector", getPos _bld];
-		_trg set3DENLayer (_job get "layer");
+		_trg set3DENLayer (_job get "triggerLayer");
 		_trg set3DENAttribute ["Size2", [_rad, _rad]];
 		_trg set3DENAttribute ["Size3", [_rad, _rad, 15]];
 		_trg set3DENAttribute ["IsRectangle", false];
