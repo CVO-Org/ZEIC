@@ -44,6 +44,7 @@ class CfgFunctions {
             class dev_test_rowOrder {};
             class dev_test_scriptApi {};
             class dev_test_shortcuts {};
+            class dev_test_templateObjects {};
         };
 
         class feedback {

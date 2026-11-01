@@ -26,7 +26,7 @@ PVAR(UiObjectFillObjects) = _objectMode;
 
 private _object = missionNamespace getVariable [QPVAR(UiLastObject), objNull];
 
-if (isNull _object) exitWith { ["No suitable object found!", "ERROR"] call PFUNC(misc_logMsg) };
+if (isNull _object) exitWith { [LLSTRING(MSG_NoObject), "ERROR"] call PFUNC(misc_logMsg) };
 
 // Checks if the passed object can be decorated or not.
 _fnc_checkObject = {
@@ -101,7 +101,7 @@ _fnc_checkObject = {
 	if (_offSet isEqualTo []) then {
 		_objBB = 0 boundingBoxReal _objToFill;
 		 _offSet = [0];
-		[format ["'%1' is not defined, using model 'top'", typeOf _objToFill], "WARNING"] call PFUNC(misc_logMsg);
+		[format [LLSTRING(MSG_OFUnknown), typeOf _objToFill], "WARNING"] call PFUNC(misc_logMsg);
 	};
 	
 	// If only one offset we're assuming its a table, so create something under it.

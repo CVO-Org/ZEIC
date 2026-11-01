@@ -33,7 +33,12 @@ switch _mode do {
 		};
 		
 		// If object isn't valid, reset it
-		if !(PVAR(UiLastBuilding) isKindOf "building" || PVAR(UiLastBuilding) isKindOf "thing") then { PVAR(UiLastBuilding) = objNull };
+		// Buildings, and other objects (e.g. tents) only if a category has templates for them; not e.g. a weapon on the ground
+		private _type = typeOf PVAR(UiLastBuilding);
+		private _hasTemplates = (call PFUNC(interiorFill_categories)) findIf {
+			isClass (configFile >> "CfgZEIC" >> (_x select 1) >> _type) || {isClass (missionConfigFile >> "CfgZEIC" >> (_x select 1) >> _type)}
+		} != -1 || {_type in (missionNamespace getVariable [QPVAR(additionalBuildings), []])};
+		if !(PVAR(UiLastBuilding) isKindOf "building" || _hasTemplates) then { PVAR(UiLastBuilding) = objNull };
 						
 		// Find a valid nearby building.
 		if (isNull PVAR(UiLastBuilding)) then {
@@ -44,7 +49,7 @@ switch _mode do {
 		};
 		
 		if (isNull PVAR(UiLastBuilding)) exitWith {
-			["No valid buildings within 25m", "ERROR"] call PFUNC(misc_logMsg);
+			[LLSTRING(MSG_NoBuilding), "ERROR"] call PFUNC(misc_logMsg);
 		};
 		
 		// Shortcuts skip the dialog: Alt repeats the last fill, a category's shortcut fills that category

@@ -5,7 +5,7 @@ class CfgVehicles {
     class PVAR(ListBuildings): Module_F {
         scope = 2;
         scopeCurator = 1; 
-        displayName = "List Buildings";
+        displayName = CSTRING(Module_ListBuildings);
         category = QPVAR(interiors_dev);
         function = QPFUNC(mod_listBuildings);
         functionPriority = 1;
@@ -18,7 +18,7 @@ class CfgVehicles {
     class PVAR(GarrisonBuilding): Module_F {
         scope = 2;
         scopeCurator = 2; 
-        displayName = "Garrison Building";
+        displayName = CSTRING(Module_GarrisonBuilding);
         category = QPVAR(interiors);
         function = QPFUNC(mod_garrisonBuilding);
         functionPriority = 1;
@@ -31,7 +31,7 @@ class CfgVehicles {
     class PVAR(ObjectFill): Module_F {
         scope = 2;
         scopeCurator = 2; 
-        displayName = "Object Fill";
+        displayName = CSTRING(Module_ObjectFill);
         category = QPVAR(interiors);
         function = QPFUNC(mod_objectFill);
         functionPriority = 1;
@@ -44,7 +44,7 @@ class CfgVehicles {
     class PVAR(ObjectSwitch): Module_F {
         scope = 2;
         scopeCurator = 2;
-        displayName = "Object Switch";
+        displayName = CSTRING(Module_ObjectSwitch);
         category = QPVAR(interiors);
         function = QPFUNC(mod_objectSwitch);
         functionPriority = 1;
@@ -57,7 +57,7 @@ class CfgVehicles {
     class PVAR(InteriorFill): Module_F {
         scope = 2;
         scopeCurator = 2; 
-        displayName = "Interior Fill";
+        displayName = CSTRING(Module_InteriorFill);
         category = QPVAR(interiors);
         function = QPFUNC(mod_interiorFill);
         functionPriority = 1;
@@ -69,7 +69,7 @@ class CfgVehicles {
     
     class PVAR(FindBPos): Module_F {
         scope = 2; 
-        displayName = "Mark Positions";
+        displayName = CSTRING(Module_MarkPositions);
         category = QPVAR(interiors_dev);
         function = QPFUNC(mod_findBPos);
         functionPriority = 1;
@@ -81,7 +81,7 @@ class CfgVehicles {
     
     class PVAR(SaveBuildingScheme): Module_F {
         scope = 2;
-        displayName = "Save Building Scheme";
+        displayName = CSTRING(Module_SaveBuildingScheme);
         category = QPVAR(interiors_dev);
         function = QPFUNC(mod_saveBuildingScheme);
         functionPriority = 1;

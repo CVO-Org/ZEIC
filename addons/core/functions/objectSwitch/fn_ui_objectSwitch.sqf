@@ -126,7 +126,7 @@ if !(isClass(configFile >> 'CfgPatches' >> 'CUP_Core')) then { _searchType = _se
 if !(isClass(configFile >> 'CfgPatches' >> 'vn_data_f')) then { _searchType = _searchType - [_typeSOGB, _typeSOGG] };
 
 if (count _replaceType == 0) exitWith { 
-	["No objects loaded to replace.","ERROR"] call PFUNC(misc_logMsg);
+	[LLSTRING(MSG_OSNoSet), "ERROR"] call PFUNC(misc_logMsg);
 };
 
 private _toReplace = [];
@@ -155,7 +155,7 @@ private _toReplace = [];
 } forEach (nearestObjects [_pos, [], _searchRadius, true]);
 
 if (_toReplace isEqualTo []) exitWith {
-	["No objects to replace","INFO"] call PFUNC(misc_logMsg);
+	[LLSTRING(MSG_OSNothing), "INFO"] call PFUNC(misc_logMsg);
 };
 
 private _count = 0;
@@ -176,4 +176,4 @@ if (is3DEN) then {
 	} forEach _toReplace;
 };
 
-[format["Converted %1 Objects", count _toReplace], "INFO"] call PFUNC(misc_logMsg);
+[format [LLSTRING(MSG_OSDone), count _toReplace], "INFO"] call PFUNC(misc_logMsg);

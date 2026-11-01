@@ -16,10 +16,13 @@
 params ["_job"];
 
 private _missing = _job get "missing";
-private _summary = format ["Interior Fill (%1): %2 furnished, %3 without template", toUpper (_job get "category"), _job get "furnished", count _missing];
+// Translated on the receiving client (see PFUNC(misc_logMsg))
+private _summary = [
+	[LSTRING(MSG_FillDone), LSTRING(MSG_FillDoneMissing)] select (_missing isNotEqualTo []),
+	toUpper (_job get "category"), _job get "furnished", count _missing
+];
 
 if (_missing isNotEqualTo []) then {
-	_summary = _summary + " (see RPT)";
 
 	private _unique = _missing arrayIntersect _missing;
 	diag_log text format ["[ZEI][INFO] Interior Fill (%1): no template for %2 building class(es): %3",

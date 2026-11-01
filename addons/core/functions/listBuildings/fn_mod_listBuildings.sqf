@@ -19,7 +19,7 @@ switch _mode do {
 		[] call PFUNC(endPlacement);
 		
 		if (toLowerANSI worldName != "vr") exitWith {
-			["You must be in the VR world to use this module.", "ERROR"] call PFUNC(misc_logMsg)
+			[LLSTRING(MSG_VROnly), "ERROR"] call PFUNC(misc_logMsg)
 		};
 		
 		// Start Display 1702

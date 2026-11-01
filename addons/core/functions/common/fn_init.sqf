@@ -6,7 +6,7 @@
 // With ZEN, register the modules in ZEN's module list. Only on clients that aren't the server (to avoid duplicate modules in the curator list).
 // This is to prevent a bug where all other ZEN modules that were added per script would be in the wrong categories and mixed up; Bug doesn't happen if the client is the server
 if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_common")}) then {
-    ["Interiors (ZEI)", "Garrison Building", {
+    [LLSTRING(Category), LLSTRING(Module_GarrisonBuilding), {
         params ["_pos"];
 
         // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_garrisonBuilding" requirement)
@@ -17,7 +17,7 @@ if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_
         deleteVehicle _temp;
     }, "\A3\ui_f\data\igui\cfg\simpleTasks\types\rifle_ca.paa"] call zen_custom_modules_fnc_register;
 
-    ["Interiors (ZEI)", "Object Fill", {
+    [LLSTRING(Category), LLSTRING(Module_ObjectFill), {
         params ["_pos"];
 
         // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_objectFill" requirement)
@@ -28,7 +28,7 @@ if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_
         deleteVehicle _temp;
     }, "\A3\ui_f\data\igui\cfg\simpleTasks\types\box_ca.paa"] call zen_custom_modules_fnc_register;
 
-    ["Interiors (ZEI)", "Object Switch", {
+    [LLSTRING(Category), LLSTRING(Module_ObjectSwitch), {
         params ["_pos"];
 
         // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_objectSwitch" requirement)
@@ -39,7 +39,7 @@ if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_
         deleteVehicle _temp;
     }, "\A3\Modules_f\data\portraitRespawn_ca.paa"] call zen_custom_modules_fnc_register;
 
-    ["Interiors (ZEI)", "Interior Fill", {
+    [LLSTRING(Category), LLSTRING(Module_InteriorFill), {
         params ["_pos"];
 
         // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_interiorFill" requirement)

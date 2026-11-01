@@ -52,6 +52,7 @@ PVAR(dev_results) = [];
 		PFUNC(dev_test_queue),
 		PFUNC(dev_test_objectModes),
 		PFUNC(dev_test_configTemplates),
+		PFUNC(dev_test_templateObjects),
 		PFUNC(dev_test_missionTemplates),
 		PFUNC(dev_test_garrison),
 		PFUNC(dev_test_rowOrder),

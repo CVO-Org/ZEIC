@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="ZEIC_CORE">
     <Package name="Core">
+        <Key ID="STR_ZEIC_core_Category">
+            <English>ZEIC - Interiors</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_CategoryDev">
+            <English>ZEIC - Interiors Development</English>
+        </Key>
         <Key ID="STR_ZEIC_core_GB_Confirm">
             <English>Garrison</English>
         </Key>
@@ -150,6 +156,99 @@
         </Key>
         <Key ID="STR_ZEIC_core_LB_Title">
             <English>List template buildings</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_AlreadyFurnished">
+            <English>Interior Fill: all selected buildings are already furnished.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_FillDone">
+            <English>Interior Fill (%1): %2 furnished, %3 without template</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_FillDoneMissing">
+            <English>Interior Fill (%1): %2 furnished, %3 without template (see RPT)</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_GarrisonDone">
+            <English>Garrison (%1): %2 units in %3 buildings</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_GarrisonNoBuildings">
+            <English>Garrison: no buildings with positions selected.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_GarrisonNoLast">
+            <English>Alt repeats the last garrison: open the dialog once first.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_LBDone">
+            <English>Placed %1 buildings with positions.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_LBLegend">
+            <English>List Buildings: %1 = %2 arrows</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_LBProcessing">
+            <English>Processing %1 classes.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_NoBuilding">
+            <English>No valid building within 25 m of the module.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_NoBuildingsFound">
+            <English>No valid buildings found.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_NoObject">
+            <English>No object to fill within 10 m of the module.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_NoTemplate">
+            <English>No template for %1 (%2) yet. Help out: share one made with Save Building Scheme.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_NoUnits">
+            <English>No infantry found for faction %1.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_OFUnknown">
+            <English>%1 has no shelf data: props are placed on its top.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_OSDone">
+            <English>Object Switch: %1 objects switched.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_OSNoSet">
+            <English>This set has no objects.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_OSNothing">
+            <English>Nothing to switch within the radius.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_SBSDone">
+            <English>%1 copied to the clipboard (%2 objects). Paste it into a template file, or share it with the mod developers.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_SBSInvalid">
+            <English>No valid building found. Buildings without positions have to be added with ZEIC_fnc_addCustomHouse.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_SBSNoBuilding">
+            <English>Place the module over a building.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_SBSNotFlat">
+            <English>The building is not level: objects may be saved at wrong positions.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_SBSNotVR">
+            <English>Not in the VR world: the saved positions may be off.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_MSG_VROnly">
+            <English>This module only works in the VR world.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_Module_GarrisonBuilding">
+            <English>Garrison Building</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_Module_InteriorFill">
+            <English>Interior Fill</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_Module_ListBuildings">
+            <English>List Buildings</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_Module_MarkPositions">
+            <English>Mark Positions</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_Module_ObjectFill">
+            <English>Object Fill</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_Module_ObjectSwitch">
+            <English>Object Switch</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_Module_SaveBuildingScheme">
+            <English>Save Building Scheme</English>
         </Key>
         <Key ID="STR_ZEIC_core_OF_Confirm">
             <English>Fill</English>

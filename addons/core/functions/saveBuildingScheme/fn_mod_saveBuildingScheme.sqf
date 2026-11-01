@@ -25,14 +25,14 @@ switch _mode do {
 			([get3DENMouseOver, curatorMouseOver] select _isCuratorPlaced) params [["_mouseType", ""], ["_mouseObj", objNull]];
 			
 			if (_mouseType != "Object" || {isNull _mouseObj}) exitWith {
-				["Module must be placed over a building!", "ERROR"] call PFUNC(misc_logMsg);
+				[LLSTRING(MSG_SBSNoBuilding), "ERROR"] call PFUNC(misc_logMsg);
 			};
 			
 			private _bldArr = [_mouseObj] select {((_x buildingPos -1) isNotEqualTo []) || typeOf _x in (missionNamespace getVariable [QPVAR(additionalBuildings), []])};
 			
 			// Don't continue if array is empty.
 			if (_bldArr isEqualTo [] && inputAction "LookAround" < 1) exitWith {
-				["No valid building found! Add it to 'ZEIC_additionalBuildings' if it has no positions.", "ERROR"] call PFUNC(misc_logMsg);
+				[LLSTRING(MSG_SBSInvalid), "ERROR"] call PFUNC(misc_logMsg);
 			};
 			
 			// Array is empty, but 'LookAround' was pressed, force the object.
@@ -86,21 +86,14 @@ switch _mode do {
 			_br = toString [13,10];
 
 			copyToClipboard format ['case "%3%1": {%4        [%4            %2%4        ];%4    };', _keyObjType, _tempArr, _mod, _br];
-			[format["'%1' written to clipboard (%2). Paste and save or send it to the mod developer!", _keyObjType, count _tempArr], "INFO"] call PFUNC(misc_logMsg);
+			[format [LLSTRING(MSG_SBSDone), _keyObjType, count _tempArr], "INFO"] call PFUNC(misc_logMsg);
 			if ((_keyObj call BIS_fnc_getPitchBank) isNotEqualTo [0,0]) then {
 				// Warn if building has been rotated (objects are not offset according to the building)
 				// TODO: Add support for all building angles?
-				["Building is not flat. Objects may be saved incorrectly!", "WARNING"] call PFUNC(misc_logMsg);
+				[LLSTRING(MSG_SBSNotFlat), "WARNING"] call PFUNC(misc_logMsg);
 			};
-			/*
-			if (count _tempArr > 130) then {
-				// Warn if too many objects (causes clipboard to cut off text - 8191 length?)
-				// TODO: Add line break when scheme is too large and will break clipboard?
-				["High number of objects! Not all objects may have been copied due to clipboard limitations.", "WARNING"] call PFUNC(misc_logMsg);
-			};
-			*/
-			if (worldName != "VR") then {
-				["World is not VR. Positions saved may not be accurate.", "WARNING"] call PFUNC(misc_logMsg);
+			if (toLowerANSI worldName != "vr") then {
+				[LLSTRING(MSG_SBSNotVR), "WARNING"] call PFUNC(misc_logMsg);
 			};
 		};
 	};

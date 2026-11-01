@@ -18,7 +18,7 @@ switch _mode do {
 		
 		_bldArr = _bldArr select { str (_x buildingPos 0) != "[0,0,0]" };
 		
-		if (_bldArr isEqualTo []) exitWith { ["No valid buildings within 25m", "ERROR"] call PFUNC(misc_logMsg) };
+		if (_bldArr isEqualTo []) exitWith { [LLSTRING(MSG_NoBuilding), "ERROR"] call PFUNC(misc_logMsg) };
 		if (count _bldArr > 1) then { _bldArr resize 1 };
 	
 		// Delete the module to prevent any dependencies.
