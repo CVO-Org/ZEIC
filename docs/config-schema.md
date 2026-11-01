@@ -424,6 +424,18 @@ class CfgZEIC_ObjectFill {
 ```
 
 - The dialog lists "Random" (the props of all types) and every type, sorted by `order`.
+- A mod adds props to an existing type in a subclass of it, with its own `objects[]` (as the template addons do for `electronicsOld`):
+
+  ```cpp
+  class CfgZEIC_ObjectFill {
+      class Types {
+          class electronicsOld {
+              class gm { objects[] = { "land_gm_euro_furniture_typewriter_01" }; };
+          };
+      };
+  };
+  ```
+
 - Objects that aren't in `Surfaces` are filled on the top of their model.
 - Props that don't exist (mod not loaded) are left out.
 

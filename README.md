@@ -38,7 +38,7 @@ A tool to quickly decorate and populate interiors for your missions in either Ze
 - Shortcuts, held while placing: Alt repeats the last fill, Ctrl fills Military, Shift Civilian, Ctrl+Shift CBRN.
 
 ### Object Fill
-- Fills a table or shelf with props (food, medical, office, tools, electric, CBRN cleaning or random).
+- Fills a table or shelf with props (food, medical, office, tools, modern or old electronics, CBRN cleaning or random).
 - Choose how full and how the objects are created.
 - Hold Alt while placing to fill again with the last settings.
 

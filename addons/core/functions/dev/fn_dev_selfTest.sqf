@@ -62,6 +62,7 @@ PVAR(dev_results) = [];
 		PFUNC(dev_test_advancedFillCollision),
 		PFUNC(dev_test_fillModifiers),
 		PFUNC(dev_test_confirmUnits),
+		PFUNC(dev_test_objectFillTypes),
 		PFUNC(dev_test_rowOrder),
 		PFUNC(dev_test_dialog),
 		PFUNC(dev_test_garrisonDialog),

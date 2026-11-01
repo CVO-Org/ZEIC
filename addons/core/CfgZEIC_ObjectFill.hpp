@@ -1,5 +1,5 @@
 // Object Fill (see docs/config-schema.md, section 12): prop types, and the shelves of objects that can be filled.
-// Any mod can add types or surfaces.
+// Any mod can add types or surfaces, or objects to a type in a subclass of it.
 
 class CfgZEIC_ObjectFill {
     // Props per type. "Random" in the dialog uses the props of all types. The floor object goes under tables.
@@ -120,6 +120,22 @@ class CfgZEIC_ObjectFill {
                 "Land_PortableSpeakers_01_F",
                 "Land_BatteryPack_01_battery_black_F",
                 "Land_Tablet_01_F"
+            };
+        };
+        // Cold War and older. Nothing that the "Cold War era" fill modifier removes (CfgZEIC_Modifiers.hpp).
+        // The template addons of other mods add their objects in subclasses (templates_gm, templates_sog, templates_cup).
+        class electronicsOld {
+            displayName = "$STR_ZEIC_core_ModuleObjectFill_Type_ElectronicsOld";
+            order = 55;
+            floor = "Land_Garbage_square3_F";
+            objects[] = {
+                "Land_FMradio_F",
+                "Land_SurvivalRadio_F",
+                "Land_Battery_F",
+                "Land_CarBattery_01_F",
+                "Land_CarBattery_02_F",
+                "Land_ExtensionCord_F",
+                "Land_MultiMeter_F"
             };
         };
         class cbrn {

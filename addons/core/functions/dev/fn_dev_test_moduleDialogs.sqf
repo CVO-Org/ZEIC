@@ -30,7 +30,7 @@ createDialog "Rsc_ZEIC_ObjectFill";
 private _dlg = findDisplay 1704;
 ["T16.1 Object Fill dialog opens", !isNull _dlg] call PFUNC(dev_check);
 if (!isNull _dlg) then {
-	["T16.2 seven types, last one preselected", lbSize (_dlg getVariable ["type_ctrl", controlNull]) == 7 && {(_dlg getVariable ["type", -1]) == 1}] call PFUNC(dev_check);
+	["T16.2 Random plus every type, last one preselected", lbSize (_dlg getVariable ["type_ctrl", controlNull]) == 1 + count ("true" configClasses (configFile >> "CfgZEIC_ObjectFill" >> "Types")) && {(_dlg getVariable ["type", -1]) == 1}] call PFUNC(dev_check);
 	["T16.3 object modes shown outside Eden", !isNull (_dlg getVariable ["objects_ctrl", controlNull])] call PFUNC(dev_check);
 
 	private _simpleBefore = count allSimpleObjects [];

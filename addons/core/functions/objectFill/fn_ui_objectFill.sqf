@@ -30,15 +30,21 @@ private _object = missionNamespace getVariable [QPVAR(UiLastObject), objNull];
 
 if (isNull _object) exitWith { [LLSTRING(ModuleObjectFill_NoObject), "ERROR"] call PFUNC(misc_logMsg) };
 
-// The props of the type, of all types for random; the floor object goes under tables
+// The props of the type, of all types for random; the floor object goes under tables.
+// Subclasses of a type add props (template addons of other mods).
 private _cfgTypes = configFile >> "CfgZEIC_ObjectFill" >> "Types";
+private _fnc_objects = {
+	private _objects = getArray (_this >> "objects");
+	{ _objects append getArray (_x >> "objects") } forEach ("true" configClasses _this);
+	_objects
+};
 private _itemArray = [];
 private _itemFloor = "Land_Garbage_square3_F";
 if (_type != "" && {isClass (_cfgTypes >> _type)}) then {
-	_itemArray = getArray (_cfgTypes >> _type >> "objects");
+	_itemArray = (_cfgTypes >> _type) call _fnc_objects;
 	_itemFloor = getText (_cfgTypes >> _type >> "floor");
 } else {
-	{ _itemArray append getArray (_x >> "objects") } forEach ("true" configClasses _cfgTypes);
+	{ _itemArray append (_x call _fnc_objects) } forEach ("true" configClasses _cfgTypes);
 };
 _itemArray = _itemArray select { isClass (configFile >> "CfgVehicles" >> _x) };
 if (_itemArray isEqualTo []) exitWith {};
