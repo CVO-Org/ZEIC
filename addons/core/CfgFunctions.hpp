@@ -24,6 +24,8 @@ class CfgFunctions {
         class dev {
             file = PATH_TO_FUNC_SUB(dev);
 
+            class dev_benchTriggers {};
+            class dev_test_garrisonTrigger {};
             class dev_check {};
             class dev_selfTest {
                 #if _ZEIC_DEV_
@@ -65,12 +67,14 @@ class CfgFunctions {
             file = PATH_TO_FUNC_SUB(garrisonBuilding);
             
             class garrisonBuilding_factions {};
+            class garrisonBuilding_createTrigger {};
             class garrisonBuilding_finishBuilding {};
             class garrisonBuilding_finishJob {};
             class garrisonBuilding_selectBuildings {};
             class garrisonBuilding_start {};
             class garrisonBuilding_unitCounts {};
             class garrisonBuilding_step {};
+            class garrisonBuilding_triggerStatements {};
             class garrisonBuilding_unitTypes {};
             class garrisonUnit {};
             class mod_garrisonBuilding {};

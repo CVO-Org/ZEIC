@@ -1,7 +1,8 @@
 #include "..\..\script_component.hpp"
 
 /*
-* Finishes the building in progress of a Garrison job: group settings, dynamic simulation, optional "move AI" trigger,
+* Finishes the building in progress of a Garrison job: group settings, dynamic simulation, optional "move AI" trigger
+* (server only, acts on this building's group, see PFUNC(garrisonBuilding_triggerStatements)),
 * and makes the units editable for all curators (in one call).
 *
 * Arguments:
@@ -19,8 +20,6 @@ private _bld = _job get "current";
 private _group = _job get "group";
 private _units = _job get "spawned";
 private _rad = (round (sizeOf typeOf _bld)) max 40;
-private _onActivation = "{ if (local _x) then { if (!(_x checkAIFeature 'PATH') && random 1 < 0.2) then { doStop _x; _x enableAI 'PATH' }; }; } forEach (allUnits inAreaArray thisTrigger);";
-private _onDeactivation = "{ if (local _x) then { if !(_x checkAIFeature 'PATH') then { _x doFollow leader _x; _x enableAI 'PATH' }; }; } forEach (allUnits inAreaArray thisTrigger);";
 
 if (is3DEN) then {
 	// Set group to be deleted when empty.
@@ -33,7 +32,15 @@ if (is3DEN) then {
 
 	delete3DENEntities [_job get "tempUnit"];
 
-	if (_job get "createTR") then {
+	if (_job get "createTR" && {_units isNotEqualTo []}) then {
+		// The trigger finds its group by an id that the units' init puts on the group (no ZEIC code in the mission)
+		private _id = format ["%1_%2_%3", round ((getPos _bld) select 0), round ((getPos _bld) select 1), floor random 100000];
+		{
+			private _init = (_x get3DENAttribute "Init") param [0, ""];
+			_x set3DENAttribute ["Init", _init + format [" group this setVariable ['ZEIC_garrison', '%1'];", _id]];
+		} forEach _units;
+
+		(_id call PFUNC(garrisonBuilding_triggerStatements)) params ["_condition", "_onActivation"];
 		private _trg = create3DENEntity ["Trigger", "EmptyDetector", getPos _bld];
 		_trg set3DENLayer (_job get "layer");
 		_trg set3DENAttribute ["Size2", [_rad, _rad]];
@@ -41,19 +48,18 @@ if (is3DEN) then {
 		_trg set3DENAttribute ["IsRectangle", false];
 		_trg set3DENAttribute ["ActivationBy", "AnyPlayer"];
 		_trg set3DENAttribute ["activationType", "Present"];
-		_trg set3DENAttribute ["triggerInterval", 5];
+		_trg set3DENAttribute ["repeatable", false];
+		_trg set3DENAttribute ["isServerOnly", true];
+		_trg set3DENAttribute ["triggerInterval", (round ((4 + random 2) * 10)) / 10];
+		_trg set3DENAttribute ["condition", _condition];
 		_trg set3DENAttribute ["onActivation", _onActivation];
-		_trg set3DENAttribute ["onDeactivation", _onDeactivation];
 	};
 } else {
 	if (_job get "forceDS") then { _group spawn { sleep 5; _this enableDynamicSimulation true; }; };
 
-	if (_job get "createTR") then {
-		private _trg = createTrigger ["EmptyDetector", getPos _bld];
-		_trg setTriggerArea [_rad, _rad, 0, false, 15];
-		_trg setTriggerActivation ["ANYPLAYER", "PRESENT", false];
-		_trg setTriggerInterval 5;
-		_trg setTriggerStatements ["this", _onActivation, _onDeactivation];
+	// On the server only, see PFUNC(garrisonBuilding_createTrigger)
+	if (_job get "createTR" && {_units isNotEqualTo []}) then {
+		[getPos _bld, _rad, _group] call PFUNC(garrisonBuilding_createTrigger);
 	};
 
 	if (_units isNotEqualTo []) then {
