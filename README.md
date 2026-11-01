@@ -20,15 +20,24 @@ More Details below
 - Buildings are processed over several frames (no freezes on large areas), with coloured wireframes showing the progress to every Zeus.
 - Templates live in config: any mod or mission can add templates and categories (see `docs/config-schema.md`). Template addons load only with their mod (CUP, GM, SOG, Western Sahara, OPTRE).
 - Area fills and area garrisons with a radius preview on the ground.
+- New Advanced Fill module: furnish and garrison in one go, with a collision check and fill modifiers.
 - Eden: one layer per module, fill and building.
 
 # ZEI - Zeus and Eden Interiors
 A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
 
 ## ZEI Interior Modules
+### Advanced Fill
+- Furnishes and garrisons a building, or a share of the buildings within a radius, in one go: per building the interior first, then the units. Either part can be turned off.
+- Collision check: units aren't placed on positions blocked by furniture. Choose whether the units or the furniture give way.
+- Fill modifiers change what a template places: Military defences only, No modern electronics, Cold War era. Mods and missions can add their own (see `docs/config-schema.md`).
+- Hold Alt while placing to fill again with the last settings.
+
 ### Garrison Building
 - Fills a building, or a share of the buildings within a radius, with infantry of any faction (supports any units addon).
-- Find the faction by side and search; recently used factions are listed on top.
+- Units as a percentage of each building's positions, with a live estimate of the unit count; asks before creating over 400 units.
+- Pick a faction and subcategory from one list (e.g. NATO Men (Special Forces)), with side filter and search; recently used ones are listed on top.
+- Optional Move AI trigger: the units hold their positions until an enemy player comes close, then some and later all of them move.
 - Attempts to find the best direction for the units to face. Avoids spawning pilots, crew etc.
 - Hold Alt while placing to garrison again with the last settings.
 
@@ -66,8 +75,8 @@ The following modules are designed to make it easier for you to help with the de
 ## Additional Informations
 ### Technical Details
 - **This Mod is a STANDALONE Version - No need to Load the Original ZEI Mod.**
-- This is a **Client Side Mod** and can be loaded as an optional mod.
-- Not required to be installed on a server or any other clients.
+- Only the Zeus needs it; other players don't. Can be loaded as an optional mod.
+- In multiplayer the **server needs it too** for Interior Fill, Advanced Fill and the Move AI trigger (the objects and triggers are created on the server).
 - Creates no dependency in mission file.
 - This mod is build and signed with hemtt - each update will produce a new bikey.
 
