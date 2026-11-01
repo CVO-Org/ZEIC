@@ -22,7 +22,7 @@ name: "Release: Publish to Steam [DEV]"
 
 env:
   FOLDER: '@ZEIC-dev'
-  WORKSHOPID: '0000000000' # TODO: ID of the [DEV] Workshop item
+  WORKSHOPID: '3831289239'
   WORKSHOPNAME: 'ZEIC - Zeus and Eden Interiors Community Version [DEV]'
 
 on:
@@ -35,7 +35,6 @@ permissions:
 jobs:
 
   release-addon:
-    if: false # TODO: remove once WORKSHOPID is set
     runs-on: ubuntu-latest
     steps:
         # Fail before the build instead of at the Workshop upload, where empty secrets only show steamcmd's usage text.
