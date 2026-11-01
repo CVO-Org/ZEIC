@@ -23,9 +23,9 @@ private _fnc_place = {
 };
 
 // T28.1 nothing around: no dialog, the target of an earlier placement is gone
-private _old = ["Land_TablePlastic_01_F", 45] call PFUNC(dev_spawn);
+private _old = ["Land_TablePlastic_01_F", 89] call PFUNC(dev_spawn);
 PVAR(UiLastObject) = _old;
-private _empty = PVAR(dev_origin) vectorAdd [150 * (46 mod 8), 150 * floor (46 / 8), 0];
+private _empty = PVAR(dev_origin) vectorAdd [150 * (90 mod 8), 150 * floor (90 / 8), 0];
 private _dlg = [_empty] call _fnc_place;
 ["T28.1 nothing around: no dialog, no stale target", isNull _dlg && {isNull PVAR(UiLastObject)}, [isNull _dlg, PVAR(UiLastObject)]] call PFUNC(dev_check);
 if (!isNull _dlg) then { _dlg closeDisplay 2 };

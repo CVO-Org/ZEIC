@@ -34,8 +34,7 @@ switch _mode do {
 			_source = "nearest";
 			PVAR(UiLastObject) = (nearestObjects [_modulePos, ["Thing"], 10, true]) param [0, objNull];
 		};
-		[format ["Object Fill target: %1 (%2, mode %3, module at %4) | old mouse search: %5 at %6", typeOf PVAR(UiLastObject), _source, _mode, _modulePos,
-			(nearestObjects [screenToWorld getMousePosition, ["Thing"], 10, true]) apply { typeOf _x }, screenToWorld getMousePosition], "INFO"] call PFUNC(misc_logMsg);
+		[format ["Object Fill target: %1 (%2, mode %3, module at %4)", typeOf PVAR(UiLastObject), _source, _mode, _modulePos], "DEBUG"] call PFUNC(misc_logMsg);
 
 		if (isNull PVAR(UiLastObject)) exitWith { [LLSTRING(ModuleObjectFill_NoObject), "ERROR"] call PFUNC(misc_logMsg) };
 
