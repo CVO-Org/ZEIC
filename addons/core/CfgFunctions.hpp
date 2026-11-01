@@ -4,6 +4,7 @@ class CfgFunctions {
         class advancedFill {
             file = PATH_TO_FUNC_SUB(advancedFill);
 
+            class advancedFill_blockedPositions {};
             class advancedFill_interiorDone {};
             class advancedFill_layer {};
             class advancedFill_selectBuildings {};
@@ -48,6 +49,7 @@ class CfgFunctions {
             class dev_spawn {};
             class dev_test_addon {};
             class dev_test_advancedFill {};
+            class dev_test_advancedFillCollision {};
             class dev_test_configTemplates {};
             class dev_test_createTemplate {};
             class dev_test_dialog {};

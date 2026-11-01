@@ -8,7 +8,8 @@
 * 0: Settings <HASHMAP>
 *    "interior" <BOOL>, "category" (index in PFUNC(interiorFill_categories)) <NUMBER>, "objects" (object mode) <NUMBER>,
 *    "damage" <BOOL>, "garrison" <BOOL>, "pair" [faction, subcategory] <ARRAY>, "positions" <NUMBER>,
-*    "dynamic" <BOOL>, "trigger" <BOOL>, "radius" <NUMBER>, "percent" <NUMBER>
+*    "dynamic" <BOOL>, "trigger" <BOOL>, "radius" <NUMBER>, "percent" <NUMBER>,
+*    "collision" <BOOL>, "blocked" (COLLISION_UNITS_GIVE_WAY or COLLISION_FURNITURE_GIVES_WAY) <NUMBER>
 *
 * Return Value:
 * None
@@ -42,5 +43,6 @@ if (_buildings isEqualTo []) exitWith {
 [
 	_buildings,
 	[[], [_category, [_settings getOrDefault ["objects", OBJECT_MODE_SIMPLE], _settings getOrDefault ["damage", false]]]] select _interior,
-	[[], [_faction, _subcat, [_settings getOrDefault ["positions", 50], _settings getOrDefault ["dynamic", false], _settings getOrDefault ["trigger", false]]]] select _garrison
+	[[], [_faction, _subcat, [_settings getOrDefault ["positions", 50], _settings getOrDefault ["dynamic", false], _settings getOrDefault ["trigger", false]]]] select _garrison,
+	[COLLISION_OFF, _settings getOrDefault ["blocked", COLLISION_UNITS_GIVE_WAY]] select (_settings getOrDefault ["collision", true])
 ] call PFUNC(advancedFill_start);

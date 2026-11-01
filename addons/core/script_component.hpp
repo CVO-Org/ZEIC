@@ -18,6 +18,15 @@
 // Advanced Fill: seconds a building's garrison waits for its interior before it goes on without it
 #define ADVANCED_FILL_WAIT 120
 
+// Advanced Fill collision check: what happens to building positions blocked by a fill object (index in the dialog's list)
+#define COLLISION_OFF -1
+#define COLLISION_UNITS_GIVE_WAY 0
+#define COLLISION_FURNITURE_GIVES_WAY 1
+// A position is blocked by an object whose bounding box is closer than this horizontally (meters, about a unit's half width)
+#define COLLISION_RADIUS 0.35
+// ...and reaches into this height band above the position's floor (meters): rugs below, lamps above don't count
+#define COLLISION_HEIGHT [0.15, 1.7]
+
 // Interior Fill: how objects are created (index in the dialog's "Objects" list)
 #define OBJECT_MODE_SIMPLE 0
 #define OBJECT_MODE_NORMAL 1

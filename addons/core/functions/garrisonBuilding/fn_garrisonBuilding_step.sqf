@@ -34,8 +34,22 @@ if (isNull _bld) exitWith {
 		_bld = _buildings select _index;
 
 		if (!isNull _bld) then {
-			private _positions = (_bld buildingPos -1) call BIS_fnc_arrayShuffle;
-			_job set ["positions", _positions select [0, (_job get "unitCounts") select _index]];
+			// Advanced Fill collision check: reserved positions (furniture gives way) or the free ones (units give way)
+			private _indices = [];
+			private _reservedIndex = (_job get "reserved") find _bld;
+			if (_reservedIndex != -1) then {
+				_indices = (_job get "reservedIndices") select _reservedIndex;
+			} else {
+				(_bld getVariable [QPVAR(freePositions), []]) params [["_linkId", ""], ["_free", []]];
+				if ((_job get "collision") == COLLISION_UNITS_GIVE_WAY && {_linkId == _job get "linkId"}) then {
+					_indices = _free;
+				} else {
+					for "_i" from 0 to count (_bld buildingPos -1) - 1 do { _indices pushBack _i };
+				};
+				_bld setVariable [QPVAR(freePositions), nil];
+				_indices = _indices call BIS_fnc_arrayShuffle;
+			};
+			_job set ["positions", (_indices select [0, (_job get "unitCounts") select _index]) apply { _bld buildingPos _x }];
 			_job set ["spawned", []];
 
 			if (is3DEN) then {
@@ -71,17 +85,19 @@ if (isNull _bld) exitWith {
 	_finished
 };
 
-// ---- place the next unit of the current building
+// ---- place the next unit of the current building (none if the collision check left no free position)
 private _positions = _job get "positions";
-private _unit = [
-	_job get "group",
-	selectRandom (_job get "unitTypes"),
-	_positions deleteAt 0,
-	_bld,
-	_job get "layer"
-] call PFUNC(garrisonUnit);
+if (_positions isNotEqualTo []) then {
+	private _unit = [
+		_job get "group",
+		selectRandom (_job get "unitTypes"),
+		_positions deleteAt 0,
+		_bld,
+		_job get "layer"
+	] call PFUNC(garrisonUnit);
 
-if (!isNull _unit) then { (_job get "spawned") pushBack _unit };
+	if (!isNull _unit) then { (_job get "spawned") pushBack _unit };
+};
 
 if (_positions isEqualTo []) then {
 	[_job] call PFUNC(garrisonBuilding_finishBuilding);

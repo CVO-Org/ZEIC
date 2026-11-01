@@ -4,6 +4,8 @@
 * One step of an Interior Fill job (called by the processing queue).
 * - No building in progress: start the next one (pick its template, or report it as having none).
 * - Building in progress: spawn its next object.
+*   Advanced Fill collision check: an object that would block a reserved building position is deleted again right away
+*   (furniture gives way), or the building's free positions are reported with it (units give way).
 *   In Eden every building has its own layer, so a whole interior can still be deleted at once.
 *
 * Arguments:
@@ -44,6 +46,10 @@ if (isNull _bld) exitWith {
 				_job set ["items", _items];
 				_job set ["itemIndex", 0];
 				_job set ["objects", []];
+				private _reservedIndex = (_job get "reserved") find _bld;
+				_job set ["reservedPositions", if (_reservedIndex == -1) then { [] } else {
+					((_job get "reservedIndices") select _reservedIndex) apply { _bld buildingPos _x }
+				}];
 				// Eden: one layer for the whole fill, created with its first building (Advanced Fill: its own layer tree)
 				private _layers = _job get "layers";
 				if (is3DEN && {(_job get "fillLayer") == -1} && {count _layers == 0}) then {
@@ -70,7 +76,13 @@ private _objects = _job get "objects";
 private _itemIndex = _job get "itemIndex";
 
 private _obj = [_bld, _items select _itemIndex, _job get "objectMode", _job get "layer"] call PFUNC(interiorFill_spawnObject);
-if (!isNull _obj) then { _objects pushBack _obj };
+if (!isNull _obj) then {
+	if ((_job get "reservedPositions") isNotEqualTo [] && {([_job get "reservedPositions", [_obj]] call PFUNC(advancedFill_blockedPositions)) isNotEqualTo []}) then {
+		if (is3DEN) then { delete3DENEntities [_obj] } else { deleteVehicle _obj };
+	} else {
+		_objects pushBack _obj;
+	};
+};
 _job set ["itemIndex", _itemIndex + 1];
 
 if ((_job get "itemIndex") >= count _items) then {
@@ -82,7 +94,17 @@ if ((_job get "itemIndex") >= count _items) then {
 		_job set ["furnished", (_job get "furnished") + 1];
 		[_bld, FEEDBACK_DONE] call PFUNC(feedback_report);
 	};
-	[_job get "linkId", [_bld], _job get "requester"] call PFUNC(advancedFill_interiorDone);
+
+	// Units give way: only the indices of the free positions go to the garrison's client
+	private _free = [];
+	if ((_job get "collision") == COLLISION_UNITS_GIVE_WAY) then {
+		private _positions = _bld buildingPos -1;
+		private _blocked = [_positions, _objects] call PFUNC(advancedFill_blockedPositions);
+		private _indices = [];
+		for "_i" from 0 to count _positions - 1 do { if !(_i in _blocked) then { _indices pushBack _i } };
+		_free = [_indices];
+	};
+	[_job get "linkId", [_bld], _job get "requester", _free] call PFUNC(advancedFill_interiorDone);
 
 	_job set ["current", objNull];
 };
