@@ -14,7 +14,7 @@
 * Public: No
 */
 
-// T22 garrison trigger (#56)
+// T23 garrison trigger (#56)
 private _playerSide = side group player;
 private _factionOfSide = { params ["_side"]; ["OPF_F", "BLU_F", "IND_F"] select ([east, west, independent] find _side) };
 private _friendly = [[west, _playerSide] select (_playerSide in [east, west, independent])] call _factionOfSide;
@@ -47,12 +47,12 @@ private _fnc_waitFor = {
 
 // Enemy garrison
 ([45, _enemy] call _fnc_garrison) params ["_bld", "_trg", "_group"];
-["T22.1 one trigger for the building, with its group", !isNull _trg && {count units _group > 0}, [_trg, units _group]] call PFUNC(dev_check);
+["T23.1 one trigger for the building, with its group", !isNull _trg && {count units _group > 0}, [_trg, units _group]] call PFUNC(dev_check);
 if (isNull _trg) exitWith {};
-["T22.2 fires once, interval 4-6 s, server only", !((triggerActivation _trg) select 2) && {triggerInterval _trg >= 4} && {triggerInterval _trg <= 6} && {local _trg},
+["T23.2 fires once, interval 4-6 s, server only", !((triggerActivation _trg) select 2) && {triggerInterval _trg >= 4} && {triggerInterval _trg <= 6} && {local _trg},
 	[triggerActivation _trg, triggerInterval _trg]] call PFUNC(dev_check);
 private _held = (units _group) select { !(_x checkAIFeature "PATH") };
-["T22.3 units are held in place", _held isNotEqualTo [], count _held] call PFUNC(dev_check);
+["T23.3 units are held in place", _held isNotEqualTo [], count _held] call PFUNC(dev_check);
 
 // A unit of another group in the same area, also held: the trigger must leave it alone
 private _otherGroup = createGroup [_enemySide, true];
@@ -63,14 +63,14 @@ _other disableAI "PATH";
 _trg setVariable ["ZEIC_releaseDelay", 2];
 _trg setPos getPos player;
 private _activated = [{ isNull _trg || {triggerActivated _trg} }, 8] call _fnc_waitFor;
-["T22.4 an enemy player activates it", _activated] call PFUNC(dev_check);
+["T23.4 an enemy player activates it", _activated] call PFUNC(dev_check);
 
 // After the delay everyone of the group may move, the other unit stays, the trigger is gone
 private _gone = [{ isNull _trg }, 5] call _fnc_waitFor;
 sleep 0.5;
-["T22.5 after the delay the group may move and the trigger deletes itself", _gone && {(units _group) findIf { !(_x checkAIFeature "PATH") } == -1},
+["T23.5 after the delay the group may move and the trigger deletes itself", _gone && {(units _group) findIf { !(_x checkAIFeature "PATH") } == -1},
 	[_gone, (units _group) select { !(_x checkAIFeature "PATH") }]] call PFUNC(dev_check);
-["T22.6 a unit of another group in the area is left alone", !(_other checkAIFeature "PATH")] call PFUNC(dev_check);
+["T23.6 a unit of another group in the area is left alone", !(_other checkAIFeature "PATH")] call PFUNC(dev_check);
 deleteVehicle _other;
 
 // Friendly garrison: the player doesn't activate it
@@ -78,14 +78,14 @@ deleteVehicle _other;
 if (!isNull _friendlyTrg) then {
 	_friendlyTrg setPos getPos player;
 	sleep 7;
-	["T22.7 a friendly player doesn't activate it", !triggerActivated _friendlyTrg] call PFUNC(dev_check);
+	["T23.7 a friendly player doesn't activate it", !triggerActivated _friendlyTrg] call PFUNC(dev_check);
 	deleteVehicle _friendlyTrg;
 } else {
-	["T22.7 a friendly player doesn't activate it", false, "no trigger"] call PFUNC(dev_check);
+	["T23.7 a friendly player doesn't activate it", false, "no trigger"] call PFUNC(dev_check);
 };
 
 // Failsafe: all units gone, the trigger deletes itself
 ([47, _enemy] call _fnc_garrison) params ["", "_deadTrg", "_deadGroup"];
 { deleteVehicle _x } forEach units _deadGroup;
 private _deleted = [{ isNull _deadTrg }, 8] call _fnc_waitFor;
-["T22.8 group gone: the trigger deletes itself", _deleted] call PFUNC(dev_check);
+["T23.8 group gone: the trigger deletes itself", _deleted] call PFUNC(dev_check);
