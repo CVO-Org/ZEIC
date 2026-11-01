@@ -59,7 +59,8 @@ switch _mode do {
 				[_shortcutCategory, missionNamespace getVariable [QPVAR(UiInteriorType), 0]] select (_shortcutCategory == -1),
 				missionNamespace getVariable[QPVAR(UiInteriorRadius), 0],
 				missionNamespace getVariable[QPVAR(UiInteriorObjects), OBJECT_MODE_SIMPLE],
-				missionNamespace getVariable[QPVAR(UiInteriorDamage), false]
+				missionNamespace getVariable[QPVAR(UiInteriorDamage), false],
+				missionNamespace getVariable[QPVAR(UiInteriorChance), 100]
 			] call PFUNC(ui_interiorFill);
 		} else {
 			// Start Display 1705
