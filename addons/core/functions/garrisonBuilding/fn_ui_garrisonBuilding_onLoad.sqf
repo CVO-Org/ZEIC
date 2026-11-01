@@ -126,7 +126,8 @@ _display setVariable [QPVAR(updateEstimate), {
 private _ctx = [_display, _title] call PFUNC(ui_dialogCreate);
 
 if (_recent isNotEqualTo []) then {
-	private _list = [_ctx, "recent", LLSTRING(ModuleGarrisonBuilding_Recent), 3, LLSTRING(ModuleGarrisonBuilding_Recent_Tooltip), {
+	// As tall as its entries (at most 5), so a short list leaves no empty space
+	private _list = [_ctx, "recent", LLSTRING(ModuleGarrisonBuilding_Recent), count _recent, LLSTRING(ModuleGarrisonBuilding_Recent_Tooltip), {
 		params ["_display", "_index"];
 		if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
 		_display setVariable [QPVAR(selection), (_display getVariable QPVAR(recent)) select _index];
@@ -155,7 +156,7 @@ if (_recent isNotEqualTo []) then {
 	_display call (_display getVariable QPVAR(fillPairs));
 }] call PFUNC(ui_dialogToolbox);
 
-[_ctx, "pairs", LLSTRING(ModuleGarrisonBuilding_Faction), 8, "", {
+[_ctx, "pairs", LLSTRING(ModuleGarrisonBuilding_Faction), 7, "", {
 	params ["_display", "_index", "_list"];
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
 	_display setVariable [QPVAR(selection), (_list lnbData [_index, 0]) splitString "#"];

@@ -28,11 +28,13 @@
 #define UI_H(N) ((N) * UI_GRID_H)
 // Side icons by config side number (0 OPFOR, 1 BLUFOR, 2 Independent, 3 Civilian), as in Eden's asset browser
 #define SIDE_ICONS [\
-	"\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_east_ca.paa",\
-	"\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_west_ca.paa",\
-	"\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_guer_ca.paa",\
-	"\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_civ_ca.paa"\
+    "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_east_ca.paa",\
+    "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_west_ca.paa",\
+    "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_guer_ca.paa",\
+    "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_civ_ca.paa"\
 ]
+// Row height of the multi-column lists (ctrlListN), in rows: a bit taller than the text, so pictures don't touch
+#define UI_LISTN_ROW 1.2
 
 // Gap between rows and between the dialog's bars: a tenth of a row, in whole screen pixels. PFUNC(ui_dialogFinish)
 // snaps all edges to pixels, so every gap ends up exactly this wide.

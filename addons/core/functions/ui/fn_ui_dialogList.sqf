@@ -29,11 +29,15 @@ private _display = _ctx get "display";
 private _x0 = (_ctx get "x") + UI_W(_left);
 private _y = _ctx get "y";
 
+// Multi-column lists have taller rows
+private _rowHeight = [1, UI_LISTN_ROW] select (_columns isNotEqualTo []);
+private _height = UI_H(_rows * _rowHeight);
+
 private _labelCtrl = [_ctx, QPVAR(ctrlLabel), [_x0, _y, UI_W(_width), UI_H(1)]] call PFUNC(ui_dialogAdd);
 _labelCtrl ctrlSetText _label;
 if (_tooltip != "") then { _labelCtrl ctrlSetTooltip _tooltip };
 
-private _list = [_ctx, [QPVAR(ctrlList), QPVAR(ctrlListN)] select (_columns isNotEqualTo []), [_x0, _y + UI_H(1), UI_W(_width), UI_H(_rows)]] call PFUNC(ui_dialogAdd);
+private _list = [_ctx, [QPVAR(ctrlList), QPVAR(ctrlListN)] select (_columns isNotEqualTo []), [_x0, _y + UI_H(1), UI_W(_width), _height]] call PFUNC(ui_dialogAdd);
 if (_columns isNotEqualTo []) then { _list lnbSetColumnsPos _columns };
 _list setVariable [QPVAR(key), _key];
 _list setVariable [QPVAR(onChange), _onChange];
@@ -47,5 +51,5 @@ _list ctrlAddEventHandler ["LBSelChanged", {
 _display setVariable [_key, -1];
 _display setVariable [format ["%1_ctrl", _key], _list];
 
-if (_advance) then { _ctx set ["y", _y + UI_H(1 + _rows) + UI_GAP] };
+if (_advance) then { _ctx set ["y", _y + UI_H(1) + _height + UI_GAP] };
 _list

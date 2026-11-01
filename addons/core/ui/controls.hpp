@@ -69,7 +69,7 @@ class PVAR(ctrlListN): RscListNBox {
     idcRight = -1;
     // Rows a bit taller than the text, so the flags of neighbouring rows don't touch
     sizeEx = QUOTE(UI_H(1));
-    rowHeight = QUOTE(UI_H(1.2));
+    rowHeight = QUOTE(UI_H(UI_LISTN_ROW));
     class ListScrollBar: ListScrollBar {
         arrowEmpty = "\a3\3DEN\Data\Controls\ctrlDefault\arrowEmpty_ca.paa";
         arrowFull = "\a3\3DEN\Data\Controls\ctrlDefault\arrowFull_ca.paa";
