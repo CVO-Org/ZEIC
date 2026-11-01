@@ -40,13 +40,13 @@ _display setVariable [QPVAR(selection), []];
 // Adds one pair as a row: [list, faction info, subcategory info]
 _display setVariable [QPVAR(addPair), {
 	params ["_list", "_faction", "_subcat"];
-	_faction params ["_name", "_class", "_side", "_icon"];
+	_faction params ["_name", "_class", "_side", "", "", "_flag"];
 	_subcat params ["_subcatName", "_subcatClass", "_count"];
 	private _row = _list lnbAddRow ["", "", _name, format ["%1 (%2)", _subcatName, _count]];
 	_list lnbSetPicture [[_row, 0], SIDE_ICONS select _side];
 	_list lnbSetPictureColor [[_row, 0], [[east, west, independent, civilian] select _side] call BIS_fnc_sideColor];
 	_list lnbSetPictureColorSelected [[_row, 0], [1, 1, 1, 1]];
-	_list lnbSetPicture [[_row, 1], _icon];
+	_list lnbSetPicture [[_row, 1], _flag];
 	_list lnbSetData [[_row, 0], _class + "#" + _subcatClass];
 	{ _list lnbSetTooltip [[_row, _x], format ["%1 / %2", _class, _subcatClass]] } forEach [0, 1, 2, 3];
 	_row

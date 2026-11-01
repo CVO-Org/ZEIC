@@ -34,6 +34,8 @@ private _pairCount = 0;
 { _pairCount = _pairCount + count (_x select 4) } forEach _factions;
 ["T15.3 one row per faction and subcategory, no recently used list", ((lnbSize _list) select 0) == _pairCount && {isNull (_dlg getVariable ["recent_ctrl", controlNull])}, [(lnbSize _list) select 0, _pairCount]] call PFUNC(dev_check);
 ["T15.16 side icons exist", SIDE_ICONS findIf { !fileExists _x } == -1, SIDE_ICONS select { !fileExists _x }] call PFUNC(dev_check);
+private _nato = _factions select (_factions findIf { (_x select 1) == "BLU_F" });
+["T15.21 factions use their rectangular flag (NATO)", (_nato select 5) != (_nato select 3) && {fileExists (_nato select 5)}, _nato select 5] call PFUNC(dev_check);
 ["T15.4 a faction and subcategory are preselected", count (_dlg getVariable [QPVAR(selection), []]) == 2, _dlg getVariable [QPVAR(selection), []]] call PFUNC(dev_check);
 
 // Estimate: radius 0, one building with 10% of its positions (#57)
