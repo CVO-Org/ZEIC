@@ -30,19 +30,21 @@ private _eh = addMissionEventHandler ["EachFrame", {
 	_center params ["_cx", "_cy"];
 
 	// About one segment per 3 m, so large circles stay round
-	private _segments = (ceil (_radius / 3)) max 24 min 180;
+	// An even number, so the dashes alternate all the way round
+	private _segments = 2 * ((ceil (_radius / 6)) max 12 min 90);
 	private _step = 360 / _segments;
 	private _points = [];
 	for "_i" from 0 to _segments do {
 		_points pushBack [_cx + _radius * cos (_i * _step), _cy + _radius * sin (_i * _step), 0.3];
 	};
-	// The dark outline first, the bright line on top
-	{
-		_x params ["_color", "_width"];
-		for "_i" from 1 to _segments do {
-			drawLine3D [_points select (_i - 1), _points select _i, _color, _width];
-		};
-	} forEach [[RADIUS_PREVIEW_OUTLINE_COLOR, RADIUS_PREVIEW_OUTLINE_WIDTH], [RADIUS_PREVIEW_COLOR, RADIUS_PREVIEW_WIDTH]];
+	// The dark outline first, the dashes on top
+	for "_i" from 1 to _segments do {
+		drawLine3D [_points select (_i - 1), _points select _i, RADIUS_PREVIEW_OUTLINE_COLOR, RADIUS_PREVIEW_OUTLINE_WIDTH];
+	};
+	private _colors = RADIUS_PREVIEW_COLORS;
+	for "_i" from 1 to _segments do {
+		drawLine3D [_points select (_i - 1), _points select _i, _colors select (_i mod 2), RADIUS_PREVIEW_WIDTH];
+	};
 }, [_slider, _center]];
 _slider setVariable [QPVAR(previewEH), _eh];
 _eh

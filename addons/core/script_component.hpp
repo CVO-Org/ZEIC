@@ -28,8 +28,8 @@
 #define UI_H(N) ((N) * UI_GRID_H)
 
 // Radius preview of the dialogs' radius sliders (see PFUNC(ui_radiusPreview))
-// A bright line on a wider dark one, so it shows on any ground
-#define RADIUS_PREVIEW_COLOR [1, 0.6, 0, 1]
+// Alternating blue and white dashes on a wider dark line, so it shows on any ground
+#define RADIUS_PREVIEW_COLORS [[0.15, 0.5, 1, 1], [1, 1, 1, 1]]
 #define RADIUS_PREVIEW_WIDTH 10
 #define RADIUS_PREVIEW_OUTLINE_COLOR [0, 0, 0, 0.7]
 #define RADIUS_PREVIEW_OUTLINE_WIDTH 20
