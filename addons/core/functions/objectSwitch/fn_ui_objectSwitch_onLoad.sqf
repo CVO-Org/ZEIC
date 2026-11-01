@@ -19,14 +19,14 @@ params ["_display"];
 private _sets = call PFUNC(objectSwitch_sets);
 _display setVariable [QPVAR(sets), _sets apply { _x select 1 }];
 
-private _ctx = [_display, LLSTRING(OS_Title)] call PFUNC(ui_dialogCreate);
+private _ctx = [_display, LLSTRING(ModuleObjectSwitch_DisplayName)] call PFUNC(ui_dialogCreate);
 
 private _last = (_sets findIf { (_x select 1) isEqualTo (missionNamespace getVariable [QPVAR(UiSwitchCombo), "desert"]) }) max 0;
-[_ctx, "set", LLSTRING(OS_Set), _sets apply { _x select 0 }, _last, LLSTRING(OS_SetTip)] call PFUNC(ui_dialogCombo);
+[_ctx, "set", LLSTRING(ModuleObjectSwitch_Set), _sets apply { _x select 0 }, _last, LLSTRING(ModuleObjectSwitch_Set_Tooltip)] call PFUNC(ui_dialogCombo);
 
-[_ctx, "radius", LLSTRING(OS_Radius), [5, 250, 5], missionNamespace getVariable [QPVAR(UiSwitchRadius), 50], LLSTRING(OS_RadiusTip), missionNamespace getVariable [QPVAR(UiLastPosition), []]] call PFUNC(ui_dialogSlider);
+[_ctx, "radius", LLSTRING(Radius), [5, 250, 5], missionNamespace getVariable [QPVAR(UiSwitchRadius), 50], LLSTRING(ModuleObjectSwitch_Radius_Tooltip), missionNamespace getVariable [QPVAR(UiLastPosition), []]] call PFUNC(ui_dialogSlider);
 
-[_ctx, LLSTRING(OS_Description), LLSTRING(OS_Confirm), {
+[_ctx, LLSTRING(ModuleObjectSwitch_Description), LLSTRING(ModuleObjectSwitch_Confirm), {
 	[
 		(_this getVariable QPVAR(sets)) select (_this getVariable ["set", 0]),
 		_this getVariable ["radius", 50]

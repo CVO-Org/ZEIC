@@ -6,7 +6,7 @@
 // With ZEN, register the modules in ZEN's module list. Only on clients that aren't the server (to avoid duplicate modules in the curator list).
 // This is to prevent a bug where all other ZEN modules that were added per script would be in the wrong categories and mixed up; Bug doesn't happen if the client is the server
 if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_common")}) then {
-    [LLSTRING(Category), LLSTRING(Module_GarrisonBuilding), {
+    [LLSTRING(ModuleCategory_DisplayName), LLSTRING(ModuleGarrisonBuilding_DisplayName), {
         params ["_pos"];
 
         // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_garrisonBuilding" requirement)
@@ -17,7 +17,7 @@ if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_
         deleteVehicle _temp;
     }, "\A3\ui_f\data\igui\cfg\simpleTasks\types\rifle_ca.paa"] call zen_custom_modules_fnc_register;
 
-    [LLSTRING(Category), LLSTRING(Module_ObjectFill), {
+    [LLSTRING(ModuleCategory_DisplayName), LLSTRING(ModuleObjectFill_DisplayName), {
         params ["_pos"];
 
         // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_objectFill" requirement)
@@ -28,7 +28,7 @@ if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_
         deleteVehicle _temp;
     }, "\A3\ui_f\data\igui\cfg\simpleTasks\types\box_ca.paa"] call zen_custom_modules_fnc_register;
 
-    [LLSTRING(Category), LLSTRING(Module_ObjectSwitch), {
+    [LLSTRING(ModuleCategory_DisplayName), LLSTRING(ModuleObjectSwitch_DisplayName), {
         params ["_pos"];
 
         // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_objectSwitch" requirement)
@@ -39,7 +39,7 @@ if (hasInterface && {!isServer} && {isClass (configFile >> "CfgPatches" >> "zen_
         deleteVehicle _temp;
     }, "\A3\Modules_f\data\portraitRespawn_ca.paa"] call zen_custom_modules_fnc_register;
 
-    [LLSTRING(Category), LLSTRING(Module_InteriorFill), {
+    [LLSTRING(ModuleCategory_DisplayName), LLSTRING(ModuleInteriorFill_DisplayName), {
         params ["_pos"];
 
         // Give a temp object, because objNull is not local (because of "ZEIC_fnc_mod_interiorFill" requirement)

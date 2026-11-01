@@ -5,7 +5,7 @@ class CfgZEIC_ObjectFill {
     // Props per type. "Random" in the dialog uses the props of all types. The floor object goes under tables.
     class Types {
         class food {
-            displayName = "$STR_ZEIC_core_OF_TypeFood";
+            displayName = "$STR_ZEIC_core_ModuleObjectFill_Type_Food";
             order = 10;
             floor = "Land_Garbage_square3_F";
             objects[] = {
@@ -29,7 +29,7 @@ class CfgZEIC_ObjectFill {
             };
         };
         class medical {
-            displayName = "$STR_ZEIC_core_OF_TypeMedical";
+            displayName = "$STR_ZEIC_core_ModuleObjectFill_Type_Medical";
             order = 20;
             floor = "BloodSplatter_01_Large_New_F";
             objects[] = {
@@ -52,7 +52,7 @@ class CfgZEIC_ObjectFill {
             };
         };
         class office {
-            displayName = "$STR_ZEIC_core_OF_TypeOffice";
+            displayName = "$STR_ZEIC_core_ModuleObjectFill_Type_Office";
             order = 30;
             floor = "Land_Rug_01_F";
             objects[] = {
@@ -80,7 +80,7 @@ class CfgZEIC_ObjectFill {
             };
         };
         class tools {
-            displayName = "$STR_ZEIC_core_OF_TypeTools";
+            displayName = "$STR_ZEIC_core_ModuleObjectFill_Type_Tools";
             order = 40;
             floor = "Oil_Spill_F";
             objects[] = {
@@ -104,7 +104,7 @@ class CfgZEIC_ObjectFill {
             };
         };
         class electric {
-            displayName = "$STR_ZEIC_core_OF_TypeElectric";
+            displayName = "$STR_ZEIC_core_ModuleObjectFill_Type_Electric";
             order = 50;
             floor = "Land_Garbage_square3_F";
             objects[] = {
@@ -123,7 +123,7 @@ class CfgZEIC_ObjectFill {
             };
         };
         class cbrn {
-            displayName = "$STR_ZEIC_core_OF_TypeCBRN";
+            displayName = "$STR_ZEIC_core_ModuleObjectFill_Type_CBRN";
             order = 60;
             floor = "Tarp_01_Small_Yellow_F";
             objects[] = {

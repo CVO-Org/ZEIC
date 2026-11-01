@@ -3,11 +3,11 @@
 class CfgZEIC_ObjectSwitch {
     class Sets {
         class sog_brown {
-            displayName = "$STR_ZEIC_core_OS_SetBrownSOG";
+            displayName = "$STR_ZEIC_core_ModuleObjectSwitch_Set_BrownSOG";
             order = 60;
         };
         class sog_green {
-            displayName = "$STR_ZEIC_core_OS_SetGreenSOG";
+            displayName = "$STR_ZEIC_core_ModuleObjectSwitch_Set_GreenSOG";
             order = 70;
         };
     };
