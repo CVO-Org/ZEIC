@@ -12,6 +12,10 @@
 *    The units per building are a percentage of its positions, see PFUNC(garrisonBuilding_unitCounts).
 *    A 4th element, a link id, garrisons each building only once its interior is done (Advanced Fill, see PFUNC(advancedFill_start)).
 *    A 5th element, Eden layers shared with the interior <HASHMAP>, see PFUNC(advancedFill_layer).
+*    A 6th element, the collision check <NUMBER> (see PFUNC(interiorFill_start)): with COLLISION_UNITS_GIVE_WAY,
+*    a building gets units only on the free positions its interior reported (see PFUNC(advancedFill_interiorDone)).
+*    A 7th element, reserved positions [buildings, position indices of each building] <ARRAY>: these buildings get
+*    units exactly there (COLLISION_FURNITURE_GIVES_WAY, the interior keeps them free).
 *
 * Return Value:
 * None
@@ -23,7 +27,7 @@
 */
 
 params [["_buildings", [], [[]]], ["_factClass", "", [""]], ["_catClass", "", [""]], ["_options", [], [[]]]];
-_options params [["_percent", 50, [0]], ["_forceDS", false, [false]], ["_createTR", false, [false]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]]];
+_options params [["_percent", 50, [0]], ["_forceDS", false, [false]], ["_createTR", false, [false]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]]];
 
 private _unitTypes = [_factClass, _catClass] call PFUNC(garrisonBuilding_unitTypes);
 if (_unitTypes isEqualTo []) exitWith {
@@ -60,6 +64,9 @@ private _side = switch (getNumber (configFile >> "CfgFactionClasses" >> _factCla
 	["createTR", _createTR],
 	["linkId", _linkId],
 	["layers", _layers],
+	["collision", _collision],
+	["reserved", _reserved param [0, []]],
+	["reservedIndices", _reserved param [1, []]],
 	["triggerLayer", -1],
 	["waitSince", -1],
 	// current building

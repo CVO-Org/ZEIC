@@ -59,6 +59,8 @@ PVAR(dev_results) = [];
 		PFUNC(dev_test_garrisonUnits),
 		PFUNC(dev_test_garrisonTrigger),
 		PFUNC(dev_test_advancedFill),
+		PFUNC(dev_test_advancedFillCollision),
+		PFUNC(dev_test_confirmUnits),
 		PFUNC(dev_test_rowOrder),
 		PFUNC(dev_test_dialog),
 		PFUNC(dev_test_garrisonDialog),

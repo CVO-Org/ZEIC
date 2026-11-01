@@ -6,7 +6,8 @@
 * is greyed out, and the two can never both be off: turning off the last one turns the other back on.
 * - Interior: category, object mode and damage, as in Interior Fill.
 * - Garrison: the faction picker (see PFUNC(ui_garrisonBuilding_factionPicker)), positions, dynamic simulation, trigger.
-* - Settings: radius, share of the buildings, and the unit estimate (see PFUNC(ui_garrisonBuilding_estimate)).
+* - Settings: radius, share of the buildings, the unit estimate (see PFUNC(ui_garrisonBuilding_estimate)), and the
+*   collision check with what gives way at blocked positions (see PFUNC(advancedFill_start)).
 * Starts with the last used settings; confirming calls PFUNC(ui_advancedFill).
 *
 * Display values besides the rows: "interior", "garrison" (parts on) <BOOL>, "tab" (shown tab) <NUMBER>.
@@ -114,6 +115,11 @@ private _fnc_estimate = { (_this select 0) call ((_this select 0) getVariable QP
 	[_ctx, "radius", LLSTRING(Radius), [0, 250, 5], _last getOrDefault ["radius", 0], LLSTRING(Radius_Tooltip), _bld, _fnc_estimate] call PFUNC(ui_dialogSlider);
 	[_ctx, "percent", LLSTRING(Percentage), [10, 100, 10], _last getOrDefault ["percent", 50], LLSTRING(Percentage_Tooltip), [], _fnc_estimate] call PFUNC(ui_dialogSlider);
 	_display setVariable ["estimate_ctrl", [_ctx, QPVAR(ctrlLabel), [_ctx, ""] call PFUNC(ui_dialogRow)] call PFUNC(ui_dialogAdd)];
+	[_ctx, "collision", LLSTRING(ModuleAdvancedFill_Collision), _last getOrDefault ["collision", true], LLSTRING(ModuleAdvancedFill_Collision_Tooltip)] call PFUNC(ui_dialogCheckbox);
+	[_ctx, "blocked", LLSTRING(ModuleAdvancedFill_Blocked),
+		[LLSTRING(ModuleAdvancedFill_Blocked_UnitsGiveWay), LLSTRING(ModuleAdvancedFill_Blocked_FurnitureGivesWay)],
+		_last getOrDefault ["blocked", COLLISION_UNITS_GIVE_WAY], LLSTRING(ModuleAdvancedFill_Blocked_Tooltip)
+	] call PFUNC(ui_dialogCombo);
 }] call _fnc_tab;
 
 _display setVariable [QPVAR(tabControls), _tabControls];
@@ -198,7 +204,9 @@ _display setVariable [QPVAR(showTab), {
 		["dynamic", _this getVariable ["dynamic", false]],
 		["trigger", _this getVariable ["trigger", false]],
 		["radius", _this getVariable ["radius", 0]],
-		["percent", _this getVariable ["percent", 50]]
+		["percent", _this getVariable ["percent", 50]],
+		["collision", _this getVariable ["collision", true]],
+		["blocked", _this getVariable ["blocked", COLLISION_UNITS_GIVE_WAY]]
 	]] call PFUNC(ui_advancedFill);
 	true
 }] call PFUNC(ui_dialogFinish);

@@ -12,6 +12,8 @@
 * 3: Requesting client (receives the summary message) <NUMBER>
 * 4: Link id, see PFUNC(interiorFill_start) <STRING> (default: "", none)
 * 5: Eden layers, see PFUNC(interiorFill_start) <HASHMAP> (default: empty)
+* 6: Collision check, see PFUNC(interiorFill_start) <NUMBER> (default: COLLISION_OFF)
+* 7: Reserved building positions, see PFUNC(interiorFill_start) <ARRAY> (default: [], none)
 *
 * Return Value:
 * None
@@ -19,7 +21,7 @@
 * Public: No
 */
 
-params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]]];
+params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]]];
 _options params [["_objectMode", OBJECT_MODE_SIMPLE, [0, true]], ["_allowDamage", false, [false]]];
 
 // Older callers passed "editable in Zeus" as a boolean
@@ -54,12 +56,16 @@ if (_buildings isEqualTo []) exitWith {
 	["requester", _requester],
 	["linkId", _linkId],
 	["layers", _layers],
+	["collision", _collision],
+	["reserved", _reserved param [0, []]],
+	["reservedIndices", _reserved param [1, []]],
 	// current building
 	["current", objNull],
 	["items", []],
 	["itemIndex", 0],
 	["objects", []],
 	["layer", -1],
+	["reservedPositions", []],
 	["fillLayer", -1],
 	// results
 	["furnished", 0],

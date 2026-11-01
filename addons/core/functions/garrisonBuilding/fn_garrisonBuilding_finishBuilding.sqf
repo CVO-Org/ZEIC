@@ -62,7 +62,10 @@ if (is3DEN) then {
 		[getPos _bld, _rad, _group] call PFUNC(garrisonBuilding_createTrigger);
 	};
 
-	if (_units isNotEqualTo []) then {
+	if (_units isEqualTo []) then {
+		// The collision check left no free position
+		deleteGroup _group;
+	} else {
 		if (isServer) then {
 			{ _x addCuratorEditableObjects [_units, true] } forEach allCurators;
 		} else {

@@ -4,6 +4,7 @@ class CfgFunctions {
         class advancedFill {
             file = PATH_TO_FUNC_SUB(advancedFill);
 
+            class advancedFill_blockedPositions {};
             class advancedFill_interiorDone {};
             class advancedFill_layer {};
             class advancedFill_selectBuildings {};
@@ -48,7 +49,9 @@ class CfgFunctions {
             class dev_spawn {};
             class dev_test_addon {};
             class dev_test_advancedFill {};
+            class dev_test_advancedFillCollision {};
             class dev_test_configTemplates {};
+            class dev_test_confirmUnits {};
             class dev_test_createTemplate {};
             class dev_test_dialog {};
             class dev_test_garrison {};
@@ -85,6 +88,7 @@ class CfgFunctions {
             class garrisonBuilding_finishBuilding {};
             class garrisonBuilding_finishJob {};
             class garrisonBuilding_selectBuildings {};
+            class garrisonBuilding_spreadPositions {};
             class garrisonBuilding_start {};
             class garrisonBuilding_unitCounts {};
             class garrisonBuilding_step {};
@@ -93,6 +97,8 @@ class CfgFunctions {
             class garrisonUnit {};
             class mod_garrisonBuilding {};
             class ui_garrisonBuilding {};
+            class ui_garrisonBuilding_confirmUnits {};
+            class ui_garrisonBuilding_confirmUnits_onLoad {};
             class ui_garrisonBuilding_estimate {};
             class ui_garrisonBuilding_factionPicker {};
             class ui_garrisonBuilding_onLoad {};
@@ -186,6 +192,7 @@ class CfgFunctions {
             class ui_dialogRow {};
             class ui_dialogSlider {};
             class ui_dialogToolbox {};
+            class ui_openDialog {};
             class ui_radiusPreview {};
         };
 
