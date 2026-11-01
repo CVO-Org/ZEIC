@@ -27,13 +27,6 @@ private _trees = if (is3DEN) then {
 	}
 };
 
-#if _ZEIC_DEV_
-if (_frames == 3) then {
-	diag_log text format ["[ZEIC DEV] endPlacement: %1 lists %2, all trees: %3", count _trees, _trees apply { [ctrlClassName _x, tvCurSel _x] },
-		(allControls (findDisplay ([312, 313] select is3DEN))) select { ctrlType _x == 12 } apply { [ctrlIDC _x, ctrlClassName _x, tvCurSel _x] }];
-};
-#endif
-
 {
 	if ((tvCurSel _x) isNotEqualTo []) then { _x tvSetCurSel [-1] };
 } forEach _trees;
