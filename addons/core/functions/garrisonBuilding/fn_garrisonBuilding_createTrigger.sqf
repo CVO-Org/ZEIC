@@ -22,7 +22,7 @@ if (!isServer) exitWith { _this remoteExecCall [QPFUNC(garrisonBuilding_createTr
 
 private _trg = createTrigger ["EmptyDetector", _pos, false];
 _trg setTriggerArea [_radius, _radius, 0, false, 15];
-_trg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
+_trg setTriggerActivation ["ANYPLAYER", "PRESENT", false];
 _trg setTriggerInterval (4 + random 2);
 _trg setVariable ["ZEIC_group", _group];
 _trg setTriggerStatements ([] call PFUNC(garrisonBuilding_triggerStatements));

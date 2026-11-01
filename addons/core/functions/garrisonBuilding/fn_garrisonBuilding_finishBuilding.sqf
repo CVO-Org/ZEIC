@@ -40,7 +40,7 @@ if (is3DEN) then {
 			_x set3DENAttribute ["Init", _init + format [" group this setVariable ['ZEIC_garrison', '%1'];", _id]];
 		} forEach _units;
 
-		(_id call PFUNC(garrisonBuilding_triggerStatements)) params ["_condition", "_onActivation", "_onDeactivation"];
+		(_id call PFUNC(garrisonBuilding_triggerStatements)) params ["_condition", "_onActivation"];
 		private _trg = create3DENEntity ["Trigger", "EmptyDetector", getPos _bld];
 		_trg set3DENLayer (_job get "layer");
 		_trg set3DENAttribute ["Size2", [_rad, _rad]];
@@ -48,12 +48,11 @@ if (is3DEN) then {
 		_trg set3DENAttribute ["IsRectangle", false];
 		_trg set3DENAttribute ["ActivationBy", "AnyPlayer"];
 		_trg set3DENAttribute ["activationType", "Present"];
-		_trg set3DENAttribute ["repeatable", true];
+		_trg set3DENAttribute ["repeatable", false];
 		_trg set3DENAttribute ["isServerOnly", true];
 		_trg set3DENAttribute ["triggerInterval", (round ((4 + random 2) * 10)) / 10];
 		_trg set3DENAttribute ["condition", _condition];
 		_trg set3DENAttribute ["onActivation", _onActivation];
-		_trg set3DENAttribute ["onDeactivation", _onDeactivation];
 	};
 } else {
 	if (_job get "forceDS") then { _group spawn { sleep 5; _this enableDynamicSimulation true; }; };

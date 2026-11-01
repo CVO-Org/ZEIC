@@ -2,13 +2,14 @@
 
 /*
 * Statements of a garrison's "Move AI" trigger. Plain vanilla code, since Eden saves them into the mission
-* (no ZEIC dependency). The trigger is repeatable and only acts on its own group, stored on the trigger
+* (no ZEIC dependency). The trigger fires once and only acts on its own group, stored on the trigger
 * (variable ZEIC_group); in Eden the group is found once by its id (group variable ZEIC_garrison, set in the units' init).
 * - Condition: an enemy of the garrison's side is among the players in the area. Deletes the trigger when no unit
 *   of the group is alive any more.
-* - Activation: about 20 % of the units that are still held in place may move (each unit once).
-* - Deactivation (the players left): all units may move and follow their leader, so they can hunt the players.
-*   The trigger has done its job and deletes itself.
+* - Activation: about 20 % of the units may move. After a random 30-120 s (trigger variable ZEIC_releaseDelay
+*   overrides it, for the self test) all units may move and follow their leader, so they can hunt the players,
+*   and the trigger deletes itself.
+* - No deactivation: the trigger isn't repeatable.
 * Units are reached on their owner (enableAI, doStop and doFollow need a local unit).
 *
 * Arguments:
@@ -34,25 +35,24 @@ private _condition = [
 ] joinString endl;
 
 private _onActivation = [
-	"private _released = thisTrigger getVariable ['ZEIC_released', []];",
+	"private _group = thisTrigger getVariable ['ZEIC_group', grpNull];",
 	"{",
-	"    if (alive _x && {!(_x in _released)} && {random 1 < 0.2}) then {",
-	"        _released pushBack _x;",
+	"    if (alive _x && {random 1 < 0.2}) then {",
 	"        _x remoteExec ['doStop', _x];",
 	"        [_x, 'PATH'] remoteExec ['enableAI', _x];",
 	"    };",
-	"} forEach units (thisTrigger getVariable ['ZEIC_group', grpNull]);",
-	"thisTrigger setVariable ['ZEIC_released', _released];"
+	"} forEach units _group;",
+	"[thisTrigger, _group, thisTrigger getVariable ['ZEIC_releaseDelay', 30 + random 90]] spawn {",
+	"    params ['_trigger', '_group', '_delay'];",
+	"    sleep _delay;",
+	"    {",
+	"        if (alive _x) then {",
+	"            [_x, leader _x] remoteExec ['doFollow', _x];",
+	"            [_x, 'PATH'] remoteExec ['enableAI', _x];",
+	"        };",
+	"    } forEach units _group;",
+	"    deleteVehicle _trigger;",
+	"};"
 ] joinString endl;
 
-private _onDeactivation = [
-	"{",
-	"    if (alive _x) then {",
-	"        [_x, leader _x] remoteExec ['doFollow', _x];",
-	"        [_x, 'PATH'] remoteExec ['enableAI', _x];",
-	"    };",
-	"} forEach units (thisTrigger getVariable ['ZEIC_group', grpNull]);",
-	"deleteVehicle thisTrigger;"
-] joinString endl;
-
-[_condition, _onActivation, _onDeactivation]
+[_condition, _onActivation, ""]
