@@ -8,8 +8,9 @@
 * None
 *
 * Return Value:
-* Factions, sorted by name <ARRAY of [name, class, side number, icon, subcategories]>
+* Factions, sorted by name <ARRAY of [name, class, side number, icon, subcategories, flag]>
 *   subcategories: [name, class, unit count], most units first <ARRAY>
+*   flag: the faction's (rectangular) flag, or its icon if it has none <STRING>
 *
 * Public: No
 */
@@ -36,12 +37,15 @@ private _factions = [];
 	private _subcats = [];
 	{ _subcats pushBack [-_y, getText (configFile >> "CfgEditorSubcategories" >> _x >> "displayName"), _x] } forEach _counts;
 	_subcats sort true;
+	private _icon = getText (_cfgFaction >> "icon");
+	private _flag = getText (_cfgFaction >> "flag");
 	_factions pushBack [
 		getText (_cfgFaction >> "displayName"),
 		_x,
 		_side,
-		getText (_cfgFaction >> "icon"),
-		_subcats apply { [_x select 1, _x select 2, -(_x select 0)] }
+		_icon,
+		_subcats apply { [_x select 1, _x select 2, -(_x select 0)] },
+		[_flag, _icon] select (_flag == "")
 	];
 } forEach _found;
 _factions sort true;

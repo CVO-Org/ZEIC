@@ -5,6 +5,9 @@ class RscEdit;
 class RscListBox {
     class ListScrollBar;
 };
+class RscListNBox {
+    class ListScrollBar;
+};
 class RscButtonMenuOK;
 class RscButtonMenuCancel;
 class ctrlXSliderH;
@@ -51,6 +54,19 @@ class PVAR(ctrlCombo): RscCombo {
 };
 class PVAR(ctrlList): RscListBox {
     colorBackground[] = {0, 0, 0, 0.3};
+    class ListScrollBar: ListScrollBar {
+        arrowEmpty = "\a3\3DEN\Data\Controls\ctrlDefault\arrowEmpty_ca.paa";
+        arrowFull = "\a3\3DEN\Data\Controls\ctrlDefault\arrowFull_ca.paa";
+        border = "\a3\3DEN\Data\Controls\ctrlDefault\border_ca.paa";
+        thumb = "\a3\3DEN\Data\Controls\ctrlDefault\thumb_ca.paa";
+    };
+};
+// Multi-column list (column positions are set by script, see PFUNC(ui_dialogList))
+class PVAR(ctrlListN): RscListNBox {
+    colorBackground[] = {0, 0, 0, 0.3};
+    drawSideArrows = 0;
+    idcLeft = -1;
+    idcRight = -1;
     class ListScrollBar: ListScrollBar {
         arrowEmpty = "\a3\3DEN\Data\Controls\ctrlDefault\arrowEmpty_ca.paa";
         arrowFull = "\a3\3DEN\Data\Controls\ctrlDefault\arrowFull_ca.paa";

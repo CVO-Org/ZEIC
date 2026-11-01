@@ -125,7 +125,7 @@
                 <English>Search</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Search_Tooltip">
-                <English>Part of the faction name or class, e.g. TKA</English>
+                <English>Words of the faction (name or class), subcategory or side, e.g. TKA, nato special, opfor</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Shortcuts">
                 <English>Hold while placing the module (skips this dialog):\nAlt: repeat the last garrison\nUses the last faction and settings.</English>
@@ -135,9 +135,6 @@
             </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Side_All">
                 <English>All</English>
-            </Key>
-            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Subcategory">
-                <English>Subcategory</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Trigger">
                 <English>Move AI trigger</English>
