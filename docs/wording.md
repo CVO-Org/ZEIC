@@ -14,7 +14,7 @@ All user-facing text lives in `addons/core/stringtable.xml`. This page keeps new
 | *set* | An Object Switch camouflage set, as in `CfgZEIC_ObjectSwitch`. |
 | *object mode* | Simple / Objects / Editable: how the placed objects are created. |
 | *shortcuts* | Keys held while placing a module to skip its dialog (Alt, Ctrl, Shift). |
-| *modifiers* | Reserved for the fill modifiers of Advanced Fill (#55). Not used for held keys. |
+| *fill modifiers* | Checkboxes in Advanced Fill that change the objects while furnishing (`CfgZEIC_Modifiers`). Keys: `Modifier_<Name>_DisplayName` / `_Tooltip`. "Modifiers" is not used for held keys. |
 
 ## Key names
 

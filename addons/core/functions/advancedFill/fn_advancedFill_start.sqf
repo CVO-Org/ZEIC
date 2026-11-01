@@ -13,7 +13,8 @@
 *
 * Arguments:
 * 0: Buildings <ARRAY of OBJECTs>
-* 1: Interior [category <STRING>, options <ARRAY>], [] for none - see PFUNC(interiorFill_start) <ARRAY>
+* 1: Interior [category <STRING>, options <ARRAY>, fill modifier classes <ARRAY of STRINGs> (default: none)], [] for none
+*    - see PFUNC(interiorFill_start) <ARRAY>
 * 2: Garrison [faction class <STRING>, subcategory class <STRING>, options <ARRAY>], [] for none
 *    - see PFUNC(garrisonBuilding_start) <ARRAY>
 * 3: Collision check: COLLISION_OFF, COLLISION_UNITS_GIVE_WAY or COLLISION_FURNITURE_GIVES_WAY <NUMBER> (default: COLLISION_OFF)
@@ -22,7 +23,7 @@
 * None
 *
 * Example:
-* [[cursorObject], ["mil", [0, false]], ["BLU_F", "EdSubcat_Personnel", [50, false, false]], 0] call ZEIC_fnc_advancedFill_start
+* [[cursorObject], ["mil", [0, false], ["coldwar"]], ["BLU_F", "EdSubcat_Personnel", [50, false, false]], 0] call ZEIC_fnc_advancedFill_start
 *
 * Public: Yes
 */
@@ -70,8 +71,8 @@ if (_garrison isNotEqualTo []) then {
 };
 
 if (_interior isNotEqualTo []) then {
-	_interior params [["_category", "mil", [""]], ["_options", [], [[]]]];
+	_interior params [["_category", "mil", [""]], ["_options", [], [[]]], ["_modifiers", [], [[]]]];
 	// Without a queued garrison there is nothing to keep free
 	if (_linkId == "") then { _collision = COLLISION_OFF; _reserved = [] };
-	[_buildings, _category, _options, _linkId, _layers, _collision, _reserved] call PFUNC(interiorFill_start);
+	[_buildings, _category, _options, _linkId, _layers, _collision, _reserved, _modifiers] call PFUNC(interiorFill_start);
 };

@@ -1,5 +1,7 @@
 // Mission templates for the self test (ZEIC_fnc_dev_test_missionTemplates, T12): an extra template for an existing
 // category, and a category that only exists in this mission. See docs/config-schema.md, section 5.
+// Also fill modifiers for ZEIC_fnc_dev_test_fillModifiers (T27): two of the mission's own and an extension of an
+// addon modifier. See docs/config-schema.md, section 10.
 class CfgZEIC {
     class mil {
         class Land_i_House_Small_03_V1_F {
@@ -13,6 +15,35 @@ class CfgZEIC {
             // Has an object that doesn't exist: must be skipped
             class mission_1 { objects[] = { {"Land_Sack_F", {0, 0, 0.5}, 0}, {"Does_Not_Exist_F", {1, 0, 0.5}, 0} }; };
             class mission_2 { objects[] = { {"Land_Sack_F", {0, 0, 0.5}, 90} }; };
+        };
+    };
+};
+
+class CfgZEIC_Modifiers {
+    // Adds to the addon's remove[]
+    class noElectronics {
+        remove[] = {"Land_Map_F"};
+    };
+    class zeic_testOrder {
+        displayName = "ZEIC Test order (mission)";
+        order = 999;
+        remove[] = {"Land_ChairPlastic_F"};
+        class replace {
+            Land_ChairWood_F[] = {"Land_ChairPlastic_F"};
+            Land_Bucket_F[] = {"Does_Not_Exist_F", "Land_Bucket_clean_F"};
+            Land_Sack_F[] = {"Does_Not_Exist_F"};
+        };
+        // A subclass extends the modifier
+        class extension {
+            remove[] = {"Land_Pallets_F"};
+        };
+    };
+    class zeic_testKeep {
+        displayName = "ZEIC Test keep (mission)";
+        order = 999;
+        keep[] = {"Land_ChairPlastic_F"};
+        class replace {
+            Land_ChairWood_F[] = {"Land_ChairPlastic_F"};
         };
     };
 };

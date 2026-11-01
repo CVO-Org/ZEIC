@@ -14,6 +14,7 @@
 * 5: Eden layers, see PFUNC(interiorFill_start) <HASHMAP> (default: empty)
 * 6: Collision check, see PFUNC(interiorFill_start) <NUMBER> (default: COLLISION_OFF)
 * 7: Reserved building positions, see PFUNC(interiorFill_start) <ARRAY> (default: [], none)
+* 8: Fill modifier classes, see PFUNC(interiorFill_start) <ARRAY of STRINGs> (default: [], none)
 *
 * Return Value:
 * None
@@ -21,7 +22,7 @@
 * Public: No
 */
 
-params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]]];
+params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]], ["_modifiers", [], [[]]]];
 _options params [["_objectMode", OBJECT_MODE_SIMPLE, [0, true]], ["_allowDamage", false, [false]]];
 
 // Older callers passed "editable in Zeus" as a boolean
@@ -59,6 +60,7 @@ if (_buildings isEqualTo []) exitWith {
 	["collision", _collision],
 	["reserved", _reserved param [0, []]],
 	["reservedIndices", _reserved param [1, []]],
+	["modifiers", [_modifiers] call PFUNC(fillModifiers_resolve)],
 	// current building
 	["current", objNull],
 	["items", []],

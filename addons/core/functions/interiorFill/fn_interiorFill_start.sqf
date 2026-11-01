@@ -17,6 +17,8 @@
 *    COLLISION_UNITS_GIVE_WAY: the free building positions are reported with each building (needs a link id)
 *    COLLISION_FURNITURE_GIVES_WAY: template objects that would block a reserved position are left out
 * 6: Reserved building positions [buildings, position indices of each building] <ARRAY> (default: [], none)
+* 7: Fill modifier classes of CfgZEIC_Modifiers, see PFUNC(fillModifiers_list) <ARRAY of STRINGs> (default: [], none)
+*    Read where the objects are created (the server in multiplayer), see PFUNC(fillModifiers_resolve)
 *
 * Return Value:
 * None
@@ -27,10 +29,10 @@
 * Public: Yes
 */
 
-params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]]];
+params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]], ["_modifiers", [], [[]]]];
 
 if (is3DEN || {isServer}) then {
-	[_buildings, _category, _options, clientOwner, _linkId, _layers, _collision, _reserved] call PFUNC(interiorFill_enqueue);
+	[_buildings, _category, _options, clientOwner, _linkId, _layers, _collision, _reserved, _modifiers] call PFUNC(interiorFill_enqueue);
 } else {
-	[_buildings, _category, _options, clientOwner, _linkId, createHashMap, _collision, _reserved] remoteExecCall [QPFUNC(interiorFill_enqueue), 2];
+	[_buildings, _category, _options, clientOwner, _linkId, createHashMap, _collision, _reserved, _modifiers] remoteExecCall [QPFUNC(interiorFill_enqueue), 2];
 };

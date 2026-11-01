@@ -75,7 +75,7 @@ private _items = _job get "items";
 private _objects = _job get "objects";
 private _itemIndex = _job get "itemIndex";
 
-private _obj = [_bld, _items select _itemIndex, _job get "objectMode", _job get "layer"] call PFUNC(interiorFill_spawnObject);
+private _obj = [_bld, _items select _itemIndex, _job get "objectMode", _job get "layer", _job get "modifiers"] call PFUNC(interiorFill_spawnObject);
 if (!isNull _obj) then {
 	if ((_job get "reservedPositions") isNotEqualTo [] && {([_job get "reservedPositions", [_obj]] call PFUNC(advancedFill_blockedPositions)) isNotEqualTo []}) then {
 		if (is3DEN) then { delete3DENEntities [_obj] } else { deleteVehicle _obj };

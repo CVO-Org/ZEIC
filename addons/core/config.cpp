@@ -46,6 +46,7 @@ class CfgPatches {
 #include "CfgVehicles.hpp"
 #include "CfgFactionClasses.hpp"
 #include "CfgZEIC.hpp"
+#include "CfgZEIC_Modifiers.hpp"
 #include "CfgZEIC_ObjectFill.hpp"
 #include "CfgZEIC_ObjectSwitch.hpp"
 #include "Cfg3DEN.hpp"

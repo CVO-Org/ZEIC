@@ -35,6 +35,12 @@
             <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Interior">
                 <English>Interior</English>
             </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Modifiers">
+                <English>Fill modifiers</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Modifiers_Tooltip">
+                <English>Change the objects while furnishing, e.g. leave out modern ones.\nSeveral checked: replaced first, then removed, then kept.</English>
+            </Key>
             <Key ID="STR_ZEIC_core_ModuleAdvancedFill_NoBuildings">
                 <English>Advanced Fill: no valid buildings found.</English>
             </Key>
@@ -293,6 +299,26 @@
         <Container name="MarkPositions">
             <Key ID="STR_ZEIC_core_ModuleMarkPositions_DisplayName">
                 <English>Mark Positions</English>
+            </Key>
+        </Container>
+        <Container name="Modifiers">
+            <Key ID="STR_ZEIC_core_Modifier_ColdWar_DisplayName">
+                <English>Cold War era</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Modifier_ColdWar_Tooltip">
+                <English>Leaves out modern objects and replaces plastic cases with older-looking crates.\nUses Global Mobilization objects when it is loaded.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Modifier_DefencesOnly_DisplayName">
+                <English>Military defences only</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Modifier_DefencesOnly_Tooltip">
+                <English>Only places sandbags, H-barriers, bunkers, camo nets and similar defences.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Modifier_NoElectronics_DisplayName">
+                <English>No modern electronics</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Modifier_NoElectronics_Tooltip">
+                <English>Leaves out laptops, tablets, phones, monitors, routers, drones and similar.</English>
             </Key>
         </Container>
         <Container name="ObjectFill">

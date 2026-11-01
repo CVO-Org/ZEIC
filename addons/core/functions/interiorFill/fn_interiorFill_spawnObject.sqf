@@ -8,6 +8,7 @@
 * 1: Object entry ["Class", [x, y, z], direction, [rotX, rotY, rotZ]] <ARRAY>
 * 2: Object mode: OBJECT_MODE_SIMPLE (simple object), _NORMAL or _EDITABLE (normal object, simulation off) <NUMBER>
 * 3: Eden layer ID <NUMBER>
+* 4: Fill modifiers, see PFUNC(fillModifiers_resolve) <HASHMAP> (default: empty, none)
 *
 * Return Value:
 * Spawned object, objNull if nothing was spawned <OBJECT>
@@ -15,10 +16,11 @@
 * Public: No
 */
 
-params [["_bld", objNull, [objNull]], ["_entry", [], [[]]], ["_objectMode", OBJECT_MODE_SIMPLE, [0]], ["_layer", -1, [0]]];
+params [["_bld", objNull, [objNull]], ["_entry", [], [[]]], ["_objectMode", OBJECT_MODE_SIMPLE, [0]], ["_layer", -1, [0]], ["_modifiers", createHashMap, [createHashMap]]];
 _entry params ["_item", "_offset", ["_angle", 0], ["_rot", [0, 0, 0]]];
 
 _item = [_item] call PFUNC(randomiseObject);
+_item = [_item, _modifiers] call PFUNC(fillModifiers_apply);
 if (_item == "") exitWith { objNull };
 
 private _obj = objNull;
