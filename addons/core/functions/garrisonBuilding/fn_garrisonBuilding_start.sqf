@@ -8,19 +8,20 @@
 * 0: Buildings <ARRAY of OBJECTs>
 * 1: Faction class <STRING>
 * 2: Editor subcategory class <STRING>
-* 3: Options [units per building <NUMBER>, dynamic simulation <BOOL>, create "move AI" trigger <BOOL>] <ARRAY>
+* 3: Options [positions to fill in percent <NUMBER>, dynamic simulation <BOOL>, create "move AI" trigger <BOOL>] <ARRAY>
+*    The units per building are a percentage of its positions, see PFUNC(garrisonBuilding_unitCounts).
 *
 * Return Value:
 * None
 *
 * Example:
-* [[cursorObject], "BLU_F", "EdSubcat_Personnel", [4, false, false]] call ZEIC_fnc_garrisonBuilding_start
+* [[cursorObject], "BLU_F", "EdSubcat_Personnel", [50, false, false]] call ZEIC_fnc_garrisonBuilding_start
 *
 * Public: Yes
 */
 
 params [["_buildings", [], [[]]], ["_factClass", "", [""]], ["_catClass", "", [""]], ["_options", [], [[]]]];
-_options params [["_units", 4, [0]], ["_forceDS", false, [false]], ["_createTR", false, [false]]];
+_options params [["_percent", 50, [0]], ["_forceDS", false, [false]], ["_createTR", false, [false]]];
 
 private _unitTypes = [_factClass, _catClass] call PFUNC(garrisonBuilding_unitTypes);
 if (_unitTypes isEqualTo []) exitWith {
@@ -52,7 +53,7 @@ private _side = switch (getNumber (configFile >> "CfgFactionClasses" >> _factCla
 	["faction", getText (configFile >> "CfgFactionClasses" >> _factClass >> "displayName")],
 	["side", _side],
 	["unitTypes", _unitTypes],
-	["units", 1 max round _units],
+	["unitCounts", [_buildings apply { count (_x buildingPos -1) }, _percent] call PFUNC(garrisonBuilding_unitCounts)],
 	["forceDS", _forceDS],
 	["createTR", _createTR],
 	// current building

@@ -32,7 +32,7 @@ if (isNull _bld) exitWith {
 
 		if (!isNull _bld) then {
 			private _positions = (_bld buildingPos -1) call BIS_fnc_arrayShuffle;
-			_job set ["positions", _positions select [0, (_job get "units") min count _positions]];
+			_job set ["positions", _positions select [0, (_job get "unitCounts") select _index]];
 			_job set ["spawned", []];
 
 			if (is3DEN) then {

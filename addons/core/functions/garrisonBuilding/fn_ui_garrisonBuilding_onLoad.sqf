@@ -5,6 +5,7 @@
 * - Recently used: the last 5 faction + subcategory pairs of this game session (uiNamespace).
 * - Side, search and faction list, then the subcategory.
 * Picking in one source clears the other. Confirming calls PFUNC(ui_garrisonBuilding).
+* Below the sliders an estimate of the units and buildings follows radius and percentages.
 *
 * Arguments:
 * 0: Display <DISPLAY>
@@ -89,6 +90,36 @@ _display setVariable [QPVAR(fillFactions), {
 	};
 }];
 
+// Updates the estimate: the share of the buildings within the radius (or the one building), each with its share of positions.
+// Which buildings get picked is random, so the units are the average over all candidates.
+_display setVariable [QPVAR(updateEstimate), {
+	params ["_display"];
+	private _ctrl = _display getVariable ["estimate_ctrl", controlNull];
+	if (isNull _ctrl) exitWith {};
+	private _bld = missionNamespace getVariable [QPVAR(UiLastBuilding), objNull];
+	private _radius = _display getVariable ["radius", 0];
+
+	// The candidates only change with the radius
+	private _cache = _display getVariable [QPVAR(estimateCandidates), []];
+	if (_cache isEqualTo [] || {(_cache select 0) != _radius}) then {
+		private _candidates = if (_radius > 0) then { [getPos _bld, _radius, 100] call PFUNC(garrisonBuilding_selectBuildings) } else { [_bld] - [objNull] };
+		_cache = [_radius, _candidates apply { count (_x buildingPos -1) }];
+		_display setVariable [QPVAR(estimateCandidates), _cache];
+	};
+	private _positions = _cache select 1;
+
+	private _buildings = if (_radius > 0) then { count ([_positions, _display getVariable ["percent", 50]] call PFUNC(misc_selectShare)) } else { count _positions };
+	private _units = 0;
+	{ _units = _units + _x } forEach ([_positions, _display getVariable ["positions", 50]] call PFUNC(garrisonBuilding_unitCounts));
+	if (_positions isNotEqualTo []) then { _units = round (_units * _buildings / count _positions) };
+
+	_ctrl ctrlSetText (switch (_buildings) do {
+		case 0: { LLSTRING(ModuleGarrisonBuilding_EstimateNone) };
+		case 1: { format [LLSTRING(ModuleGarrisonBuilding_EstimateSingle), _units] };
+		default { format [LLSTRING(ModuleGarrisonBuilding_Estimate), _units, _buildings] };
+	});
+}];
+
 private _ctx = [_display, _title] call PFUNC(ui_dialogCreate);
 
 if (_recent isNotEqualTo []) then {
@@ -139,10 +170,12 @@ if (_recent isNotEqualTo []) then {
 	(_display getVariable ["recent_ctrl", controlNull]) lbSetCurSel -1;
 }, [14, 12]] call PFUNC(ui_dialogList);
 
-private _positions = count (_bld buildingPos -1);
-[_ctx, "units", LLSTRING(ModuleGarrisonBuilding_Units), [1, 12 max _positions, 1], missionNamespace getVariable [QPVAR(UiGarrisonUnits), 1 max round (_positions / 3)], LLSTRING(ModuleGarrisonBuilding_Units_Tooltip)] call PFUNC(ui_dialogSlider);
-[_ctx, "radius", LLSTRING(Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0], LLSTRING(Radius_Tooltip), _bld] call PFUNC(ui_dialogSlider);
-[_ctx, "percent", LLSTRING(Percentage), [10, 100, 10], missionNamespace getVariable [QPVAR(UiGarrisonPercent), 50], LLSTRING(Percentage_Tooltip)] call PFUNC(ui_dialogSlider);
+private _fnc_estimate = { (_this select 0) call ((_this select 0) getVariable QPVAR(updateEstimate)) };
+[_ctx, "radius", LLSTRING(Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0], LLSTRING(Radius_Tooltip), _bld, _fnc_estimate] call PFUNC(ui_dialogSlider);
+[_ctx, "percent", LLSTRING(ModuleGarrisonBuilding_Buildings), [10, 100, 10], missionNamespace getVariable [QPVAR(UiGarrisonPercent), 50], LLSTRING(ModuleGarrisonBuilding_Buildings_Tooltip), [], _fnc_estimate] call PFUNC(ui_dialogSlider);
+[_ctx, "positions", LLSTRING(ModuleGarrisonBuilding_Positions), [10, 100, 10], missionNamespace getVariable [QPVAR(UiGarrisonPositions), 50], LLSTRING(ModuleGarrisonBuilding_Positions_Tooltip), [], _fnc_estimate] call PFUNC(ui_dialogSlider);
+_display setVariable ["estimate_ctrl", [_ctx, QPVAR(ctrlLabel), [_ctx, ""] call PFUNC(ui_dialogRow)] call PFUNC(ui_dialogAdd)];
+_display call (_display getVariable QPVAR(updateEstimate));
 [_ctx, "dynamic", LLSTRING(ModuleGarrisonBuilding_DynamicSimulation), missionNamespace getVariable [QPVAR(UiGarrisonDynamic), false], LLSTRING(ModuleGarrisonBuilding_DynamicSimulation_Tooltip)] call PFUNC(ui_dialogCheckbox);
 [_ctx, "trigger", LLSTRING(ModuleGarrisonBuilding_Trigger), missionNamespace getVariable [QPVAR(UiCreateTrigger), false], LLSTRING(ModuleGarrisonBuilding_Trigger_Tooltip)] call PFUNC(ui_dialogCheckbox);
 
@@ -160,7 +193,7 @@ private _positions = count (_bld buildingPos -1);
 
 	[
 		_selection joinString "#",
-		_this getVariable ["units", 4],
+		_this getVariable ["positions", 50],
 		_this getVariable ["dynamic", false],
 		_this getVariable ["trigger", false],
 		_this getVariable ["radius", 0],

@@ -2,12 +2,12 @@
 
 /*
 * Picks the buildings to garrison around a position: all buildings with building positions within the radius
-* that aren't garrisoned yet, then a random share of them.
+* that aren't garrisoned yet, then a random share of them (see PFUNC(misc_selectShare)).
 *
 * Arguments:
 * 0: Center <POSITION or OBJECT>
 * 1: Radius in meters <NUMBER>
-* 2: Share of buildings to occupy in percent, 1-100 <NUMBER>
+* 2: Share of buildings to occupy in percent, 1-100 <NUMBER> (default: 50; 100 returns all of them)
 *
 * Return Value:
 * Buildings, at least one if any were found <ARRAY of OBJECTs>
@@ -24,5 +24,4 @@ private _buildings = (nearestObjects [_center, ["Building"], _radius, true]) sel
 
 if (_buildings isEqualTo []) exitWith { [] };
 
-private _count = 1 max (ceil ((count _buildings) * ((_percent min 100) max 1) / 100));
-(_buildings call BIS_fnc_arrayShuffle) select [0, _count]
+[_buildings, _percent] call PFUNC(misc_selectShare)

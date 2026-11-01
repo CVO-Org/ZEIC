@@ -58,6 +58,12 @@
             </Key>
         </Container>
         <Container name="GarrisonBuilding">
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Buildings">
+                <English>Buildings [%]</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Buildings_Tooltip">
+                <English>Share of the buildings within the radius, picked at random (at least one).\nNot used at radius 0.</English>
+            </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Confirm">
                 <English>Garrison</English>
             </Key>
@@ -76,6 +82,15 @@
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_DynamicSimulation_Tooltip">
                 <English>Enables dynamic simulation for the units.\nDon't use it where the AI can easily be seen (outside, on roofs).</English>
             </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Estimate">
+                <English>≈ %1 units in %2 buildings</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_EstimateNone">
+                <English>No buildings to garrison within the radius</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_EstimateSingle">
+                <English>≈ %1 units in 1 building</English>
+            </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Faction">
                 <English>Faction</English>
             </Key>
@@ -90,6 +105,12 @@
             </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_NoUnits">
                 <English>Garrison Building: no infantry found for faction %1.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Positions">
+                <English>Positions [%]</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Positions_Tooltip">
+                <English>How full each building gets: share of its positions, at least one unit.\nLarge buildings count with at most 1.5x the median of the selected buildings.</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Recent">
                 <English>Recently used</English>
@@ -120,12 +141,6 @@
             </Key>
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Trigger_Tooltip">
                 <English>Creates a trigger that lets the AI move once a player is near.</English>
-            </Key>
-            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Units">
-                <English>Units per building</English>
-            </Key>
-            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Units_Tooltip">
-                <English>Limited by the building's positions.</English>
             </Key>
         </Container>
         <Container name="InteriorFill">

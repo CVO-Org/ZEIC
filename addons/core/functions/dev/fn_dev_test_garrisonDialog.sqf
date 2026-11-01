@@ -17,7 +17,7 @@
 private _bld = [DEV_HOUSE, 41] call PFUNC(dev_spawn);
 PVAR(UiLastBuilding) = _bld;
 PVAR(UiGarrisonFaction) = nil;
-PVAR(UiGarrisonUnits) = 1;
+PVAR(UiGarrisonPositions) = 10;
 PVAR(UiGarrisonRadius) = 0;
 uiNamespace setVariable [QPVAR(garrisonRecent), nil];
 
@@ -32,6 +32,16 @@ if (isNull _dlg) exitWith {};
 private _list = _dlg getVariable ["faction_ctrl", controlNull];
 ["T15.3 all factions listed, no recently used list", lbSize _list == count _factions && {isNull (_dlg getVariable ["recent_ctrl", controlNull])}, [lbSize _list, count _factions]] call PFUNC(dev_check);
 ["T15.4 a faction and subcategory are preselected", count (_dlg getVariable [QPVAR(selection), []]) == 2, _dlg getVariable [QPVAR(selection), []]] call PFUNC(dev_check);
+
+// Estimate: radius 0, one building with 10% of its positions (#57)
+private _estimate = ctrlText (_dlg getVariable ["estimate_ctrl", controlNull]);
+private _estimateUnits = 1 max round ((count (_bld buildingPos -1)) / 10);
+["T15.14 estimate shows the one building", _estimate == format [LLSTRING(ModuleGarrisonBuilding_EstimateSingle), _estimateUnits], _estimate] call PFUNC(dev_check);
+private _positionsSlider = _dlg getVariable ["positions_ctrl", controlNull];
+[_positionsSlider, 100] call (_positionsSlider getVariable QPVAR(store));
+_estimate = ctrlText (_dlg getVariable ["estimate_ctrl", controlNull]);
+["T15.15 estimate follows the Positions slider", _estimate == format [LLSTRING(ModuleGarrisonBuilding_EstimateSingle), count (_bld buildingPos -1)], _estimate] call PFUNC(dev_check);
+[_positionsSlider, 10] call (_positionsSlider getVariable QPVAR(store));
 
 private _fnc_listed = { private _out = []; for "_i" from 0 to (lbSize _list - 1) do { _out pushBack (_list lbData _i) }; _out };
 private _fnc_info = { params ["_class"]; _factions select (_factions findIf { (_x select 1) == _class }) };
