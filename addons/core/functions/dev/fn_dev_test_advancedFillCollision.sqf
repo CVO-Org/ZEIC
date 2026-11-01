@@ -4,7 +4,8 @@
 * Self test: the collision check of Advanced Fill (#55, phase 2): the check itself (an object on a spot blocks it,
 * one next to it or above it doesn't), check off (old behaviour), units give way (units only on free positions)
 * and furniture gives way (the reserved positions stay free of objects, all units placed). 100 % of the positions,
-* so every position of the house counts.
+* so every position of the house counts. First with a real template, then with a test template that puts a box
+* exactly on the house's first position (the real one may not block any).
 * Part of PFUNC(dev_selfTest), needs its scheduled environment.
 *
 * Arguments:
@@ -35,10 +36,10 @@ private _fnc_unitPositions = {
 // Fills one house (interior + garrison) with the given collision check and returns
 // [house, its fill objects, the positions they block, the positions the units stand on, done]
 private _fnc_fill = {
-	params ["_spot", "_collision"];
+	params ["_spot", "_collision", ["_category", "mil"]];
 	private _bld = [DEV_HOUSE, _spot] call PFUNC(dev_spawn);
 	private _before = allSimpleObjects [];
-	[[_bld], ["mil", [OBJECT_MODE_SIMPLE, false]], ["BLU_F", "EdSubcat_Personnel", [100, false, false]], _collision] call PFUNC(advancedFill_start);
+	[[_bld], [_category, [OBJECT_MODE_SIMPLE, false]], ["BLU_F", "EdSubcat_Personnel", [100, false, false]], _collision] call PFUNC(advancedFill_start);
 	private _done = call _fnc_waitQueue;
 	sleep 0.5;
 	private _objects = ((allSimpleObjects []) - _before) select { (_x distance _bld) < 30 };
@@ -82,6 +83,27 @@ private _free = count (_unitsHouse buildingPos -1) - count _unitsBlocked;
 	count _furnUnits == count (_furnHouse buildingPos -1) && {_furnUnits findIf { _x == -1 } == -1},
 	[_furnUnits, count (_furnHouse buildingPos -1)]] call PFUNC(dev_check);
 
+// ---- test template: a box on the first position, another one outside the house (blocks nothing)
+private _offset = _probeHouse worldToModel (_probeHouse buildingPos 0);
+["zeictest", [DEV_HOUSE, [["Land_PaperBox_closed_F", _offset, 0], ["Land_PaperBox_closed_F", [12, 12, 0], 0]]]] call PFUNC(addCustomTemplate);
+private _count = count (_probeHouse buildingPos -1);
+
+([72, COLLISION_OFF, "zeictest"] call _fnc_fill) params ["", "_offObjects", "_offBlocked", "_offUnits"];
+["T25.9 test template, check off: the box blocks position 0, still a unit there",
+	count _offObjects == 2 && {_offBlocked isEqualTo [0]} && {0 in _offUnits} && {count _offUnits == _count},
+	[count _offObjects, _offBlocked, _offUnits]] call PFUNC(dev_check);
+
+([73, COLLISION_UNITS_GIVE_WAY, "zeictest"] call _fnc_fill) params ["", "_unitsObjects", "_unitsBlocked", "_unitsUnits"];
+["T25.10 test template, units give way: both boxes, no unit on position 0, the others taken",
+	count _unitsObjects == 2 && {_unitsBlocked isEqualTo [0]} && {!(0 in _unitsUnits)} && {count (_unitsUnits arrayIntersect _unitsUnits) == _count - 1} && {_unitsUnits findIf { _x == -1 } == -1},
+	[count _unitsObjects, _unitsBlocked, _unitsUnits]] call PFUNC(dev_check);
+
+([74, COLLISION_FURNITURE_GIVES_WAY, "zeictest"] call _fnc_fill) params ["", "_furnObjects", "_furnBlocked", "_furnUnits"];
+["T25.11 test template, furniture gives way: the box on position 0 left out, a unit on every position",
+	count _furnObjects == 1 && {_furnBlocked isEqualTo []} && {count (_furnUnits arrayIntersect _furnUnits) == _count} && {_furnUnits findIf { _x == -1 } == -1},
+	[count _furnObjects, _furnBlocked, _furnUnits]] call PFUNC(dev_check);
+ZEIC_zeictest_customBuildings = nil;
+
 // ---- the dialog remembers the settings for Alt
 PVAR(UiLastBuilding) = _probeHouse;
 PVAR(UiAdvancedFill) = createHashMapFromArray [["collision", true], ["blocked", COLLISION_FURNITURE_GIVES_WAY]];
@@ -89,5 +111,5 @@ createDialog "Rsc_ZEIC_AdvancedFill";
 private _dlg = findDisplay 1706;
 private _shown = [_dlg getVariable ["collision", false], _dlg getVariable ["blocked", -1], lbCurSel (_dlg getVariable ["blocked_ctrl", controlNull])];
 if (!isNull _dlg) then { _dlg closeDisplay 2 };
-["T25.8 dialog starts with the last collision settings", _shown isEqualTo [true, COLLISION_FURNITURE_GIVES_WAY, COLLISION_FURNITURE_GIVES_WAY], _shown] call PFUNC(dev_check);
+["T25.12 dialog starts with the last collision settings", _shown isEqualTo [true, COLLISION_FURNITURE_GIVES_WAY, COLLISION_FURNITURE_GIVES_WAY], _shown] call PFUNC(dev_check);
 PVAR(UiAdvancedFill) = nil;
