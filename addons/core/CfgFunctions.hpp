@@ -24,6 +24,7 @@ class CfgFunctions {
         class dev {
             file = PATH_TO_FUNC_SUB(dev);
 
+            class dev_benchTriggers {};
             class dev_check {};
             class dev_selfTest {
                 #if _ZEIC_DEV_
