@@ -4,15 +4,15 @@
 class CfgZEIC_ObjectSwitch {
     class Sets {
         class desert {
-            displayName = "$STR_ZEIC_core_OS_SetDesert";
+            displayName = "$STR_ZEIC_core_ModuleObjectSwitch_Set_Desert";
             order = 10;
         };
         class jungle {
-            displayName = "$STR_ZEIC_core_OS_SetJungle";
+            displayName = "$STR_ZEIC_core_ModuleObjectSwitch_Set_Jungle";
             order = 20;
         };
         class woodland {
-            displayName = "$STR_ZEIC_core_OS_SetWoodland";
+            displayName = "$STR_ZEIC_core_ModuleObjectSwitch_Set_Woodland";
             order = 30;
         };
     };

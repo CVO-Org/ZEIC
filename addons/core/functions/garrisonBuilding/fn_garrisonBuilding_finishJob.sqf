@@ -14,7 +14,7 @@
 
 params ["_job"];
 
-[format [LLSTRING(MSG_GarrisonDone), _job get "faction", _job get "unitCount", _job get "buildingCount"], "INFO"] call PFUNC(misc_logMsg);
+[format [LLSTRING(ModuleGarrisonBuilding_Done), _job get "faction", _job get "unitCount", _job get "buildingCount"], "INFO"] call PFUNC(misc_logMsg);
 
 // Make sure the last states arrive before the clear is scheduled.
 call PFUNC(feedback_flush);

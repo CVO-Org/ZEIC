@@ -23,7 +23,7 @@ Use the issue templates (Bug Report / Feature Request). For bugs, the mod versio
 ## Code style
 - 4 spaces, no tabs, CRLF line endings (see `.editorconfig`).
 - Follow the style of the surrounding code: ACE-style function headers, CBA / project macros (`GVAR`, `FUNC`, `LSTRING`, ...), aligned columns for repetitive lines.
-- All user-facing text goes into `stringtable.xml`.
+- All user-facing text goes into `stringtable.xml`. Key names, shared keys and wording: see [`docs/wording.md`](docs/wording.md).
 
 ## Translations
 Add or update entries in the addon's `stringtable.xml` and label the PR with `pr/translation`.

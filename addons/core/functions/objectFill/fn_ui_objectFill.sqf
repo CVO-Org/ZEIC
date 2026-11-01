@@ -28,7 +28,7 @@ PVAR(UiObjectFillObjects) = _objectMode;
 
 private _object = missionNamespace getVariable [QPVAR(UiLastObject), objNull];
 
-if (isNull _object) exitWith { [LLSTRING(MSG_NoObject), "ERROR"] call PFUNC(misc_logMsg) };
+if (isNull _object) exitWith { [LLSTRING(ModuleObjectFill_NoObject), "ERROR"] call PFUNC(misc_logMsg) };
 
 // The props of the type, of all types for random; the floor object goes under tables
 private _cfgTypes = configFile >> "CfgZEIC_ObjectFill" >> "Types";
@@ -98,7 +98,7 @@ private _objBB = boundingBoxReal _object;
 if (_levels isEqualTo []) then {
 	_objBB = 0 boundingBoxReal _object;
 	_levels = [0];
-	[format [LLSTRING(MSG_OFUnknown), typeOf _object], "WARNING"] call PFUNC(misc_logMsg);
+	[format [LLSTRING(ModuleObjectFill_NoShelfData), typeOf _object], "WARNING"] call PFUNC(misc_logMsg);
 };
 
 private _fnc_fill = {

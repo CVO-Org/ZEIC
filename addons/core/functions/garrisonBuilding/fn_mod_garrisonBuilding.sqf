@@ -26,10 +26,10 @@ switch _mode do {
 		private _nearArr = (nearestObjects [(screenToWorld getMousePosition), [], 25, true]) select { (_x buildingPos -1) isNotEqualTo [] };
 		if (_nearArr isNotEqualTo []) then { PVAR(UiLastBuilding) = _nearArr select 0 };
 		
-		if (isNull PVAR(UiLastBuilding)) exitWith { [LLSTRING(MSG_NoBuilding), "ERROR"] call PFUNC(misc_logMsg) };
+		if (isNull PVAR(UiLastBuilding)) exitWith { [format [LLSTRING(NoBuilding), LLSTRING(ModuleGarrisonBuilding_DisplayName)], "ERROR"] call PFUNC(misc_logMsg) };
 		
 		if ((inputAction "lookAround") isEqualTo 1) then {
-			if (isNil QPVAR(UiGarrisonFaction) || isNil QPVAR(UiGarrisonCategory) || isNil QPVAR(UiGarrisonDynamic)) exitWith { [LLSTRING(MSG_GarrisonNoLast), "ERROR"] call PFUNC(misc_logMsg) };
+			if (isNil QPVAR(UiGarrisonFaction) || isNil QPVAR(UiGarrisonCategory) || isNil QPVAR(UiGarrisonDynamic)) exitWith { [LLSTRING(ModuleGarrisonBuilding_NoLast), "ERROR"] call PFUNC(misc_logMsg) };
 			[
 				format["%1#%2", PVAR(UiGarrisonFaction), PVAR(UiGarrisonCategory)],
 				missionNamespace getVariable [QPVAR(UiGarrisonUnits), 4],

@@ -108,7 +108,7 @@ if (_index != -1) then {
 
 // Don't spam messages if there is an area to fill
 if (!_infoOnly && {_templates isEqualTo []} && {sizeOf _class > 2}) then {
-	[format [LLSTRING(MSG_NoTemplate), _class, getText (configFile >> "CfgVehicles" >> _class >> "displayName")], "INFO"] call PFUNC(misc_logMsg);
+	[format [LLSTRING(ModuleInteriorFill_NoTemplate), _class, getText (configFile >> "CfgVehicles" >> _class >> "displayName")], "INFO"] call PFUNC(misc_logMsg);
 };
 
 _templates

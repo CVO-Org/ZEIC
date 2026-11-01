@@ -37,7 +37,7 @@ switch _mode do {
 			};
 		};
 		
-		if (isNull PVAR(UiLastObject)) exitWith { [LLSTRING(MSG_NoObject), "ERROR"] call PFUNC(misc_logMsg) };
+		if (isNull PVAR(UiLastObject)) exitWith { [LLSTRING(ModuleObjectFill_NoObject), "ERROR"] call PFUNC(misc_logMsg) };
 
 		// Start Display 1704
 		if ((inputAction "lookAround") isEqualTo 1) then {

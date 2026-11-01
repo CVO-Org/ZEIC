@@ -31,7 +31,7 @@ _buildings = _buildings select {
 _buildings = [_buildings arrayIntersect _buildings] call PFUNC(queue_sortBuildings);
 
 if (_buildings isEqualTo []) exitWith {
-	[[LSTRING(MSG_AlreadyFurnished)], _requester] call PFUNC(interiorFill_notify);
+	[[LSTRING(ModuleInteriorFill_AlreadyFurnished)], _requester] call PFUNC(interiorFill_notify);
 };
 
 {

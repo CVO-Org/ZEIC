@@ -18,7 +18,7 @@ params ["_job"];
 private _missing = _job get "missing";
 // Translated on the receiving client (see PFUNC(misc_logMsg))
 private _summary = [
-	[LSTRING(MSG_FillDone), LSTRING(MSG_FillDoneMissing)] select (_missing isNotEqualTo []),
+	[LSTRING(ModuleInteriorFill_Done), LSTRING(ModuleInteriorFill_DoneMissing)] select (_missing isNotEqualTo []),
 	toUpper (_job get "category"), _job get "furnished", count _missing
 ];
 
