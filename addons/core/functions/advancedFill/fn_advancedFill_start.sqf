@@ -42,7 +42,7 @@ if (_collision == COLLISION_FURNITURE_GIVES_WAY) then {
 	{
 		private _indices = [];
 		for "_i" from 0 to count (_x buildingPos -1) - 1 do { _indices pushBack _i };
-		(_reserved select 1) pushBack ((_indices call BIS_fnc_arrayShuffle) select [0, _counts select _forEachIndex]);
+		(_reserved select 1) pushBack ([_x buildingPos -1, _indices call BIS_fnc_arrayShuffle, _counts select _forEachIndex] call PFUNC(garrisonBuilding_spreadPositions));
 	} forEach _withPositions;
 };
 

@@ -55,7 +55,7 @@ private _results = [];
 {
 	_probe setPosASL (AGLToASL (_spotPos vectorAdd _x));
 	_results pushBack (([[_spotPos], [_probe]] call PFUNC(advancedFill_blockedPositions)) isNotEqualTo []);
-} forEach [[0, 0, 0], [0.2, 0, 0], [1.5, 0, 0], [0, 0, 2.2]];
+} forEach [[0, 0, 0], [0.2, 0, 0], [2, 0, 0], [0, 0, 2.2]];
 deleteVehicle _probe;
 ["T25.1 check: an object on or just beside the spot blocks it, one next to it or above it doesn't", _results isEqualTo [true, true, false, false], _results] call PFUNC(dev_check);
 
@@ -89,20 +89,26 @@ private _offset = _probeHouse worldToModel (_probeHouse buildingPos 0);
 private _count = count (_probeHouse buildingPos -1);
 
 ([72, COLLISION_OFF, "zeictest"] call _fnc_fill) params ["", "_offObjects", "_offBlocked", "_offUnits"];
-["T25.9 test template, check off: the box blocks position 0, still a unit there",
-	count _offObjects == 2 && {_offBlocked isEqualTo [0]} && {0 in _offUnits} && {count _offUnits == _count},
+["T25.8 test template, check off: the box blocks position 0, still a unit there",
+	count _offObjects == 2 && {0 in _offBlocked} && {0 in _offUnits} && {count _offUnits == _count},
 	[count _offObjects, _offBlocked, _offUnits]] call PFUNC(dev_check);
 
 ([73, COLLISION_UNITS_GIVE_WAY, "zeictest"] call _fnc_fill) params ["", "_unitsObjects", "_unitsBlocked", "_unitsUnits"];
-["T25.10 test template, units give way: both boxes, no unit on position 0, the others taken",
-	count _unitsObjects == 2 && {_unitsBlocked isEqualTo [0]} && {!(0 in _unitsUnits)} && {count (_unitsUnits arrayIntersect _unitsUnits) == _count - 1} && {_unitsUnits findIf { _x == -1 } == -1},
+["T25.9 test template, units give way: both boxes, no unit on a blocked position (incl. 0), the others taken",
+	count _unitsObjects == 2 && {0 in _unitsBlocked} && {_unitsUnits findIf { _x == -1 || {_x in _unitsBlocked} } == -1} && {count (_unitsUnits arrayIntersect _unitsUnits) == _count - count _unitsBlocked},
 	[count _unitsObjects, _unitsBlocked, _unitsUnits]] call PFUNC(dev_check);
 
 ([74, COLLISION_FURNITURE_GIVES_WAY, "zeictest"] call _fnc_fill) params ["", "_furnObjects", "_furnBlocked", "_furnUnits"];
-["T25.11 test template, furniture gives way: the box on position 0 left out, a unit on every position",
+["T25.10 test template, furniture gives way: the box on position 0 left out, a unit on every position",
 	count _furnObjects == 1 && {_furnBlocked isEqualTo []} && {count (_furnUnits arrayIntersect _furnUnits) == _count} && {_furnUnits findIf { _x == -1 } == -1},
 	[count _furnObjects, _furnBlocked, _furnUnits]] call PFUNC(dev_check);
 ZEIC_zeictest_customBuildings = nil;
+
+// ---- spacing: positions almost on top of each other get one unit
+private _spread = [[[0, 0, 0], [0.5, 0, 0], [2, 0, 0], [2, 0, 3]], [1, 0, 2, 3], 4] call PFUNC(garrisonBuilding_spreadPositions);
+private _limited = [[[0, 0, 0], [2, 0, 0], [4, 0, 0]], [2, 1, 0], 2] call PFUNC(garrisonBuilding_spreadPositions);
+["T25.11 spacing: a position within 0.8 m of a taken one is skipped, in order, up to the count",
+	_spread isEqualTo [1, 2, 3] && {_limited isEqualTo [2, 1]}, [_spread, _limited]] call PFUNC(dev_check);
 
 // ---- the dialog remembers the settings for Alt
 PVAR(UiLastBuilding) = _probeHouse;

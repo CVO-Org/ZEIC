@@ -47,9 +47,9 @@ if (isNull _bld) exitWith {
 					for "_i" from 0 to count (_bld buildingPos -1) - 1 do { _indices pushBack _i };
 				};
 				_bld setVariable [QPVAR(freePositions), nil];
-				_indices = _indices call BIS_fnc_arrayShuffle;
+				_indices = [_bld buildingPos -1, _indices call BIS_fnc_arrayShuffle, (_job get "unitCounts") select _index] call PFUNC(garrisonBuilding_spreadPositions);
 			};
-			_job set ["positions", (_indices select [0, (_job get "unitCounts") select _index]) apply { _bld buildingPos _x }];
+			_job set ["positions", _indices apply { _bld buildingPos _x }];
 			_job set ["spawned", []];
 
 			if (is3DEN) then {

@@ -22,10 +22,14 @@
 #define COLLISION_OFF -1
 #define COLLISION_UNITS_GIVE_WAY 0
 #define COLLISION_FURNITURE_GIVES_WAY 1
-// A position is blocked by an object whose bounding box is closer than this horizontally (meters, about a unit's half width)
-#define COLLISION_RADIUS 0.35
+// A position is blocked by an object whose bounding box is closer than this horizontally
+// (meters: a kneeling unit with its rifle reaches about this far)
+#define COLLISION_RADIUS 0.6
 // ...and reaches into this height band above the position's floor (meters): rugs below, lamps above don't count
 #define COLLISION_HEIGHT [0.15, 1.7]
+
+// Garrison: a building position closer than this (meters) to one already taken in the same building is skipped
+#define GARRISON_SPACING 0.8
 
 // Garrison Building and Advanced Fill ask before creating more units than this
 #define GARRISON_CONFIRM_UNITS 400

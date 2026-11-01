@@ -88,6 +88,7 @@ class CfgFunctions {
             class garrisonBuilding_finishBuilding {};
             class garrisonBuilding_finishJob {};
             class garrisonBuilding_selectBuildings {};
+            class garrisonBuilding_spreadPositions {};
             class garrisonBuilding_start {};
             class garrisonBuilding_unitCounts {};
             class garrisonBuilding_step {};
