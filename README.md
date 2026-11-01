@@ -16,28 +16,31 @@ The goal is to follow Sgt. J. Andrews / Samantha initial attempt maintain this h
 More Details below
 
 # ZEIC - Changes
-- Create 3DEN Layer per Building for Interior Fill and Garrison.
-- Improve Performance
+- New dialogs in the style of Zeus Enhanced, with a description of each module; translatable.
+- Buildings are processed over several frames (no freezes on large areas), with coloured wireframes showing the progress to every Zeus.
+- Templates live in config: any mod or mission can add templates and categories (see `docs/config-schema.md`). Template addons load only with their mod (CUP, GM, SOG, Western Sahara, OPTRE).
+- Area fills and area garrisons with a radius preview on the ground.
+- Eden: one layer per module, fill and building.
 
 # ZEI - Zeus and Eden Interiors
 A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
 
 ## ZEI Interior Modules
 ### Garrison Building
-- Fills a building with your choice of faction and number (should support any units Addon).
-- Attempts to find the best direction for the units to face.
-- Avoids spawning pilots/crew etc.1
+- Fills a building, or a share of the buildings within a radius, with infantry of any faction (supports any units addon).
+- Find the faction by side and search; recently used factions are listed on top.
+- Attempts to find the best direction for the units to face. Avoids spawning pilots, crew etc.
+- Hold Alt while placing to garrison again with the last settings.
 
 ### Interior Fill
-- Fills a building with either a military or civilian template.
-- Choose either an area or single building and if the interior should be editable in Zeus.
-- Supports CUP buildings.
-- Pressing 'LookAround' (Default: ALT) will skip the GUI and immediately try and fill the nearest building with a military template.
+- Furnishes a building, or a share of the buildings within a radius, from the templates of a category (Military, Civilian, CBRN, and any category a mod or mission adds).
+- Simple objects (fastest), normal objects, or objects editable in Zeus.
+- Shortcuts, held while placing: Alt repeats the last fill, Ctrl fills Military, Shift Civilian, Ctrl+Shift CBRN.
 
 ### Object Fill
-- Fills a table or shelf with objects.
-- Choose how many objects to spawn on the table and if they should be editable in Zeus.
-- Pressing 'LookAround' (Default: ALT) will skip the GUI and immediately try and fill an object a random selection of items.
+- Fills a table or shelf with props (food, medical, office, tools, electric, CBRN cleaning or random).
+- Choose how full and how the objects are created.
+- Hold Alt while placing to fill again with the last settings.
 
 ### Object Switch
 - Converts objects of one region to another region (e.g. Green Sandbags to Brown Sandbags)
@@ -50,7 +53,7 @@ The following modules are designed to make it easier for you to help with the de
 - Use it to quickly find which buildings have little or no ZEI templates.
 - VR World Only
 - Creates rows of buildings having the chosen number of templates or less.
-- Coloured arrows in front of the buildings will indicate the templates count (Red = Mil, Pink = Civ).
+- Coloured arrows in front of the buildings show the template count per category (the colours are listed in chat).
 
 ### Mark Positions
 - Highlights all building positions in a building.

@@ -13,7 +13,7 @@
 * Public: No
 */
 
-params [["_msg", "", [""]], ["_requester", clientOwner, [0]]];
+params [["_msg", "", ["", []]], ["_requester", clientOwner, [0]]];
 
 if (is3DEN || {!isMultiplayer} || {_requester == clientOwner}) then {
 	[_msg, "INFO"] call PFUNC(misc_logMsg);

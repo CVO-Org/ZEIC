@@ -30,18 +30,18 @@ Example:	[object, 45] call rotateAroundOwnAxisX;		// the object turn 45Â° back
 params [["_object", objNull], ["_angle", 0]];
 
 // get current vector dir and up
-_up = vectorUp _object;
+private _up = vectorUp _object;
 _up params ["_upX", "_upY", "_upZ"];
 (vectorDir _object) params ["_dirXTemp", "_dirYTemp", "_dirZTemp"];
 
 // set cos and sin
-_cos = cos _angle;
-_sin = sin _angle;
+private _cos = cos _angle;
+private _sin = sin _angle;
 
 // calculate new vector dir
-_dirX = _dirXTemp*(_upX*_upX*(1-_cos)+_cos) + _dirYTemp*(_upX*_upY*(1-_cos)-_upZ*_sin) + _dirZTemp*(_upX*_upZ*(1-_cos)+_upY*_sin);
-_dirY = _dirXTemp*(_upY*_upX*(1-_cos)+_upZ*_sin) + _dirYTemp*(_upY*_upY*(1-_cos)+_cos) + _dirZTemp*(_upY*_upZ*(1-_cos)-_upX*_sin);
-_dirZ = _dirXTemp*(_upZ*_upX*(1-_cos)-_upY*_sin) + _dirYTemp*(_upZ*_upY*(1-_cos)+_upX*_sin) + _dirZTemp*(_upZ*_upZ*(1-_cos)+_cos);
+private _dirX = _dirXTemp*(_upX*_upX*(1-_cos)+_cos) + _dirYTemp*(_upX*_upY*(1-_cos)-_upZ*_sin) + _dirZTemp*(_upX*_upZ*(1-_cos)+_upY*_sin);
+private _dirY = _dirXTemp*(_upY*_upX*(1-_cos)+_upZ*_sin) + _dirYTemp*(_upY*_upY*(1-_cos)+_cos) + _dirZTemp*(_upY*_upZ*(1-_cos)-_upX*_sin);
+private _dirZ = _dirXTemp*(_upZ*_upX*(1-_cos)-_upY*_sin) + _dirYTemp*(_upZ*_upY*(1-_cos)+_upX*_sin) + _dirZTemp*(_upZ*_upZ*(1-_cos)+_cos);
 
 // set vetor dir and up
 _object setVectorDirAndUp [[_dirX,_dirY,_dirZ],_up];

@@ -30,8 +30,8 @@ Example:	[object, 45] call rotateAroundOwnAxisX;		// the object turn 45Â° back
 params [["_object", objNull], ["_angle", 0]];
 
 // get current vector dir and up
-_dir = vectorDir _object;
-_up = vectorUp _object;
+private _dir = vectorDir _object;
+private _up = vectorUp _object;
 
 _dir params ["_dirXTemp", "_dirYTemp", "_dirZTemp"];
 _up params ["_upXTemp", "_upYTemp", "_upZTemp"];
@@ -40,18 +40,18 @@ _up params ["_upXTemp", "_upYTemp", "_upZTemp"];
 ([_dir,_up] call BIS_fnc_crossProduct) params ["_axisX", "_axisY", "_axisZ"];
 
 // set cos and sin
-_cos = cos _angle;
-_sin = sin _angle;
+private _cos = cos _angle;
+private _sin = sin _angle;
 
 // calculate new vector dir
-_dirX = _dirXTemp*(_axisX*_axisX*(1-_cos)+_cos) + _dirYTemp*(_axisX*_axisY*(1-_cos)-_axisZ*_sin) + _dirZTemp*(_axisX*_axisZ*(1-_cos)+_axisY*_sin);
-_dirY = _dirXTemp*(_axisY*_axisX*(1-_cos)+_axisZ*_sin) + _dirYTemp*(_axisY*_axisY*(1-_cos)+_cos) + _dirZTemp*(_axisY*_axisZ*(1-_cos)-_axisX*_sin);
-_dirZ = _dirXTemp*(_axisY*_axisX*(1-_cos)-_axisY*_sin) + _dirYTemp*(_axisZ*_axisY*(1-_cos)+_axisX*_sin) + _dirZTemp*(_axisZ*_axisZ*(1-_cos)+_cos);
+private _dirX = _dirXTemp*(_axisX*_axisX*(1-_cos)+_cos) + _dirYTemp*(_axisX*_axisY*(1-_cos)-_axisZ*_sin) + _dirZTemp*(_axisX*_axisZ*(1-_cos)+_axisY*_sin);
+private _dirY = _dirXTemp*(_axisY*_axisX*(1-_cos)+_axisZ*_sin) + _dirYTemp*(_axisY*_axisY*(1-_cos)+_cos) + _dirZTemp*(_axisY*_axisZ*(1-_cos)-_axisX*_sin);
+private _dirZ = _dirXTemp*(_axisZ*_axisX*(1-_cos)-_axisY*_sin) + _dirYTemp*(_axisZ*_axisY*(1-_cos)+_axisX*_sin) + _dirZTemp*(_axisZ*_axisZ*(1-_cos)+_cos);
 
 // calculate new vector up
-_upX = _upXTemp*(_axisX*_axisX*(1-_cos)+_cos) + _upYTemp*(_axisX*_axisY*(1-_cos)-_axisZ*_sin) + _upZTemp*(_axisX*_axisZ*(1-_cos)+_axisY*_sin);
-_upY = _upXTemp*(_axisY*_axisX*(1-_cos)+_axisZ*_sin) + _upYTemp*(_axisY*_axisY*(1-_cos)+_cos) + _upZTemp*(_axisY*_axisZ*(1-_cos)-_axisX*_sin);
-_upZ = _upXTemp*(_axisZ*_axisX*(1-_cos)-_axisY*_sin) + _upYTemp*(_axisZ*_axisY*(1-_cos)+_axisX*_sin) + _upZTemp*(_axisZ*_axisZ*(1-_cos)+_cos);
+private _upX = _upXTemp*(_axisX*_axisX*(1-_cos)+_cos) + _upYTemp*(_axisX*_axisY*(1-_cos)-_axisZ*_sin) + _upZTemp*(_axisX*_axisZ*(1-_cos)+_axisY*_sin);
+private _upY = _upXTemp*(_axisY*_axisX*(1-_cos)+_axisZ*_sin) + _upYTemp*(_axisY*_axisY*(1-_cos)+_cos) + _upZTemp*(_axisY*_axisZ*(1-_cos)-_axisX*_sin);
+private _upZ = _upXTemp*(_axisZ*_axisX*(1-_cos)-_axisY*_sin) + _upYTemp*(_axisZ*_axisY*(1-_cos)+_axisX*_sin) + _upZTemp*(_axisZ*_axisZ*(1-_cos)+_cos);
 
 // set vetor dir and up
 _object setVectorDirAndUp [[_dirX,_dirY,_dirZ],[_upX,_upY,_upZ]];

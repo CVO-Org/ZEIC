@@ -31,7 +31,7 @@ _buildings = _buildings select {
 _buildings = [_buildings arrayIntersect _buildings] call PFUNC(queue_sortBuildings);
 
 if (_buildings isEqualTo []) exitWith {
-	["Interior Fill: all selected buildings are already furnished.", _requester] call PFUNC(interiorFill_notify);
+	[[LSTRING(MSG_AlreadyFurnished)], _requester] call PFUNC(interiorFill_notify);
 };
 
 {

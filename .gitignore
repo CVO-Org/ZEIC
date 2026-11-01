@@ -7,3 +7,6 @@ hemtt.exe
 /releases
 
 .hemttprivatekey
+
+# Arma writes a copy of a mission it has open
+.hemtt/missions/~*/

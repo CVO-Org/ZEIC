@@ -26,20 +26,20 @@ PVAR(UiObjectFillObjects) = _objectMode;
 
 private _object = missionNamespace getVariable [QPVAR(UiLastObject), objNull];
 
-if (isNull _object) exitWith { ["No suitable object found!", "ERROR"] call PFUNC(misc_logMsg) };
+if (isNull _object) exitWith { [LLSTRING(MSG_NoObject), "ERROR"] call PFUNC(misc_logMsg) };
 
 // Checks if the passed object can be decorated or not.
-_fnc_checkObject = {
+private _fnc_checkObject = {
 	params [["_objToFill", objNull], ["_fillType",0]];
 	
-	_foodItems = ["Land_Orange_01_F","Land_WaterBottle_01_empty_F","Land_WaterBottle_01_full_F","Land_BottlePlastic_V1_F","Land_Can_Rusty_F","Land_Can_V1_F","Land_Can_V2_F","Land_Can_V3_F","Land_TacticalBacon_F","Land_Can_Dented_F","Land_BottlePlastic_V2_F","Land_BakedBeans_F","Land_PowderedMilk_F","Land_RiceBox_F","Land_Tableware_01_stackOfNapkins_F","Land_Tableware_01_cup_F","Land_TinContainer_F"];
-	_healItems = ["Item_FirstAidKit","Land_Bandage_F","MedicalGarbage_01_Bandage_F","MedicalGarbage_01_Packaging_F","Land_Bandage_F","MedicalGarbage_01_Injector_F","MedicalGarbage_01_FirstAidKit_F","Land_Antibiotic_F","Land_Bandage_F","Land_DisinfectantSpray_F","Land_HeatPack_F","Land_IntravenBag_01_full_F","Land_Bandage_F","Land_PainKillers_F","Land_VitaminBottle_F","Land_WaterPurificationTablets_F"];
-	_deskItems = ["Land_FMradio_F","Land_PortableLongRangeRadio_F","Land_Camera_01_F","Land_HandyCam_F","Land_MobilePhone_old_F","Land_MobilePhone_smart_F","Land_Battery_F","Land_File1_F","Land_FilePhotos_F","Land_Notepad_F","Land_PenBlack_F","Land_PenRed_F","Land_PencilBlue_F","Land_PencilGreen_F","Land_PencilRed_F","Land_PensAndPencils_F","Land_Photos_V3_F","Land_Photos_V4_F","Land_Photos_V5_F","Land_Photos_V6_F","Land_Money_F"];
-	_toolItems = ["Land_Matches_F","Land_ButaneCanister_F","Land_ButaneTorch_F","Land_CanOpener_F","Land_DuctTape_F","Land_DustMask_F","Land_File_F","Land_GasCanister_F","Land_GasCooker_F","Land_Gloves_F","Land_MultiMeter_F","Land_Pliers_F","Land_Rope_01_F","Land_Screwdriver_V2_F","Land_Screwdriver_V1_F","Land_Meter3m_F","Land_Wrench_F"];
-	_elecItems = ["Land_Tablet_02_black_F","Land_Router_01_black_F","Land_IPPhone_01_black_F","Land_Computer_01_black_F","Land_Camera_01_F","Land_FMradio_F","Land_HandyCam_F","Land_MobilePhone_old_F","Land_PortableLongRangeRadio_F","Land_PortableSpeakers_01_F","Land_BatteryPack_01_battery_black_F","Land_Tablet_01_F"];
-	_cbrnItems = ["AntidoteKit_01_F","Brush_01_yellow_F","Brush_01_green_F","DeconKit_01_F","HazmatBag_01_roll_F","SCBACylinder_01_F","SCBACylinder_01_CUR_F","Sponge_01_dry_F","Sponge_01_Wet_F","Land_Antibiotic_F","Land_Bandage_F"];
+	private _foodItems = ["Land_Orange_01_F","Land_WaterBottle_01_empty_F","Land_WaterBottle_01_full_F","Land_BottlePlastic_V1_F","Land_Can_Rusty_F","Land_Can_V1_F","Land_Can_V2_F","Land_Can_V3_F","Land_TacticalBacon_F","Land_Can_Dented_F","Land_BottlePlastic_V2_F","Land_BakedBeans_F","Land_PowderedMilk_F","Land_RiceBox_F","Land_Tableware_01_stackOfNapkins_F","Land_Tableware_01_cup_F","Land_TinContainer_F"];
+	private _healItems = ["Item_FirstAidKit","Land_Bandage_F","MedicalGarbage_01_Bandage_F","MedicalGarbage_01_Packaging_F","Land_Bandage_F","MedicalGarbage_01_Injector_F","MedicalGarbage_01_FirstAidKit_F","Land_Antibiotic_F","Land_Bandage_F","Land_DisinfectantSpray_F","Land_HeatPack_F","Land_IntravenBag_01_full_F","Land_Bandage_F","Land_PainKillers_F","Land_VitaminBottle_F","Land_WaterPurificationTablets_F"];
+	private _deskItems = ["Land_FMradio_F","Land_PortableLongRangeRadio_F","Land_Camera_01_F","Land_HandyCam_F","Land_MobilePhone_old_F","Land_MobilePhone_smart_F","Land_Battery_F","Land_File1_F","Land_FilePhotos_F","Land_Notepad_F","Land_PenBlack_F","Land_PenRed_F","Land_PencilBlue_F","Land_PencilGreen_F","Land_PencilRed_F","Land_PensAndPencils_F","Land_Photos_V3_F","Land_Photos_V4_F","Land_Photos_V5_F","Land_Photos_V6_F","Land_Money_F"];
+	private _toolItems = ["Land_Matches_F","Land_ButaneCanister_F","Land_ButaneTorch_F","Land_CanOpener_F","Land_DuctTape_F","Land_DustMask_F","Land_File_F","Land_GasCanister_F","Land_GasCooker_F","Land_Gloves_F","Land_MultiMeter_F","Land_Pliers_F","Land_Rope_01_F","Land_Screwdriver_V2_F","Land_Screwdriver_V1_F","Land_Meter3m_F","Land_Wrench_F"];
+	private _elecItems = ["Land_Tablet_02_black_F","Land_Router_01_black_F","Land_IPPhone_01_black_F","Land_Computer_01_black_F","Land_Camera_01_F","Land_FMradio_F","Land_HandyCam_F","Land_MobilePhone_old_F","Land_PortableLongRangeRadio_F","Land_PortableSpeakers_01_F","Land_BatteryPack_01_battery_black_F","Land_Tablet_01_F"];
+	private _cbrnItems = ["AntidoteKit_01_F","Brush_01_yellow_F","Brush_01_green_F","DeconKit_01_F","HazmatBag_01_roll_F","SCBACylinder_01_F","SCBACylinder_01_CUR_F","Sponge_01_dry_F","Sponge_01_Wet_F","Land_Antibiotic_F","Land_Bandage_F"];
 	
-	_itemFloor = switch (_type) do {
+	private _itemFloor = switch (_type) do {
 		case 2: { "BloodSplatter_01_Large_New_F" };
 		case 3: { "Land_Rug_01_F" };
 		case 4: { "Oil_Spill_F" };
@@ -47,7 +47,7 @@ _fnc_checkObject = {
 		default { "Land_Garbage_square3_F" };
 	};
 	
-	_itemArray = switch (_type) do {
+	private _itemArray = switch (_type) do {
 		case 1: { _foodItems };
 		case 2: { _healItems };
 		case 3: { _deskItems };
@@ -57,9 +57,9 @@ _fnc_checkObject = {
 		default { _foodItems + _healItems + _deskItems + _toolItems + _elecItems + _cbrnItems };
 	};
 		
-	_offSet = [];
-	_fromEdge = [0.1,0.05,0.1,0.05]; // Indent from XX & YY boundingBox.
-	_itemSpacing = [0.2,0.2]; // Space between items.
+	private _offSet = [];
+	private _fromEdge = [0.1,0.05,0.1,0.05]; // Indent from XX & YY boundingBox.
+	private _itemSpacing = [0.2,0.2]; // Space between items.
 	
 	switch (typeOf _objToFill) do {
 		case "Land_CashDesk_F": {_fromEdge = [0.2,0.2,0.3,0.05]; _offSet = [-0.27,-0.76,-1.26]};
@@ -95,13 +95,13 @@ _fnc_checkObject = {
 		case "Land_WoodenCounter_01_F": {_fromEdge = [0.2,0.2,0.2,0.2]; _offSet = [-0.03,-0.77]};
 	};
 	
-	_objBB = boundingBoxReal _objToFill;
+	private _objBB = boundingBoxReal _objToFill;
 	
 	// If we've not defined the models bounds, get the BB for the 'top' of the model.
 	if (_offSet isEqualTo []) then {
 		_objBB = 0 boundingBoxReal _objToFill;
 		 _offSet = [0];
-		[format ["'%1' is not defined, using model 'top'", typeOf _objToFill], "WARNING"] call PFUNC(misc_logMsg);
+		[format [LLSTRING(MSG_OFUnknown), typeOf _objToFill], "WARNING"] call PFUNC(misc_logMsg);
 	};
 	
 	// If only one offset we're assuming its a table, so create something under it.
@@ -121,7 +121,7 @@ _fnc_checkObject = {
 };
 
 // Spawns an item to its parent at the requested offset
-_fnc_attachItem = {
+private _fnc_attachItem = {
 	params ["_parent","_item","_itemToPos",["_forceDir",random 360]];
 	
 	// Get rotation for Eden / Zeus

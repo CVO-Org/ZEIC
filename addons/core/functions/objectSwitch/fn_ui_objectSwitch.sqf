@@ -92,7 +92,7 @@ private _typeSOGB = [
 	"Land_ConnectorTent_01_AAF_closed_F","Land_ConnectorTent_01_AAF_cross_F","Land_ConnectorTent_01_AAF_open_F","Land_DeconTent_01_AAF_F","Land_MedicalTent_01_AAF_generic_closed_F","Land_MedicalTent_01_AAF_generic_inner_F","Land_MedicalTent_01_AAF_generic_open_F","Land_MedicalTent_01_AAF_generic_outer_F","Land_MedicalTent_01_digital_closed_F"
 ];
 // SOG Green
-_typeSOGG = [
+private _typeSOGG = [
 	"Land_vn_bagfence_01_corner_green_f","Land_vn_bagfence_01_long_green_f","Land_vn_bagfence_01_short_green_f","Land_vn_bagfence_01_end_green_f","Land_vn_bagfence_01_round_green_f","vn_camonet_blufor_f","vn_camonet_blufor_open_f","vn_camonet_blufor_big_f","Land_vn_camonet_east","CamoNet_BLUFOR_open_F","Land_vn_camonetb_east","CamoNet_wdl_F","CamoNet_wdl_open_F","CamoNet_wdl_big_F",
 	"Land_HBarrier_01_line_1_green_F","Land_HBarrier_01_line_3_green_F","Land_HBarrier_01_line_5_green_F","Land_HBarrier_01_big_4_green_F","Land_vn_bunker_small_01","Land_vn_bunker_big_01","Land_HBarrier_01_tower_green_F","Land_HBarrier_01_wall_corridor_green_F","Land_HBarrier_01_wall_corner_green_F","Land_HBarrier_01_wall_6_green_F","Land_HBarrier_01_wall_4_green_F","Land_HBarrier_01_big_tower_green_F",
 	"Land_Cargo_Patrol_V1_F","Land_Cargo_House_V1_F","Land_Cargo_HQ_V1_F","Land_Cargo_Tower_V1_F","Land_vn_sandbagbarricade_01_half_f","Land_vn_sandbagbarricade_01_f","Land_vn_sandbagbarricade_01_hole_f",
@@ -126,7 +126,7 @@ if !(isClass(configFile >> 'CfgPatches' >> 'CUP_Core')) then { _searchType = _se
 if !(isClass(configFile >> 'CfgPatches' >> 'vn_data_f')) then { _searchType = _searchType - [_typeSOGB, _typeSOGG] };
 
 if (count _replaceType == 0) exitWith { 
-	["No objects loaded to replace.","ERROR"] call PFUNC(misc_logMsg);
+	[LLSTRING(MSG_OSNoSet), "ERROR"] call PFUNC(misc_logMsg);
 };
 
 private _toReplace = [];
@@ -155,7 +155,7 @@ private _toReplace = [];
 } forEach (nearestObjects [_pos, [], _searchRadius, true]);
 
 if (_toReplace isEqualTo []) exitWith {
-	["No objects to replace","INFO"] call PFUNC(misc_logMsg);
+	[LLSTRING(MSG_OSNothing), "INFO"] call PFUNC(misc_logMsg);
 };
 
 private _count = 0;
@@ -170,10 +170,10 @@ if (is3DEN) then {
 } else {
 	{ 
 		_x params ["_original","_replacement"];
-		_obj = createVehicle [_replacement, getPosATL _original, [], 0, "CAN_COLLIDE"];
+		private _obj = createVehicle [_replacement, getPosATL _original, [], 0, "CAN_COLLIDE"];
 		_obj setVectorDirAndUp [vectorDir _original, vectorUp _original];
 		deleteVehicle _original;
 	} forEach _toReplace;
 };
 
-[format["Converted %1 Objects", count _toReplace], "INFO"] call PFUNC(misc_logMsg);
+[format [LLSTRING(MSG_OSDone), count _toReplace], "INFO"] call PFUNC(misc_logMsg);

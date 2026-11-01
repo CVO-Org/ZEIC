@@ -30,7 +30,7 @@ private _arrows = [
 	["Sign_Arrow_Large_Cyan_F", "cyan"]
 ];
 {
-	[format ["List Buildings: %1 = %2 arrows", _x select 0, (_arrows select (_forEachIndex mod count _arrows)) select 1], "INFO"] call PFUNC(misc_logMsg);
+	[format [LLSTRING(MSG_LBLegend), _x select 0, (_arrows select (_forEachIndex mod count _arrows)) select 1], "INFO"] call PFUNC(misc_logMsg);
 } forEach _categories;
 
 private _fnc_create = {
@@ -47,7 +47,7 @@ private _fnc_delete = {
 
 private _classNames = ("configName _x isKindOf 'Building' && {getNumber (_x >> 'scope') == 2}" configClasses (configFile >> "CfgVehicles")) apply { configName _x };
 _classNames = _classNames select { (toLowerANSI _x find "ruin") == -1 };
-[format ["Processing %1 classes.", count _classNames], "INFO"] call PFUNC(misc_logMsg);
+[format [LLSTRING(MSG_LBProcessing), count _classNames], "INFO"] call PFUNC(misc_logMsg);
 
 private _origin = [1000, 1000, 0];
 private _count = 0;
@@ -78,4 +78,4 @@ private _count = 0;
 	};
 } forEach _classNames;
 
-[format ["Output %1 buildings with positions.", _count], "INFO"] call PFUNC(misc_logMsg);
+[format [LLSTRING(MSG_LBDone), _count], "INFO"] call PFUNC(misc_logMsg);

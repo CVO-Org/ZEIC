@@ -8,14 +8,15 @@ Informations
 - We are really happy when you send us your templates, because so this mod gets more awesome, but if you send us your template it needs
 		quite some time to release the next version
 	- if you want to test and use your own templates/schemes instantly use the function ZEIC_fnc_addCustomTemplate
-		-> for example a civilian building: ['civ', 'Land_Dome_Small_F: [["Land_CampingChair_V2_white_F",[1.40308,-5.02515,-6.9708],-118]]'] call ZEIC_fnc_addCustomHouse
-		-> or a military:					['mil', 'Land_Dome_Small_F: [["Land_CampingChair_V1_white_F",[3.10308,-7.02515,-1.9708],30]]'] call ZEIC_fnc_addCustomHouse
-		-> the first parameter is 'civ' or 'mil' to decide the type
+		-> for example a civilian building: ['civ', 'Land_Dome_Small_F: [["Land_CampingChair_V2_white_F",[1.40308,-5.02515,-6.9708],-118]]'] call ZEIC_fnc_addCustomTemplate
+		-> or a military:					['mil', 'Land_Dome_Small_F: [["Land_CampingChair_V1_white_F",[3.10308,-7.02515,-1.9708],30]]'] call ZEIC_fnc_addCustomTemplate
+		-> the first parameter is the category: 'mil', 'civ', 'cbrn' or any other category
 		-> the second parameter is the value you get from the "get building scheme" module
 			-> IMPORTANT: You MUST use ' around the value NOT " -> 'COPY_VALUE'
 			
 - How many templates get filtered or why some cant be spawned... all informations you get with the debuge mode on
-		-> use: ZEIC_debug = true
+		-> use: ZEIC_DEBUG = true
+	- templates for a whole mod or mission belong in config, see docs/config-schema.md
 
 - How create/capture a template/scheme
 	- remember the house and go to the editor the select the VR map, place the building and build the interior
