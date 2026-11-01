@@ -267,8 +267,8 @@ getTemplates(category, buildingClass):
    vanilla lists.
 4. **Remove** ✅: `fn_findTemplates` rewritten (config lookup with caches), `fn_templateCanSpawn`, the
    `isLoaded_*` flags and `fn_init_preStart`, the hardcoded category list (now
-   `fn_interiorFill_categories`), and `addons/core/templates/`. Still open: `fn_checkDetailLevel` and
-   the detail level option (part of the dialog rework, #6). `fn_addCustomHouse` stays as legacy API.
+   `fn_interiorFill_categories`), and `addons/core/templates/`. `fn_checkDetailLevel` and the detail
+   level option are removed too. `fn_addCustomHouse` stays as legacy API.
 5. **Legacy script API stays** (see section 8).
 
 ## 8. Legacy compatibility
