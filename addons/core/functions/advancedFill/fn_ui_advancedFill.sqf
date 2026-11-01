@@ -2,7 +2,7 @@
 
 /*
 * Called by the Advanced Fill dialog (or the Alt shortcut): saves the settings for next time, picks the buildings
-* and starts the fill. The work itself is done by PFUNC(advancedFill_start).
+* and starts the fill. With the garrison on, asks first if it would create more than GARRISON_CONFIRM_UNITS units. The work itself is done by PFUNC(advancedFill_start).
 *
 * Arguments:
 * 0: Settings <HASHMAP>
@@ -10,6 +10,7 @@
 *    "damage" <BOOL>, "garrison" <BOOL>, "pair" [faction, subcategory] <ARRAY>, "positions" <NUMBER>,
 *    "dynamic" <BOOL>, "trigger" <BOOL>, "radius" <NUMBER>, "percent" <NUMBER>,
 *    "collision" <BOOL>, "blocked" (COLLISION_UNITS_GIVE_WAY or COLLISION_FURNITURE_GIVES_WAY) <NUMBER>
+* 1: Buildings, already picked and confirmed (see PFUNC(ui_garrisonBuilding_confirmUnits)) <ARRAY> (default: pick them)
 *
 * Return Value:
 * None
@@ -17,7 +18,7 @@
 * Public: No
 */
 
-params [["_settings", createHashMap, [createHashMap]]];
+params [["_settings", createHashMap, [createHashMap]], ["_confirmed", nil, [[]]]];
 
 PVAR(UiAdvancedFill) = +_settings;
 
@@ -28,15 +29,19 @@ private _categories = call PFUNC(interiorFill_categories);
 private _category = (_categories param [_settings getOrDefault ["category", 0], _categories select 0]) select 1;
 
 private _bld = missionNamespace getVariable [QPVAR(UiLastBuilding), objNull];
-private _buildings = if (_radius > 0) then {
+private _buildings = if (!isNil "_confirmed") then { _confirmed } else { if (_radius > 0) then {
 	[getPos _bld, _radius, _settings getOrDefault ["percent", 50], ["", _category] select _interior, _garrison] call PFUNC(advancedFill_selectBuildings)
 } else {
 	[_bld] - [objNull]
-};
+} };
 
 if (_buildings isEqualTo []) exitWith {
 	[LLSTRING(ModuleAdvancedFill_NoBuildings), "ERROR"] call PFUNC(misc_logMsg);
 };
+
+if (isNil "_confirmed" && {_garrison} && {
+	[_buildings, _settings getOrDefault ["positions", 50], LLSTRING(ModuleAdvancedFill_DisplayName), PFUNC(ui_advancedFill), [_settings, _buildings], "Rsc_ZEIC_AdvancedFill"] call PFUNC(ui_garrisonBuilding_confirmUnits)
+}) exitWith {};
 
 (_settings getOrDefault ["pair", []]) params [["_faction", ""], ["_subcat", ""]];
 

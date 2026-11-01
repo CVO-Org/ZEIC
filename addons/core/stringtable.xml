@@ -58,11 +58,23 @@
             </Key>
         </Container>
         <Container name="Common">
+            <Key ID="STR_ZEIC_core_Back">
+                <English>Back</English>
+            </Key>
             <Key ID="STR_ZEIC_core_Cancel">
                 <English>Cancel</English>
             </Key>
             <Key ID="STR_ZEIC_core_Category">
                 <English>Category</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ConfirmUnits">
+                <English>Are you sure you want to create over %1 units?</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ConfirmUnits_Count">
+                <English>%1 units in %2 buildings.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ConfirmUnits_Description">
+                <English>Many units can make the mission slow.\nBack: change the settings.</English>
             </Key>
             <Key ID="STR_ZEIC_core_Description">
                 <English>Description</English>
@@ -114,6 +126,9 @@
             </Key>
             <Key ID="STR_ZEIC_core_Shortcuts_None">
                 <English>None</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Yes">
+                <English>Yes</English>
             </Key>
         </Container>
         <Container name="GarrisonBuilding">

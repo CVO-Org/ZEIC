@@ -27,6 +27,9 @@
 // ...and reaches into this height band above the position's floor (meters): rugs below, lamps above don't count
 #define COLLISION_HEIGHT [0.15, 1.7]
 
+// Garrison Building and Advanced Fill ask before creating more units than this
+#define GARRISON_CONFIRM_UNITS 400
+
 // Interior Fill: how objects are created (index in the dialog's "Objects" list)
 #define OBJECT_MODE_SIMPLE 0
 #define OBJECT_MODE_NORMAL 1
