@@ -51,7 +51,7 @@ _bldArr = _bldArr - [objNull];
 
 // Don't continue if no objects were found.
 if (_bldArr isEqualTo []) exitWith {
-	[LLSTRING(MSG_NoBuildingsFound), "INFO"] call PFUNC(misc_logMsg);
+	[LLSTRING(ModuleInteriorFill_NoBuildingsFound), "INFO"] call PFUNC(misc_logMsg);
 };
 
 // Processed over several frames by the queue, see PFUNC(interiorFill_start).

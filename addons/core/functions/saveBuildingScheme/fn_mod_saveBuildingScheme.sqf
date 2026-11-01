@@ -25,14 +25,14 @@ switch _mode do {
 			([get3DENMouseOver, curatorMouseOver] select _isCuratorPlaced) params [["_mouseType", ""], ["_mouseObj", objNull]];
 			
 			if (_mouseType != "Object" || {isNull _mouseObj}) exitWith {
-				[LLSTRING(MSG_SBSNoBuilding), "ERROR"] call PFUNC(misc_logMsg);
+				[LLSTRING(ModuleSaveBuildingScheme_NoBuilding), "ERROR"] call PFUNC(misc_logMsg);
 			};
 			
 			private _bldArr = [_mouseObj] select {((_x buildingPos -1) isNotEqualTo []) || typeOf _x in (missionNamespace getVariable [QPVAR(additionalBuildings), []])};
 			
 			// Don't continue if array is empty.
 			if (_bldArr isEqualTo [] && inputAction "LookAround" < 1) exitWith {
-				[LLSTRING(MSG_SBSInvalid), "ERROR"] call PFUNC(misc_logMsg);
+				[LLSTRING(ModuleSaveBuildingScheme_Invalid), "ERROR"] call PFUNC(misc_logMsg);
 			};
 			
 			// Array is empty, but 'LookAround' was pressed, force the object.
@@ -46,14 +46,14 @@ switch _mode do {
 			copyToClipboard (_lines joinString toString [13, 10]);
 			diag_log text format ["********** [ZEIC - BUILDING OUTPUT ""%1""] **********", _keyObjType];
 			{ diag_log text _x } forEach _lines;
-			[format [LLSTRING(MSG_SBSDone), _keyObjType, { (_x select [0, 13]) == "            {" } count _lines], "INFO"] call PFUNC(misc_logMsg);
+			[format [LLSTRING(ModuleSaveBuildingScheme_Done), _keyObjType, { (_x select [0, 13]) == "            {" } count _lines], "INFO"] call PFUNC(misc_logMsg);
 			if ((_keyObj call BIS_fnc_getPitchBank) isNotEqualTo [0,0]) then {
 				// Warn if building has been rotated (objects are not offset according to the building)
 				// TODO: Add support for all building angles?
-				[LLSTRING(MSG_SBSNotFlat), "WARNING"] call PFUNC(misc_logMsg);
+				[LLSTRING(ModuleSaveBuildingScheme_NotLevel), "WARNING"] call PFUNC(misc_logMsg);
 			};
 			if (toLowerANSI worldName != "vr") then {
-				[LLSTRING(MSG_SBSNotVR), "WARNING"] call PFUNC(misc_logMsg);
+				[LLSTRING(ModuleSaveBuildingScheme_NotVR), "WARNING"] call PFUNC(misc_logMsg);
 			};
 		};
 	};

@@ -3,11 +3,11 @@
 class CfgZEIC_ObjectSwitch {
     class Sets {
         class cup_desert {
-            displayName = "$STR_ZEIC_core_OS_SetDesertCUP";
+            displayName = "$STR_ZEIC_core_ModuleObjectSwitch_Set_DesertCUP";
             order = 40;
         };
         class cup_woodland {
-            displayName = "$STR_ZEIC_core_OS_SetWoodlandCUP";
+            displayName = "$STR_ZEIC_core_ModuleObjectSwitch_Set_WoodlandCUP";
             order = 50;
         };
     };

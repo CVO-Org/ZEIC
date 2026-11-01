@@ -29,7 +29,7 @@ PVAR(UiSwitchCombo) = _set;
 PVAR(UiSwitchRadius) = _searchRadius;
 
 if !(isClass (configFile >> "CfgZEIC_ObjectSwitch" >> "Sets" >> _set)) exitWith {
-	[LLSTRING(MSG_OSNoSet), "ERROR"] call PFUNC(misc_logMsg);
+	[LLSTRING(ModuleObjectSwitch_EmptySet), "ERROR"] call PFUNC(misc_logMsg);
 };
 
 private _toReplace = [];
@@ -44,7 +44,7 @@ private _toReplace = [];
 } forEach (nearestObjects [_pos, [], _searchRadius, true]);
 
 if (_toReplace isEqualTo []) exitWith {
-	[LLSTRING(MSG_OSNothing), "INFO"] call PFUNC(misc_logMsg);
+	[LLSTRING(ModuleObjectSwitch_Nothing), "INFO"] call PFUNC(misc_logMsg);
 };
 
 private _count = 0;
@@ -65,4 +65,4 @@ if (is3DEN) then {
 	} forEach _toReplace;
 };
 
-[format [LLSTRING(MSG_OSDone), count _toReplace], "INFO"] call PFUNC(misc_logMsg);
+[format [LLSTRING(ModuleObjectSwitch_Done), count _toReplace], "INFO"] call PFUNC(misc_logMsg);

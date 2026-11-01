@@ -24,15 +24,10 @@ class PVAR(ctrlBackground): RscText {
 class PVAR(ctrlLabel): RscText {
     colorBackground[] = {0, 0, 0, 0.5};
 };
-// What the module does, below the rows; wraps over as many lines as it needs
+// "Description (?)" and "Shortcuts (?)" below the rows, the text is in their tooltips
 class PVAR(ctrlDescription): RscText {
-    style = 16; // ST_MULTI
-    lineSpacing = 1;
     colorText[] = {1, 1, 1, 0.6};
     sizeEx = QUOTE(UI_H(0.8));
-    // ctrlTextHeight needs a width in the config
-    w = QUOTE(UI_W(26));
-    h = QUOTE(UI_H(1));
 };
 
 class PVAR(ctrlCombo): RscCombo {

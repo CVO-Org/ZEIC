@@ -1,13 +1,15 @@
 #include "..\..\script_component.hpp"
 
 /*
-* Finishes a ZEIC dialog: an optional description below the rows, Cancel and the confirm button below the background,
-* then centers the dialog on screen. Enter confirms, Escape cancels.
+* Finishes a ZEIC dialog: a small row with "Description (?)" and "Shortcuts (?)" below the rows (the texts
+* are their tooltips, so the dialog keeps its height in every language), Cancel and the confirm button below
+* the background, then centers the dialog on screen. Enter confirms, Escape cancels.
 *
 * Arguments:
 * 0: Dialog context <HASHMAP>
-* 1: Description: what the module does and how to use it, as many lines as it needs; several paragraphs
-*    (e.g. a shortcut) get a gap between them <STRING or ARRAY of STRINGs> (empty: none)
+* 1: Description, or [description, shortcuts]: tooltip texts, 1-2 lines each, "
+" for a new line
+*    <STRING or ARRAY of STRINGs> (empty: no label)
 * 2: Text of the confirm button <STRING>
 * 3: Code run on confirm, gets the display as _this; the dialog closes afterwards <CODE>
 *
@@ -22,18 +24,20 @@ params ["_ctx", ["_description", "", ["", []]], ["_confirmText", "OK", [""]], ["
 private _display = _ctx get "display";
 
 if (_description isEqualType "") then { _description = [_description] };
-{
-	// A gap above the description and between its paragraphs
+_description params [["_descriptionText", "", [""]], ["_shortcutsText", "", [""]]];
+
+private _hints = [[LLSTRING(Description), _descriptionText], [LLSTRING(Shortcuts), _shortcutsText]] select { (_x select 1) != "" };
+if (_hints isNotEqualTo []) then {
+	// A gap above the row
 	_ctx set ["y", (_ctx get "y") + UI_H(0.4)];
-	private _ctrl = [_ctx, QPVAR(ctrlDescription), [_ctx get "x", _ctx get "y", UI_W(26), UI_H(1)]] call PFUNC(ui_dialogAdd);
-	_ctrl ctrlSetText _x;
-	// The text wraps: its height is known once the control has its width
-	_ctrl ctrlSetPosition [0, 0, UI_W(26), UI_H(1)];
-	_ctrl ctrlCommit 0;
-	private _h = (ctrlTextHeight _ctrl) max UI_H(1);
-	_ctrl setVariable [QPVAR(relPos), [_ctx get "x", _ctx get "y", UI_W(26), _h]];
-	_ctx set ["y", (_ctx get "y") + _h + UI_H(0.1)];
-} forEach (_description select { _x != "" });
+	{
+		_x params ["_label", "_text"];
+		private _ctrl = [_ctx, QPVAR(ctrlDescription), [(_ctx get "x") + _forEachIndex * UI_W(6.5), _ctx get "y", UI_W(6), UI_H(1)]] call PFUNC(ui_dialogAdd);
+		_ctrl ctrlSetText format ["%1 (?)", _label];
+		_ctrl ctrlSetTooltip _text;
+	} forEach _hints;
+	_ctx set ["y", (_ctx get "y") + UI_H(1.1)];
+};
 
 // The background ends half a row below the last row, the buttons follow with a small gap
 private _background = _ctx get "background";
@@ -44,7 +48,7 @@ _background setVariable [QPVAR(relPos), [_bx, _by, _bw, _bottom - _by]];
 private _buttonY = _bottom + UI_H(0.1);
 private _cancel = [_ctx, QPVAR(ctrlButtonCancel), [0, _buttonY, UI_W(5), UI_H(1)]] call PFUNC(ui_dialogAdd);
 private _confirm = [_ctx, QPVAR(ctrlButtonOK), [UI_W(22), _buttonY, UI_W(5), UI_H(1)]] call PFUNC(ui_dialogAdd);
-_cancel ctrlSetText LLSTRING(UI_Cancel);
+_cancel ctrlSetText LLSTRING(Cancel);
 _confirm ctrlSetText _confirmText;
 
 _display setVariable [QPVAR(onConfirm), _onConfirm];

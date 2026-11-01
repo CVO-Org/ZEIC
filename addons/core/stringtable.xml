@@ -1,350 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="ZEIC_CORE">
     <Package name="Core">
-        <Key ID="STR_ZEIC_core_Category">
-            <English>ZEIC - Interiors</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_CategoryDev">
-            <English>ZEIC - Interiors Development</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Confirm">
-            <English>Garrison</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Description">
-            <English>Places infantry of a faction on the positions inside buildings. Pick a faction (search and side narrow the list) and its subcategory, or a recently used pair. Radius 0 garrisons only the building under the module, otherwise the given share of the buildings within the radius.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Dynamic">
-            <English>Dynamic simulation</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_DynamicTip">
-            <English>Enables dynamic simulation for the units. Don't use it where the AI can easily be seen (outside, on roofs).</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Faction">
-            <English>Faction</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_NoFaction">
-            <English>Select a faction first.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Radius">
-            <English>Radius [m]</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_RadiusTip">
-            <English>0: only the building under the module. Otherwise a share of the buildings within this distance.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Recent">
-            <English>Recently used</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_RecentTip">
-            <English>Faction and subcategory pairs used in this game session. Picking one here replaces the faction below.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Search">
-            <English>Search</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_SearchTip">
-            <English>Part of the faction name or class, e.g. TKA</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Shortcut">
-            <English>Shortcut: hold Alt while placing the module to garrison again with the last settings, without this dialog.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Side">
-            <English>Side</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_SideAll">
-            <English>All</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Subcategory">
-            <English>Subcategory</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Title">
-            <English>Garrison building</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Trigger">
-            <English>Move AI trigger</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_TriggerTip">
-            <English>Creates a trigger that lets the AI move once a player is near.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_AllowDamage">
-            <English>Allow damage</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_AllowDamageTip">
-            <English>The building can be destroyed. Its interior may be left floating.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_Category">
-            <English>Category</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_Chance">
-            <English>Chance [%]</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_ChanceTip">
-            <English>Share of the buildings within the radius that get furnished, picked at random. Not used at radius 0.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_Confirm">
-            <English>Fill</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_Description">
-            <English>Furnishes buildings with props from a template of the chosen category. Radius 0 fills only the building under the module, otherwise every building within the radius, one after another. Simple objects are fastest; editable ones can be moved in Zeus, but many of them make Zeus slow.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_Objects">
-            <English>Objects</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_ObjectsEditable">
-            <English>Editable</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_ObjectsEditableTip">
-            <English>Can be moved and deleted in Zeus. Zeus gets slow with many of them.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_ObjectsNormal">
-            <English>Objects</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_ObjectsNormalTip">
-            <English>Normal objects, not added to Zeus.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_ObjectsSimple">
-            <English>Simple</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_ObjectsSimpleTip">
-            <English>Fastest. Can't be moved or deleted in Zeus.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_Radius">
-            <English>Radius [m]</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_RadiusTip">
-            <English>0: only the building under the module. Otherwise all buildings within this distance.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_Shortcut">
-            <English>Shortcuts, held while placing the module, skip this dialog. Alt: the last fill again%1 (each with the last radius, chance and objects)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_ShortcutCategory">
-            <English>%1: %2</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_IF_Title">
-            <English>Interior fill</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_LB_CategoryAll">
-            <English>All</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_LB_Confirm">
-            <English>List</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_LB_Description">
-            <English>For template authors, VR only. Places every building class that has positions, with one arrow per template below it: one row per category, the colours are listed in chat. Use it to find buildings that need more templates.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_LB_Max">
-            <English>Max templates</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_LB_MaxTip">
-            <English>Buildings with more templates than this in a listed category are left out. 0: only buildings without templates.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_LB_Positions">
-            <English>Mark positions</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_LB_PositionsTip">
-            <English>Puts a green arrow on every building position.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_LB_Title">
-            <English>List template buildings</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_AlreadyFurnished">
-            <English>Interior Fill: all selected buildings are already furnished.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_FillDone">
-            <English>Interior Fill (%1): %2 furnished, %3 without template</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_FillDoneMissing">
-            <English>Interior Fill (%1): %2 furnished, %3 without template (see RPT)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_GarrisonDone">
-            <English>Garrison (%1): %2 units in %3 buildings</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_GarrisonNoBuildings">
-            <English>Garrison: no buildings with positions selected.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_GarrisonNoLast">
-            <English>Alt repeats the last garrison: open the dialog once first.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_LBDone">
-            <English>Placed %1 buildings with positions.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_LBLegend">
-            <English>List Buildings: %1 = %2 arrows</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_LBProcessing">
-            <English>Processing %1 classes.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_NoBuilding">
-            <English>No valid building within 25 m of the module.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_NoBuildingsFound">
-            <English>No valid buildings found.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_NoObject">
-            <English>No object to fill within 10 m of the module.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_NoTemplate">
-            <English>No template for %1 (%2) yet. Help out: share one made with Save Building Scheme.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_NoUnits">
-            <English>No infantry found for faction %1.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_OFUnknown">
-            <English>%1 has no shelf data: props are placed on its top.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_OSDone">
-            <English>Object Switch: %1 objects switched.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_OSNoSet">
-            <English>This set has no objects.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_OSNothing">
-            <English>Nothing to switch within the radius.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_SBSDone">
-            <English>Template for %1 (%2 objects) copied to the clipboard and written to the RPT. Paste it into the mission's description.ext, inside class CfgZEIC and a category.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_SBSInvalid">
-            <English>No valid building found. Buildings without positions have to be added with ZEIC_fnc_addCustomHouse.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_SBSNoBuilding">
-            <English>Place the module over a building.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_SBSNotFlat">
-            <English>The building is not level: objects may be saved at wrong positions.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_SBSNotVR">
-            <English>Not in the VR world: the saved positions may be off.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_MSG_VROnly">
-            <English>This module only works in the VR world.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Buildings">
-            <English>Buildings [%]</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Buildings_Tooltip">
-            <English>Share of the buildings within the radius that get a garrison, picked at random (at least one). Not used at radius 0.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Estimate">
-            <English>≈ %1 units in %2 buildings</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_EstimateNone">
-            <English>No buildings to garrison within the radius</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_EstimateSingle">
-            <English>≈ %1 units in 1 building</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Positions">
-            <English>Positions [%]</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Positions_Tooltip">
-            <English>How full each building gets: share of its positions, at least one unit per building. In an area, large buildings count with at most 1.5 times the median position count of the selected buildings, so they don't take most of the units.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_Module_GarrisonBuilding">
-            <English>Garrison Building</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_Module_InteriorFill">
-            <English>Interior Fill</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_Module_ListBuildings">
-            <English>List Buildings</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_Module_MarkPositions">
-            <English>Mark Positions</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_Module_ObjectFill">
-            <English>Object Fill</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_Module_ObjectSwitch">
-            <English>Object Switch</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_Module_SaveBuildingScheme">
-            <English>Save Building Scheme</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_Confirm">
-            <English>Fill</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_Description">
-            <English>Puts small props of the chosen type on a table, shelf, rack or similar object (the one under the module, or the nearest within 10 m). Tables also get something on the floor below them.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_Percent">
-            <English>Fill [%]</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_PercentTip">
-            <English>Chance for each spot on the object to get a prop.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_Shortcut">
-            <English>Shortcut: hold Alt while placing the module to fill again with the last settings, without this dialog.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_Title">
-            <English>Object fill</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_Type">
-            <English>Type</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_TypeCBRN">
-            <English>CBRN cleaning</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_TypeElectric">
-            <English>Electric</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_TypeFood">
-            <English>Food</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_TypeMedical">
-            <English>Medical</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_TypeOffice">
-            <English>Office</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_TypeRandom">
-            <English>Random</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OF_TypeTools">
-            <English>Tools</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_Confirm">
-            <English>Switch</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_Description">
-            <English>Swaps military objects (sandbags, H-barriers, camo nets, cargo buildings, crates, furniture) within the radius for their counterpart in the chosen camouflage set.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_Radius">
-            <English>Radius [m]</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_RadiusTip">
-            <English>Objects within this distance of the module are switched.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_Set">
-            <English>Convert to</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_SetBrownSOG">
-            <English>Brown (SOG)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_SetDesert">
-            <English>Desert (vanilla)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_SetDesertCUP">
-            <English>Desert (CUP)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_SetGreenSOG">
-            <English>Green (SOG)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_SetJungle">
-            <English>Jungle (Apex)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_SetTip">
-            <English>Only sets whose mod is loaded are listed.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_SetWoodland">
-            <English>Woodland (Contact)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_SetWoodlandCUP">
-            <English>Woodland (CUP)</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_OS_Title">
-            <English>Object switch</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_UI_Cancel">
-            <English>Cancel</English>
-        </Key>
+        <Container name="Common">
+            <Key ID="STR_ZEIC_core_Cancel">
+                <English>Cancel</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Category">
+                <English>Category</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Description">
+                <English>Description</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleCategoryDev_DisplayName">
+                <English>ZEIC - Interiors Development</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleCategory_DisplayName">
+                <English>ZEIC - Interiors</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_NoBuilding">
+                <English>%1: no valid building within 25 m of the module.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ObjectMode">
+                <English>Objects</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ObjectMode_Editable">
+                <English>Editable</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ObjectMode_Editable_Tooltip">
+                <English>Can be moved and deleted in Zeus.\nZeus gets slow with many of them.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ObjectMode_Normal">
+                <English>Objects</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ObjectMode_Normal_Tooltip">
+                <English>Normal objects, not added to Zeus.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ObjectMode_Simple">
+                <English>Simple</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ObjectMode_Simple_Tooltip">
+                <English>Fastest. Can't be moved or deleted in Zeus.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Percentage">
+                <English>Percentage</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Percentage_Tooltip">
+                <English>Share of the buildings within the radius, picked at random.\nNot used at radius 0.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Radius">
+                <English>Radius [m]</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Radius_Tooltip">
+                <English>0: only the building under the module.\nOtherwise the buildings within this distance.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Shortcuts">
+                <English>Shortcuts</English>
+            </Key>
+        </Container>
+        <Container name="GarrisonBuilding">
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Buildings">
+                <English>Buildings [%]</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Buildings_Tooltip">
+                <English>Share of the buildings within the radius, picked at random (at least one).\nNot used at radius 0.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Confirm">
+                <English>Garrison</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Description">
+                <English>Places infantry of a faction in the building under the module, or in buildings within the radius.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_DisplayName">
+                <English>Garrison Building</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Done">
+                <English>Garrison Building (%1): %2 units in %3 buildings</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_DynamicSimulation">
+                <English>Dynamic simulation</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_DynamicSimulation_Tooltip">
+                <English>Enables dynamic simulation for the units.\nDon't use it where the AI can easily be seen (outside, on roofs).</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Estimate">
+                <English>≈ %1 units in %2 buildings</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_EstimateNone">
+                <English>No buildings to garrison within the radius</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_EstimateSingle">
+                <English>≈ %1 units in 1 building</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Faction">
+                <English>Faction</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_NoBuildings">
+                <English>Garrison Building: no buildings with positions selected.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_NoFaction">
+                <English>Garrison Building: select a faction first.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_NoLast">
+                <English>Garrison Building: Alt repeats the last garrison, open the dialog once first.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_NoUnits">
+                <English>Garrison Building: no infantry found for faction %1.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Positions">
+                <English>Positions [%]</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Positions_Tooltip">
+                <English>How full each building gets: share of its positions, at least one unit.\nLarge buildings count with at most 1.5x the median of the selected buildings.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Recent">
+                <English>Recently used</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Recent_Tooltip">
+                <English>Faction and subcategory pairs used in this game session.\nPicking one here replaces the faction below.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Search">
+                <English>Search</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Search_Tooltip">
+                <English>Part of the faction name or class, e.g. TKA</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Shortcuts">
+                <English>Hold while placing the module (skips this dialog):\nAlt: repeat the last garrison\nUses the last faction and settings.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Side">
+                <English>Side</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Side_All">
+                <English>All</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Subcategory">
+                <English>Subcategory</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Trigger">
+                <English>Move AI trigger</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Trigger_Tooltip">
+                <English>Creates a trigger that lets the AI move once a player is near.</English>
+            </Key>
+        </Container>
+        <Container name="InteriorFill">
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_AllowDamage">
+                <English>Allow damage</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_AllowDamage_Tooltip">
+                <English>The building can be destroyed.\nIts interior may be left floating.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_AlreadyFurnished">
+                <English>Interior Fill: all selected buildings are already furnished.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_Confirm">
+                <English>Fill</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_Description">
+                <English>Furnishes the building under the module, or buildings within the radius, from the templates of a category.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_DisplayName">
+                <English>Interior Fill</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_Done">
+                <English>Interior Fill (%1): %2 furnished, %3 without template</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_DoneMissing">
+                <English>Interior Fill (%1): %2 furnished, %3 without template (see RPT)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_NoBuildingsFound">
+                <English>Interior Fill: no valid buildings found.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_NoTemplate">
+                <English>Interior Fill: no template for %1 (%2) yet. Help out: share one made with Save Building Scheme.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_ShortcutCategory">
+                <English>%1: %2</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleInteriorFill_Shortcuts">
+                <English>Hold while placing the module (skips this dialog):\nAlt: repeat the last fill%1\nUses the last radius, percentage and object mode.</English>
+            </Key>
+        </Container>
+        <Container name="ListBuildings">
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_Category_All">
+                <English>All</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_Confirm">
+                <English>List</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_Description">
+                <English>VR only, for template authors: places every building with positions and shows how many templates each has.\nOne arrow per template below each building, one colour per category (listed in chat).</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_DisplayName">
+                <English>List Buildings</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_Done">
+                <English>List Buildings: placed %1 buildings with positions.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_Legend">
+                <English>List Buildings: %1 = %2 arrows</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_MarkPositions">
+                <English>Mark positions</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_MarkPositions_Tooltip">
+                <English>Puts a green arrow on every building position.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_MaxTemplates">
+                <English>Max templates</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_MaxTemplates_Tooltip">
+                <English>Buildings with more templates than this in a listed category are left out.\n0: only buildings without templates.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_Processing">
+                <English>List Buildings: processing %1 classes.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleListBuildings_VROnly">
+                <English>List Buildings: this module only works in the VR world.</English>
+            </Key>
+        </Container>
+        <Container name="MarkPositions">
+            <Key ID="STR_ZEIC_core_ModuleMarkPositions_DisplayName">
+                <English>Mark Positions</English>
+            </Key>
+        </Container>
+        <Container name="ObjectFill">
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Confirm">
+                <English>Fill</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Description">
+                <English>Puts small objects on the table, shelf or rack under the module, or the nearest one within 10 m.\nTables also get something on the floor below them.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_DisplayName">
+                <English>Object Fill</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_NoObject">
+                <English>Object Fill: no object to fill within 10 m of the module.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_NoShelfData">
+                <English>Object Fill: %1 has no shelf data, objects are placed on its top.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Percentage_Tooltip">
+                <English>Chance for each spot on the object to get an object.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Shortcuts">
+                <English>Hold while placing the module (skips this dialog):\nAlt: repeat the last fill\nUses the last type, percentage and object mode.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type">
+                <English>Type</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_CBRN">
+                <English>CBRN cleaning</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_Electric">
+                <English>Electric</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_Food">
+                <English>Food</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_Medical">
+                <English>Medical</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_Office">
+                <English>Office</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_Random">
+                <English>Random</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectFill_Type_Tools">
+                <English>Tools</English>
+            </Key>
+        </Container>
+        <Container name="ObjectSwitch">
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Confirm">
+                <English>Switch</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Description">
+                <English>Swaps military objects within the radius for the chosen camouflage set.\nSandbags, H-barriers, camo nets, cargo buildings, crates and furniture.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_DisplayName">
+                <English>Object Switch</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Done">
+                <English>Object Switch: %1 objects switched.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_EmptySet">
+                <English>Object Switch: this set has no objects.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Nothing">
+                <English>Object Switch: nothing to switch within the radius.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Radius_Tooltip">
+                <English>Objects within this distance of the module are switched.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set">
+                <English>Convert to</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set_BrownSOG">
+                <English>Brown (SOG)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set_Desert">
+                <English>Desert (vanilla)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set_DesertCUP">
+                <English>Desert (CUP)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set_GreenSOG">
+                <English>Green (SOG)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set_Jungle">
+                <English>Jungle (Apex)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set_Tooltip">
+                <English>Only sets whose mod is loaded are listed.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set_Woodland">
+                <English>Woodland (Contact)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleObjectSwitch_Set_WoodlandCUP">
+                <English>Woodland (CUP)</English>
+            </Key>
+        </Container>
+        <Container name="SaveBuildingScheme">
+            <Key ID="STR_ZEIC_core_ModuleSaveBuildingScheme_DisplayName">
+                <English>Save Building Scheme</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleSaveBuildingScheme_Done">
+                <English>Save Building Scheme: template for %1 (%2 objects) copied to the clipboard and written to the RPT. Paste it into the mission's description.ext, inside class CfgZEIC and a category.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleSaveBuildingScheme_Invalid">
+                <English>Save Building Scheme: no valid building found. Buildings without positions have to be added with ZEIC_fnc_addCustomHouse.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleSaveBuildingScheme_NoBuilding">
+                <English>Save Building Scheme: place the module over a building.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleSaveBuildingScheme_NotLevel">
+                <English>Save Building Scheme: the building is not level, objects may be saved at wrong positions.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleSaveBuildingScheme_NotVR">
+                <English>Save Building Scheme: not in the VR world, the saved positions may be off.</English>
+            </Key>
+        </Container>
     </Package>
 </Project>

@@ -25,13 +25,13 @@ _options params [["_percent", 50, [0]], ["_forceDS", false, [false]], ["_createT
 
 private _unitTypes = [_factClass, _catClass] call PFUNC(garrisonBuilding_unitTypes);
 if (_unitTypes isEqualTo []) exitWith {
-	[format [LLSTRING(MSG_NoUnits), _factClass], "ERROR"] call PFUNC(misc_logMsg);
+	[format [LLSTRING(ModuleGarrisonBuilding_NoUnits), _factClass], "ERROR"] call PFUNC(misc_logMsg);
 };
 
 _buildings = _buildings select { !isNull _x && {(_x buildingPos -1) isNotEqualTo []} };
 _buildings = [_buildings arrayIntersect _buildings] call PFUNC(queue_sortBuildings);
 if (_buildings isEqualTo []) exitWith {
-	[LLSTRING(MSG_GarrisonNoBuildings), "ERROR"] call PFUNC(misc_logMsg);
+	[LLSTRING(ModuleGarrisonBuilding_NoBuildings), "ERROR"] call PFUNC(misc_logMsg);
 };
 
 private _side = switch (getNumber (configFile >> "CfgFactionClasses" >> _factClass >> "side")) do {

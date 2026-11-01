@@ -26,7 +26,7 @@ switch _mode do {
 
 		// The nearest building with positions (the module is deleted either way)
 		private _bldArr = (nearestObjects [_pos, [], 25, true]) select { (_x buildingPos -1) isNotEqualTo [] };
-		if (_bldArr isEqualTo []) exitWith { [LLSTRING(MSG_NoBuilding), "ERROR"] call PFUNC(misc_logMsg) };
+		if (_bldArr isEqualTo []) exitWith { [format [LLSTRING(NoBuilding), LLSTRING(ModuleMarkPositions_DisplayName)], "ERROR"] call PFUNC(misc_logMsg) };
 		_bldArr resize 1;
 				
 		collect3DENHistory {

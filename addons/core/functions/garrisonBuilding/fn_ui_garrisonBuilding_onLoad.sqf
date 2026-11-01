@@ -19,8 +19,8 @@
 params ["_display"];
 
 private _bld = missionNamespace getVariable [QPVAR(UiLastBuilding), objNull];
-private _title = if (isNull _bld) then { LLSTRING(GB_Title) } else {
-	format ["%1 - %2", LLSTRING(GB_Title), getText (configOf _bld >> "displayName")]
+private _title = if (isNull _bld) then { LLSTRING(ModuleGarrisonBuilding_DisplayName) } else {
+	format ["%1 - %2", LLSTRING(ModuleGarrisonBuilding_DisplayName), getText (configOf _bld >> "displayName")]
 };
 private _factions = call PFUNC(garrisonBuilding_factions);
 
@@ -123,7 +123,7 @@ _display setVariable [QPVAR(updateEstimate), {
 private _ctx = [_display, _title] call PFUNC(ui_dialogCreate);
 
 if (_recent isNotEqualTo []) then {
-	private _list = [_ctx, "recent", LLSTRING(GB_Recent), 3, LLSTRING(GB_RecentTip), {
+	private _list = [_ctx, "recent", LLSTRING(ModuleGarrisonBuilding_Recent), 3, LLSTRING(ModuleGarrisonBuilding_Recent_Tooltip), {
 		params ["_display", "_index"];
 		if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
 		_display setVariable [QPVAR(selection), (_display getVariable QPVAR(recent)) select _index];
@@ -145,24 +145,24 @@ if (_recent isNotEqualTo []) then {
 	} forEach _recent;
 };
 
-[_ctx, "search", LLSTRING(GB_Search), "", LLSTRING(GB_SearchTip), {
+[_ctx, "search", LLSTRING(ModuleGarrisonBuilding_Search), "", LLSTRING(ModuleGarrisonBuilding_Search_Tooltip), {
 	params ["_display"];
 	_display call (_display getVariable QPVAR(fillFactions));
 }] call PFUNC(ui_dialogEdit);
 
-[_ctx, "side", LLSTRING(GB_Side), [LLSTRING(GB_SideAll), localize "STR_WEST", localize "STR_EAST", localize "STR_GUERRILA", localize "STR_CIVILIAN"], 0, [], {
+[_ctx, "side", LLSTRING(ModuleGarrisonBuilding_Side), [LLSTRING(ModuleGarrisonBuilding_Side_All), localize "STR_WEST", localize "STR_EAST", localize "STR_GUERRILA", localize "STR_CIVILIAN"], 0, [], {
 	params ["_display"];
 	_display call (_display getVariable QPVAR(fillFactions));
 }] call PFUNC(ui_dialogToolbox);
 
 // Faction and subcategory lists side by side
-[_ctx, "faction", LLSTRING(GB_Faction), 7, "", {
+[_ctx, "faction", LLSTRING(ModuleGarrisonBuilding_Faction), 7, "", {
 	params ["_display", "_index", "_list"];
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
 	[_display, _list lbData _index] call (_display getVariable QPVAR(fillSubcats));
 }, [0, 13.9], false] call PFUNC(ui_dialogList);
 
-[_ctx, "subcat", LLSTRING(GB_Subcategory), 7, "", {
+[_ctx, "subcat", LLSTRING(ModuleGarrisonBuilding_Subcategory), 7, "", {
 	params ["_display", "_index", "_list"];
 	private _faction = _display getVariable [QPVAR(faction), ""];
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0} || {_faction == ""}) exitWith {};
@@ -171,18 +171,18 @@ if (_recent isNotEqualTo []) then {
 }, [14, 12]] call PFUNC(ui_dialogList);
 
 private _fnc_estimate = { (_this select 0) call ((_this select 0) getVariable QPVAR(updateEstimate)) };
-[_ctx, "radius", LLSTRING(GB_Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0], LLSTRING(GB_RadiusTip), _bld, _fnc_estimate] call PFUNC(ui_dialogSlider);
+[_ctx, "radius", LLSTRING(Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0], LLSTRING(Radius_Tooltip), _bld, _fnc_estimate] call PFUNC(ui_dialogSlider);
 [_ctx, "percent", LLSTRING(ModuleGarrisonBuilding_Buildings), [10, 100, 10], missionNamespace getVariable [QPVAR(UiGarrisonPercent), 50], LLSTRING(ModuleGarrisonBuilding_Buildings_Tooltip), [], _fnc_estimate] call PFUNC(ui_dialogSlider);
 [_ctx, "positions", LLSTRING(ModuleGarrisonBuilding_Positions), [10, 100, 10], missionNamespace getVariable [QPVAR(UiGarrisonPositions), 50], LLSTRING(ModuleGarrisonBuilding_Positions_Tooltip), [], _fnc_estimate] call PFUNC(ui_dialogSlider);
 _display setVariable ["estimate_ctrl", [_ctx, QPVAR(ctrlLabel), [_ctx, ""] call PFUNC(ui_dialogRow)] call PFUNC(ui_dialogAdd)];
 _display call (_display getVariable QPVAR(updateEstimate));
-[_ctx, "dynamic", LLSTRING(GB_Dynamic), missionNamespace getVariable [QPVAR(UiGarrisonDynamic), false], LLSTRING(GB_DynamicTip)] call PFUNC(ui_dialogCheckbox);
-[_ctx, "trigger", LLSTRING(GB_Trigger), missionNamespace getVariable [QPVAR(UiCreateTrigger), false], LLSTRING(GB_TriggerTip)] call PFUNC(ui_dialogCheckbox);
+[_ctx, "dynamic", LLSTRING(ModuleGarrisonBuilding_DynamicSimulation), missionNamespace getVariable [QPVAR(UiGarrisonDynamic), false], LLSTRING(ModuleGarrisonBuilding_DynamicSimulation_Tooltip)] call PFUNC(ui_dialogCheckbox);
+[_ctx, "trigger", LLSTRING(ModuleGarrisonBuilding_Trigger), missionNamespace getVariable [QPVAR(UiCreateTrigger), false], LLSTRING(ModuleGarrisonBuilding_Trigger_Tooltip)] call PFUNC(ui_dialogCheckbox);
 
-[_ctx, [LLSTRING(GB_Description), LLSTRING(GB_Shortcut)], LLSTRING(GB_Confirm), {
+[_ctx, [LLSTRING(ModuleGarrisonBuilding_Description), LLSTRING(ModuleGarrisonBuilding_Shortcuts)], LLSTRING(ModuleGarrisonBuilding_Confirm), {
 	private _selection = _this getVariable [QPVAR(selection), []];
 	if (_selection isEqualTo []) exitWith {
-		[LLSTRING(GB_NoFaction), "ERROR"] call PFUNC(misc_logMsg);
+		[LLSTRING(ModuleGarrisonBuilding_NoFaction), "ERROR"] call PFUNC(misc_logMsg);
 		false
 	};
 

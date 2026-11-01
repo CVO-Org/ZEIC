@@ -49,7 +49,7 @@ switch _mode do {
 		};
 		
 		if (isNull PVAR(UiLastBuilding)) exitWith {
-			[LLSTRING(MSG_NoBuilding), "ERROR"] call PFUNC(misc_logMsg);
+			[format [LLSTRING(NoBuilding), LLSTRING(ModuleInteriorFill_DisplayName)], "ERROR"] call PFUNC(misc_logMsg);
 		};
 		
 		// Shortcuts skip the dialog: Alt repeats the last fill, a category's shortcut fills that category
