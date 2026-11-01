@@ -25,12 +25,6 @@
         <Key ID="STR_ZEIC_core_GB_NoFaction">
             <English>Select a faction first.</English>
         </Key>
-        <Key ID="STR_ZEIC_core_GB_Percent">
-            <English>Occupied [%]</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_PercentTip">
-            <English>Share of the buildings within the radius that get a garrison, picked at random.</English>
-        </Key>
         <Key ID="STR_ZEIC_core_GB_Radius">
             <English>Radius [m]</English>
         </Key>
@@ -69,12 +63,6 @@
         </Key>
         <Key ID="STR_ZEIC_core_GB_TriggerTip">
             <English>Creates a trigger that lets the AI move once a player is near.</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_Units">
-            <English>Units per building</English>
-        </Key>
-        <Key ID="STR_ZEIC_core_GB_UnitsTip">
-            <English>Limited by the building's positions.</English>
         </Key>
         <Key ID="STR_ZEIC_core_IF_AllowDamage">
             <English>Allow damage</English>
@@ -228,6 +216,27 @@
         </Key>
         <Key ID="STR_ZEIC_core_MSG_VROnly">
             <English>This module only works in the VR world.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Buildings">
+            <English>Buildings [%]</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Buildings_Tooltip">
+            <English>Share of the buildings within the radius that get a garrison, picked at random (at least one). Not used at radius 0.</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Estimate">
+            <English>≈ %1 units in %2 buildings</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_EstimateNone">
+            <English>No buildings to garrison within the radius</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_EstimateSingle">
+            <English>≈ %1 units in 1 building</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Positions">
+            <English>Positions [%]</English>
+        </Key>
+        <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Positions_Tooltip">
+            <English>How full each building gets: share of its positions, at least one unit per building. In an area, large buildings count with at most 1.5 times the median position count of the selected buildings, so they don't take most of the units.</English>
         </Key>
         <Key ID="STR_ZEIC_core_Module_GarrisonBuilding">
             <English>Garrison Building</English>
