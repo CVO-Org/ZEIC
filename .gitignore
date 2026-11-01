@@ -10,3 +10,6 @@ hemtt.exe
 
 # Arma writes a copy of a mission it has open
 .hemtt/missions/~*/
+
+# steamcmd item file for the DEV Workshop page (has a local path)
+workshop/dev/item.vdf
