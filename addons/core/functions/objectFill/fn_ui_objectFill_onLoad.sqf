@@ -16,9 +16,18 @@
 params ["_display"];
 
 private _object = missionNamespace getVariable [QPVAR(UiLastObject), objNull];
-private _title = if (isNull _object) then { LLSTRING(ModuleObjectFill_DisplayName) } else {
-	format ["%1 - %2", LLSTRING(ModuleObjectFill_DisplayName), getText (configOf _object >> "displayName")]
+
+// Nothing to fill (#66): no dialog, same message as the module
+if (isNull _object) exitWith {
+	// Closed on the next frame, not while it loads; EachFrame also runs in Eden
+	addMissionEventHandler ["EachFrame", {
+		removeMissionEventHandler [_thisEvent, _thisEventHandler];
+		(_thisArgs select 0) closeDisplay 2;
+	}, [_display]];
+	[LLSTRING(ModuleObjectFill_NoObject), "ERROR"] call PFUNC(misc_logMsg);
 };
+
+private _title = format ["%1 - %2", LLSTRING(ModuleObjectFill_DisplayName), getText (configOf _object >> "displayName")];
 
 private _ctx = [_display, _title] call PFUNC(ui_dialogCreate);
 
