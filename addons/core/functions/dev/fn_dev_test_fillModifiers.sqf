@@ -102,23 +102,39 @@ private _fnc_fill = {
 	[_bld, _types]
 };
 
-// Without Cold War era the large case is a random member of its variant group (metal or plastic)
-private _fnc_case = { _this apply { [_x, "case"] select (_x isKindOf "Land_PlasticCase_01_large_F" || {_x isKindOf "Land_MetalCase_01_large_F"}) } };
+// The fill picks random variants (CfgZEIC_Variants, more of them with the template addons loaded, e.g. SOG's chairs):
+// a placed class counts as the template object whose variant group it belongs to. The case is folded only without
+// Cold War era, where it is a random metal or plastic case; with it the replacement must be the metal case.
+["Land_ChairWood_F", false] call PFUNC(randomiseObject);
+private _variants = uiNamespace getVariable [QPVAR(variants), createHashMap];
+private _fnc_fold = {
+	params ["_types", "_folded"];
+	_types = _types apply {
+		private _type = toLower _x;
+		private _index = _folded findIf { _type == toLower _x || {_type in ((_variants getOrDefault [toLower _x, []]) apply { toLower _x })} };
+		[_x, _folded select _index] select (_index != -1)
+	};
+	_types arrayIntersect _types
+};
+private _fnc_same = { params ["_types", "_expected"]; count _types == count _expected && {(_types - _expected) isEqualTo []} };
+private _fold = ["Land_Laptop_unfolded_F", "Land_PlasticCase_01_large_F", "Land_BagFence_Long_F", "Land_ChairWood_F"];
+private _foldColdWar = ["Land_BagFence_Long_F", "Land_ChairWood_F"];
+
 ([81, []] call _fnc_fill) params ["", "_plain"];
-["T27.12 fill without modifiers: all four objects", (_plain call _fnc_case) isEqualTo ["Land_BagFence_Long_F", "Land_ChairWood_F", "Land_Laptop_unfolded_F", "case"] || {(_plain call _fnc_case) isEqualTo ["Land_BagFence_Long_F", "Land_ChairWood_F", "case", "Land_Laptop_unfolded_F"]}, _plain] call PFUNC(dev_check);
+["T27.12 fill without modifiers: all four objects", [[_plain, _fold] call _fnc_fold, _fold] call _fnc_same, _plain] call PFUNC(dev_check);
 
 ([82, ["noelectronics"]] call _fnc_fill) params ["", "_noLaptop"];
-["T27.13 fill, No modern electronics: no laptop", (_noLaptop call _fnc_case) isEqualTo ["Land_BagFence_Long_F", "Land_ChairWood_F", "case"], _noLaptop] call PFUNC(dev_check);
+["T27.13 fill, No modern electronics: no laptop", [[_noLaptop, _fold] call _fnc_fold, ["Land_BagFence_Long_F", "Land_ChairWood_F", "Land_PlasticCase_01_large_F"]] call _fnc_same, _noLaptop] call PFUNC(dev_check);
 
 ([83, ["defencesonly"]] call _fnc_fill) params ["", "_defences"];
-["T27.14 fill, Military defences only: only the sandbags", _defences isEqualTo ["Land_BagFence_Long_F"], _defences] call PFUNC(dev_check);
+["T27.14 fill, Military defences only: only the sandbags", [[_defences, _fold] call _fnc_fold, ["Land_BagFence_Long_F"]] call _fnc_same, _defences] call PFUNC(dev_check);
 
 ([84, ["coldwar"]] call _fnc_fill) params ["", "_coldWar"];
-["T27.15 fill, Cold War era: metal case instead of the plastic one, no laptop", _coldWar isEqualTo ["Land_BagFence_Long_F", "Land_ChairWood_F", "Land_MetalCase_01_large_F"], _coldWar] call PFUNC(dev_check);
+["T27.15 fill, Cold War era: metal case instead of the plastic one, no laptop", [[_coldWar, _foldColdWar] call _fnc_fold, ["Land_BagFence_Long_F", "Land_ChairWood_F", "Land_MetalCase_01_large_F"]] call _fnc_same, _coldWar] call PFUNC(dev_check);
 
 // Normal objects: the server's createVehicle path
 ([85, ["coldwar"], OBJECT_MODE_NORMAL] call _fnc_fill) params ["", "_normal"];
-["T27.16 fill with normal objects, Cold War era: same result", _normal isEqualTo ["Land_BagFence_Long_F", "Land_ChairWood_F", "Land_MetalCase_01_large_F"], _normal] call PFUNC(dev_check);
+["T27.16 fill with normal objects, Cold War era: same result", [[_normal, _foldColdWar] call _fnc_fold, ["Land_BagFence_Long_F", "Land_ChairWood_F", "Land_MetalCase_01_large_F"]] call _fnc_same, _normal] call PFUNC(dev_check);
 
 // Furniture gives way: the replacement (metal case) stands on position 0 too, so it's left out
 ([86, ["coldwar"], OBJECT_MODE_SIMPLE, ["BLU_F", "EdSubcat_Personnel", [100, false, false]], COLLISION_FURNITURE_GIVES_WAY] call _fnc_fill) params ["_furnHouse", "_furn"];

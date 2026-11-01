@@ -3105,8 +3105,7 @@ class CfgZEIC {
                     {"Land_PaperBox_01_open_empty_F", {2.5, -1.75, 2.63167}, 255},
                     {"Land_ladderEP1", {-3, 6.125, -4.36833}, 180},
                     {"Land_BagFence_Round_F", {1.5, 7.125, -3.24333}, 225},
-                    {"Land_BagFence_End_F", {0.125, 7.75, -3.24333}, 165},
-                    {"rhsgref_cdf_b_air_pilot", {1.25, 22.0498, -2.99189}, 180}
+                    {"Land_BagFence_End_F", {0.125, 7.75, -3.24333}, 165}
                 };
             };
         };
