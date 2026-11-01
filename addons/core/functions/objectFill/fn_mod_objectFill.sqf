@@ -17,8 +17,8 @@ switch _mode do {
 			if (is3DEN) then { delete3DENEntities [_logic] } else { deleteVehicle _logic };
 		};
 
-		// Zeus: leave the placement mode, the module is done with one click
-		call PFUNC(zeus_endPlacement);
+		// Leave the placement mode, the module is done with one click
+		[] call PFUNC(endPlacement);
 		
 		// Store the Object under the cursor or nearest of type.
 		if (is3DEN) then {

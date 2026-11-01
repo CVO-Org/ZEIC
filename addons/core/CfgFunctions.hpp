@@ -17,7 +17,7 @@ class CfgFunctions {
             class modifiers_get {};
             class modifiers_install {};
             class modifiers_onKey {};
-            class zeus_endPlacement {};
+            class endPlacement {};
         };
 
         class dev {

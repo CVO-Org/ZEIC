@@ -41,6 +41,6 @@ if (_frames == 3) then {
 if (_frames > 0 && {_trees isNotEqualTo []}) then {
 	addMissionEventHandler ["EachFrame", {
 		removeMissionEventHandler [_thisEvent, _thisEventHandler];
-		[_thisArgs select 0] call PFUNC(zeus_endPlacement);
+		[_thisArgs select 0] call PFUNC(endPlacement);
 	}, [_frames - 1]];
 };

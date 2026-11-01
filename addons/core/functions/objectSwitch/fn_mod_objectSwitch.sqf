@@ -17,8 +17,8 @@ switch _mode do {
 			if (is3DEN) then { delete3DENEntities [_logic] } else { deleteVehicle _logic };
 		};
 
-		// Zeus: leave the placement mode, the module is done with one click
-		call PFUNC(zeus_endPlacement);
+		// Leave the placement mode, the module is done with one click
+		[] call PFUNC(endPlacement);
 		
 		// The dialog covers the mouse when it is confirmed: remember where the module was placed
 		PVAR(UiLastPosition) = screenToWorld getMousePosition;
