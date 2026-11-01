@@ -33,7 +33,9 @@ permissions:
 jobs:
 
   release-addon:
-    runs-on: ubuntu-latest
+    # steamcmd fails on Ubuntu 26.04 ("Steamcmd needs to be online to update"), which ubuntu-latest moves to:
+    # https://github.com/steamcmd/docker/issues/93 - back to ubuntu-latest once that is fixed
+    runs-on: ubuntu-24.04
     steps:
         # Fail before the build instead of at the Workshop upload, where empty secrets only show steamcmd's usage text.
         - name: Check Steam secrets
