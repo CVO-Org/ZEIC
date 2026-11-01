@@ -1,0 +1,51 @@
+[h1]ZEIC - DEV Version[/h1]
+[b]This is the development version of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3567067667]ZEIC - Zeus and Eden Interiors Community Version[/url].[/b]
+
+It gets every pre-release before it reaches the stable version, so things may break, change or disappear. Use it to test new features and report what you find; for your missions and ops, use the stable version.
+
+[list]
+[*] [b]Don't load both versions at the same time.[/b] They contain the same addons.
+[*] Report bugs and feedback on [url=https://github.com/CVO-Org/ZEIC/issues]GitHub[/url], or in the discussions of the stable version.
+[*] What changed in each version: [url=https://github.com/CVO-Org/ZEIC/releases]Releases on GitHub[/url]
+[/list]
+
+[h1]What ZEIC does[/h1]
+A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
+
+[h3]Interior Fill[/h3]
+[list]
+[*] Furnishes a building, or a share of the buildings within a radius, from the templates of a category (Military, Civilian, CBRN, and any category a mod or mission adds).
+[*] Simple objects (fastest), normal objects, or objects editable in Zeus.
+[*] Shortcuts, held while placing: Alt repeats the last fill, Ctrl fills Military, Shift Civilian, Ctrl+Shift CBRN.
+[/list]
+
+[h3]Garrison Building[/h3]
+[list]
+[*] Fills a building, or a share of the buildings within a radius, with infantry of any faction.
+[*] Find the faction by side and search; recently used factions are listed on top.
+[*] Hold Alt while placing to garrison again with the last settings.
+[/list]
+
+[h3]Object Fill[/h3]
+[list]
+[*] Fills a table or shelf with props (food, medical, office, tools, electric, CBRN cleaning or random).
+[/list]
+
+[h3]Object Switch[/h3]
+[list]
+[*] Swaps military objects within a radius for another camouflage set (e.g. green sandbags to brown ones), including CUP and SOG sets when those mods are loaded.
+[/list]
+
+[h3]For template authors[/h3]
+[list]
+[*] Save Building Scheme writes a template ready to paste into a mission's description.ext.
+[*] List Buildings and Mark Positions help finding buildings that need templates.
+[/list]
+
+[h1]Technical Details[/h1]
+[list]
+[*] Standalone, client side, creates no dependency in the mission file.
+[*] Built and signed with HEMTT; each update produces a new bikey.
+[/list]
+
+[url=https://github.com/CVO-Org/ZEIC]GitHub: ZEIC - Zeus and Eden Interiors Community Version[/url]

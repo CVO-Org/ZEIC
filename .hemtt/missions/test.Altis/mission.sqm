@@ -8,26 +8,26 @@ class EditorData
 	toggles=517;
 	class ItemIDProvider
 	{
-		nextID=7610;
+		nextID=16454;
 	};
 	class LayerIndexProvider
 	{
-		nextID=219;
+		nextID=643;
 	};
 	class Camera
 	{
-		pos[]={3103.7703,180.91759,12734.03};
-		dir[]={0.61338699,-0.40455449,0.67835075};
-		up[]={0.27134967,0.91449583,0.30008751};
-		aside[]={0.7417537,2.3155008e-07,-0.67071861};
+		pos[]={3488.7253,184.25882,13689.049};
+		dir[]={0.21175237,-0.30295888,-0.92918557};
+		up[]={0.067315802,0.95300287,-0.29538953};
+		aside[]={-0.97500986,-5.2968971e-07,-0.22219324};
 	};
 };
 binarizationWanted=0;
 sourceName="test";
 addons[]=
 {
-	"A3_Characters_F",
-	"A3_Modules_F_Curator_Curator"
+	"A3_Modules_F_Curator_Curator",
+	"A3_Characters_F"
 };
 class AddonsMetaData
 {
@@ -36,15 +36,15 @@ class AddonsMetaData
 		items=2;
 		class Item0
 		{
-			className="A3_Characters_F";
-			name="Arma 3 Alpha - Characters and Clothing";
+			className="A3_Modules_F_Curator";
+			name="Arma 3 Zeus Update - Scripted Modules";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
 		class Item1
 		{
-			className="A3_Modules_F_Curator";
-			name="Arma 3 Zeus Update - Scripted Modules";
+			className="A3_Characters_F";
+			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -80,68 +80,6 @@ class Mission
 	{
 		items=2;
 		class Item0
-		{
-			dataType="Group";
-			side="West";
-			class Entities
-			{
-				items=1;
-				class Item0
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={3560,5.0014391,13050};
-					};
-					side="West";
-					flags=7;
-					class Attributes
-					{
-						name="asd";
-						isPlayer=1;
-					};
-					id=1;
-					type="B_G_Soldier_AR_F";
-					atlOffset=-2.7983222;
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="speaker";
-							expression="_this setspeaker _value;";
-							class Value
-							{
-								class data
-								{
-									singleType="STRING";
-									value="Male04GRE";
-								};
-							};
-						};
-						class Attribute1
-						{
-							property="pitch";
-							expression="_this setpitch _value;";
-							class Value
-							{
-								class data
-								{
-									singleType="SCALAR";
-									value=0.95999998;
-								};
-							};
-						};
-						nAttributes=2;
-					};
-				};
-			};
-			class Attributes
-			{
-			};
-			id=0;
-			atlOffset=-2.7983222;
-		};
-		class Item1
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -207,6 +145,68 @@ class Mission
 				};
 				nAttributes=4;
 			};
+		};
+		class Item1
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={3560,5.0014391,13050};
+					};
+					side="West";
+					flags=7;
+					class Attributes
+					{
+						name="asd";
+						isPlayer=1;
+					};
+					id=1;
+					type="B_G_Soldier_AR_F";
+					atlOffset=-2.7983222;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="speaker";
+							expression="_this setspeaker _value;";
+							class Value
+							{
+								class data
+								{
+									singleType="STRING";
+									value="Male04GRE";
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=0.95999998;
+								};
+							};
+						};
+						nAttributes=2;
+					};
+				};
+			};
+			class Attributes
+			{
+			};
+			id=0;
+			atlOffset=-2.7983222;
 		};
 	};
 };
