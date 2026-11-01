@@ -54,6 +54,7 @@ class CfgFunctions {
             class dev_test_confirmUnits {};
             class dev_test_createTemplate {};
             class dev_test_dialog {};
+            class dev_test_fillModifiers {};
             class dev_test_garrison {};
             class dev_test_garrisonDialog {};
             class dev_test_garrisonUnits {};
@@ -67,6 +68,14 @@ class CfgFunctions {
             class dev_test_scriptApi {};
             class dev_test_shortcuts {};
             class dev_test_templateObjects {};
+        };
+
+        class fillModifiers {
+            file = PATH_TO_FUNC_SUB(fillModifiers);
+
+            class fillModifiers_apply {};
+            class fillModifiers_list {};
+            class fillModifiers_resolve {};
         };
 
         class feedback {

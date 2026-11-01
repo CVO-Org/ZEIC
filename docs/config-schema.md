@@ -263,8 +263,8 @@ getTemplates(category, buildingClass):
    (`configSourceAddonList`) for every class used in the templates, and move templates whose
    objects need another mod into that mod's addon.
 3. **Variants** ✅: the lists from `fn_randomiseObject.sqf` are in `CfgZEIC_Variants` of the vanilla,
-   CUP, GM and SOG template addons. GM's groups have `priority = 1`, because GM used to replace the
-   vanilla lists.
+   CUP, GM and SOG template addons. GM used to replace the vanilla lists (first with an overwrite,
+   then with `priority = 1` groups); the **Cold War era** fill modifier does that now (section 10).
 4. **Remove** ✅: `fn_findTemplates` rewritten (config lookup with caches), `fn_templateCanSpawn`, the
    `isLoaded_*` flags and `fn_init_preStart`, the hardcoded category list (now
    `fn_interiorFill_categories`), and `addons/core/templates/`. `fn_checkDetailLevel` and the detail
@@ -311,20 +311,25 @@ Missions written for ZEI / ZEIC keep working:
 1. **`mil_other.sqf`** contains `Land_blud_hut*` buildings. The source mod is unknown; on the
    maintainer's machine only ZEI/ZEIC reference these classes. Candidates: drop them, or keep
    them in a separate addon with no known dependency (they would simply never validate).
-2. **GM's current "overwrite" behaviour** in `fn_randomiseObject` (see section 4): to be replaced
-   by a general, optional **fill modifier** system (own root class, checkboxes in the fill
-   dialog). Design still open, see section 10.
+2. ~~**GM's "overwrite" behaviour** in `fn_randomiseObject`~~: replaced by the **Cold War era**
+   fill modifier (section 10). GM's variant groups no longer win over the vanilla ones.
 
-## 10. Fill modifiers (idea, not scheduled)
+## 10. Fill modifiers (`CfgZEIC_Modifiers`)
 
-Optional checkboxes in the Interior Fill dialog that change objects **while filling**, with
-their own root class:
+Optional checkboxes in the **Interior tab of Advanced Fill** that change objects **while
+furnishing**, with their own root class. Only in Advanced Fill for now, not in Interior Fill.
 
 ```cpp
 class CfgZEIC_Modifiers {
+    class defencesOnly {
+        displayName = "$STR_ZEIC_core_Modifier_DefencesOnly_DisplayName";
+        tooltip = "$STR_ZEIC_core_Modifier_DefencesOnly_Tooltip";
+        order = 10;
+        keep[] = {"Land_BagFence_base_F", "Land_HBarrier_base_F" /* ... */};
+    };
     class noElectronics {
         displayName = "No modern electronics";
-        remove[] = {"Land_Laptop_unfolded_F", "Land_MobilePhone_smart_F", "Land_Tablet_01_F"};
+        remove[] = {"Land_Laptop_unfolded_F", "Land_MobilePhone_smart_F" /* ... */};
     };
     class coldWar {
         displayName = "Cold War era";
@@ -336,13 +341,45 @@ class CfgZEIC_Modifiers {
 };
 ```
 
+| Property | Type | Required | Meaning |
+|---|---|---|---|
+| `displayName` | string | no | Checkbox label. Default: the class name. |
+| `tooltip` | string | no | Checkbox tooltip. |
+| `order` | number | no | Position in the dialog (default 100), then by display name. |
+| `remove[]` | array | no | Matching objects are skipped. |
+| `keep[]` | array | no | Only matching objects are placed, everything else is skipped. |
+| `replace` | class | no | `<object class>[] = {candidates in order of preference}`. |
+
+- **Matching by `isKindOf`**: an entry covers its child classes too, so a parent class like
+  `Land_BagFence_base_F` covers every sandbag wall, incl. mod variants that inherit from it. This
+  holds for `remove[]`, `keep[]` and the object classes in `replace`.
 - **`remove[]`** is always safe: the object is skipped, nothing has to fit.
 - **`replace`** lists candidates in order of preference. Candidates that don't exist are skipped,
   and if none exist the object is kept as-is. So a modifier **works without GM** and gets better
-  with it.
+  with it. A replacement is not randomised again.
 - Replacements should be limited to objects of similar size (crate → crate). Anything that needs
   different positions belongs in dedicated `mil_cw` / `civ_cw` templates.
-- Mods or template addons can add modifiers or extend existing ones, the same way as categories.
+- **Order**: the modifiers apply to the object class after its random variant
+  (section 4) is picked, in the order **replace → remove → keep**: a replacement can still be
+  removed, and `keep[]` checks the replacement. With several checked modifiers, `replace` rules
+  are tried in the modifiers' `order` (the first matching rule wins), and an object matching
+  the `keep[]` of any checked modifier is kept.
+- Classes in `remove[]` / `keep[]` that don't exist are ignored, so a modifier can list mod
+  classes without depending on the mod.
+- **Mods and missions** add modifiers the same way as categories: a template addon adds its own
+  classes, a mission adds them in `description.ext`. To **extend** a modifier:
+  - a **subclass** of it (any name but `replace`) adds its `remove[]`, `keep[]` and `replace` to
+    the modifier's, since config arrays can't be appended across addons. `templates_gm` adds its
+    sandbags to `defencesOnly` this way (`class defencesOnly { class gm { keep[] = {...}; }; };`);
+  - an entry in its `replace` class overrides that object's candidates, e.g. to put a mod's
+    candidate first (`templates_gm`: `Land_CanisterFuel_F[] = {"gm_jerrycan"};`);
+  - a mission class with the name of an addon modifier is read too, before the addon's, so its
+    `replace` rules win.
+- **Where it runs**: the Zeus client sends only the checked class names with the fill request.
+  The server (in Eden: the local machine) reads them once per fill, picks the replacement
+  candidates and caches the result per object class, see `fn_fillModifiers_resolve.sqf`. It works
+  with every object mode and with the collision check (*furniture gives way* checks the
+  replacement). Alt repeats the last checked modifiers.
 
 ## 11. Object Switch (`CfgZEIC_ObjectSwitch`)
 
