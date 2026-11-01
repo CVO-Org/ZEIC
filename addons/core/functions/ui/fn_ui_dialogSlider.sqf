@@ -13,6 +13,7 @@
 * 5: Tooltip <STRING> (default: none)
 * 6: Radius preview: while the dialog is open, a circle of the slider's value is drawn around this
 *    position or object (nothing at 0) <ARRAY or OBJECT> (default: [], none)
+* 7: Code run when the value changes, gets [display, value] as _this <CODE> (default: none)
 *
 * Return Value:
 * Slider <CONTROL>
@@ -20,7 +21,7 @@
 * Public: No
 */
 
-params ["_ctx", ["_key", "", [""]], ["_label", "", [""]], ["_range", [0, 100, 1], [[]], 3], ["_value", 0, [0]], ["_tooltip", "", [""]], ["_previewCenter", [], [[], objNull]]];
+params ["_ctx", ["_key", "", [""]], ["_label", "", [""]], ["_range", [0, 100, 1], [[]], 3], ["_value", 0, [0]], ["_tooltip", "", [""]], ["_previewCenter", [], [[], objNull]], ["_onChange", {}, [{}]]];
 _range params ["_min", "_max", "_step"];
 
 private _display = _ctx get "display";
@@ -35,7 +36,7 @@ _slider sliderSetPosition _value;
 _edit ctrlSetText str _value;
 if (_tooltip != "") then { _slider ctrlSetTooltip _tooltip; _edit ctrlSetTooltip _tooltip };
 
-{ _slider setVariable _x } forEach [[QPVAR(key), _key], [QPVAR(step), _step], [QPVAR(edit), _edit]];
+{ _slider setVariable _x } forEach [[QPVAR(key), _key], [QPVAR(step), _step], [QPVAR(edit), _edit], [QPVAR(onChange), _onChange]];
 _edit setVariable [QPVAR(slider), _slider];
 
 // Rounds a position to the step, stores it and returns it
@@ -43,7 +44,12 @@ _slider setVariable [QPVAR(store), {
 	params ["_slider", "_position"];
 	private _step = _slider getVariable QPVAR(step);
 	private _value = (round (_position / _step)) * _step;
-	(ctrlParent _slider) setVariable [_slider getVariable QPVAR(key), _value];
+	private _display = ctrlParent _slider;
+	private _key = _slider getVariable QPVAR(key);
+	if (_value isNotEqualTo (_display getVariable _key)) then {
+		_display setVariable [_key, _value];
+		[_display, _value] call (_slider getVariable QPVAR(onChange));
+	};
 	_value
 }];
 

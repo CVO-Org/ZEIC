@@ -38,8 +38,7 @@ if (isNull _bldTmp || _fillArea) then {
 	if (_fillArea) then {
 		// Chance: a random share of the buildings that aren't furnished yet (at least one)
 		if (_chance < 100) then {
-			_bldArr = (_bldArr select { isNull (_x getVariable [QPVAR(furnished), objNull]) && {!(_x getVariable [QPVAR(queued), false])} }) call BIS_fnc_arrayShuffle;
-			_bldArr resize (count _bldArr min (1 max round (count _bldArr * _chance / 100)));
+			_bldArr = [_bldArr select { isNull (_x getVariable [QPVAR(furnished), objNull]) && {!(_x getVariable [QPVAR(queued), false])} }, _chance] call PFUNC(misc_selectShare);
 		};
 	} else {
 		_bldArr resize 1;

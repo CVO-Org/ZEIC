@@ -30,13 +30,14 @@ private _unitTypes = ["BLU_F", "EdSubcat_Personnel"] call PFUNC(garrisonBuilding
 ["T10.3 NATO infantry found", _unitTypes isNotEqualTo [], count _unitTypes] call PFUNC(dev_check);
 
 private _expectedUnits = 0;
-{ _expectedUnits = _expectedUnits + (2 min count (_x buildingPos -1)) } forEach _gHouses;
+// All the same house: nothing is capped, half the positions each (at least 1)
+{ _expectedUnits = _expectedUnits + (1 max round ((count (_x buildingPos -1)) / 2)) } forEach _gHouses;
 
 ZEIC_queueBudget = 0;
 private _gFrameStart = diag_frameNo;
 private _gQueued = false;
 isNil {
-	[_gHouses, "BLU_F", "EdSubcat_Personnel", [2, false, false]] call PFUNC(garrisonBuilding_start);
+	[_gHouses, "BLU_F", "EdSubcat_Personnel", [50, false, false]] call PFUNC(garrisonBuilding_start);
 	_gQueued = (missionNamespace getVariable ["ZEIC_queue", []]) isNotEqualTo [];
 };
 ["T10.4 garrison is queued", _gQueued] call PFUNC(dev_check);
@@ -49,7 +50,7 @@ private _gFrames = diag_frameNo - _gFrameStart;
 private _gUnits = (_gMid nearEntities ["CAManBase", 80]) select { side group _x == west };
 private _gGroups = _gUnits apply { group _x };
 _gGroups = _gGroups arrayIntersect _gGroups;
-["T10.5 2 units per building", count _gUnits == _expectedUnits, [count _gUnits, _expectedUnits]] call PFUNC(dev_check);
+["T10.5 50% of the positions per building", count _gUnits == _expectedUnits, [count _gUnits, _expectedUnits]] call PFUNC(dev_check);
 ["T10.6 one group per building", count _gGroups == 4, count _gGroups] call PFUNC(dev_check);
 ["T10.7 spread over several frames", _gFrames > 8, _gFrames] call PFUNC(dev_check);
 ["T10.8 garrisoned buildings are not picked again", ([_gMid, 60, 100] call PFUNC(garrisonBuilding_selectBuildings)) isEqualTo []] call PFUNC(dev_check);

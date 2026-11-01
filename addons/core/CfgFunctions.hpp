@@ -14,6 +14,7 @@ class CfgFunctions {
 
             class misc_Vector2Eden {};
             class misc_logMsg {};
+            class misc_selectShare {};
             class modifiers_get {};
             class modifiers_install {};
             class modifiers_onKey {};
@@ -36,6 +37,7 @@ class CfgFunctions {
             class dev_test_dialog {};
             class dev_test_garrison {};
             class dev_test_garrisonDialog {};
+            class dev_test_garrisonUnits {};
             class dev_test_mergedCases {};
             class dev_test_moduleDialogs {};
             class dev_test_missionTemplates {};
@@ -67,6 +69,7 @@ class CfgFunctions {
             class garrisonBuilding_finishJob {};
             class garrisonBuilding_selectBuildings {};
             class garrisonBuilding_start {};
+            class garrisonBuilding_unitCounts {};
             class garrisonBuilding_step {};
             class garrisonBuilding_unitTypes {};
             class garrisonUnit {};

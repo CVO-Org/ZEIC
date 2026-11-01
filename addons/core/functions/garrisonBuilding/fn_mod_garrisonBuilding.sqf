@@ -32,7 +32,7 @@ switch _mode do {
 			if (isNil QPVAR(UiGarrisonFaction) || isNil QPVAR(UiGarrisonCategory) || isNil QPVAR(UiGarrisonDynamic)) exitWith { [LLSTRING(MSG_GarrisonNoLast), "ERROR"] call PFUNC(misc_logMsg) };
 			[
 				format["%1#%2", PVAR(UiGarrisonFaction), PVAR(UiGarrisonCategory)],
-				missionNamespace getVariable [QPVAR(UiGarrisonUnits), 4],
+				missionNamespace getVariable [QPVAR(UiGarrisonPositions), 50],
 				missionNamespace getVariable [QPVAR(UiGarrisonDynamic), true],
 				missionNamespace getVariable [QPVAR(UiCreateTrigger), false],
 				missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0],

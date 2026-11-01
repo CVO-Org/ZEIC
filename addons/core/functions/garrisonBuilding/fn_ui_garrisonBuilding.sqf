@@ -3,14 +3,14 @@
 // Called by the Garrison Building dialog (or the Alt shortcut). The work itself is done by PFUNC(garrisonBuilding_start).
 params [
 		["_gType", ""],
-		["_units", 4],
+		["_positions", 50],
 		["_forceDS", true],
 		["_createTR", false],
 		["_radius", 0],
 		["_percent", 50]
 	];
 
-[format["Passed - F: %1 U: %2 DS: %3 TR: %4 R: %5 P: %6", _gType, _units, _forceDS, _createTR, _radius, _percent], "DEBUG"] call PFUNC(misc_logMsg);
+[format["Passed - F: %1 Pos: %2 DS: %3 TR: %4 R: %5 P: %6", _gType, _positions, _forceDS, _createTR, _radius, _percent], "DEBUG"] call PFUNC(misc_logMsg);
 
 private _bld = missionNamespace getVariable [QPVAR(UiLastBuilding), objNull];
 
@@ -20,7 +20,7 @@ private _bld = missionNamespace getVariable [QPVAR(UiLastBuilding), objNull];
 // Save UI Settings for next time
 PVAR(UiGarrisonFaction) = _factClass;
 PVAR(UiGarrisonCategory) = _catClass;
-PVAR(UiGarrisonUnits) = _units;
+PVAR(UiGarrisonPositions) = _positions;
 PVAR(UiGarrisonDynamic) = _forceDS;
 PVAR(UiCreateTrigger) = _createTR;
 PVAR(UiGarrisonRadius) = _radius;
@@ -33,4 +33,4 @@ private _buildings = if (_radius > 0) then {
 	[_bld]
 };
 
-[_buildings, _factClass, _catClass, [_units, _forceDS, _createTR]] call PFUNC(garrisonBuilding_start);
+[_buildings, _factClass, _catClass, [_positions, _forceDS, _createTR]] call PFUNC(garrisonBuilding_start);
