@@ -32,6 +32,14 @@ dlc = ["ws"]
 extends = "default"
 
 
+# CUP Terrains (Core + Maps): loads the CUP template addon, combine with a mission profile:
+# hemtt launch default cup / hemtt launch default cup altis
+[cup]
+workshop = [
+    "583496184",  # CUP Terrains - Core
+    "583544987",  # CUP Terrains - Maps
+]
+
 [nomods]
 extends = "base"
 
