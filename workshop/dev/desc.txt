@@ -1,61 +1,35 @@
 [h1]ZEIC - DEV Version[/h1]
 [b]This is the development version of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3567067667]ZEIC - Zeus and Eden Interiors Community Version[/url].[/b]
 
-It gets every pre-release before it reaches the stable version, so things may break, change or disappear. Use it to test new features and report what you find; for your missions and ops, use the stable version.
+It gets every pre-release before it reaches the stable version, so things may break, change or disappear. Use it to test new features and report what you find; for your missions and ops, use the stable version. What the mod does is explained on the stable page.
 
 [list]
 [*] [b]Don't load both versions at the same time.[/b] They contain the same addons.
+[*] [b]Multiplayer: the server needs ZEIC too[/b] (Interior Fill, Advanced Fill and the Move AI trigger run there). Other players don't.
 [*] Report bugs and feedback on [url=https://github.com/CVO-Org/ZEIC/issues]GitHub[/url], or in the discussions of the stable version.
-[*] What changed in each version: [url=https://github.com/CVO-Org/ZEIC/releases]Releases on GitHub[/url]
+[*] Every version in detail: [url=https://github.com/CVO-Org/ZEIC/releases]Releases on GitHub[/url]
 [/list]
 
-[h1]What ZEIC does[/h1]
-A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
+[h1]Differences to the stable version (1.0.1)[/h1]
+The current pre-release is [b]2.0.0[/b], a rework of the whole mod.
 
-[h3]Advanced Fill[/h3]
+[h3]New[/h3]
 [list]
-[*] Furnishes and garrisons a building, or a share of the buildings within a radius, in one go: per building the interior first, then the units.
-[*] Collision check: units aren't placed on positions blocked by furniture, or the furniture gives way.
-[*] Fill modifiers: Military defences only, No modern electronics, Cold War era; mods and missions can add their own.
+[*] [b]Advanced Fill[/b]: furnishes and garrisons buildings in one go (interior first, then the units), with a collision check so units don't end up inside furniture, and fill modifiers: Military defences only, No modern electronics, Cold War era.
+[*] [b]Area fills[/b]: Interior Fill and Garrison Building work on a share of the buildings within a radius, with a radius preview.
+[*] [b]Processing queue[/b]: large fills run over several frames instead of freezing the game, with progress shown on the buildings.
+[*] [b]Electronics (old)[/b] type for Fill Table / Shelf.
 [/list]
 
-[h3]Interior Fill[/h3]
+[h3]Changed[/h3]
 [list]
-[*] Furnishes a building, or a share of the buildings within a radius, from the templates of a category (Military, Civilian, CBRN, and any category a mod or mission adds).
-[*] Simple objects (fastest), normal objects, or objects editable in Zeus.
-[*] Shortcuts, held while placing: Alt repeats the last fill, Ctrl fills Military, Shift Civilian, Ctrl+Shift CBRN.
-[/list]
-
-[h3]Garrison Building[/h3]
-[list]
-[*] Fills a building, or a share of the buildings within a radius, with infantry of any faction.
-[*] Units as a percentage of each building's positions, with a live estimate; asks before creating over 400 units.
-[*] One list of faction + subcategory pairs with side filter and search; recently used ones are listed on top.
-[*] Optional Move AI trigger: the units move once an enemy player comes close.
-[*] Hold Alt while placing to garrison again with the last settings.
-[/list]
-
-[h3]Fill Table / Shelf[/h3]
-[list]
-[*] Puts small objects on a table, shelf or rack (food, medical, office, tools, modern or old electronics, CBRN cleaning or random).
-[/list]
-
-[h3]Object Switch[/h3]
-[list]
-[*] Swaps military objects within a radius for another camouflage set (e.g. green sandbags to brown ones), including CUP and SOG sets when those mods are loaded.
-[/list]
-
-[h3]For template authors[/h3]
-[list]
-[*] Save Building Scheme writes a template ready to paste into a mission's description.ext.
-[*] List Buildings and Mark Positions help finding buildings that need templates.
-[/list]
-
-[h1]Technical Details[/h1]
-[list]
-[*] Standalone, creates no dependency in the mission file. Only the Zeus needs it, other players don't.
-[*] In multiplayer the server needs it too for Interior Fill, Advanced Fill and the Move AI trigger.
-[*] Built and signed with HEMTT; each update produces a new bikey.
+[*] All dialogs redesigned in the ZEN style; descriptions and shortcuts as tooltips.
+[*] Templates live in config, split per mod (vanilla, CUP, GM, SOG, ...); missions and mods can add their own categories.
+[*] Interior Fill: simple objects, normal objects or editable in Zeus; shortcuts (Alt repeats the last fill, Ctrl/Shift fill a category directly).
+[*] Garrison Building: units as a percentage of each building's positions with a live estimate; one faction + subcategory list with side filter, search and recently used; asks before creating over 400 units.
+[*] Move AI trigger: only on the server, only for enemy players, releases all units after 30-120 s.
+[*] Object Fill is now called [b]Fill Table / Shelf[/b].
+[*] Eden: everything ZEIC places is sorted into layers.
 [/list]
 
 [url=https://github.com/CVO-Org/ZEIC]GitHub: ZEIC - Zeus and Eden Interiors Community Version[/url]
