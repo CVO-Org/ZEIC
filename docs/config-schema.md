@@ -343,3 +343,50 @@ class CfgZEIC_Modifiers {
 - Replacements should be limited to objects of similar size (crate → crate). Anything that needs
   different positions belongs in dedicated `mil_cw` / `civ_cw` templates.
 - Mods or template addons can add modifiers or extend existing ones, the same way as categories.
+
+## 11. Object Switch (`CfgZEIC_ObjectSwitch`)
+
+The Object Switch module swaps objects for their counterpart in another camouflage set.
+Each **row** is one object, named after its vanilla (desert) class; each **set** is a property of the row.
+
+```cpp
+class CfgZEIC_ObjectSwitch {
+    class Sets {
+        class jungle { displayName = "Jungle (Apex)"; order = 20; };
+    };
+    class Objects {
+        class Land_BagFence_Long_F { desert = "Land_BagFence_Long_F"; jungle = "Land_BagFence_01_long_green_F"; };
+    };
+};
+```
+
+- An object found in **any** set of a row is replaced by the row's entry for the chosen set (the first row in config order wins).
+- A mod adds a set by declaring it in `Sets` and adding its property to the existing rows (and new rows for its own objects),
+  from an addon that loads after `ZEIC_core`. The CUP and SOG sets live in their template addons, so they only exist with their mod.
+- Rows without an entry for the chosen set are left as they are.
+
+## 12. Object Fill (`CfgZEIC_ObjectFill`)
+
+```cpp
+class CfgZEIC_ObjectFill {
+    class Types {
+        class food {
+            displayName = "Food";
+            order = 10;
+            floor = "Land_Garbage_square3_F";   // under tables (objects with one level)
+            objects[] = { "Land_BakedBeans_F", "Land_Can_V1_F" };
+        };
+    };
+    class Surfaces {
+        class Land_Metal_rack_F {
+            edge[] = {0.15, 0.1, 0.15, 0.1};      // indent from the bounding box: x min, x max, y min, y max
+            levels[] = {-0.35, -0.8, -1.25, -1.7}; // shelf heights below the top of the bounding box
+        };
+    };
+};
+```
+
+- The dialog lists "Random" (the props of all types) and every type, sorted by `order`.
+- Objects that aren't in `Surfaces` are filled on the top of their model.
+- Props that don't exist (mod not loaded) are left out.
+

@@ -43,7 +43,7 @@ switch _mode do {
 		if ((inputAction "lookAround") isEqualTo 1) then {
 			// Skip the dialog, use the last settings
 			[
-				missionNamespace getVariable [QPVAR(UiObjectFillType), 0],
+				missionNamespace getVariable [QPVAR(UiObjectFillType), ""],
 				missionNamespace getVariable [QPVAR(UiObjectFillPercent), 30],
 				missionNamespace getVariable [QPVAR(UiObjectFillObjects), OBJECT_MODE_SIMPLE]
 			] call PFUNC(ui_objectFill);

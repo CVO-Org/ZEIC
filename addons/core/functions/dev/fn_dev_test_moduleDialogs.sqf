@@ -23,7 +23,7 @@ private _fnc_waitClosed = {
 // T16 Object Fill dialog (#26)
 private _table = ["Land_TablePlastic_01_F", 42] call PFUNC(dev_spawn);
 PVAR(UiLastObject) = _table;
-PVAR(UiObjectFillType) = 1;
+PVAR(UiObjectFillType) = "food";
 PVAR(UiObjectFillPercent) = 100;
 PVAR(UiObjectFillObjects) = OBJECT_MODE_SIMPLE;
 createDialog "Rsc_ZEIC_ObjectFill";
