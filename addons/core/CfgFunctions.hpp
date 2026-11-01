@@ -116,6 +116,8 @@ class CfgFunctions {
             file = PATH_TO_FUNC_SUB(objectSwitch);
             
             class mod_objectSwitch {};
+            class objectSwitch_row {};
+            class objectSwitch_sets {};
             class ui_objectSwitch {};
             class ui_objectSwitch_onLoad {};
         };
