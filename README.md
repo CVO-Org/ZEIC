@@ -37,8 +37,8 @@ A tool to quickly decorate and populate interiors for your missions in either Ze
 - Simple objects (fastest), normal objects, or objects editable in Zeus.
 - Shortcuts, held while placing: Alt repeats the last fill, Ctrl fills Military, Shift Civilian, Ctrl+Shift CBRN.
 
-### Object Fill
-- Fills a table or shelf with props (food, medical, office, tools, electric, CBRN cleaning or random).
+### Fill Table / Shelf
+- Puts small objects on a table, shelf or rack (food, medical, office, tools, electric, CBRN cleaning or random).
 - Choose how full and how the objects are created.
 - Hold Alt while placing to fill again with the last settings.
 

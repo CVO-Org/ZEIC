@@ -326,16 +326,16 @@
                 <English>Fill</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleObjectFill_Description">
-                <English>Puts small objects on the table, shelf or rack under the module, or the nearest one within 10 m.\nTables also get something on the floor below them.</English>
+                <English>Table, shelf or rack: puts small objects on the one under the module, or the nearest one within 10 m.\nTables also get something on the floor below them.</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleObjectFill_DisplayName">
-                <English>Object Fill</English>
+                <English>Fill Table / Shelf</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleObjectFill_NoObject">
-                <English>Object Fill: no object to fill within 10 m of the module.</English>
+                <English>Fill Table / Shelf: no table, shelf or rack within 10 m of the module.</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleObjectFill_NoShelfData">
-                <English>Object Fill: %1 has no shelf data, objects are placed on its top.</English>
+                <English>Fill Table / Shelf: %1 has no shelf data, objects are placed on its top.</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleObjectFill_Percentage_Tooltip">
                 <English>Chance for each spot on the object to get an object.</English>
