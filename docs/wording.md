@@ -7,7 +7,7 @@ All user-facing text lives in `addons/core/stringtable.xml`. This page keeps new
 | Term | Meaning |
 |---|---|
 | *furnish* | What Interior Fill (and the interior part of Advanced Fill) does to a building. |
-| *fill* | What Object Fill does to a table, shelf or rack. |
+| *fill* | What Fill Table / Shelf (class `ZEIC_ObjectFill`, keys `ModuleObjectFill_*`) does to a table, shelf or rack. |
 | *objects* | The things ZEIC places. Not "props". |
 | *template* | One interior layout for one building class, as in `CfgZEIC`. |
 | *category* | A group of templates (Military, Civilian, CBRN, ...), a subclass of `CfgZEIC`. |

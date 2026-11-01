@@ -35,9 +35,9 @@ A tool to quickly decorate and populate interiors for your missions in either Ze
 [*] Pressing 'LookAround' (Default: ALT) will skip the GUI and immediately try and fill the nearest building with a military template.
 [/list]
 
-[h3]Object Fill[/h3]
+[h3]Fill Table / Shelf[/h3]
 [list]
-[*] Fills a table or shelf with objects.
+[*] Puts small objects on a table, shelf or rack.
 [*] Choose how many objects to spawn on the table and if they should be editable in Zeus.
 [*] Pressing 'LookAround' (Default: ALT) will skip the GUI and immediately try and fill an object a random selection of items.
 [/list]
