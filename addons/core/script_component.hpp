@@ -33,9 +33,6 @@
     "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_guer_ca.paa",\
     "\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_civ_ca.paa"\
 ]
-// Row height of the multi-column lists (ctrlListN), in rows: a bit taller than the text, so pictures don't touch
-#define UI_LISTN_ROW 1.2
-
 // Gap between rows and between the dialog's bars: a tenth of a row, in whole screen pixels. PFUNC(ui_dialogFinish)
 // snaps all edges to pixels, so every gap ends up exactly this wide.
 #define UI_GAP (((round (UI_H(0.1) / pixelH)) max 1) * pixelH)

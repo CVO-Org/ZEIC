@@ -29,9 +29,7 @@ private _display = _ctx get "display";
 private _x0 = (_ctx get "x") + UI_W(_left);
 private _y = _ctx get "y";
 
-// Multi-column lists have taller rows
-private _rowHeight = [1, UI_LISTN_ROW] select (_columns isNotEqualTo []);
-private _height = UI_H(_rows * _rowHeight);
+private _height = UI_H(_rows);
 
 private _labelCtrl = [_ctx, QPVAR(ctrlLabel), [_x0, _y, UI_W(_width), UI_H(1)]] call PFUNC(ui_dialogAdd);
 _labelCtrl ctrlSetText _label;

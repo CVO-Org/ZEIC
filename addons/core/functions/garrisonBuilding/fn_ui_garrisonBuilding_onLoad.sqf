@@ -34,8 +34,9 @@ private _recent = (uiNamespace getVariable [QPVAR(garrisonRecent), []]) select {
 _display setVariable [QPVAR(recent), _recent];
 _display setVariable [QPVAR(selection), []];
 
-// Columns of both lists: side icon, flag, faction, subcategory
-#define PAIR_COLUMNS [0, 0.05, 0.11, 0.52]
+// Columns of both lists: side icon, flag, faction, subcategory. Pictures are as tall as a row and keep their
+// aspect ratio, so the flag column is two rows wide (flags are 2:1) out of the list's 26.
+#define PAIR_COLUMNS [0, 0.045, 0.135, 0.55]
 
 // Adds one pair as a row: [list, faction info, subcategory info]
 _display setVariable [QPVAR(addPair), {
@@ -156,7 +157,7 @@ if (_recent isNotEqualTo []) then {
 	_display call (_display getVariable QPVAR(fillPairs));
 }] call PFUNC(ui_dialogToolbox);
 
-[_ctx, "pairs", LLSTRING(ModuleGarrisonBuilding_Faction), 7, "", {
+[_ctx, "pairs", LLSTRING(ModuleGarrisonBuilding_Faction), 8, "", {
 	params ["_display", "_index", "_list"];
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
 	_display setVariable [QPVAR(selection), (_list lnbData [_index, 0]) splitString "#"];
