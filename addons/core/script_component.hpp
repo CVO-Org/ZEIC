@@ -26,6 +26,14 @@
 #define UI_GRID_H ((((safeZoneW / safeZoneH) min 1.2) / 1.2) / 25)
 #define UI_W(N) ((N) * UI_GRID_W)
 #define UI_H(N) ((N) * UI_GRID_H)
+// Side icons by config side number (0 OPFOR, 1 BLUFOR, 2 Independent, 3 Civilian), as in Eden's asset browser
+#define SIDE_ICONS [\
+	"\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_east_ca.paa",\
+	"\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_west_ca.paa",\
+	"\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_guer_ca.paa",\
+	"\a3\3DEN\Data\Displays\Display3DEN\PanelRight\side_civ_ca.paa"\
+]
+
 // Gap between rows and between the dialog's bars: a tenth of a row, in whole screen pixels. PFUNC(ui_dialogFinish)
 // snaps all edges to pixels, so every gap ends up exactly this wide.
 #define UI_GAP (((round (UI_H(0.1) / pixelH)) max 1) * pixelH)

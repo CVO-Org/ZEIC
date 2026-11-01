@@ -1,10 +1,11 @@
 #include "..\..\script_component.hpp"
 
 /*
-* Builds the Garrison Building dialog. The units come from one of two sources:
-* - Recently used: the last 5 faction + subcategory pairs of this game session (uiNamespace).
-* - Side, search and faction list, then the subcategory.
-* Picking in one source clears the other. Confirming calls PFUNC(ui_garrisonBuilding).
+* Builds the Garrison Building dialog. The units come from one of two lists, both with one row per
+* faction + subcategory pair (side icon, flag, faction, subcategory):
+* - Recently used: the last 5 pairs of this game session (uiNamespace).
+* - All pairs, narrowed by the side and search filters.
+* Picking in one list clears the other. Confirming calls PFUNC(ui_garrisonBuilding).
 * Below the sliders an estimate of the units and buildings follows radius and percentages.
 *
 * Arguments:
@@ -32,62 +33,64 @@ private _recent = (uiNamespace getVariable [QPVAR(garrisonRecent), []]) select {
 };
 _display setVariable [QPVAR(recent), _recent];
 _display setVariable [QPVAR(selection), []];
-_display setVariable [QPVAR(faction), ""];
 
-// Fills the subcategory list for a faction and makes faction + subcategory the selection
-_display setVariable [QPVAR(fillSubcats), {
-	params ["_display", "_faction", ["_preferred", ""]];
-	private _subcatList = _display getVariable "subcat_ctrl";
-	private _subcats = ((call PFUNC(garrisonBuilding_factions)) select { (_x select 1) == _faction }) param [0, []] param [4, []];
+// Columns of both lists: side icon, flag, faction, subcategory
+#define PAIR_COLUMNS [0, 0.05, 0.11, 0.52]
 
-	_display setVariable [QPVAR(busy), true];
-	lbClear _subcatList;
-	{
-		private _index = _subcatList lbAdd format ["%1 (%2)", _x select 0, _x select 2];
-		_subcatList lbSetData [_index, _x select 1];
-	} forEach _subcats;
-	// The preferred one, otherwise "Men", otherwise the one with most units (first)
-	private _select = _subcats findIf { (_x select 1) == _preferred };
-	if (_select == -1) then { _select = _subcats findIf { (_x select 1) == "EdSubcat_Personnel" } };
-	_subcatList lbSetCurSel (_select max 0);
-	(_display getVariable ["recent_ctrl", controlNull]) lbSetCurSel -1;
-	_display setVariable [QPVAR(busy), false];
-
-	_display setVariable [QPVAR(faction), _faction];
-	_display setVariable [QPVAR(selection), [_faction, _subcatList lbData lbCurSel _subcatList]];
+// Adds one pair as a row: [list, faction info, subcategory info]
+_display setVariable [QPVAR(addPair), {
+	params ["_list", "_faction", "_subcat"];
+	_faction params ["_name", "_class", "_side", "_icon"];
+	_subcat params ["_subcatName", "_subcatClass", "_count"];
+	private _row = _list lnbAddRow ["", "", _name, format ["%1 (%2)", _subcatName, _count]];
+	_list lnbSetPicture [[_row, 0], SIDE_ICONS select _side];
+	_list lnbSetPictureColor [[_row, 0], [[east, west, independent, civilian] select _side] call BIS_fnc_sideColor];
+	_list lnbSetPictureColorSelected [[_row, 0], [1, 1, 1, 1]];
+	_list lnbSetPicture [[_row, 1], _icon];
+	_list lnbSetData [[_row, 0], _class + "#" + _subcatClass];
+	{ _list lnbSetTooltip [[_row, _x], format ["%1 / %2", _class, _subcatClass]] } forEach [0, 1, 2, 3];
+	_row
 }];
 
-// Fills the faction list from the side and search filters, keeps the selected faction if it is still shown
-_display setVariable [QPVAR(fillFactions), {
+// Fills the pair list from the side and search filters, keeps the selected pair if it is still shown.
+// Every word of the search has to match the faction (name or class), the subcategory or a side keyword.
+_display setVariable [QPVAR(fillPairs), {
 	params ["_display"];
-	private _list = _display getVariable "faction_ctrl";
+	private _list = _display getVariable "pairs_ctrl";
 	private _side = [-1, 1, 0, 2, 3] select (_display getVariable ["side", 0]);
-	private _search = toLowerANSI (_display getVariable ["search", ""]);
-	private _selected = _display getVariable [QPVAR(faction), ""];
+	private _words = (toLowerANSI (_display getVariable ["search", ""])) splitString " ";
+	private _selected = (_display getVariable [QPVAR(selection), []]) joinString "#";
+	private _fromRecent = lnbCurSelRow (_display getVariable ["recent_ctrl", controlNull]) > -1;
+	private _sideWords = [
+		"opfor east red " + localize "STR_EAST",
+		"blufor west blue " + localize "STR_WEST",
+		"indep independent guer guerrila resistance greenfor " + localize "STR_GUERRILA",
+		"civ civilian " + localize "STR_CIVILIAN"
+	] apply { toLowerANSI _x };
 
 	_display setVariable [QPVAR(busy), true];
-	lbClear _list;
+	lnbClear _list;
 	private _keep = -1;
 	{
-		_x params ["_name", "_class", "_factionSide", "_icon"];
-		if ((_side == -1 || {_factionSide == _side}) && {_search == "" || {(toLowerANSI _name find _search) != -1} || {(toLowerANSI _class find _search) != -1}}) then {
-			private _index = _list lbAdd _name;
-			_list lbSetData [_index, _class];
-			_list lbSetPicture [_index, _icon];
-			_list lbSetTooltip [_index, _class];
-			if (_class == _selected) then { _keep = _index };
+		private _faction = _x;
+		_faction params ["_name", "_class", "_factionSide", "", "_subcats"];
+		if (_side == -1 || {_factionSide == _side}) then {
+			{
+				private _text = toLowerANSI ([_name, _class, _x select 0, _x select 1, _sideWords select _factionSide] joinString " ");
+				if (_words findIf { (_text find _x) == -1 } == -1) then {
+					private _row = [_list, _faction, _x] call (_display getVariable QPVAR(addPair));
+					if ((_list lnbData [_row, 0]) == _selected) then { _keep = _row };
+				};
+			} forEach _subcats;
 		};
 	} forEach (call PFUNC(garrisonBuilding_factions));
-	_list lbSetCurSel _keep;
-	_display setVariable ["faction", _keep];
+	// A pair picked in the recently used list stays picked there
+	if (!_fromRecent) then { _list lnbSetCurSelRow _keep };
+	_display setVariable ["pairs", _keep];
 	_display setVariable [QPVAR(busy), false];
 
-	// A faction that is filtered out is no longer picked
-	if (_keep == -1 && {_selected != ""}) then {
-		_display setVariable [QPVAR(faction), ""];
-		_display setVariable [QPVAR(selection), []];
-		lbClear (_display getVariable "subcat_ctrl");
-	};
+	// A pair that is filtered out is no longer picked
+	if (!_fromRecent && {_keep == -1}) then { _display setVariable [QPVAR(selection), []] };
 }];
 
 // Updates the estimate: the share of the buildings within the radius (or the one building), each with its share of positions.
@@ -128,47 +131,40 @@ if (_recent isNotEqualTo []) then {
 		if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
 		_display setVariable [QPVAR(selection), (_display getVariable QPVAR(recent)) select _index];
 
-		// Clears the other source
+		// Clears the other list
 		_display setVariable [QPVAR(busy), true];
-		_display setVariable [QPVAR(faction), ""];
-		(_display getVariable "faction_ctrl") lbSetCurSel -1;
-		lbClear (_display getVariable "subcat_ctrl");
+		(_display getVariable "pairs_ctrl") lnbSetCurSelRow -1;
 		_display setVariable [QPVAR(busy), false];
-	}] call PFUNC(ui_dialogList);
+	}, nil, nil, PAIR_COLUMNS] call PFUNC(ui_dialogList);
 
 	{
 		_x params ["_faction", "_subcat"];
 		private _factionInfo = _factions select (_factions findIf { (_x select 1) == _faction });
 		private _subcatInfo = (_factionInfo select 4) select ((_factionInfo select 4) findIf { (_x select 1) == _subcat });
-		private _index = _list lbAdd format ["%1 - %2", _factionInfo select 0, _subcatInfo select 0];
-		_list lbSetPicture [_index, _factionInfo select 3];
+		[_list, _factionInfo, _subcatInfo] call (_display getVariable QPVAR(addPair));
 	} forEach _recent;
 };
 
 [_ctx, "search", LLSTRING(ModuleGarrisonBuilding_Search), "", LLSTRING(ModuleGarrisonBuilding_Search_Tooltip), {
 	params ["_display"];
-	_display call (_display getVariable QPVAR(fillFactions));
+	_display call (_display getVariable QPVAR(fillPairs));
 }] call PFUNC(ui_dialogEdit);
 
 [_ctx, "side", LLSTRING(ModuleGarrisonBuilding_Side), [LLSTRING(ModuleGarrisonBuilding_Side_All), localize "STR_WEST", localize "STR_EAST", localize "STR_GUERRILA", localize "STR_CIVILIAN"], 0, [], {
 	params ["_display"];
-	_display call (_display getVariable QPVAR(fillFactions));
+	_display call (_display getVariable QPVAR(fillPairs));
 }] call PFUNC(ui_dialogToolbox);
 
-// Faction and subcategory lists side by side
-[_ctx, "faction", LLSTRING(ModuleGarrisonBuilding_Faction), 7, "", {
+[_ctx, "pairs", LLSTRING(ModuleGarrisonBuilding_Faction), 8, "", {
 	params ["_display", "_index", "_list"];
 	if (_display getVariable [QPVAR(busy), false] || {_index < 0}) exitWith {};
-	[_display, _list lbData _index] call (_display getVariable QPVAR(fillSubcats));
-}, [0, 13.9], false] call PFUNC(ui_dialogList);
+	_display setVariable [QPVAR(selection), (_list lnbData [_index, 0]) splitString "#"];
 
-[_ctx, "subcat", LLSTRING(ModuleGarrisonBuilding_Subcategory), 7, "", {
-	params ["_display", "_index", "_list"];
-	private _faction = _display getVariable [QPVAR(faction), ""];
-	if (_display getVariable [QPVAR(busy), false] || {_index < 0} || {_faction == ""}) exitWith {};
-	_display setVariable [QPVAR(selection), [_faction, _list lbData _index]];
-	(_display getVariable ["recent_ctrl", controlNull]) lbSetCurSel -1;
-}, [14, 12]] call PFUNC(ui_dialogList);
+	// Clears the other list
+	_display setVariable [QPVAR(busy), true];
+	(_display getVariable ["recent_ctrl", controlNull]) lnbSetCurSelRow -1;
+	_display setVariable [QPVAR(busy), false];
+}, nil, nil, PAIR_COLUMNS] call PFUNC(ui_dialogList);
 
 private _fnc_estimate = { (_this select 0) call ((_this select 0) getVariable QPVAR(updateEstimate)) };
 [_ctx, "radius", LLSTRING(Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiGarrisonRadius), 0], LLSTRING(Radius_Tooltip), _bld, _fnc_estimate] call PFUNC(ui_dialogSlider);
@@ -202,20 +198,21 @@ _display call (_display getVariable QPVAR(updateEstimate));
 	true
 }] call PFUNC(ui_dialogFinish);
 
-// Start with the most recent pair, otherwise the last used (or first) faction
-_display call (_display getVariable QPVAR(fillFactions));
+// Start with the most recent pair, otherwise the last used pair, otherwise the last used faction's "Men" (or its first
+// subcategory), otherwise the first "Men" of the list (or its first row)
+_display call (_display getVariable QPVAR(fillPairs));
 if (_recent isNotEqualTo []) exitWith {
-	(_display getVariable "recent_ctrl") lbSetCurSel 0;
+	(_display getVariable "recent_ctrl") lnbSetCurSelRow 0;
 };
 
-private _list = _display getVariable "faction_ctrl";
-if (lbSize _list == 0) exitWith {};
-private _last = missionNamespace getVariable [QPVAR(UiGarrisonFaction), ""];
-private _index = 0;
-for "_i" from 0 to (lbSize _list - 1) do { if ((_list lbData _i) == _last) exitWith { _index = _i } };
-
-_display setVariable [QPVAR(busy), true];
-_list lbSetCurSel _index;
-_display setVariable ["faction", _index];
-_display setVariable [QPVAR(busy), false];
-[_display, _list lbData _index, missionNamespace getVariable [QPVAR(UiGarrisonCategory), ""]] call (_display getVariable QPVAR(fillSubcats));
+private _list = _display getVariable "pairs_ctrl";
+private _rows = (lnbSize _list) select 0;
+if (_rows == 0) exitWith {};
+private _data = [];
+for "_i" from 0 to (_rows - 1) do { _data pushBack (_list lnbData [_i, 0]) };
+private _lastFaction = missionNamespace getVariable [QPVAR(UiGarrisonFaction), ""];
+private _index = _data find format ["%1#%2", _lastFaction, missionNamespace getVariable [QPVAR(UiGarrisonCategory), ""]];
+if (_index == -1) then { _index = _data find format ["%1#EdSubcat_Personnel", _lastFaction] };
+if (_index == -1) then { _index = _data findIf { ((_x splitString "#") param [0, ""]) == _lastFaction } };
+if (_index == -1) then { _index = _data findIf { ((_x splitString "#") param [1, ""]) == "EdSubcat_Personnel" } };
+_list lnbSetCurSelRow (_index max 0);
