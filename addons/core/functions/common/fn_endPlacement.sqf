@@ -24,10 +24,8 @@ private _trees = if (is3DEN) then {
 	}
 };
 
-// DEBUG #54 (temporary): reduced version, clear once right away
-private _dbgSel = (_trees select { (tvCurSel _x) isNotEqualTo [] }) apply { [ctrlClassName _x, ctrlIDC _x, tvCurSel _x] };
-diag_log text format ["[ZEIC ENDPL] once frame %1 eden %2 trees %3 selected %4", diag_frameNo, is3DEN, count _trees, _dbgSel];
-
+// Once, right away, is enough (tested, #54): Eden still has the module selected when it runs and doesn't select
+// it again afterwards; Zeus has already cleared its lists by then. Clearing again on the next frames found nothing.
 {
 	if ((tvCurSel _x) isNotEqualTo []) then { _x tvSetCurSel [-1] };
 } forEach _trees;
