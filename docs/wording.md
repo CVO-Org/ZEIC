@@ -33,7 +33,7 @@ Fields that mean the same in several dialogs use one key, so their texts can't d
 - `Radius` / `Radius_Tooltip`
 - `Percentage` / `Percentage_Tooltip`: the share of buildings within the radius. A field with another meaning keeps the label and gets its own tooltip (`ModuleObjectFill_Percentage_Tooltip`, the chance per spot). Only a dialog with several percentage sliders uses more specific labels.
 - `ObjectMode`, `ObjectMode_Simple`, `ObjectMode_Normal`, `ObjectMode_Editable` (+ `_Tooltip`)
-- `Category`, `Description`, `Shortcuts`, `Cancel`
+- `Category`, `Description`, `Shortcuts`, `Shortcuts_None`, `Cancel`
 - `NoBuilding`: takes the module name as `%1`
 
 ## Text rules
@@ -42,7 +42,7 @@ Fields that mean the same in several dialogs use one key, so their texts can't d
 - Every chat message starts with the module name: `Interior Fill: ...`, `Object Switch: ...`.
 - Units in brackets: `Radius [m]`. Sentence case for labels and options: `Allow damage`, `Max templates`.
 - Tooltips have 1-2 lines; `\n` starts a new line (also in `stringtable.xml`).
-- Below the rows, every dialog shows `Description (?)` and, if it has any, `Shortcuts (?)` (see `fn_ui_dialogFinish.sqf`). The description says in one sentence what the module does; details of a field go into that field's tooltip.
+- Below the rows, every dialog has a grey help bar with `Description (?)` and `Shortcuts (?)` (see `fn_ui_dialogFinish.sqf`); a module without shortcuts shows `None` in that tooltip, so the layout stays the same. The description says in one sentence what the module does; details of a field go into that field's tooltip.
 - The shortcuts tooltip is a list:
 
   ```

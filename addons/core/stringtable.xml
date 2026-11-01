@@ -56,6 +56,9 @@
             <Key ID="STR_ZEIC_core_Shortcuts">
                 <English>Shortcuts</English>
             </Key>
+            <Key ID="STR_ZEIC_core_Shortcuts_None">
+                <English>None</English>
+            </Key>
         </Container>
         <Container name="GarrisonBuilding">
             <Key ID="STR_ZEIC_core_ModuleGarrisonBuilding_Confirm">
