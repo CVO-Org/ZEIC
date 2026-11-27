@@ -15,11 +15,36 @@ The most useful contribution is a **template for a building that doesn't have on
 
 ## Templates
 
-### Simple way: post it
-1. Make the template with **Save Building Scheme**, as in [Your own templates](docs/custom-templates.md#step-by-step).
-2. Post the copied text in the [Workshop discussions](https://steamcommunity.com/workshop/filedetails/discussions/3567067667/) or in a GitHub issue, and say which mods it needs.
+### Simple way: the submission form
+1. **Find a building that needs one** (optional). On the VR map, place **ZEIC - Interiors Development → List Buildings** with *Max templates* `0`. It lines up every building without a template.
+2. **Make the template** with **Save Building Scheme**, as in [Your own templates](docs/custom-templates.md#step-by-step). Use **Mark Positions** first and keep the arrows free, so garrisons still fit.
+3. **Open the [Template submission](https://github.com/CVO-Org/ZEIC/issues/new?template=template_submission.yml) form** and fill it in from the header of the copied text:
 
-A maintainer adds it to the next release.
+   ```cpp
+   // ZEIC template, made with Save Building Scheme
+   // Building: Land_i_House_Small_03_V1_F          -> Building class
+   // Category: civ (mil, civ, cbrn or your own; ...) -> Category (the guess can be wrong, pick what fits)
+   // Required mods: none (vanilla)                  -> Required mods
+   ```
+
+4. **Paste the whole copied text** into *Template* and add a screenshot of the interior.
+
+A maintainer reviews it and adds it to the next release. No GitHub account? Post the copied text in the [Workshop discussions](https://steamcommunity.com/workshop/filedetails/discussions/3567067667/) instead.
+
+### Merging submissions (maintainers)
+`tools\import-template.ps1` turns a submission issue into config. It picks the pack from the required mods, names the template with the pack's tag and the next free number (`vanilla_3`), sorts new buildings in, and skips a layout that is already there. It never changes existing templates, and it stops on anything in the paste that isn't a plain `objects[]` entry.
+
+1. Create a branch from `main`.
+2. Run the script with the issue number (needs `gh auth login`). `-DryRun` only shows what it would add:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File tools\import-template.ps1 -Issue 123
+   ```
+
+   If the template needs two mods (for example GM and CUP) or a mod without a pack, the script stops: decide by hand, or force a pack with `-Pack cup`.
+3. Review `git diff`: positions plausible, objects from the named mods only.
+4. `hemtt check`, then `hemtt launch default vr`, place the building and fill it with Interior Fill.
+5. Commit, and open the PR with the label `pr/improvement` and `Closes #123`. Several submissions can share one PR.
 
 ### Pull request
 1. **Find a building that needs one.** On the VR map, place **ZEIC - Interiors Development → List Buildings** with *Max templates* `0`. It lines up every building without a template.
@@ -33,7 +58,7 @@ A maintainer adds it to the next release.
    | CUP | vanilla | `addons/templates_cup` |
    | GM | some CUP | needs both: ask in the issue first |
 
-   The copied text's `// Uses objects from:` line helps, but it only lists the objects' mods, not the building's.
+   The copied text's `// Required mods:` line names them, the building included.
 4. **Paste it** into that pack's `CfgZEIC.hpp`, under the category (`mil`, `civ`, `cbrn`) and the building class. If the building class is already there, add your template next to the existing ones.
 5. **Rename the template class** from `saved_<time>` to the pack's tag plus the next free number in that building, for example `vanilla_3` or `cup_2`.
 6. **Test it:** `hemtt launch default vr`, place the building, and fill it with Interior Fill.

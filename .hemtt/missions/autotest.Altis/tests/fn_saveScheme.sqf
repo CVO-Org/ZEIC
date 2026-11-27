@@ -44,6 +44,14 @@
             _class == "Land_Pallets_F" && {([_x0, _y0, _z0] vectorDistance _offset) < 0.01} && {_dir == 90},
             [_read, _offset]] call autotest_fnc_check;
 
+        // The header the submission form and tools\import-template.ps1 rely on
+        private _categoryLine = _lines param [_lines findIf { (_x find "// Category: ") == 0 }, ""];
+        ["header names the building, a category and the mods",
+            (format ["// Building: %1", DEV_HOUSE]) in _lines
+            && {"// Required mods: none (vanilla)" in _lines}
+            && {((_categoryLine select [13]) splitString " ") param [0, ""] in ["mil", "civ", "cbrn"]},
+            _lines select [0, 6]] call autotest_fnc_check;
+
         deleteVehicle _pallet;
     }, 180]
 ]
