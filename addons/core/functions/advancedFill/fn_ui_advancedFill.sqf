@@ -27,6 +27,10 @@ private _garrison = _settings getOrDefault ["garrison", true];
 private _radius = _settings getOrDefault ["radius", 0];
 private _categories = _settings getOrDefault ["categories", []];
 
+// The interior and the Move AI trigger are created on the server; the garrison units are not
+if (_interior && {!([LLSTRING(ModuleAdvancedFill_DisplayName), LLSTRING(ModuleAdvancedFill_Interior)] call PFUNC(misc_serverCheck))}) exitWith {};
+if (_garrison && {_settings getOrDefault ["trigger", false]} && {!([LLSTRING(ModuleAdvancedFill_DisplayName), LLSTRING(ModuleGarrisonBuilding_Trigger)] call PFUNC(misc_serverCheck))}) exitWith {};
+
 private _bld = missionNamespace getVariable [QPVAR(UiLastBuilding), objNull];
 private _buildings = if (!isNil "_confirmed") then { _confirmed } else { if (_radius > 0) then {
 	[getPos _bld, _radius, _settings getOrDefault ["percent", 50], [[], _categories] select _interior, _garrison] call PFUNC(advancedFill_selectBuildings)

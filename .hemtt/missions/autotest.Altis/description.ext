@@ -65,6 +65,7 @@ class CfgFunctions {
             class objectFillTarget {};
             class shortcuts {};
             class multiCategory {};
+            class serverCheck {};
             class advancedFillPresets {};
         };
     };

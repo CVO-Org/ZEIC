@@ -68,7 +68,7 @@ Before you've used a dialog in this session, Interior Fill falls back to its def
 
 ### Multiplayer
 - The **server needs ZEIC** for Interior Fill, Advanced Fill and the Move AI trigger. The furniture and triggers are created on the server, so every player sees them.
-- **ZEIC doesn't check whether the server has it.** Without it on the server, nothing tells you: Interior Fill places no furniture and gives no message, and garrisoned units never get their Move AI trigger, so they stay in place. Advanced Fill with a garrison waits 120 s per building for the interior, then garrisons it anyway with *no interior reported for ...*.
+- **ZEIC checks whether the server has it.** Without it on the server, Interior Fill, Advanced Fill with the interior on, and the Move AI trigger are refused: nothing is placed, and Zeus shows the red message *the server doesn't run ZEIC, so nothing was placed*, also in chat and the RPT. Garrison Building and Advanced Fill work again with the trigger (and the interior) turned off.
 - Garrison Building, Fill Table / Shelf and Object Switch work without ZEIC on the server.
 - In singleplayer and on a game you host yourself, your game is the server, so this doesn't apply.
 - If you disconnect in the middle of a big fill, the server finishes it.
@@ -88,9 +88,8 @@ Every message starts with the module name.
 | *select a faction first* | Garrison Building or Advanced Fill needs a faction. |
 | *no infantry found for faction X* | That faction has no infantry ZEIC can use. Pick another subcategory. |
 | *nothing to switch within the radius* | Object Switch found no objects it knows in the radius. |
-| *Advanced Fill: no interior reported for X after 120 s, garrisoned without waiting.* | The interior never arrived. In multiplayer, the server most likely doesn't run ZEIC, see [Multiplayer](#multiplayer). |
-
-**No message and no furniture at all** after an Interior Fill in multiplayer: the server most likely doesn't run ZEIC, see [Multiplayer](#multiplayer).
+| *the server doesn't run ZEIC, so nothing was placed* | Multiplayer: this module, or the part named in the message, needs ZEIC on the server. Turn that part off, or have ZEIC loaded on the server. See [Multiplayer](#multiplayer). |
+| *Advanced Fill: no interior reported for X after 120 s, garrisoned without waiting.* | The interior never arrived from the server, for example because it was very busy. See [Multiplayer](#multiplayer). |
 
 ## Going further
 

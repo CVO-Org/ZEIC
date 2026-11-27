@@ -1,5 +1,9 @@
 #include "..\..\script_component.hpp"
 
+// Tells the clients that the server runs ZEIC, for the modules that do their work there (see PFUNC(misc_serverCheck)).
+// Public, so players who join later get it too.
+if (isServer) then { missionNamespace setVariable [QPVAR(serverActive), true, true]; };
+
 // Without ZEN, Zeus lists the ZEIC modules by itself whenever the curator allows the ZEIC_core addon
 // (e.g. Game Master "Addons: All addons including unofficial ones").
 

@@ -36,6 +36,7 @@ class CfgFunctions {
             class misc_Vector2Eden {};
             class misc_logMsg {};
             class misc_selectShare {};
+            class misc_serverCheck {};
             class modifiers_get {};
             class modifiers_install {};
             class modifiers_onKey {};
