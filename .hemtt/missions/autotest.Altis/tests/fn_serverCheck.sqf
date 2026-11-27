@@ -85,7 +85,7 @@ autotest_serverCheck_units = { params ["_bld"]; (_bld nearEntities ["CAManBase",
         private _bld = [DEV_HOUSE, 91] call autotest_helper_fnc_spawn;
         PVAR(UiLastBuilding) = _bld;
 
-        private _settings = createHashMapFromArray [["interior", true], ["garrison", false], ["category", 0], ["radius", 0]];
+        private _settings = createHashMapFromArray [["interior", true], ["garrison", false], ["categories", [((call PFUNC(interiorFill_categories)) select 0) select 1]], ["radius", 0]];
         private _box = { [_settings] call PFUNC(ui_advancedFill) } call autotest_serverCheck_withoutServer;
         call autotest_serverCheck_waitQueue;
         ["with the interior: refused with a message box", _box isNotEqualTo [], count _box] call autotest_fnc_check;

@@ -13,7 +13,7 @@
 *
 * Arguments:
 * 0: Buildings <ARRAY of OBJECTs>
-* 1: Interior [category <STRING>, options <ARRAY>, fill modifier classes <ARRAY of STRINGs> (default: none)], [] for none
+* 1: Interior [categories <ARRAY of STRINGs or STRING>, options <ARRAY>, fill modifier classes <ARRAY of STRINGs> (default: none)], [] for none
 *    - see PFUNC(interiorFill_start) <ARRAY>
 * 2: Garrison [faction class <STRING>, subcategory class <STRING>, options <ARRAY>], [] for none
 *    - see PFUNC(garrisonBuilding_start) <ARRAY>
@@ -23,7 +23,7 @@
 * None
 *
 * Example:
-* [[cursorObject], ["mil", [0, false], ["coldwar"]], ["BLU_F", "EdSubcat_Personnel", [50, false, false]], 0] call ZEIC_fnc_advancedFill_start
+* [[cursorObject], [["mil", "civ"], [0, false], ["coldwar"]], ["BLU_F", "EdSubcat_Personnel", [50, false, false]], 0] call ZEIC_fnc_advancedFill_start
 *
 * Public: Yes
 */
@@ -53,8 +53,9 @@ if (is3DEN) then {
 	private _names = [];
 	if (_garrison isNotEqualTo []) then { _names pushBack getText (configFile >> "CfgFactionClasses" >> (_garrison param [0, ""]) >> "displayName") };
 	if (_interior isNotEqualTo []) then {
-		private _category = _interior param [0, "mil"];
-		_names pushBack (((call PFUNC(interiorFill_categories)) select { (_x select 1) == _category }) param [0, [toUpper _category]] select 0);
+		private _categories = _interior param [0, ["mil"]];
+		if (_categories isEqualType "") then { _categories = [_categories] };
+		_names append ([_categories] call PFUNC(interiorFill_categoryNames));
 	};
 	_layers set ["name", _names joinString " + "];
 };
@@ -71,8 +72,8 @@ if (_garrison isNotEqualTo []) then {
 };
 
 if (_interior isNotEqualTo []) then {
-	_interior params [["_category", "mil", [""]], ["_options", [], [[]]], ["_modifiers", [], [[]]]];
+	_interior params [["_categories", ["mil"], [[], ""]], ["_options", [], [[]]], ["_modifiers", [], [[]]]];
 	// Without a queued garrison there is nothing to keep free
 	if (_linkId == "") then { _collision = COLLISION_OFF; _reserved = [] };
-	[_buildings, _category, _options, _linkId, _layers, _collision, _reserved, _modifiers] call PFUNC(interiorFill_start);
+	[_buildings, _categories, _options, _linkId, _layers, _collision, _reserved, _modifiers] call PFUNC(interiorFill_start);
 };

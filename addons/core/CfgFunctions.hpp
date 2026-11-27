@@ -92,6 +92,7 @@ class CfgFunctions {
             class createTemplate {};
             class findTemplates {};
             class interiorFill_categories {};
+            class interiorFill_categoryNames {};
             class interiorFill_enqueue {};
             class interiorFill_finishBuilding {};
             class interiorFill_findBuilding {};
@@ -164,6 +165,7 @@ class CfgFunctions {
 
             class ui_dialogAdd {};
             class ui_dialogCheckbox {};
+            class ui_dialogCheckboxes {};
             class ui_dialogCombo {};
             class ui_dialogConfirm {};
             class ui_dialogCreate {};

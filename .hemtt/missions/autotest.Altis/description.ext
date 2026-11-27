@@ -64,6 +64,7 @@ class CfgFunctions {
             class moduleDialogs {};
             class objectFillTarget {};
             class shortcuts {};
+            class multiCategory {};
             class serverCheck {};
         };
     };

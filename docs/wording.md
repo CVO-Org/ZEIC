@@ -33,8 +33,8 @@ Fields that mean the same in several dialogs use one key, so their texts can't d
 - `Radius` / `Radius_Tooltip`
 - `Percentage` / `Percentage_Tooltip`: the share of buildings within the radius. A field with another meaning keeps the label and gets its own tooltip (`ModuleObjectFill_Percentage_Tooltip`, the chance per spot). Only a dialog with several percentage sliders uses more specific labels.
 - `ObjectMode`, `ObjectMode_Simple`, `ObjectMode_Normal`, `ObjectMode_Editable` (+ `_Tooltip`)
-- `Category`, `Description`, `Shortcuts`, `Shortcuts_None`, `Cancel`
-- `NoBuilding`: takes the module name as `%1`
+- `Category`, `Categories` (+ `_Tooltip`), `Description`, `Shortcuts`, `Shortcuts_None`, `Cancel`
+- `NoBuilding`, `NoCategory`: take the module name as `%1`
 
 ## Text rules
 

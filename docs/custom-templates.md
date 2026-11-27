@@ -35,7 +35,7 @@ You furnish a building once by hand in Eden. The **Save Building Scheme** module
    ```
 
 6. **Reload the mission** (save, then reopen it, or start a preview). ZEIC reads `description.ext` once per mission.
-7. **Use it:** place Interior Fill or Advanced Fill on that building type and pick the category.
+7. **Use it:** place Interior Fill or Advanced Fill on that building type and tick the category.
 
 ## Things worth knowing
 
@@ -65,7 +65,7 @@ Save the building again with a different layout and paste the new template class
 Bunkers, towers and some ruins have no building positions, so Save Building Scheme doesn't accept them at first. **Hold Alt while placing the module** to save them anyway. Once a building has a template in a category, Interior Fill accepts it for that category.
 
 ### Mods
-- If your layout uses objects from mods, the copied text starts with a note such as `// Uses objects from: CUP Terrains - Core`. It's only a note for you: ZEIC doesn't check it, and it doesn't cover the building itself.
+- The copied text starts with a short header: the building, a category guess, and the mods the building and its objects need, such as `// Required mods: CUP`. It's only a note for you, ZEIC doesn't check it.
 - When the mission runs without one of those mods, ZEIC skips the whole template, writes the missing class to the RPT, and uses the other templates. It never places half a layout.
 
 ### The mission doesn't depend on ZEIC
@@ -121,7 +121,7 @@ For everything else, `description.ext` is simpler.
 
 ## Sharing a template
 
-Templates for buildings ZEIC doesn't cover yet are the most welcome contribution. Post the copied text in the [Workshop discussions](https://steamcommunity.com/workshop/filedetails/discussions/3567067667/), or send a pull request, see [Contributing](../CONTRIBUTING.md#templates).
+Templates for buildings ZEIC doesn't cover yet are the most welcome contribution. Paste the copied text into the [Template submission](https://github.com/CVO-Org/ZEIC/issues/new?template=template_submission.yml) form, and it ships with the next release. Details and other ways: [Contributing](../CONTRIBUTING.md#templates).
 
 ## Reference
 

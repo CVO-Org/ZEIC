@@ -1,8 +1,9 @@
 #include "..\..\script_component.hpp"
 
 /*
-* Builds the Interior Fill dialog: category, radius, and (outside Eden) object mode and damage.
-* Starts with the last used values; confirming calls PFUNC(ui_interiorFill).
+* Builds the Interior Fill dialog: a checkbox per category (see PFUNC(ui_dialogCheckboxes)), radius, and (outside Eden)
+* object mode and damage. Starts with the last used values; confirming calls PFUNC(ui_interiorFill), at least one
+* category has to be ticked.
 *
 * Arguments:
 * 0: Display <DISPLAY>
@@ -28,7 +29,10 @@ private _categories = call PFUNC(interiorFill_categories);
 private _shortcuts = format [LLSTRING(ModuleInteriorFill_Shortcuts), (_categories select { (_x select 2) != "" } apply {
 	"\n" + format [LLSTRING(ModuleInteriorFill_ShortcutCategory), ((_x select 2) splitString "+" apply { (toUpper (_x select [0, 1])) + (_x select [1]) }) joinString "+", _x select 0]
 }) joinString ""];
-[_ctx, "category", LLSTRING(Category), _categories apply { _x select 0 }, missionNamespace getVariable [QPVAR(UiInteriorType), 0]] call PFUNC(ui_dialogCombo);
+// The last ticked categories that still exist, otherwise the first one
+private _checked = (missionNamespace getVariable [QPVAR(UiInteriorCategories), []]) arrayIntersect (_categories apply { _x select 1 });
+if (_checked isEqualTo []) then { _checked = [(_categories select 0) select 1] };
+[_ctx, "categories", LLSTRING(Categories), _categories apply { [_x select 0, _x select 1] }, _checked, LLSTRING(Categories_Tooltip)] call PFUNC(ui_dialogCheckboxes);
 
 [_ctx, "radius", LLSTRING(Radius), [0, 250, 5], missionNamespace getVariable [QPVAR(UiInteriorRadius), 0], LLSTRING(Radius_Tooltip), missionNamespace getVariable [QPVAR(UiLastPosition), []]] call PFUNC(ui_dialogSlider);
 [_ctx, "chance", LLSTRING(Percentage), [10, 100, 10], missionNamespace getVariable [QPVAR(UiInteriorChance), 100], LLSTRING(Percentage_Tooltip)] call PFUNC(ui_dialogSlider);
@@ -45,8 +49,13 @@ if (!is3DEN) then {
 };
 
 [_ctx, [LLSTRING(ModuleInteriorFill_Description), _shortcuts], LLSTRING(ModuleInteriorFill_Confirm), {
+	private _categories = _this getVariable ["categories", []];
+	if (_categories isEqualTo []) exitWith {
+		[format [LLSTRING(NoCategory), LLSTRING(ModuleInteriorFill_DisplayName)], "ERROR"] call PFUNC(misc_logMsg);
+		false
+	};
 	[
-		_this getVariable ["category", 0],
+		_categories,
 		_this getVariable ["radius", 0],
 		_this getVariable ["objects", OBJECT_MODE_SIMPLE],
 		_this getVariable ["damage", false],

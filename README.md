@@ -38,7 +38,7 @@ ZEIC continues ZEI, the original Zeus and Eden Interiors. It is actively maintai
 All modules are in the module list under **ZEIC - Interiors**. Every field and shortcut is explained in the [module reference](docs/modules.md).
 
 ### Interior Fill
-- Furnishes a building, or a share of the buildings within a radius, from the templates of a category (Military, Civilian, CBRN, and any category a mod or mission adds).
+- Furnishes a building, or a share of the buildings within a radius, from the templates of one or more categories (Military, Civilian, CBRN, and any category a mod or mission adds).
 - Simple objects (fastest), normal objects, or objects editable in Zeus.
 - Shortcuts, held while placing: Alt repeats the last fill, Ctrl fills Military, Shift Civilian, Ctrl+Shift CBRN.
 

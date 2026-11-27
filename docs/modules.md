@@ -27,19 +27,19 @@ At the bottom of every dialog, **Description (?)** and **Shortcuts (?)** show wh
 
 ## Interior Fill
 
-Furnishes buildings from the templates of a category.
+Furnishes buildings from the templates of the ticked categories.
 
 | Field | Meaning |
 |---|---|
-| Category | Military, Civilian, CBRN, and any category a mod or the mission adds |
+| Categories | A checkbox per category: Military, Civilian, CBRN, and any category a mod or the mission adds. Tick one or more: each building gets a template from all ticked categories together. At least one has to be ticked. |
 | Radius, Percentage, Objects | see [above](#fields-most-dialogs-share) |
 | Allow damage | Off (default): the furnished building can't be destroyed. On: it can, but its interior may be left floating. |
 
-**Shortcuts**, held while placing: **Alt** repeats the last fill, **Ctrl** fills Military, **Shift** Civilian, **Ctrl+Shift** CBRN. They use the last radius, percentage and object mode.
+**Shortcuts**, held while placing: **Alt** repeats the last fill with the last ticked categories. **Ctrl** fills only Military, **Shift** only Civilian, **Ctrl+Shift** only CBRN; they don't change which categories are ticked next time. All use the last radius, percentage and object mode.
 
 - Buildings that are already furnished are skipped.
 - Neighbouring buildings of the same type get different templates in turn.
-- A building can be furnished if it has building positions, or if the chosen category has a template for it (bunkers, towers).
+- A building can be furnished if it has building positions, or if one of the ticked categories has a template for it (bunkers, towers).
 - The chat message at the end says how many buildings were furnished and how many had no template. The RPT lists them.
 - In Zeus multiplayer, the fill runs on the server. If the server doesn't run ZEIC, the module is refused with a message, before the dialog opens.
 
@@ -121,7 +121,8 @@ Eden only. Place it on a building to copy the objects in and around it as a temp
 
 - Hold **Alt** while placing to save an object that has no building positions, such as a bunker.
 - It warns when the building isn't level, and when you're not on the VR map.
-- The copied text notes which mods the objects come from.
+- The copied text starts with a header: the building, a category guess and the mods the building and its objects need.
+- To get it into ZEIC itself, use the [Template submission](https://github.com/CVO-Org/ZEIC/issues/new?template=template_submission.yml) form ([Contributing](../CONTRIBUTING.md#templates)).
 - Advanced: set `ZEIC_SaveRadius` (default `5`) to change the distance around the building.
 
 ## Mark Positions
