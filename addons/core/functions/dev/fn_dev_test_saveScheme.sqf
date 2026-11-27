@@ -24,6 +24,14 @@ private _lines = [_bld, [_bld, _pallet]] call PFUNC(saveBuildingScheme_toConfig)
 
 ["T21.1 building class with one template", (format ["class %1 {", DEV_HOUSE]) in _lines && {(_lines findIf { (_x find "    class saved_") == 0 }) != -1}] call PFUNC(dev_check);
 
+// The header the submission form and tools/import-template.ps1 rely on
+private _categoryLine = _lines param [_lines findIf { (_x find "// Category: ") == 0 }, ""];
+["T21.4 header names the building, a category and the mods",
+	(format ["// Building: %1", DEV_HOUSE]) in _lines
+	&& {"// Required mods: none (vanilla)" in _lines}
+	&& {((_categoryLine select [13]) splitString " ") param [0, ""] in ["mil", "civ", "cbrn"]},
+	_lines select [0, 6]] call PFUNC(dev_check);
+
 // The object line as an array: config braces to SQF brackets
 private _objectLines = _lines select { (_x find "            {") == 0 };
 private _read = if (count _objectLines == 1) then {
