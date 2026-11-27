@@ -1,7 +1,8 @@
 #include "..\..\script_component.hpp"
 
 /*
-* Builds the Advanced Fill dialog: three tabs, Interior, Garrison and Settings, as buttons at the top that show
+* Builds the Advanced Fill dialog: the preset rows at the top (see PFUNC(ui_advancedFill_presetRow)), then
+* three tabs, Interior, Garrison and Settings, as buttons that show
 * one tab's rows at a time. Interior and Garrison each have a checkbox in their tab button; a part that is off
 * is greyed out, and the two can never both be off: turning off the last one turns the other back on.
 * - Interior: categories, object mode and damage, as in Interior Fill, then after a gap the fill modifiers (a checkbox
@@ -37,7 +38,9 @@ private _controls = _ctx get "controls";
 _display setVariable ["interior", _last getOrDefault ["interior", true]];
 _display setVariable ["garrison", _last getOrDefault ["garrison", true]];
 
-// ---- tab buttons: Interior and Garrison with their checkbox on the left
+// ---- presets, then the tab buttons: Interior and Garrison with their checkbox on the left
+[_ctx] call PFUNC(ui_advancedFill_presetRow);
+_ctx set ["y", (_ctx get "y") + (round (UI_H(0.4) / pixelH)) * pixelH];
 private _x0 = _ctx get "x";
 private _tabY = _ctx get "y";
 private _tabButtons = [];
@@ -215,22 +218,7 @@ _display setVariable [QPVAR(showTab), {
 	};
 	if (_garrison) then { [_selection] call (_this getVariable QPVAR(rememberPair)) };
 
-	[createHashMapFromArray [
-		["interior", _interior],
-		["categories", _this getVariable ["categories", []]],
-		["objects", _this getVariable ["objects", OBJECT_MODE_SIMPLE]],
-		["damage", _this getVariable ["damage", false]],
-		["modifiers", ((call PFUNC(fillModifiers_list)) select { _this getVariable [format ["modifier_%1", _x select 1], false] }) apply { _x select 1 }],
-		["garrison", _garrison],
-		["pair", _selection],
-		["positions", _this getVariable ["positions", 50]],
-		["dynamic", _this getVariable ["dynamic", false]],
-		["trigger", _this getVariable ["trigger", false]],
-		["radius", _this getVariable ["radius", 0]],
-		["percent", _this getVariable ["percent", 50]],
-		["collision", _this getVariable ["collision", true]],
-		["blocked", _this getVariable ["blocked", COLLISION_UNITS_GIVE_WAY]]
-	]] call PFUNC(ui_advancedFill);
+	[[_this] call PFUNC(ui_advancedFill_settings)] call PFUNC(ui_advancedFill);
 	true
 }] call PFUNC(ui_dialogFinish);
 

@@ -55,8 +55,12 @@ _confirm ctrlAddEventHandler ["ButtonClick", { [ctrlParent (_this select 0)] cal
 _cancel ctrlAddEventHandler ["ButtonClick", { (ctrlParent (_this select 0)) closeDisplay 2 }];
 _display displayAddEventHandler ["KeyDown", {
 	params ["_display", "_key"];
-	if (_key in [28, 156]) exitWith { [_display] call PFUNC(ui_dialogConfirm); true }; // Enter, numpad Enter
-	false
+	if !(_key in [28, 156]) exitWith { false }; // Enter, numpad Enter
+	// A control can have its own Enter (QPVAR(onEnter), gets the display), e.g. the Advanced Fill preset name saves
+	private _onEnter = (focusedCtrl _display) getVariable QPVAR(onEnter);
+	if (!isNil "_onEnter") exitWith { [_display] call _onEnter; true };
+	[_display] call PFUNC(ui_dialogConfirm);
+	true
 }];
 
 // Everything moves to the center of the screen. Each edge is snapped to a screen pixel, so gaps of the same

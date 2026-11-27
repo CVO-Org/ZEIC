@@ -7,12 +7,19 @@ class CfgFunctions {
             class advancedFill_blockedPositions {};
             class advancedFill_interiorDone {};
             class advancedFill_layer {};
+            class advancedFill_presetCheck {};
+            class advancedFill_presetDelete {};
+            class advancedFill_presetProfile {};
+            class advancedFill_presets {};
+            class advancedFill_presetSave {};
             class advancedFill_selectBuildings {};
             class advancedFill_start {};
             class advancedFill_waitForInterior {};
             class mod_advancedFill {};
             class ui_advancedFill {};
             class ui_advancedFill_onLoad {};
+            class ui_advancedFill_presetRow {};
+            class ui_advancedFill_settings {};
         };
 
         class common {
@@ -173,6 +180,7 @@ class CfgFunctions {
             class ui_dialogFinish {};
             class ui_dialogList {};
             class ui_dialogRow {};
+            class ui_dialogSetValue {};
             class ui_dialogSlider {};
             class ui_dialogToolbox {};
             class ui_openDialog {};

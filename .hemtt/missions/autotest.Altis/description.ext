@@ -66,6 +66,7 @@ class CfgFunctions {
             class shortcuts {};
             class multiCategory {};
             class serverCheck {};
+            class advancedFillPresets {};
         };
     };
 };
@@ -116,5 +117,21 @@ class CfgZEIC_Modifiers {
         class replace {
             Land_ChairWood_F[] = {"Land_ChairPlastic_F"};
         };
+    };
+};
+
+// Advanced Fill preset for the advancedFillPresets suite: read-only, with a category, a modifier and a faction that don't exist.
+// See docs/config-schema.md, section 13.
+class CfgZEIC_Presets {
+    class zeic_testPreset {
+        displayName = "ZEIC Test preset (mission)";
+        order = 999;
+        garrison = 0;
+        categories[] = {"mil", "zeic_doesNotExist"};
+        modifiers[] = {"noElectronics", "zeic_doesNotExist"};
+        faction = "ZEIC_DoesNotExist_F";
+        subcategory = "EdSubcat_Personnel";
+        radius = 35;
+        collision = 0;
     };
 };

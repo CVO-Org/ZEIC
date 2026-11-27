@@ -56,6 +56,63 @@
             <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Part_Tooltip">
                 <English>Turns this part on or off.\nOne always stays on: turning off the last one turns the other back on.</English>
             </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset">
+                <English>Preset</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Delete">
+                <English>Delete</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_DeleteConfirm">
+                <English>Sure?</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Delete_Tooltip">
+                <English>Deletes the picked preset. Click twice: the second click deletes it.\nPresets from a mod or the mission can't be deleted.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Deleted">
+                <English>Preset "%1" deleted.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Name">
+                <English>Save as</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Name_Tooltip">
+                <English>Name of the preset to save the settings of all three tabs as.\nThe name of a preset of yours overwrites it. Enter saves.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_NoName">
+                <English>The preset needs a name.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_None">
+                <English>-</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Overwrite">
+                <English>Overwrite</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_ReadOnly">
+                <English>"%1" is a preset from a mod or the mission: it can't be overwritten or deleted. Save it under another name.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_ReadOnlyName">
+                <English>%1 (read-only)</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_ReadOnly_Tooltip">
+                <English>From a mod or the mission: can't be overwritten or deleted.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Save">
+                <English>Save</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Save_Tooltip">
+                <English>Saves the settings of all three tabs under the name on the left, in your profile.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Saved">
+                <English>Preset "%1" saved.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Skipped">
+                <English>Preset "%1": not loaded (mod missing?), skipped: %2</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Tooltip">
+                <English>Picking a preset applies its settings to all three tabs.\nYour presets are kept in your profile; mods and missions can bring their own (read-only).</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Preset_Version">
+                <English>Advanced Fill presets in your profile have format version %1, this ZEIC reads version %2: they aren't shown and aren't overwritten.</English>
+            </Key>
             <Key ID="STR_ZEIC_core_ModuleAdvancedFill_Settings">
                 <English>Settings</English>
             </Key>

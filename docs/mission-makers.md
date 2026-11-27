@@ -61,6 +61,22 @@ Not every building has an interior yet. The chat message after a fill tells you 
 ### Mods
 Buildings of CUP Terrains, Global Mobilization, S.O.G. Prairie Fire, Western Sahara and OPTRE have their own templates, which only load with that mod. A template that uses a mod object is only used when that mod is loaded, so ZEIC never places something that doesn't exist. Objects ZEIC placed from a mod do make your mission depend on that mod, the same as any mod object you place yourself.
 
+### Advanced Fill presets
+Your own Advanced Fill presets are saved in your profile and work in every mission. To give your Zeus players presets for your mission, add them to your `description.ext` as `class CfgZEIC_Presets`: they show up in the preset list as *(read-only)*. Every setting is optional, see [the config reference](config-schema.md#13-advanced-fill-presets-cfgzeic_presets):
+
+```cpp
+class CfgZEIC_Presets {
+    class fortifiedFarmhouse {
+        displayName = "Fortified farmhouse";
+        categories[] = {"mil"};
+        modifiers[] = {"defencesOnly"};
+        faction = "OPF_F";
+        subcategory = "EdSubcat_Personnel";
+        radius = 50;
+    };
+};
+```
+
 ## When it doesn't work
 
 The messages are the same as in Zeus, see [the Zeus guide](zeus.md#when-it-doesnt-work). In Eden in particular:

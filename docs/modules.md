@@ -66,10 +66,12 @@ Below the fields, an estimate shows how many units in how many buildings. Over 4
 
 ## Advanced Fill
 
-Furnishes and garrisons in one go: per building, first the interior, then the units. The dialog has an **Interior** and a **Garrison** tab with the fields of [Interior Fill](#interior-fill) and [Garrison Building](#garrison-building), and a **Settings** tab.
+Furnishes and garrisons in one go: per building, first the interior, then the units. The dialog has an **Interior** and a **Garrison** tab with the fields of [Interior Fill](#interior-fill) and [Garrison Building](#garrison-building), and a **Settings** tab. Above the tabs are the presets.
 
 | Field | Meaning |
 |---|---|
+| Preset | Picking a preset applies its settings to all three tabs. **Delete** removes it (click twice). Presets from a mod or the mission are marked *(read-only)* and can't be deleted. |
+| Save as | A name and **Save**: saves the settings of all three tabs as a preset in your profile. With the name of one of your presets the button says **Overwrite**. Enter in the name field saves. |
 | Interior / Garrison on or off | Turns that part on or off. One always stays on. |
 | Collision check | No units on building positions blocked by furniture. Only with both parts on. |
 | Blocked positions | **Units give way:** fewer units in heavily furnished buildings. **Furniture gives way:** the garrison positions are picked first, and the interior leaves them free. |
@@ -86,6 +88,8 @@ Furnishes and garrisons in one go: per building, first the interior, then the un
 With several checked, objects are first replaced, then removed, then kept. Mods and missions can add their own modifiers.
 
 **Shortcut:** **Alt** repeats the last fill with all the last settings, including which parts are on.
+
+**Presets** are kept in your profile, so they work in every mission. A preset made with a mod's category, modifier or faction still loads without that mod: those entries are left out with a note in chat. Mods and missions can ship their own presets, see [the config reference](config-schema.md#13-advanced-fill-presets-cfgzeic_presets).
 
 - With both parts on, each building is garrisoned once its interior is done. If no interior is reported within 120 s, the building is garrisoned anyway, with *no interior reported for ...* in chat.
 - In multiplayer, the interior and the Move AI trigger need ZEIC on the server. Without it, a fill with either of them on is refused with a message; a garrison alone works.
