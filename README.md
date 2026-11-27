@@ -29,7 +29,7 @@ ZEIC continues ZEI, the original Zeus and Eden Interiors. It is actively maintai
 ## What you need
 
 - **Only the Zeus or mission maker needs ZEIC.** Other players don't, so it can be an optional mod.
-- **In multiplayer the server needs it too** for Interior Fill, Advanced Fill and the Move AI trigger, because those objects and triggers are created on the server. ZEIC doesn't check this: on a server without ZEIC, the furniture and the trigger simply don't appear, with no error. Garrison Building, Fill Table / Shelf and Object Switch work without it. In singleplayer and on a game you host yourself, your game is the server.
+- **In multiplayer the server needs it too** for Interior Fill, Advanced Fill and the Move AI trigger, because those objects and triggers are created on the server. On a server without ZEIC, these modules refuse to run and tell you why. Garrison Building, Fill Table / Shelf and Object Switch work without it. In singleplayer and on a game you host yourself, your game is the server.
 - **No dependency in the mission file.** A mission furnished in Eden runs without ZEIC.
 - Buildings of CUP Terrains, Global Mobilization, S.O.G. Prairie Fire, Western Sahara and OPTRE get their own templates, which load only when that mod is loaded.
 
