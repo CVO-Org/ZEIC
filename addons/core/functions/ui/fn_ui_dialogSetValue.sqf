@@ -44,7 +44,8 @@ switch (true) do {
 		true
 	};
 	case (_value isEqualType 0): { // dropdown, toolbox
-		_value = (_value min (lbSize _ctrl - 1)) max 0;
+		// lbSize is 0 on a toolbox
+		if (lbSize _ctrl > 0) then { _value = (_value min (lbSize _ctrl - 1)) max 0 };
 		_ctrl lbSetCurSel _value;
 		_display setVariable [_key, _value];
 		true
