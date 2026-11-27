@@ -1,4 +1,4 @@
-// Mission templates for the self test (ZEIC_fnc_dev_test_missionTemplates, T12): an extra template for an existing
+// Mission templates, to try them by hand (the autotest has its own copy in autotest.Altis): an extra template for an existing
 // category, and a category that only exists in this mission. See docs/config-schema.md, section 5.
 // Also fill modifiers for ZEIC_fnc_dev_test_fillModifiers (T27): two of the mission's own and an extension of an
 // addon modifier. See docs/config-schema.md, section 10.

@@ -63,7 +63,7 @@
 #define RADIUS_PREVIEW_OUTLINE_COLOR [0, 0, 0, 0.7]
 #define RADIUS_PREVIEW_OUTLINE_WIDTH 20
 
-// Self test (functions\dev): the building most tests fill
+// Autotest (.hemtt\missions\autotest.Altis, its suites include this file): the building most tests fill
 #define DEV_HOUSE "Land_i_House_Small_03_V1_F"
 
 // Progress feedback states (index into FEEDBACK_COLORS / FEEDBACK_WIDTHS)

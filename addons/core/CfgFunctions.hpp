@@ -39,37 +39,6 @@ class CfgFunctions {
             file = PATH_TO_FUNC_SUB(dev);
 
             class dev_benchTriggers {};
-            class dev_test_garrisonTrigger {};
-            class dev_check {};
-            class dev_selfTest {
-                #if _ZEIC_DEV_
-                postInit = 1;
-                #endif
-            };
-            class dev_spawn {};
-            class dev_test_addon {};
-            class dev_test_advancedFill {};
-            class dev_test_advancedFillCollision {};
-            class dev_test_configTemplates {};
-            class dev_test_confirmUnits {};
-            class dev_test_createTemplate {};
-            class dev_test_dialog {};
-            class dev_test_fillModifiers {};
-            class dev_test_garrison {};
-            class dev_test_garrisonDialog {};
-            class dev_test_garrisonUnits {};
-            class dev_test_mergedCases {};
-            class dev_test_moduleDialogs {};
-            class dev_test_objectFillTarget {};
-            class dev_test_missionTemplates {};
-            class dev_test_objectFillTypes {};
-            class dev_test_objectModes {};
-            class dev_test_queue {};
-            class dev_test_rowOrder {};
-            class dev_test_saveScheme {};
-            class dev_test_scriptApi {};
-            class dev_test_shortcuts {};
-            class dev_test_templateObjects {};
         };
 
         class fillModifiers {
