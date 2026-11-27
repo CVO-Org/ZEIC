@@ -7,32 +7,40 @@
 
 
 
-# ZEIC - Community Version
+# ZEIC - Zeus and Eden Interiors, Community Version
 
-This STANDALONE Mod is the spiritual successor of ZEI and ZEI Continued.
+Furnish and garrison buildings in seconds, in Zeus or in Eden. Place a module on a building, or on a whole town, and ZEIC fills the rooms with furniture and the windows with soldiers.
 
-The goal is to follow Sgt. J. Andrews / Samantha initial attempt maintain this highly useful mod.
+ZEIC is the community-maintained successor of ZEI and ZEI Continued. It is standalone: you don't need the original ZEI.
 
-**Contributions and Pull Requests are very welcome!**
-More Details below
+**Contributions are very welcome**, above all interior templates for buildings that don't have one yet.
 
-# ZEIC - Changes
-- New dialogs in the style of Zeus Enhanced, with a description of each module; translatable.
-- Buildings are processed over several frames (no freezes on large areas), with coloured wireframes showing the progress to every Zeus.
-- Templates live in config: any mod or mission can add templates and categories (see `docs/config-schema.md`). Template addons load only with their mod (CUP, GM, SOG, Western Sahara, OPTRE).
-- Area fills and area garrisons with a radius preview on the ground.
-- New Advanced Fill module: furnish and garrison in one go, with a collision check and fill modifiers.
-- Eden: one layer per module, fill and building.
+## Pick your guide
 
-# ZEI - Zeus and Eden Interiors
-A tool to quickly decorate and populate interiors for your missions in either Zeus or Eden.
+| You want to... | Read |
+|---|---|
+| furnish and garrison buildings live, as Zeus | [Zeus guide](docs/zeus.md) |
+| furnish buildings in Eden, for a mission you build | [Mission maker guide](docs/mission-makers.md) |
+| use your own interior layouts in your missions | [Your own templates](docs/custom-templates.md) |
+| make ZEIC furnish the buildings of your terrain or mod | [Mod author guide](docs/mod-authors.md) |
+| report a bug, send a template or work on ZEIC itself | [Contributing](CONTRIBUTING.md) |
+| look up what a module or field does | [Module reference](docs/modules.md) |
 
-## ZEI Interior Modules
-### Advanced Fill
-- Furnishes and garrisons a building, or a share of the buildings within a radius, in one go: per building the interior first, then the units. Either part can be turned off.
-- Collision check: units aren't placed on positions blocked by furniture. Choose whether the units or the furniture give way.
-- Fill modifiers change what a template places: Military defences only, No modern electronics, Cold War era. Mods and missions can add their own (see `docs/config-schema.md`).
-- Hold Alt while placing to fill again with the last settings.
+## What you need
+
+- **Only the Zeus or mission maker needs ZEIC.** Other players don't, so it can be an optional mod.
+- **In multiplayer the server needs it too** for Interior Fill, Advanced Fill and the Move AI trigger, because those objects and triggers are created on the server. ZEIC doesn't check this: on a server without ZEIC, the furniture and the trigger simply don't appear, with no error. Garrison Building, Fill Table / Shelf and Object Switch work without it. In singleplayer and on a game you host yourself, your game is the server.
+- **No dependency in the mission file.** A mission furnished in Eden runs without ZEIC.
+- Buildings of CUP Terrains, Global Mobilization, S.O.G. Prairie Fire, Western Sahara and OPTRE get their own templates, which load only when that mod is loaded.
+
+## Modules
+
+All modules are in the module list under **ZEIC - Interiors**. Every field and shortcut is explained in the [module reference](docs/modules.md).
+
+### Interior Fill
+- Furnishes a building, or a share of the buildings within a radius, from the templates of a category (Military, Civilian, CBRN, and any category a mod or mission adds).
+- Simple objects (fastest), normal objects, or objects editable in Zeus.
+- Shortcuts, held while placing: Alt repeats the last fill, Ctrl fills Military, Shift Civilian, Ctrl+Shift CBRN.
 
 ### Garrison Building
 - Fills a building, or a share of the buildings within a radius, with infantry of any faction (supports any units addon).
@@ -42,10 +50,11 @@ A tool to quickly decorate and populate interiors for your missions in either Ze
 - Attempts to find the best direction for the units to face. Avoids spawning pilots, crew etc.
 - Hold Alt while placing to garrison again with the last settings.
 
-### Interior Fill
-- Furnishes a building, or a share of the buildings within a radius, from the templates of a category (Military, Civilian, CBRN, and any category a mod or mission adds).
-- Simple objects (fastest), normal objects, or objects editable in Zeus.
-- Shortcuts, held while placing: Alt repeats the last fill, Ctrl fills Military, Shift Civilian, Ctrl+Shift CBRN.
+### Advanced Fill
+- Furnishes and garrisons a building, or a share of the buildings within a radius, in one go: per building the interior first, then the units. Either part can be turned off.
+- Collision check: units aren't placed on positions blocked by furniture. Choose whether the units or the furniture give way.
+- Fill modifiers change what a template places: Military defences only, No modern electronics, Cold War era.
+- Hold Alt while placing to fill again with the last settings.
 
 ### Fill Table / Shelf
 - Puts small objects on a table, shelf or rack (food, medical, office, tools, modern or old electronics, CBRN cleaning or random).
@@ -53,45 +62,34 @@ A tool to quickly decorate and populate interiors for your missions in either Ze
 - Hold Alt while placing to fill again with the last settings.
 
 ### Object Switch
-- Converts objects of one region to another region (e.g. Green Sandbags to Brown Sandbags)
-- Supports CUP objects but positioning may be affected due to model sizes.
+- Swaps military objects within a radius for another camouflage set (e.g. green sandbags for brown ones), including CUP and S.O.G. sets when those mods are loaded.
 
-## ZEI Development Modules
-The following modules are designed to make it easier for you to help with the development of this addon, they are not available in Zeus.
+### Template tools (Eden only)
+Under **ZEIC - Interiors Development**, for making your own templates:
+- **Save Building Scheme** copies the objects in and around a building as a template, ready to paste into a mission or a mod.
+- **Mark Positions** shows the building positions of a building, so you don't block them with furniture.
+- **List Buildings** (VR only) lines up the buildings that have few or no templates yet.
 
-### List Buildings
-- Use it to quickly find which buildings have little or no ZEI templates.
-- VR World Only
-- Creates rows of buildings having the chosen number of templates or less.
-- Coloured arrows in front of the buildings show the template count per category (the colours are listed in chat).
+## What's new compared to ZEI
+- New dialogs in the style of Zeus Enhanced, with a description of each module; translatable.
+- Buildings are processed over several frames (no freezes on large areas), with coloured wireframes showing the progress to every Zeus.
+- Templates live in config: any mod or mission can add templates and categories. Template addons load only with their mod.
+- Area fills and area garrisons with a radius preview on the ground.
+- New Advanced Fill module: furnish and garrison in one go, with a collision check and fill modifiers.
+- Eden: one layer per module, fill and building.
 
-### Mark Positions
-- Highlights all building positions in a building.
-- Don't block these when creating a template!
+## About
 
-### Save Building Scheme
-- Saves a building in the ZEI template format, no need to run any code through the debug menu now.
-- Pressing 'LookAround' (Default: ALT) will 'force save' the highlighted object so you can save objects that aren't buildings.
+### Why a community version when there is ZEI Continued
+I tried to contact the author of ZEI Continued via Steam Workshop, GitHub and Discord to offer my help to maintain and streamline "ZEI Continued", but never got a response, and the last update was on 10 Mar 2025.
 
-## Additional Informations
-### Technical Details
-- **This Mod is a STANDALONE Version - No need to Load the Original ZEI Mod.**
-- Only the Zeus needs it; other players don't. Can be loaded as an optional mod.
-- In multiplayer the **server needs it too** for Interior Fill, Advanced Fill and the Move AI trigger (the objects and triggers are created on the server).
-- Creates no dependency in mission file.
-- This mod is build and signed with hemtt - each update will produce a new bikey.
+I am looking for co-maintainers, so the mod doesn't go stale when I don't have time for it.
 
-### Contribute
-- Contributions of Compositions for Buildings are welcome and one of the main motivators for the community project.
-- Contribute Compositions via Steam Workshop Discussion
-- Contribute Compositions directly to Github via Pull Request.
-- I am looking for Co-Maintainers so it doesnt get stale in case i wont have time to attend to the matter.
-
-### Why ZEI Community Version when there is ZEI Continued
-I tried to contact the author of the ZEI Continued via Steam Workshop, Github and Discord to offer my help to maintain and streamline "ZEI Continued" but never have gotten a response and the last update was 10 Mar, 2025.
+### Technical details
+- Built and signed with HEMTT. Each update produces a new bikey.
 
 ### Links
-- [Github: Zeus Eden Interior - Community Version](https://github.com/CVO-Org/ZEIC)
+- [GitHub: ZEIC - Zeus and Eden Interiors, Community Version](https://github.com/CVO-Org/ZEIC)
 - [Steam Workshop: ZEI - Zeus and Eden Interior - The Original](https://steamcommunity.com/sharedfiles/filedetails/?id=1251859358)
 - [Steam Workshop: ZEI - Zeus and Eden Interiors ( Continued )](https://steamcommunity.com/sharedfiles/filedetails/?id=3438718557)
 - [Bohemia Forums: ZEI - Zeus and Eden Interior](https://steamcommunity.com/sharedfiles/filedetails/?id=1920324184)

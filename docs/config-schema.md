@@ -1,24 +1,13 @@
-# ZEIC Interior Templates – Config Schema (Draft)
+# ZEIC config reference
 
-Status: **draft for discussion**. Nothing here is implemented yet.
-
-This document describes how interior templates move from the hardcoded `switch` in
-`fn_findTemplates.sqf` (+ `addons/core/templates/*.sqf`) into config, and how ZEIC
-looks them up at runtime.
-
-## Goals
+Every config class ZEIC reads, for mod authors, mission makers and contributors. For step-by-step guides, see [Your own templates](custom-templates.md) and the [mod author guide](mod-authors.md).
 
 - Templates are **data, not code**: any addon or mission can add categories and templates.
 - Template data is **split into addons per dependency** (vanilla, CUP, GM, SOG, WS, OPTRE, …),
-  each loading only when its dependency is present. No more `isLoaded_*` checks.
+  each loading only when its dependency is present.
 - **No boot-time cost**: templates are looked up and validated lazily, per building, on first use.
 - Only templates that can actually spawn are ever used.
-
-## Non-goals (for this round)
-
-- Template display names or picking a specific template. ZEIC is a quick-fill tool.
-- Detail levels (the detail slider and `checkDetailLevel` are removed).
-- Era swap tables. Cold War support comes later as dedicated `mil_cw` / `civ_cw` categories.
+- Templates have no display names and can't be picked one by one: ZEIC is a quick-fill tool.
 
 ---
 
@@ -55,14 +44,14 @@ class CfgZEIC {
 | `order` | number | no | Default `100`. Ties sorted by `displayName`. |
 
 **Adding a category** from another addon or mod: declare a new subclass of `CfgZEIC`.
-Nothing else is needed. The dialog shows the source mod next to categories that don't come
-from ZEIC itself (via `configSourceMod`), e.g. "Military (Cold War) – Some Mod".
+Nothing else is needed. The dialog shows only the `displayName`, so make it clear where the
+category comes from. Mission categories (`description.ext`) are listed together with the addon ones.
 
 No naming convention is required for categories. Two addons using the same category class
 simply merge, which is intended: that is how template addons add buildings to `mil`.
 
-**Shortcut conflicts:** if two categories claim the same modifier, the one with the lower `order`
-wins, and a warning goes to the RPT.
+**Shortcut conflicts:** if two categories claim the same keys, the one with the lower `order`
+wins. There is no warning.
 
 ## 2. Buildings and templates
 
@@ -87,8 +76,8 @@ class CfgZEIC {
 
 ### Object entry
 
-`{className, offset, direction, rotation}`, which is the same order as the current SQF arrays,
-so conversion is 1:1.
+`{className, offset, direction, rotation}`, the same order as the script API
+(`ZEIC_fnc_addCustomTemplate`) uses.
 
 | Index | Type | Required | Meaning |
 |---|---|---|---|
@@ -107,9 +96,8 @@ so conversion is 1:1.
 
 ### Buildings that share a layout
 
-The current SQF uses fall-through cases (`case "A"; case "B": {...}`) for building variants
-with identical interiors (colour variants, `_V1`/`_V2`, …). In config this becomes
-**inheritance**:
+Building variants with identical interiors (colour variants, `_V1`/`_V2`, …) use
+**inheritance** instead of copies:
 
 ```cpp
 class Land_i_House_Big_02_V1_F { class vanilla_1 { objects[] = { /* ... */ }; }; };
@@ -167,13 +155,13 @@ addon matching its heaviest dependency:
 | CUP | vanilla | `templates_cup` |
 | GM | some CUP | needs both → combined addon (`templates_gm_cup`) or drop |
 
-The converter script works this out automatically (see section 7).
+A template with an object that doesn't exist is skipped at runtime anyway (see section 6), so the
+split keeps the RPT clean rather than preventing errors.
 
 ## 4. Random object variants
 
-Today `fn_randomiseObject.sqf` rebuilds ~30 hardcoded arrays **for every spawned object**.
-In config, every list becomes a **variant group**: any object from a group may be replaced by a
-random member of the same group.
+A **variant group** is a list of interchangeable objects: any object from a group may be replaced
+by a random member of the same group, so identical templates don't look identical.
 
 Variants live in their **own root class**, `CfgZEIC_Variants`, so that every subclass of
 `CfgZEIC` is a category, with no exceptions and no marker property.
@@ -222,10 +210,11 @@ class CfgZEIC {
 | Addon templates | `uiNamespace` | `"category|buildingClass"` → `[validTemplates]` | per building, on first lookup |
 | Mission templates | `missionNamespace` | same as above, from `missionConfigFile` | per building, on first lookup |
 | Variants | `uiNamespace` | `className` → `[members]` | once, on first use |
-| Categories | `uiNamespace` (+ mission) | sorted list of `[class, displayName, shortcut]` | once, on first dialog open |
+| Categories | `missionNamespace` | sorted list of `[displayName, class, shortcut]`, addon and mission categories | once per mission, on first use |
 
 `uiNamespace` is safe for config-derived data because config cannot change during a game
-session. It also survives Eden previews and mission changes.
+session. It also survives Eden previews and mission changes. The mission caches are rebuilt when
+the mission is loaded again, so a change to `description.ext` shows after reopening the mission.
 
 ### Lookup (pseudo-code)
 
@@ -243,33 +232,22 @@ getTemplates(category, buildingClass):
     return addonTemplates + missionTemplates
 ```
 
-- A building is a **candidate** for filling if it has building positions **or** has an entry in
-  the selected category. That replaces the `ZEIC_additionalBuildings` list and
-  `fn_addCustomHouse`.
+- A building is a **candidate** for filling if it has building positions, **or** has an entry in
+  the selected category (addon or mission), **or** is listed with `ZEIC_fnc_addCustomHouse`.
 - All validation runs **inside the processing queue**, within its per-frame time budget, so a
   first use never causes a hitch.
-- **Template selection:** round-robin **per building class** (identical neighbouring houses get
-  different layouts), not the current global counter shared by all buildings.
+- **Template selection:** each building takes the next of its valid templates in turn, so
+  identical neighbouring houses get different layouts. The counter is shared by all buildings.
 
-## 7. Migration
+## 7. Coming from ZEI
 
-1. **Converter script** (`tools/convert_templates.py`) ✅: reads `addons/core/templates/*.sqf`, turns
-   each `case` into a building class and each template array into a `class <tag>_<n>`, and maps
-   fall-through cases to inheritance. It keeps the SQF `switch` semantics: a building listed twice
-   only gets its first entry, template groups that could never match become extra variants.
-   For now each source file maps to one addon (`mil_other.sqf` goes into `templates_vanilla`),
-   the same split the `isLoaded_*` checks made.
-2. **Dependency sorting** (later, optional): run a one-off in-game dump of `className → source addon`
-   (`configSourceAddonList`) for every class used in the templates, and move templates whose
-   objects need another mod into that mod's addon.
-3. **Variants** ✅: the lists from `fn_randomiseObject.sqf` are in `CfgZEIC_Variants` of the vanilla,
-   CUP, GM and SOG template addons. GM used to replace the vanilla lists (first with an overwrite,
-   then with `priority = 1` groups); the **Cold War era** fill modifier does that now (section 10).
-4. **Remove** ✅: `fn_findTemplates` rewritten (config lookup with caches), `fn_templateCanSpawn`, the
-   `isLoaded_*` flags and `fn_init_preStart`, the hardcoded category list (now
-   `fn_interiorFill_categories`), and `addons/core/templates/`. `fn_checkDetailLevel` and the detail
-   level option are removed too. `fn_addCustomHouse` stays as legacy API.
-5. **Legacy script API stays** (see section 8).
+ZEI and older ZEIC versions kept their templates in a hardcoded SQF `switch`. ZEIC now reads them
+from config only. For missions that means:
+
+- Templates made with ZEI's Save Building Scheme still work through `ZEIC_fnc_addCustomTemplate`
+  (section 8). New saves come out in the config syntax of section 2, ready for `description.ext`.
+- Every template category is now open: `addCustomTemplate` accepts any category, not only `mil` / `civ`.
+- The detail level option is gone.
 
 ## 8. Legacy compatibility
 
@@ -277,7 +255,7 @@ Missions written for ZEI / ZEIC keep working:
 
 | Legacy | New behaviour |
 |---|---|
-| `[_type, _data] call ZEIC_fnc_addCustomTemplate` | Kept. Accepts the old string format **and** a plain array; writes into the mission template cache. Any category name is accepted, not only `mil`/`civ`. Fixes the current mil/civ swap and the `splitString` parsing. |
+| `[_type, _data] call ZEIC_fnc_addCustomTemplate` | Kept. Accepts the old string format, the Save Building Scheme text, **and** a plain array. Any category name is accepted, not only `mil`/`civ`. |
 | `ZEIC_fnc_addCustomHouse` / `ZEIC_additionalBuildings` | Kept as a shim: listed classes are still treated as fill candidates. |
 | `ZEIC_SaveRadius`, `ZEIC_DEBUG` | Unchanged. |
 | Module classes (`ZEIC_InteriorFill`, …) | Class names unchanged. |
@@ -305,14 +283,6 @@ Missions written for ZEI / ZEIC keep working:
   place.
 - **`CfgRemoteExec` whitelists are out of scope.**
 - If the requesting Zeus disconnects mid-fill, the server finishes the job.
-
-## Open questions
-
-1. **`mil_other.sqf`** contains `Land_blud_hut*` buildings. The source mod is unknown; on the
-   maintainer's machine only ZEI/ZEIC reference these classes. Candidates: drop them, or keep
-   them in a separate addon with no known dependency (they would simply never validate).
-2. ~~**GM's "overwrite" behaviour** in `fn_randomiseObject`~~: replaced by the **Cold War era**
-   fill modifier (section 10). GM's variant groups no longer win over the vanilla ones.
 
 ## 10. Fill modifiers (`CfgZEIC_Modifiers`)
 
