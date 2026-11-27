@@ -27,12 +27,12 @@ jobs:
       workshop-id-dev: '3831519489'
       mod-folder-dev: '@ZEIC-dev'       # keeps the folder and zip name of the old release-dev.yml (default: '@ZEIC_dev')
       # mod-name-dev defaults to '<mod-name> [DEV]' - the current title of the DEV item
-      # No .steam/ folder yet: the Workshop description and preview stay as they are on Steam.
-      # The texts in workshop/ are BBCode - they need to become Markdown in .steam/description.md first.
+      # Workshop page: .steam/description.md + preview.png (stable), .steam/dev/ (DEV item).
+      # Every release overwrites manual edits of the description and preview on Steam - edit the files instead.
       # discord-message-stable: 'ZEIC got updated! ||<@&ROLE_ID>||'   # default: '<mod-name> Stable got updated - Version 1.2.3.'
       # discord-message-dev: 'ZEIC DEV got updated! ||<@&ROLE_ID>||'
-      # discord-avatar-url: 'https://raw.githubusercontent.com/CVO-Org/ZEIC/main/workshop/ZEIC-Logo.png'
-      # discord-footer-icon-url: 'https://raw.githubusercontent.com/CVO-Org/ZEIC/main/workshop/ZEIC-Logo.png'
+      # discord-avatar-url: 'https://raw.githubusercontent.com/CVO-Org/ZEIC/main/img/ZEIC-Logo.png'
+      # discord-footer-icon-url: 'https://raw.githubusercontent.com/CVO-Org/ZEIC/main/img/ZEIC-Logo.png'
     secrets:
       steam-username: ${{ secrets.STEAM_USERNAME }}
       steam-password: ${{ secrets.STEAM_PASSWORD }}
