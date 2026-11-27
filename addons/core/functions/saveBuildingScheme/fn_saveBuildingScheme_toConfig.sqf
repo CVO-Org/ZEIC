@@ -17,16 +17,31 @@
 params [["_keyObj", objNull, [objNull]], ["_nearObjects", [], [[]]]];
 private _keyObjType = typeOf _keyObj;
 
-private _mods = [];
+// The mod a class needs, named like the template packs (addons/templates_*) and the submission form: "" for vanilla
+private _fnc_dependency = {
+	if (_this call PFUNC(isVanillaObject)) exitWith { "" };
+	private _cfg = configFile >> "CfgVehicles" >> _this;
+	private _mod = toLowerANSI configSourceMod _cfg;
+	private _addons = (configSourceAddonList _cfg) apply { toLowerANSI _x };
+	private _fnc_addon = { params ["_prefixes"]; _addons findIf { private _addon = _x; _prefixes findIf { (_addon find _x) == 0 } != -1 } != -1 };
+	switch (true) do {
+		case ([["cup_"]] call _fnc_addon): { "CUP" };
+		case (_mod == "gm" || {[["gm_"]] call _fnc_addon}): { "GM" };
+		case (_mod == "vn" || {[["vn_", "data_f_vietnam", "loadorder_f_vietnam"]] call _fnc_addon}): { "SOG" };
+		case (_mod == "ws" || {[["lxws", "data_f_lxws"]] call _fnc_addon}): { "WS" };
+		case ([["optre"]] call _fnc_addon): { "OPTRE" };
+		default { format ["other: %1", [configSourceMod _cfg, _addons param [0, "?"]] select (_mod == "")] };
+	};
+};
+
+private _mods = [_keyObjType call _fnc_dependency];
 private _entries = [];
 {
 	private _xType = typeOf _x;
 	private _blacklisted = (_xType select [0, 11]) isEqualTo "Sign_Arrow_" || {_xType in ["Logic", "CamCurator", _keyObjType]};
 
 	if (!_blacklisted) then {
-		if !(_xType call PFUNC(isVanillaObject)) then {
-			_mods pushBackUnique (configSourceMod (configFile >> "CfgVehicles" >> _xType));
-		};
+		_mods pushBackUnique (_xType call _fnc_dependency);
 
 		private _objPos = _keyObj worldToModel (getPosATL _x);
 		private _objDir = round ((getDir _x) - (getDir _keyObj));
@@ -52,11 +67,20 @@ private _fnc_number = { _this toFixed 3 };
 private _time = systemTimeUTC select [0, 6] apply { if (_x < 10) then { "0" + str _x } else { str _x } };
 private _templateName = format ["saved_%1%2%3_%4%5%6", _time select 0, _time select 1, _time select 2, _time select 3, _time select 4, _time select 5];
 
+// The category guess: where this building already has templates, else civ
+private _categories = ("true" configClasses (configFile >> "CfgZEIC")) select { isClass (_x >> _keyObjType) } apply { configName _x };
+private _category = _categories param [0, "civ"];
+_mods = _mods - [""];
+_mods sort true;
+
 private _lines = [
-	"// ZEIC template, made with Save Building Scheme. Paste it into the mission's description.ext:",
-	"// class CfgZEIC { class civ { /* here */ }; };  (category: mil, civ, cbrn or your own)"
+	"// ZEIC template, made with Save Building Scheme",
+	format ["// Building: %1", _keyObjType],
+	format ["// Category: %1 (mil, civ, cbrn or your own; built-in templates for this building: %2)", _category, [_categories joinString ", ", "none"] select (_categories isEqualTo [])],
+	format ["// Required mods: %1", [_mods joinString ", ", "none (vanilla)"] select (_mods isEqualTo [])],
+	"// Mission: paste it into description.ext inside class CfgZEIC { class <category> { /* here */ }; };",
+	"// Share it: https://github.com/CVO-Org/ZEIC/issues/new?template=template_submission.yml"
 ];
-if (_mods isNotEqualTo []) then { _lines pushBack format ["// Uses objects from: %1", (_mods - [""]) joinString ", "] };
 _lines append [format ["class %1 {", _keyObjType], format ["    class %1 {", _templateName], "        objects[] = {"];
 {
 	_x params ["_type", "_pos", "_dir", ["_rot", []]];

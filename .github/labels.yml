@@ -40,3 +40,8 @@ labels:
   - name: "pr/ignore"
     color: "e1e4e8"
     description: "Excluded from the changelog"
+
+  # Issue labels
+  - name: "template submission"
+    color: "fbca04"
+    description: "A template sent with the Template submission form - merge with tools/import-template.ps1"

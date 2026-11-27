@@ -7,7 +7,7 @@
 * - Condition: an enemy of the garrison's side is among the players in the area. Deletes the trigger when no unit
 *   of the group is alive any more.
 * - Activation: about 20 % of the units may move. After a random 30-120 s (trigger variable ZEIC_releaseDelay
-*   overrides it, for the self test) all units may move and follow their leader, so they can hunt the players,
+*   overrides it, for the autotest) all units may move and follow their leader, so they can hunt the players,
 *   and the trigger deletes itself.
 * - No deactivation: the trigger isn't repeatable.
 * Units are reached on their owner (enableAI, doStop and doFollow need a local unit).

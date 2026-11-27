@@ -120,7 +120,8 @@ Eden only. Place it on a building to copy the objects in and around it as a temp
 
 - Hold **Alt** while placing to save an object that has no building positions, such as a bunker.
 - It warns when the building isn't level, and when you're not on the VR map.
-- The copied text notes which mods the objects come from.
+- The copied text starts with a header: the building, a category guess and the mods the building and its objects need.
+- To get it into ZEIC itself, use the [Template submission](https://github.com/CVO-Org/ZEIC/issues/new?template=template_submission.yml) form ([Contributing](../CONTRIBUTING.md#templates)).
 - Advanced: set `ZEIC_SaveRadius` (default `5`) to change the distance around the building.
 
 ## Mark Positions

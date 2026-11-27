@@ -1,0 +1,65 @@
+name: Template submission
+description: Send an interior you furnished with Save Building Scheme, so it ships with ZEIC
+title: "Template: "
+labels: ["template submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing! How to make the template: [Contributing - Templates](https://github.com/CVO-Org/ZEIC/blob/main/CONTRIBUTING.md#templates).
+        Everything this form asks for is in the header of the copied text (the `//` lines at the top).
+  - type: input
+    id: building
+    attributes:
+      label: Building class
+      description: The `// Building:` line of the copied text.
+      placeholder: Land_i_House_Small_03_V1_F
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Where the template belongs. Suggest a new category in the notes.
+      options:
+        - mil
+        - civ
+        - cbrn
+        - optre_mil
+        - optre_civ
+    validations:
+      required: true
+  - type: dropdown
+    id: mods
+    attributes:
+      label: Required mods
+      description: The `// Required mods:` line of the copied text. It covers the building and every object in it.
+      multiple: true
+      options:
+        - None (vanilla)
+        - CUP
+        - GM
+        - SOG
+        - WS
+        - OPTRE
+        - Other (name it in the notes)
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Template
+      description: Paste the whole copied text, header included.
+      render: cpp
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: One or two screenshots of the furnished interior. Drag the images into this field.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything else, for example what the building is used for, or the name of an other mod.
