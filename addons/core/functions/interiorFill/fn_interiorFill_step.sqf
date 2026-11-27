@@ -34,7 +34,7 @@ if (isNull _bld) exitWith {
 		_bld = _buildings select _index;
 
 		if (!isNull _bld) then {
-			private _items = [_bld, _job get "category", true] call PFUNC(interiorFill_selectTemplate);
+			private _items = [_bld, _job get "categories", true] call PFUNC(interiorFill_selectTemplate);
 
 			if (_items isEqualTo []) then {
 				(_job get "missing") pushBack typeOf _bld;
@@ -53,9 +53,8 @@ if (isNull _bld) exitWith {
 				// Eden: one layer for the whole fill, created with its first building (Advanced Fill: its own layer tree)
 				private _layers = _job get "layers";
 				if (is3DEN && {(_job get "fillLayer") == -1} && {count _layers == 0}) then {
-					private _category = _job get "category";
-					private _categoryName = ((call PFUNC(interiorFill_categories)) select { (_x select 1) == _category }) param [0, [toUpper _category]] select 0;
-					_job set ["fillLayer", ["ZEIC Interiors", _categoryName] call PFUNC(eden_addLayer)];
+					private _categoryNames = ([_job get "categories"] call PFUNC(interiorFill_categoryNames)) joinString " + ";
+					_job set ["fillLayer", ["ZEIC Interiors", _categoryNames] call PFUNC(eden_addLayer)];
 				};
 				_job set ["layer", if (is3DEN && {count _layers > 0}) then {
 					[_layers, _bld, "Objects"] call PFUNC(advancedFill_layer)

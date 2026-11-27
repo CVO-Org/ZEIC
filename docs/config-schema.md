@@ -233,9 +233,12 @@ getTemplates(category, buildingClass):
 ```
 
 - A building is a **candidate** for filling if it has building positions, **or** has an entry in
-  the selected category (addon or mission), **or** is listed with `ZEIC_fnc_addCustomHouse`.
+  one of the selected categories (addon or mission), **or** is listed with `ZEIC_fnc_addCustomHouse`.
 - All validation runs **inside the processing queue**, within its per-frame time budget, so a
   first use never causes a hitch.
+- **Several categories:** `ZEIC_fnc_findTemplates` takes one category (`"mil"`) or several
+  (`["mil", "civ"]`). The templates of all of them are one pool, in the order of the categories;
+  each category is cached on its own.
 - **Template selection:** each building takes the next of its valid templates in turn, so
   identical neighbouring houses get different layouts. The counter is shared by all buildings.
 
@@ -270,7 +273,7 @@ Missions written for ZEI / ZEIC keep working:
 | Feedback (boxes) | Every curator client, local | Drawn from server progress messages, only while that client is in the Zeus camera |
 
 - **One request per fill:** the Zeus client sends a single `remoteExec` to the server with
-  `[buildings, category, options]`. The server does lookup, validation and spawning itself, and
+  `[buildings, categories, options]`. The server does lookup, validation and spawning itself, and
   calls `addCuratorEditableObjects` / `enableSimulationGlobal` directly instead of one
   `remoteExec` per object.
 - **Progress goes to all Zeuses.** The server sends to the owners of all assigned curators

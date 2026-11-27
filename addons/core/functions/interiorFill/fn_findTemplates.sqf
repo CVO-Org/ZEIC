@@ -1,9 +1,10 @@
 #include "..\..\script_component.hpp"
 
 /*
-* Finds the interior templates of a building in a category.
+* Finds the interior templates of a building in one or more categories. With several categories the templates of all
+* of them are one pool, in the order of the categories.
 *
-* Sources, in this order:
+* Sources per category, in this order:
 * - addon config:   configFile >> "CfgZEIC" >> category >> building (cached in uiNamespace, config can't change during a game session)
 * - mission config: missionConfigFile >> "CfgZEIC" >> category >> building (cached in missionNamespace)
 * - script API:     ZEIC_<category>_customBuildings, see PFUNC(addCustomTemplate)
@@ -14,7 +15,7 @@
 *
 * Arguments:
 * 0: Building or building class <OBJECT or STRING>
-* 1: Category, e.g. "mil" <STRING>
+* 1: Category, e.g. "mil", or categories, e.g. ["mil", "civ"] <STRING or ARRAY of STRINGs>
 * 2: Info only: don't ask for a template in chat if there is none <BOOL>
 *
 * Return Value:
@@ -22,17 +23,18 @@
 *
 * Example:
 * [cursorObject, "mil"] call ZEIC_fnc_findTemplates
+* [cursorObject, ["mil", "civ"]] call ZEIC_fnc_findTemplates
 *
 * Public: Yes
 */
 
-params [["_bld", objNull, [objNull, ""]], ["_category", "mil", [""]], ["_infoOnly", false, [false]]];
+params [["_bld", objNull, [objNull, ""]], ["_categories", "mil", ["", []]], ["_infoOnly", false, [false]]];
 
 private _class = if (_bld isEqualType "") then { _bld } else { typeOf _bld };
-_category = toLower _category;
-private _key = _category + "|" + toLower _class;
+if (_categories isEqualType "") then { _categories = [_categories] };
+_categories = _categories apply { toLower _x };
 
-[format ["Passed - B: %1 T: %2 I: %3", _class, _category, _infoOnly], "DEBUG"] call PFUNC(misc_logMsg);
+[format ["Passed - B: %1 T: %2 I: %3", _class, _categories, _infoOnly], "DEBUG"] call PFUNC(misc_logMsg);
 
 // Keeps the templates whose objects all exist (class check cached for the game session), reports the others once.
 private _fnc_valid = {
@@ -73,38 +75,45 @@ private _fnc_read = {
 	(configProperties [_cfg, "isClass _x", true]) apply { getArray (_x >> "objects") }
 };
 
-// ---- addon config
 private _addonCache = uiNamespace getVariable QPVAR(templateCache);
 if (isNil "_addonCache") then {
 	_addonCache = createHashMap;
 	uiNamespace setVariable [QPVAR(templateCache), _addonCache];
 };
-private _templates = _addonCache getOrDefault [_key, -1];
-if (_templates isEqualTo -1) then {
-	_templates = [[configFile] call _fnc_read, "addon"] call _fnc_valid;
-	_addonCache set [_key, _templates];
-};
-_templates = +_templates;
-
-// ---- mission config
 private _missionCache = missionNamespace getVariable QPVAR(missionTemplateCache);
 if (isNil "_missionCache") then {
 	_missionCache = createHashMap;
 	missionNamespace setVariable [QPVAR(missionTemplateCache), _missionCache];
 };
-private _missionTemplates = _missionCache getOrDefault [_key, -1];
-if (_missionTemplates isEqualTo -1) then {
-	_missionTemplates = [[missionConfigFile] call _fnc_read, "mission"] call _fnc_valid;
-	_missionCache set [_key, _missionTemplates];
-};
-_templates append _missionTemplates;
 
-// ---- script API (can change at any time, not cached)
-private _custom = missionNamespace getVariable [format ["%1_%2_customBuildings", QUOTE(PREFIX), _category], []];
-private _index = _custom findIf { (_x select 0) == _class };
-if (_index != -1) then {
-	_templates append ([(_custom select _index) param [1, []], "custom"] call _fnc_valid);
-};
+private _templates = [];
+{
+	private _category = _x;
+	private _key = _category + "|" + toLower _class;
+
+	// ---- addon config
+	private _addonTemplates = _addonCache getOrDefault [_key, -1];
+	if (_addonTemplates isEqualTo -1) then {
+		_addonTemplates = [[configFile] call _fnc_read, "addon"] call _fnc_valid;
+		_addonCache set [_key, _addonTemplates];
+	};
+	_templates append _addonTemplates;
+
+	// ---- mission config
+	private _missionTemplates = _missionCache getOrDefault [_key, -1];
+	if (_missionTemplates isEqualTo -1) then {
+		_missionTemplates = [[missionConfigFile] call _fnc_read, "mission"] call _fnc_valid;
+		_missionCache set [_key, _missionTemplates];
+	};
+	_templates append _missionTemplates;
+
+	// ---- script API (can change at any time, not cached)
+	private _custom = missionNamespace getVariable [format ["%1_%2_customBuildings", QUOTE(PREFIX), _category], []];
+	private _index = _custom findIf { (_x select 0) == _class };
+	if (_index != -1) then {
+		_templates append ([(_custom select _index) param [1, []], "custom"] call _fnc_valid);
+	};
+} forEach _categories;
 
 // Don't spam messages if there is an area to fill
 if (!_infoOnly && {_templates isEqualTo []} && {sizeOf _class > 2}) then {

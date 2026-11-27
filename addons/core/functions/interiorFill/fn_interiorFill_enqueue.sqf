@@ -6,7 +6,7 @@
 *
 * Arguments:
 * 0: Buildings <ARRAY of OBJECTs>
-* 1: Category, e.g. "mil" <STRING>
+* 1: Categories, see PFUNC(interiorFill_start) <ARRAY of STRINGs or STRING>
 * 2: Options [object mode <NUMBER>, allow damage <BOOL>] <ARRAY> (a 3rd element, the removed detail level, is ignored)
 *    Object mode: 0 simple objects, 1 normal objects, 2 normal objects editable in Zeus (true/false = 2/0)
 * 3: Requesting client (receives the summary message) <NUMBER>
@@ -22,7 +22,9 @@
 * Public: No
 */
 
-params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]], ["_modifiers", [], [[]]]];
+params [["_buildings", [], [[]]], ["_categories", ["mil"], [[], ""]], ["_options", [], [[]]], ["_requester", clientOwner, [0]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]], ["_modifiers", [], [[]]]];
+if (_categories isEqualType "") then { _categories = [_categories] };
+_categories = _categories apply { toLower _x };
 _options params [["_objectMode", OBJECT_MODE_SIMPLE, [0, true]], ["_allowDamage", false, [false]]];
 
 // Older callers passed "editable in Zeus" as a boolean
@@ -51,7 +53,7 @@ if (_buildings isEqualTo []) exitWith {
 	["step", PFUNC(interiorFill_step)],
 	["buildings", _buildings],
 	["index", 0],
-	["category", toLower _category],
+	["categories", _categories],
 	["objectMode", _objectMode],
 	["allowDamage", _allowDamage],
 	["requester", _requester],

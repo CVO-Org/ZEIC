@@ -35,7 +35,7 @@ You furnish a building once by hand in Eden. The **Save Building Scheme** module
    ```
 
 6. **Reload the mission** (save, then reopen it, or start a preview). ZEIC reads `description.ext` once per mission.
-7. **Use it:** place Interior Fill or Advanced Fill on that building type and pick the category.
+7. **Use it:** place Interior Fill or Advanced Fill on that building type and tick the category.
 
 ## Things worth knowing
 
