@@ -47,7 +47,7 @@ private _fnc_waitFor = {
 
 // Enemy garrison
 ([45, _enemy] call _fnc_garrison) params ["_bld", "_trg", "_group"];
-["T23.1 one trigger for the building, with its group", !isNull _trg && {count units _group > 0}, [_trg, units _group]] call PFUNC(dev_check);
+["T23.1 one trigger for the building, with its group", !isNull _trg && {units _group isNotEqualTo []}, [_trg, units _group]] call PFUNC(dev_check);
 if (isNull _trg) exitWith {};
 ["T23.2 fires once, interval 4-6 s, server only", !((triggerActivation _trg) select 2) && {triggerInterval _trg >= 4} && {triggerInterval _trg <= 6} && {local _trg},
 	[triggerActivation _trg, triggerInterval _trg]] call PFUNC(dev_check);

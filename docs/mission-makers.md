@@ -15,7 +15,7 @@ The ZEIC modules work in Eden the same way they do in Zeus: place one on a build
 
    | Module | Does |
    |---|---|
-   | **Interior Fill** | furnishes buildings from the templates of a category (Military, Civilian, CBRN, ...) |
+   | **Interior Fill** | furnishes buildings from the templates of the ticked categories (Military, Civilian, CBRN, ...) |
    | **Garrison Building** | puts infantry of a faction on the building positions |
    | **Advanced Fill** | both in one go: per building the furniture first, then the units |
    | **Fill Table / Shelf** | puts small objects on one table, shelf or rack |
