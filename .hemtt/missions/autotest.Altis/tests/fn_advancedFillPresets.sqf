@@ -37,10 +37,11 @@ autotest_presets_fnc_cleanup = {
     PVAR(presetsVariable) = nil;
     PVAR(UiAdvancedFill) = nil;
 };
-// Keys whose values differ: [key, wanted, got]
+// Keys whose values differ: [key, wanted, got]. The order of the ticked categories and modifiers doesn't matter.
 autotest_presets_fnc_diff = {
     params ["_want", "_got"];
-    (keys _want) select { (_got get _x) isNotEqualTo (_want get _x) } apply { [_x, _want get _x, _got get _x] }
+    private _fnc_norm = { params ["_key", "_value"]; if (_key in ["categories", "modifiers"] && {_value isEqualType []}) then { _value = +_value; _value sort true }; _value };
+    (keys _want) select { ([_x, _got get _x] call _fnc_norm) isNotEqualTo ([_x, _want get _x] call _fnc_norm) } apply { [_x, _want get _x, _got get _x] }
 };
 
 [
@@ -107,7 +108,7 @@ autotest_presets_fnc_diff = {
         private _future = [PRESETS_VERSION + 98, [["ZEIC Test future", [["radius", 10]]]]];
         profileNamespace setVariable [TEST_VARIABLE, +_future];
 
-        private _names = (call PFUNC(advancedFill_presets)) apply { _x select 0 };
+        private _names = ([] call PFUNC(advancedFill_presets)) apply { _x select 0 };
         ["presets of another version aren't listed", !("ZEIC Test future" in _names) && {CONFIG_PRESET in _names}, _names] call autotest_fnc_check;
         ["saving refuses", ["ZEIC Test new", createHashMapFromArray [["radius", 5]]] call PFUNC(advancedFill_presetSave), false] call autotest_fnc_checkEqual;
         ["deleting refuses", ["ZEIC Test future"] call PFUNC(advancedFill_presetDelete), false] call autotest_fnc_checkEqual;
@@ -123,7 +124,7 @@ autotest_presets_fnc_diff = {
     ["Missing faction, category or modifier: skipped, the rest loads", {
         params ["_ctx"];
         call autotest_presets_fnc_cleanup;
-        private _preset = (call PFUNC(advancedFill_presets)) select { (_x select 0) == CONFIG_PRESET } param [0, []];
+        private _preset = ([] call PFUNC(advancedFill_presets)) select { (_x select 0) == CONFIG_PRESET } param [0, []];
         ["the mission's config preset is listed, read-only", _preset isNotEqualTo [] && {_preset select 2}, _preset] call autotest_fnc_check;
         if (_preset isEqualTo []) exitWith { call autotest_presets_fnc_cleanup };
 
@@ -154,7 +155,7 @@ autotest_presets_fnc_diff = {
         ["delete refuses", [CONFIG_PRESET] call PFUNC(advancedFill_presetDelete), false] call autotest_fnc_checkEqual;
         ["saving under its name refuses", [CONFIG_PRESET, createHashMapFromArray [["radius", 5]]] call PFUNC(advancedFill_presetSave), false] call autotest_fnc_checkEqual;
         ["still listed, nothing saved to the profile",
-            ((call PFUNC(advancedFill_presets)) findIf { (_x select 0) == CONFIG_PRESET }) != -1 && {isNil { profileNamespace getVariable TEST_VARIABLE }}] call autotest_fnc_check;
+            (([] call PFUNC(advancedFill_presets)) findIf { (_x select 0) == CONFIG_PRESET }) != -1 && {isNil { profileNamespace getVariable TEST_VARIABLE }}] call autotest_fnc_check;
 
         private _dlg = call autotest_presets_fnc_open;
         if (isNull _dlg) exitWith { call autotest_presets_fnc_cleanup };

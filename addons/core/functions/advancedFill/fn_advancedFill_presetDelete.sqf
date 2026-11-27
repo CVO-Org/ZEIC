@@ -22,7 +22,7 @@ if (([false] call PFUNC(advancedFill_presets)) findIf { (_x select 2) && {(_x se
 	false
 };
 
-private _presets = call PFUNC(advancedFill_presetProfile);
+private _presets = [] call PFUNC(advancedFill_presetProfile);
 if (isNil "_presets") exitWith { false };
 
 private _index = _presets findIf { (_x select 0) == _name };

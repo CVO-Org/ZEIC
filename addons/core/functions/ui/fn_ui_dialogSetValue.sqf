@@ -30,26 +30,26 @@ if (_ctrl isEqualType []) exitWith {
 };
 if (isNull _ctrl || {isNil "_value"}) exitWith { false };
 
-private _type = ctrlType _ctrl;
+// By the value's type; sliders have their store code (see PFUNC(ui_dialogSlider))
 switch (true) do {
-	case (_type == 77 && {_value isEqualType true}): { // checkbox
+	case (_value isEqualType true): { // checkbox
 		_ctrl cbSetChecked _value;
 		_display setVariable [_key, _value];
 		true
 	};
-	case (_type in [3, 43] && {_value isEqualType 0}): { // slider and its text field
+	case (_value isEqualType 0 && {!isNil {_ctrl getVariable QPVAR(store)}}): { // slider and its text field
 		_ctrl sliderSetPosition _value;
 		private _stored = [_ctrl, sliderPosition _ctrl] call (_ctrl getVariable QPVAR(store));
 		(_ctrl getVariable QPVAR(edit)) ctrlSetText str _stored;
 		true
 	};
-	case (_type in [4, 6] && {_value isEqualType 0}): { // dropdown, toolbox
+	case (_value isEqualType 0): { // dropdown, toolbox
 		_value = (_value min (lbSize _ctrl - 1)) max 0;
 		_ctrl lbSetCurSel _value;
 		_display setVariable [_key, _value];
 		true
 	};
-	case (_type == 2 && {_value isEqualType ""}): { // text field
+	case (_value isEqualType ""): { // text field
 		_ctrl ctrlSetText _value;
 		_display setVariable [_key, _value];
 		true

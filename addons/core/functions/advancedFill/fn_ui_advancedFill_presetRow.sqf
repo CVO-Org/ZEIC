@@ -95,7 +95,7 @@ _display setVariable [QPVAR(updateSaveButton), {
 // Fills the dropdown, picks a preset by name without applying it
 _display setVariable [QPVAR(fillPresets), {
 	params ["_display", ["_pick", ""]];
-	private _presets = call PFUNC(advancedFill_presets);
+	private _presets = [] call PFUNC(advancedFill_presets);
 	_display setVariable [QPVAR(presets), _presets];
 	private _combo = _display getVariable "preset_ctrl";
 	_display setVariable [QPVAR(busy), true];

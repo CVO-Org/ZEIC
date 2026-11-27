@@ -52,7 +52,7 @@ _list sort true;
 private _presets = _list apply { [_x select 1, _x select 2, true] };
 
 if (_withProfile) then {
-	private _profile = call PFUNC(advancedFill_presetProfile);
+	private _profile = [] call PFUNC(advancedFill_presetProfile);
 	if (isNil "_profile") exitWith {};
 	private _sorted = _profile apply { [toLower (_x select 0), _x select 0, _x select 1] };
 	_sorted sort true;

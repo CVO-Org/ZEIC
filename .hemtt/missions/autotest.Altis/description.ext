@@ -120,7 +120,7 @@ class CfgZEIC_Modifiers {
 };
 
 // Advanced Fill preset for the advancedFillPresets suite: read-only, with a category, a modifier and a faction that don't exist.
-// See docs/config-schema.md, section 11.
+// See docs/config-schema.md, section 13.
 class CfgZEIC_Presets {
     class zeic_testPreset {
         displayName = "ZEIC Test preset (mission)";

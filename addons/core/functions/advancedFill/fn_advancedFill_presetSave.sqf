@@ -31,13 +31,17 @@ if (([false] call PFUNC(advancedFill_presets)) findIf { (_x select 2) && {(_x se
 	false
 };
 
-private _presets = call PFUNC(advancedFill_presetProfile);
+private _presets = [] call PFUNC(advancedFill_presetProfile);
 if (isNil "_presets") exitWith { false };
 
 private _keys = ["interior", "categories", "objects", "damage", "modifiers", "garrison", "pair", "positions", "dynamic", "trigger", "radius", "percent", "collision", "blocked"];
 private _stored = [];
 {
-	if (_x in _settings) then { _stored pushBack [_x, +(_settings get _x)] };
+	if (_x in _settings) then {
+		private _value = _settings get _x;
+		if (_value isEqualType []) then { _value = +_value };
+		_stored pushBack [_x, _value];
+	};
 } forEach _keys;
 
 private _index = _presets findIf { (_x select 0) == _name };
