@@ -11,7 +11,7 @@
 
 Furnish and garrison buildings in seconds, in Zeus or in Eden. Place a module on a building, or on a whole town, and ZEIC fills the rooms with furniture and the windows with soldiers.
 
-ZEIC is the community-maintained successor of ZEI and ZEI Continued. It is standalone: you don't need the original ZEI.
+ZEIC continues ZEI, the original Zeus and Eden Interiors. It is actively maintained and improved by the community, and it is standalone: you don't need the original ZEI.
 
 **Contributions are very welcome**, above all interior templates for buildings that don't have one yet.
 
@@ -80,8 +80,11 @@ Under **ZEIC - Interiors Development**, for making your own templates:
 
 ## About
 
-### Why a community version when there is ZEI Continued
-I tried to contact the author of ZEI Continued via Steam Workshop, GitHub and Discord to offer my help to maintain and streamline "ZEI Continued", but never got a response, and the last update was on 10 Mar 2025.
+### Why a community version
+There are three versions of this mod:
+- **[ZEI](https://steamcommunity.com/sharedfiles/filedetails/?id=1251859358)**, the original Zeus and Eden Interiors.
+- **[ZEI Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3438718557)**, an attempt to improve it. It went stale: the last update was on 10 Mar 2025, and its author never answered my offers of help via Steam Workshop, GitHub and Discord.
+- **ZEIC, the Community Version** (this mod), open on GitHub, actively maintained and improved, with contributions from anyone.
 
 I am looking for co-maintainers, so the mod doesn't go stale when I don't have time for it.
 
