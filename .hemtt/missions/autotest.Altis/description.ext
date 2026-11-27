@@ -1,0 +1,119 @@
+// Autotest mission: runs every test suite (tests\) unattended and closes the game afterwards.
+// Start it with the 'autotest' launch profile, chained last:  hemtt launch default autotest
+// or let the runner start it and report the result:          .\tools\autotest.ps1 default
+// init3DEN.sqf starts the preview, init.sqf runs the suites, init3DEN.sqf quits the game once they are done.
+// ZEIC only: the test area is set in initServer.sqf, the suites include the mod's script_component.hpp for its macros.
+
+onLoadName = "Autotest";
+author = "Zorn";
+enableDebugConsole = 1;
+
+// no debriefing: it waits for someone to press continue
+// https://community.bistudio.com/wiki/Arma_3:_Debriefing
+debriefing = 0;
+
+class CfgFunctions {
+    // the framework - shared through the template, don't edit per mod
+    class autotest {
+        class framework {
+            file = "autotest";
+            class banner {};
+            class check {};
+            class checkEqual {};
+            class log {};
+            class runAll {};
+            class skip {};
+            class waitFor {};
+        };
+    };
+
+    // ZEIC's helpers for the suites (not suites themselves)
+    class autotest_helper {
+        class helpers {
+            file = "helpers";
+            class spawn {};
+        };
+    };
+
+    // the suites - one function per suite (tests\fn_<name>.sqf), run in the order listed here
+    // add new suites at the end, so the test ids of the others stay the same
+    class autotest_suite {
+        class suites {
+            file = "tests";
+            class addon {};
+            class scriptApi {};
+            class mergedCases {};
+            class createTemplate {};
+            class queue {};
+            class objectModes {};
+            class configTemplates {};
+            class templateObjects {};
+            class saveScheme {};
+            class missionTemplates {};
+            class garrison {};
+            class garrisonUnits {};
+            class garrisonTrigger {};
+            class advancedFill {};
+            class advancedFillCollision {};
+            class fillModifiers {};
+            class confirmUnits {};
+            class objectFillTypes {};
+            class rowOrder {};
+            class dialog {};
+            class garrisonDialog {};
+            class moduleDialogs {};
+            class objectFillTarget {};
+            class shortcuts {};
+            class serverCheck {};
+        };
+    };
+};
+
+// Mission templates for the missionTemplates suite: an extra template for an existing category, and a category that
+// only exists in this mission. See docs/config-schema.md, section 5.
+class CfgZEIC {
+    class mil {
+        class Land_i_House_Small_03_V1_F {
+            class mission_1 { objects[] = { {"Land_Pallets_F", {0, 0, 0.5}, 45} }; };
+        };
+    };
+    class zeic_test {
+        displayName = "ZEIC Test (mission)";
+        order = 999;
+        class Land_i_House_Small_03_V1_F {
+            // Has an object that doesn't exist: must be skipped
+            class mission_1 { objects[] = { {"Land_Sack_F", {0, 0, 0.5}, 0}, {"Does_Not_Exist_F", {1, 0, 0.5}, 0} }; };
+            class mission_2 { objects[] = { {"Land_Sack_F", {0, 0, 0.5}, 90} }; };
+        };
+    };
+};
+
+// Fill modifiers for the fillModifiers suite: one that adds to a core modifier, and two that only exist in this mission.
+class CfgZEIC_Modifiers {
+    // Adds to the addon's remove[]
+    class noElectronics {
+        remove[] = {"Land_Map_F"};
+    };
+    class zeic_testOrder {
+        displayName = "ZEIC Test order (mission)";
+        order = 999;
+        remove[] = {"Land_ChairPlastic_F"};
+        class replace {
+            Land_ChairWood_F[] = {"Land_ChairPlastic_F"};
+            Land_Bucket_F[] = {"Does_Not_Exist_F", "Land_Bucket_clean_F"};
+            Land_Sack_F[] = {"Does_Not_Exist_F"};
+        };
+        // A subclass extends the modifier
+        class extension {
+            remove[] = {"Land_Pallets_F"};
+        };
+    };
+    class zeic_testKeep {
+        displayName = "ZEIC Test keep (mission)";
+        order = 999;
+        keep[] = {"Land_ChairPlastic_F"};
+        class replace {
+            Land_ChairWood_F[] = {"Land_ChairPlastic_F"};
+        };
+    };
+};

@@ -2,8 +2,8 @@
 
 /*
 * Checks that the server runs ZEIC, for modules (or parts of them) that do their work on the server.
-* The server sets PVAR(serverActive) in PFUNC(init). Eden, singleplayer and a hosted game are the server
-* themselves, so this only fails on a client of a server without ZEIC.
+* The server announces it with PVAR(serverActive) in PFUNC(init), which also covers singleplayer and a hosted game.
+* Eden always passes. So this only fails on a client of a server without ZEIC.
 * On failure, tells the player: Zeus's red feedback message when Zeus is open, else a message box,
 * and in both cases chat and RPT (PFUNC(misc_logMsg)).
 *
@@ -22,18 +22,7 @@
 
 params [["_module", "", [""]], ["_part", "", [""]]];
 
-#if _ZEIC_DEV_
-// Self test (PFUNC(dev_test_serverCheck)): act like a client of a server, which singleplayer can't be
-private _isServer = isServer && {!(missionNamespace getVariable [QPVAR(dev_asClient), false])};
-#else
-private _isServer = isServer;
-#endif
-
-if (_isServer || {!isNil QPVAR(serverActive)}) exitWith { true };
-
-#if _ZEIC_DEV_
-PVAR(dev_refused) = [_module, _part];
-#endif
+if (is3DEN || {missionNamespace getVariable [QPVAR(serverActive), false]}) exitWith { true };
 
 private _msg = if (_part isEqualTo "") then {
 	format [LLSTRING(NoServer), _module]

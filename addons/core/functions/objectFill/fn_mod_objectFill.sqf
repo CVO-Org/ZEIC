@@ -47,7 +47,7 @@ switch _mode do {
 				missionNamespace getVariable [QPVAR(UiObjectFillObjects), OBJECT_MODE_SIMPLE]
 			] call PFUNC(ui_objectFill);
 		} else {
-			// Eden, Zeus, or the mission display when called by script (self test)
+			// Eden, Zeus, or the mission display when called by script (autotest)
 			private _parent = findDisplay ([312, 313] select is3DEN);
 			if (isNull _parent) then { _parent = findDisplay 46 };
 			_parent createDisplay "Rsc_ZEIC_ObjectFill";
