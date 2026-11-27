@@ -412,3 +412,66 @@ class CfgZEIC_ObjectFill {
 - Objects that aren't in `Surfaces` are filled on the top of their model.
 - Props that don't exist (mod not loaded) are left out.
 
+## 13. Advanced Fill presets (`CfgZEIC_Presets`)
+
+Presets that a mod or a mission ships for the Advanced Fill dialog. They are listed with the player's own presets,
+marked *(read-only)*: they can be applied, but not overwritten or deleted.
+
+```cpp
+class CfgZEIC_Presets {
+    class fortifiedFarmhouse {
+        displayName = "Fortified farmhouse";
+        order = 10;
+        // Interior
+        interior = 1;
+        categories[] = {"mil"};
+        objects = 0;                    // 0 simple, 1 normal, 2 editable objects (ignored in Eden)
+        damage = 0;
+        modifiers[] = {"defencesOnly"};
+        // Garrison
+        garrison = 1;
+        faction = "OPF_F";
+        subcategory = "EdSubcat_Personnel";
+        positions = 50;
+        dynamic = 0;
+        trigger = 1;
+        // Settings
+        radius = 50;
+        percent = 50;
+        collision = 1;
+        blocked = 0;                    // 0 units give way, 1 furniture gives way
+    };
+};
+```
+
+| Property | Type | Dialog field |
+|---|---|---|
+| `displayName` | string | Name in the preset list. Default: the class name. |
+| `order` | number | Position in the list (default 100), then by display name. |
+| `interior`, `garrison` | 0/1 | Interior / Garrison on or off (one always stays on). |
+| `categories[]` | array | Ticked categories (`CfgZEIC` class names). |
+| `objects` | number | Object mode: 0 simple, 1 normal, 2 editable. |
+| `damage` | 0/1 | Allow damage. |
+| `modifiers[]` | array | Ticked fill modifiers (`CfgZEIC_Modifiers` class names). |
+| `faction`, `subcategory` | string | Faction (`CfgFactionClasses`) and its `editorSubcategory`, e.g. `EdSubcat_Personnel` for "Men". |
+| `positions` | number | Share of the building positions, 10-100. |
+| `dynamic`, `trigger` | 0/1 | Dynamic simulation, Move AI trigger. |
+| `radius` | number | 0-250 m, 0 = the building under the module. |
+| `percent` | number | Share of the buildings within the radius, 10-100. |
+| `collision` | 0/1 | Collision check. |
+| `blocked` | number | 0 units give way, 1 furniture gives way. |
+
+- **Every property is optional.** A setting the preset doesn't have stays as it is in the dialog, so a preset can
+  change only a few fields (e.g. just the categories and modifiers).
+- Everything is stored by **class name**, never by its position in a list, so presets keep working when mods add
+  categories or factions.
+- **Missing mods:** categories, modifiers and a faction that don't exist in the loaded modset are left out with a note
+  in chat and the RPT; the rest of the preset still applies.
+- A mission class with the name of an addon preset replaces it.
+
+### Presets in the profile
+
+The player's own presets are saved in `profileNamespace`, variable `ZEIC_AdvancedFillPresets`:
+`[version, [[name, [[key, value], ...]], ...]]`, with the keys of the table above as the dialog stores them
+(`categories` and `modifiers` in lower case, the faction as `pair` = `[faction, subcategory]`, booleans as `true` / `false`).
+The version is 1. Data with another version (saved by a later ZEIC) isn't shown and isn't overwritten.

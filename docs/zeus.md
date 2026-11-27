@@ -64,6 +64,7 @@ Before you've used a dialog in this session, Interior Fill falls back to its def
 - Buildings of identical type next to each other get different templates in turn, so a street doesn't look copy-pasted.
 - **Allow damage** off (default) keeps the building intact, so the furniture can't end up floating in a ruin.
 - **Fill modifiers** in Advanced Fill change the objects while furnishing: *Military defences only*, *No modern electronics*, *Cold War era*.
+- **Presets** in Advanced Fill save all the settings of its three tabs under a name, e.g. "Fortified farmhouse", in your profile: pick one at the top of the dialog to use it again in any mission. Entries from a mod that isn't loaded are skipped with a note.
 
 ### Multiplayer
 - The **server needs ZEIC** for Interior Fill, Advanced Fill and the Move AI trigger. The furniture and triggers are created on the server, so every player sees them.

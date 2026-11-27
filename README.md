@@ -54,6 +54,7 @@ All modules are in the module list under **ZEIC - Interiors**. Every field and s
 - Furnishes and garrisons a building, or a share of the buildings within a radius, in one go: per building the interior first, then the units. Either part can be turned off.
 - Collision check: units aren't placed on positions blocked by furniture. Choose whether the units or the furniture give way.
 - Fill modifiers change what a template places: Military defences only, No modern electronics, Cold War era.
+- Presets: save all the settings under a name and pick them again in any mission. Mods and missions can ship their own.
 - Hold Alt while placing to fill again with the last settings.
 
 ### Fill Table / Shelf
@@ -75,7 +76,7 @@ Under **ZEIC - Interiors Development**, for making your own templates:
 - Buildings are processed over several frames (no freezes on large areas), with coloured wireframes showing the progress to every Zeus.
 - Templates live in config: any mod or mission can add templates and categories. Template addons load only with their mod.
 - Area fills and area garrisons with a radius preview on the ground.
-- New Advanced Fill module: furnish and garrison in one go, with a collision check and fill modifiers.
+- New Advanced Fill module: furnish and garrison in one go, with a collision check, fill modifiers and presets.
 - Eden: one layer per module, fill and building.
 
 ## About
