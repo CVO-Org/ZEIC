@@ -28,6 +28,9 @@ PVAR(UiCreateTrigger) = _createTR;
 PVAR(UiGarrisonRadius) = _radius;
 PVAR(UiGarrisonPercent) = _percent;
 
+// The Move AI trigger is created on the server; the units themselves are not
+if (_createTR && {!([LLSTRING(ModuleGarrisonBuilding_DisplayName), LLSTRING(ModuleGarrisonBuilding_Trigger)] call PFUNC(misc_serverCheck))}) exitWith {};
+
 // Radius 0: only the selected building. Otherwise a share of the buildings around it.
 private _buildings = if (!isNil "_confirmed") then { _confirmed } else { if (_radius > 0) then {
 	[getPos _bld, _radius, _percent] call PFUNC(garrisonBuilding_selectBuildings)

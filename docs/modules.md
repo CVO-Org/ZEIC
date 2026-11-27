@@ -41,7 +41,7 @@ Furnishes buildings from the templates of a category.
 - Neighbouring buildings of the same type get different templates in turn.
 - A building can be furnished if it has building positions, or if the chosen category has a template for it (bunkers, towers).
 - The chat message at the end says how many buildings were furnished and how many had no template. The RPT lists them.
-- In Zeus multiplayer, the fill runs on the server. If the server doesn't run ZEIC, nothing is placed and no message comes.
+- In Zeus multiplayer, the fill runs on the server. If the server doesn't run ZEIC, the module is refused with a message, before the dialog opens.
 
 ## Garrison Building
 
@@ -62,7 +62,7 @@ Below the fields, an estimate shows how many units in how many buildings. Over 4
 **Shortcut:** **Alt** repeats the last garrison with the last faction and settings.
 
 - ZEIC tries to find the best direction for each unit to face. Pilots, crew and similar units are left out.
-- In Zeus, the units are local to the Zeus who placed them. The Move AI trigger is created on the server. If the server doesn't run ZEIC, the units are placed without the trigger and nothing warns you.
+- In Zeus, the units are local to the Zeus who placed them. The Move AI trigger is created on the server. If the server doesn't run ZEIC, a garrison with the trigger on is refused with a message; without the trigger it works.
 
 ## Advanced Fill
 
@@ -87,7 +87,8 @@ With several checked, objects are first replaced, then removed, then kept. Mods 
 
 **Shortcut:** **Alt** repeats the last fill with all the last settings, including which parts are on.
 
-- With both parts on, each building is garrisoned once its interior is done. If no interior is reported within 120 s, the building is garrisoned anyway, with *no interior reported for ...* in chat. In multiplayer this usually means the server doesn't run ZEIC, so the interior part does nothing.
+- With both parts on, each building is garrisoned once its interior is done. If no interior is reported within 120 s, the building is garrisoned anyway, with *no interior reported for ...* in chat.
+- In multiplayer, the interior and the Move AI trigger need ZEIC on the server. Without it, a fill with either of them on is refused with a message; a garrison alone works.
 
 ## Fill Table / Shelf
 

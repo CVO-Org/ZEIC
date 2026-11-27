@@ -29,6 +29,7 @@ class CfgFunctions {
             class misc_Vector2Eden {};
             class misc_logMsg {};
             class misc_selectShare {};
+            class misc_serverCheck {};
             class modifiers_get {};
             class modifiers_install {};
             class modifiers_onKey {};
@@ -68,6 +69,7 @@ class CfgFunctions {
             class dev_test_rowOrder {};
             class dev_test_saveScheme {};
             class dev_test_scriptApi {};
+            class dev_test_serverCheck {};
             class dev_test_shortcuts {};
             class dev_test_templateObjects {};
         };

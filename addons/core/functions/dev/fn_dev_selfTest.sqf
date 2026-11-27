@@ -68,7 +68,8 @@ PVAR(dev_results) = [];
 		PFUNC(dev_test_garrisonDialog),
 		PFUNC(dev_test_moduleDialogs),
 		PFUNC(dev_test_objectFillTarget),
-		PFUNC(dev_test_shortcuts)
+		PFUNC(dev_test_shortcuts),
+		PFUNC(dev_test_serverCheck)
 	];
 
 	private _passed = { _x } count PVAR(dev_results);

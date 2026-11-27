@@ -25,6 +25,10 @@ PVAR(UiAdvancedFill) = +_settings;
 private _interior = _settings getOrDefault ["interior", true];
 private _garrison = _settings getOrDefault ["garrison", true];
 private _radius = _settings getOrDefault ["radius", 0];
+
+// The interior and the Move AI trigger are created on the server; the garrison units are not
+if (_interior && {!([LLSTRING(ModuleAdvancedFill_DisplayName), LLSTRING(ModuleAdvancedFill_Interior)] call PFUNC(misc_serverCheck))}) exitWith {};
+if (_garrison && {_settings getOrDefault ["trigger", false]} && {!([LLSTRING(ModuleAdvancedFill_DisplayName), LLSTRING(ModuleGarrisonBuilding_Trigger)] call PFUNC(misc_serverCheck))}) exitWith {};
 private _categories = call PFUNC(interiorFill_categories);
 private _category = (_categories param [_settings getOrDefault ["category", 0], _categories select 0]) select 1;
 

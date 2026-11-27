@@ -94,6 +94,12 @@
             <Key ID="STR_ZEIC_core_NoBuilding">
                 <English>%1: no valid building within 25 m of the module.</English>
             </Key>
+            <Key ID="STR_ZEIC_core_NoServer">
+                <English>%1: the server doesn't run ZEIC, so nothing was placed. This module needs ZEIC on the server.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_NoServer_Part">
+                <English>%1: the server doesn't run ZEIC, so nothing was placed. %2 needs ZEIC on the server: turn it off, or load ZEIC on the server.</English>
+            </Key>
             <Key ID="STR_ZEIC_core_ObjectMode">
                 <English>Objects</English>
             </Key>

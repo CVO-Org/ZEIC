@@ -19,7 +19,10 @@ switch _mode do {
 
 		// Leave the placement mode, the module is done with one click
 		[] call PFUNC(endPlacement);
-		
+
+		// The fill runs on the server
+		if !([LLSTRING(ModuleInteriorFill_DisplayName)] call PFUNC(misc_serverCheck)) exitWith {};
+
 		// Work out which building to fill. The position is the center of area fills.
 		PVAR(UiLastPosition) = screenToWorld getMousePosition;
 		PVAR(UiLastBuilding) = call PFUNC(interiorFill_findBuilding);
