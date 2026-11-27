@@ -1,5 +1,5 @@
 // Test mission in Kavala (dense town) for large-radius Interior Fill / Garrison tests.
-// The self test (ZEIC_fnc_dev_selfTest, dev builds) runs near Almyra; description.ext is a copy of test.VR's.
+// The automated tests run in autotest.Altis (hemtt launch default autotest); description.ext is a copy of test.VR's.
 
 // mission.sqm can't know the terrain height: put the player on the ground on scenario start.
 if (hasInterface) then {

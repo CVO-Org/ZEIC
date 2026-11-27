@@ -1,4 +1,4 @@
-# Default test mission: Altis (Kavala), towns to test more modules in; the self test runs near Almyra
+# Default test mission: Altis (Kavala), towns to test more modules in. The automated tests: the autotest profile
 [base]
 mission = "test.Altis"
 parameters = [
@@ -48,3 +48,9 @@ extends = "base"
 # hemtt launch default vr / hemtt launch nomods vr
 [vr]
 mission = "test.VR"
+
+# Unattended test run: switches the mission to autotest.Altis. Chain it last, after a modset:
+#   hemtt launch default autotest
+# tools\autotest.ps1 runs it and reports the result. The game starts the preview and quits by itself.
+[autotest]
+mission = "autotest.Altis"
