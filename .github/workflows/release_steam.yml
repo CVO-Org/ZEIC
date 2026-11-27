@@ -1,0 +1,42 @@
+# Builds the mod with HEMTT and publishes it to the Steam Workshop on every release.
+# Documentation: https://github.com/A3-AZ/a3_workflows/tree/main/release_steam
+#
+# Copy this file to .github/workflows/release_steam.yml and fill in the values below.
+
+name: "Release: Steam"
+
+on:
+  release:
+    types: [prereleased, released]
+
+permissions:
+  contents: write
+
+# Two releases of the same repository never upload at the same time
+concurrency:
+  group: release-steam
+  cancel-in-progress: false
+
+jobs:
+  release:
+    uses: A3-AZ/a3_workflows/.github/workflows/release_steam.yml@v1
+    with:
+      mod-folder: '@ZEIC'
+      mod-name: 'ZEIC - Zeus and Eden Interiors Community Version'
+      workshop-id: '3567067667'
+      workshop-id-dev: '3831519489'
+      mod-folder-dev: '@ZEIC-dev'       # keeps the folder and zip name of the old release-dev.yml (default: '@ZEIC_dev')
+      # mod-name-dev defaults to '<mod-name> [DEV]' - the current title of the DEV item
+      # No .steam/ folder yet: the Workshop description and preview stay as they are on Steam.
+      # The texts in workshop/ are BBCode - they need to become Markdown in .steam/description.md first.
+      # discord-message-stable: 'ZEIC got updated! ||<@&ROLE_ID>||'   # default: '<mod-name> Stable got updated - Version 1.2.3.'
+      # discord-message-dev: 'ZEIC DEV got updated! ||<@&ROLE_ID>||'
+      # discord-avatar-url: 'https://raw.githubusercontent.com/CVO-Org/ZEIC/main/workshop/ZEIC-Logo.png'
+      # discord-footer-icon-url: 'https://raw.githubusercontent.com/CVO-Org/ZEIC/main/workshop/ZEIC-Logo.png'
+    secrets:
+      steam-username: ${{ secrets.STEAM_USERNAME }}
+      steam-password: ${{ secrets.STEAM_PASSWORD }}
+      # DISCORD_WEBHOOK_URL is set on CVO-Org; DISCORD_WEBHOOK_URL_EXTENDED can be added on this repo
+      # for a second server. Either may be missing. Every webhook gets the same message.
+      discord-webhook: ${{ secrets.DISCORD_WEBHOOK_URL }} ${{ secrets.DISCORD_WEBHOOK_URL_EXTENDED }}
+      # No arma3-tools-url: ZEIC has no .p3d/.rtm/.wrp files to binarize.
