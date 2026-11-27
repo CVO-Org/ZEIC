@@ -1,11 +1,12 @@
 #include "..\..\script_component.hpp"
 
 /*
-* Picks the next template for a building (round-robin, so neighbouring buildings get different layouts).
+* Picks the next template for a building from the pool of all given categories (round-robin, so neighbouring
+* buildings get different layouts).
 *
 * Arguments:
 * 0: Building <OBJECT>
-* 1: Category, e.g. "mil" <STRING>
+* 1: Categories, e.g. ["mil", "civ"] <ARRAY of STRINGs or STRING>
 * 2: Info only: don't ask for a template in chat if there is none <BOOL>
 *
 * Return Value:
@@ -14,9 +15,9 @@
 * Public: No
 */
 
-params [["_bld", objNull, [objNull]], ["_category", "mil", [""]], ["_infoOnly", true, [true]]];
+params [["_bld", objNull, [objNull]], ["_categories", ["mil"], [[], ""]], ["_infoOnly", true, [true]]];
 
-private _templates = [_bld, _category, _infoOnly] call PFUNC(findTemplates);
+private _templates = [_bld, _categories, _infoOnly] call PFUNC(findTemplates);
 if (_templates isEqualTo []) exitWith { [] };
 
 if (isNil QPVAR(counter)) then { PVAR(counter) = 0 };

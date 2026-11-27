@@ -28,20 +28,26 @@ switch _mode do {
 			[format [LLSTRING(NoBuilding), LLSTRING(ModuleInteriorFill_DisplayName)], "ERROR"] call PFUNC(misc_logMsg);
 		};
 		
-		// Shortcuts skip the dialog: Alt repeats the last fill, a category's shortcut fills that category
-		// with the last settings (see the "shortcut" property in CfgZEIC)
+		// Shortcuts skip the dialog: Alt repeats the last fill, a category's shortcut fills only that category
+		// with the last settings (see the "shortcut" property in CfgZEIC) and leaves the ticked categories as they are
 		private _shortcut = call PFUNC(modifiers_get);
+		private _categories = call PFUNC(interiorFill_categories);
 		private _shortcutCategory = if (_shortcut in ["", "alt"]) then { -1 } else {
-			(call PFUNC(interiorFill_categories)) findIf { (_x select 2) == _shortcut }
+			_categories findIf { (_x select 2) == _shortcut }
 		};
 
 		if (_shortcut == "alt" || {_shortcutCategory != -1}) then {
 			[
-				[_shortcutCategory, missionNamespace getVariable [QPVAR(UiInteriorType), 0]] select (_shortcutCategory == -1),
+				if (_shortcutCategory == -1) then {
+					missionNamespace getVariable [QPVAR(UiInteriorCategories), [(_categories select 0) select 1]]
+				} else {
+					[(_categories select _shortcutCategory) select 1]
+				},
 				missionNamespace getVariable[QPVAR(UiInteriorRadius), 0],
 				missionNamespace getVariable[QPVAR(UiInteriorObjects), OBJECT_MODE_SIMPLE],
 				missionNamespace getVariable[QPVAR(UiInteriorDamage), false],
-				missionNamespace getVariable[QPVAR(UiInteriorChance), 100]
+				missionNamespace getVariable[QPVAR(UiInteriorChance), 100],
+				_shortcutCategory == -1
 			] call PFUNC(ui_interiorFill);
 		} else {
 			// Start Display 1705

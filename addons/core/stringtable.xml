@@ -70,6 +70,12 @@
             <Key ID="STR_ZEIC_core_Cancel">
                 <English>Cancel</English>
             </Key>
+            <Key ID="STR_ZEIC_core_Categories">
+                <English>Categories</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_Categories_Tooltip">
+                <English>Each building gets a template from all ticked categories together.</English>
+            </Key>
             <Key ID="STR_ZEIC_core_Category">
                 <English>Category</English>
             </Key>
@@ -93,6 +99,9 @@
             </Key>
             <Key ID="STR_ZEIC_core_NoBuilding">
                 <English>%1: no valid building within 25 m of the module.</English>
+            </Key>
+            <Key ID="STR_ZEIC_core_NoCategory">
+                <English>%1: tick at least one category.</English>
             </Key>
             <Key ID="STR_ZEIC_core_ObjectMode">
                 <English>Objects</English>
@@ -234,7 +243,7 @@
                 <English>Fill</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleInteriorFill_Description">
-                <English>Furnishes the building under the module, or buildings within the radius, from the templates of a category.</English>
+                <English>Furnishes the building under the module, or buildings within the radius, from the templates of the ticked categories.</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleInteriorFill_DisplayName">
                 <English>Interior Fill</English>
@@ -252,7 +261,7 @@
                 <English>Interior Fill: no template for %1 (%2) yet. Help out: share one made with Save Building Scheme.</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleInteriorFill_ShortcutCategory">
-                <English>%1: %2</English>
+                <English>%1: %2 only</English>
             </Key>
             <Key ID="STR_ZEIC_core_ModuleInteriorFill_Shortcuts">
                 <English>Hold while placing the module (skips this dialog):\nAlt: repeat the last fill%1\nUses the last radius, percentage and object mode.</English>

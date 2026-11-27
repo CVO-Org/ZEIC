@@ -7,7 +7,8 @@
 *
 * Arguments:
 * 0: Buildings <ARRAY of OBJECTs>
-* 1: Category, e.g. "mil" <STRING>
+* 1: Categories, e.g. ["mil", "civ"]: each building gets a template from the pool of all of them
+*    <ARRAY of STRINGs or STRING>
 * 2: Options [object mode <NUMBER>, allow damage <BOOL>] <ARRAY>
 *    Object mode: 0 simple objects (fastest), 1 normal objects, 2 normal objects editable in Zeus (slow in Zeus with many)
 * 3: Link id: reports every building to this client once its interior is done, see PFUNC(advancedFill_interiorDone)
@@ -24,15 +25,15 @@
 * None
 *
 * Example:
-* [[cursorObject], "mil", [0, false, 1]] call ZEIC_fnc_interiorFill_start
+* [[cursorObject], ["mil", "civ"], [0, false]] call ZEIC_fnc_interiorFill_start
 *
 * Public: Yes
 */
 
-params [["_buildings", [], [[]]], ["_category", "mil", [""]], ["_options", [], [[]]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]], ["_modifiers", [], [[]]]];
+params [["_buildings", [], [[]]], ["_categories", ["mil"], [[], ""]], ["_options", [], [[]]], ["_linkId", "", [""]], ["_layers", createHashMap, [createHashMap]], ["_collision", COLLISION_OFF, [0]], ["_reserved", [], [[]]], ["_modifiers", [], [[]]]];
 
 if (is3DEN || {isServer}) then {
-	[_buildings, _category, _options, clientOwner, _linkId, _layers, _collision, _reserved, _modifiers] call PFUNC(interiorFill_enqueue);
+	[_buildings, _categories, _options, clientOwner, _linkId, _layers, _collision, _reserved, _modifiers] call PFUNC(interiorFill_enqueue);
 } else {
-	[_buildings, _category, _options, clientOwner, _linkId, createHashMap, _collision, _reserved, _modifiers] remoteExecCall [QPFUNC(interiorFill_enqueue), 2];
+	[_buildings, _categories, _options, clientOwner, _linkId, createHashMap, _collision, _reserved, _modifiers] remoteExecCall [QPFUNC(interiorFill_enqueue), 2];
 };

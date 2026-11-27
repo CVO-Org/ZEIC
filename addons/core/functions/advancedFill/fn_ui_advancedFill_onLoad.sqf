@@ -4,7 +4,7 @@
 * Builds the Advanced Fill dialog: three tabs, Interior, Garrison and Settings, as buttons at the top that show
 * one tab's rows at a time. Interior and Garrison each have a checkbox in their tab button; a part that is off
 * is greyed out, and the two can never both be off: turning off the last one turns the other back on.
-* - Interior: category, object mode and damage, as in Interior Fill, then after a gap the fill modifiers (a checkbox
+* - Interior: categories, object mode and damage, as in Interior Fill, then after a gap the fill modifiers (a checkbox
 *   per modifier, see PFUNC(fillModifiers_list)).
 * - Garrison: the faction picker (see PFUNC(ui_garrisonBuilding_factionPicker)), positions, dynamic simulation, trigger.
 * - Settings: radius, share of the buildings, the unit estimate (see PFUNC(ui_garrisonBuilding_estimate)), and the
@@ -91,7 +91,11 @@ private _fnc_tab = {
 
 // Interior. Eden always places editable entities and can't make buildings indestructible.
 [{
-	[_ctx, "category", LLSTRING(Category), (call PFUNC(interiorFill_categories)) apply { _x select 0 }, _last getOrDefault ["category", missionNamespace getVariable [QPVAR(UiInteriorType), 0]]] call PFUNC(ui_dialogCombo);
+	// The last ticked categories (here or in Interior Fill) that still exist, otherwise the first one
+	private _categories = call PFUNC(interiorFill_categories);
+	private _checked = (_last getOrDefault ["categories", missionNamespace getVariable [QPVAR(UiInteriorCategories), []]]) arrayIntersect (_categories apply { _x select 1 });
+	if (_checked isEqualTo []) then { _checked = [(_categories select 0) select 1] };
+	[_ctx, "categories", LLSTRING(Categories), _categories apply { [_x select 0, _x select 1] }, _checked, LLSTRING(Categories_Tooltip)] call PFUNC(ui_dialogCheckboxes);
 	if (!is3DEN) then {
 		[_ctx, "objects", LLSTRING(ObjectMode),
 			[LLSTRING(ObjectMode_Simple), LLSTRING(ObjectMode_Normal), LLSTRING(ObjectMode_Editable)],
@@ -203,11 +207,17 @@ _display setVariable [QPVAR(showTab), {
 		[_this, 1] call (_this getVariable QPVAR(showTab));
 		false
 	};
+	private _interior = _this getVariable ["interior", false];
+	if (_interior && {(_this getVariable ["categories", []]) isEqualTo []}) exitWith {
+		[format [LLSTRING(NoCategory), LLSTRING(ModuleAdvancedFill_DisplayName)], "ERROR"] call PFUNC(misc_logMsg);
+		[_this, 0] call (_this getVariable QPVAR(showTab));
+		false
+	};
 	if (_garrison) then { [_selection] call (_this getVariable QPVAR(rememberPair)) };
 
 	[createHashMapFromArray [
-		["interior", _this getVariable ["interior", false]],
-		["category", _this getVariable ["category", 0]],
+		["interior", _interior],
+		["categories", _this getVariable ["categories", []]],
 		["objects", _this getVariable ["objects", OBJECT_MODE_SIMPLE]],
 		["damage", _this getVariable ["damage", false]],
 		["modifiers", ((call PFUNC(fillModifiers_list)) select { _this getVariable [format ["modifier_%1", _x select 1], false] }) apply { _x select 1 }],

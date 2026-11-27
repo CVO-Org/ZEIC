@@ -50,6 +50,7 @@ PVAR(dev_results) = [];
 		PFUNC(dev_test_mergedCases),
 		PFUNC(dev_test_createTemplate),
 		PFUNC(dev_test_queue),
+		PFUNC(dev_test_multiCategory),
 		PFUNC(dev_test_objectModes),
 		PFUNC(dev_test_configTemplates),
 		PFUNC(dev_test_templateObjects),

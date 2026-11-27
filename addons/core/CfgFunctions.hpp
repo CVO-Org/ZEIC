@@ -60,6 +60,7 @@ class CfgFunctions {
             class dev_test_garrisonUnits {};
             class dev_test_mergedCases {};
             class dev_test_moduleDialogs {};
+            class dev_test_multiCategory {};
             class dev_test_objectFillTarget {};
             class dev_test_missionTemplates {};
             class dev_test_objectFillTypes {};
@@ -122,6 +123,7 @@ class CfgFunctions {
             class createTemplate {};
             class findTemplates {};
             class interiorFill_categories {};
+            class interiorFill_categoryNames {};
             class interiorFill_enqueue {};
             class interiorFill_finishBuilding {};
             class interiorFill_findBuilding {};
@@ -194,6 +196,7 @@ class CfgFunctions {
 
             class ui_dialogAdd {};
             class ui_dialogCheckbox {};
+            class ui_dialogCheckboxes {};
             class ui_dialogCombo {};
             class ui_dialogConfirm {};
             class ui_dialogCreate {};
