@@ -18,6 +18,11 @@
 // Advanced Fill: seconds a building's garrison waits for its interior before it goes on without it
 #define ADVANCED_FILL_WAIT 120
 
+// Advanced Fill presets: the profileNamespace variable, [version, [[name, [[key, value], ...]], ...]], and its format version.
+// A stored version other than this one is left alone: not listed, not overwritten.
+#define PRESETS_VARIABLE "ZEIC_AdvancedFillPresets"
+#define PRESETS_VERSION 1
+
 // Advanced Fill collision check: what happens to building positions blocked by a fill object (index in the dialog's list)
 #define COLLISION_OFF -1
 #define COLLISION_UNITS_GIVE_WAY 0
