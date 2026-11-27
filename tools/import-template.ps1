@@ -277,7 +277,7 @@ foreach ($t in $templates) {
         $block = @("    class $category {", "        class $($t.Building) {") + (Format-Template $newName $t.Entries '        ') + @('        };', '    };')
     } elseif (-not $building) {
         # Sorted in among the buildings with their own templates, before the inheriting ones
-        $siblings = @($cat.Children)
+        $siblings = $cat.Children.ToArray()
         $next = $siblings | Where-Object { -not $_.Base -and [string]::Compare($_.Name, $t.Building, [StringComparison]::OrdinalIgnoreCase) -gt 0 } | Select-Object -First 1
         if (-not $next) { $next = $siblings | Where-Object { $_.Base } | Select-Object -First 1 }
         if ($next) { $at = Get-LineStart $text $next.Start } else { $at = Get-LineStart $text $cat.Close }
